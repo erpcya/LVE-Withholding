@@ -2,6 +2,12 @@
 
 #Run Scripts:
 
+psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1027: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+DETAIL:  Key (ad_window_id)=(3000002) is not present in table "ad_window".
+psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1032: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+DETAIL:  Key (ad_window_id)=(3000003) is not present in table "ad_window".
+psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1037: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+DETAIL:  Key (ad_window_id)=(3000000) is not present in table "ad_window".
 psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:4: ERROR:  column "cust_retentiontype_id" contains null values
 psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:20: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentiontype_key" for table "cust_retentiontype"
 psql.bin:/home/administrador/DesarrolloERP/code/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:25: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentionconfig_key" for table "cust_retentionconfig"

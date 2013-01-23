@@ -91,9 +91,14 @@ INSERT INTO AD_Element_Trl (AD_Language,AD_Element_ID, Description,Help,Name,PO_
 INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAlwaysUpdateable,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000005,3000000,0,13,3000000,'CUST_RetentionType_ID',TO_TIMESTAMP('2013-01-22 16:24:11','YYYY-MM-DD HH24:MI:SS'),100,'ERPCR',10,'Y','N','N','N','Y','Y','N','N','N','N','N','Retention Type',0,TO_TIMESTAMP('2013-01-22 16:24:11','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
+
 -- 22/01/2013 04:24:11 PM VET
 -- Retention
 INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Column_ID, t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Column t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Column_ID=3000005 AND NOT EXISTS (SELECT * FROM AD_Column_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Column_ID=t.AD_Column_ID)
+;
+-- 23/01/2013 09:17:20 AM VET
+-- Retention
+UPDATE AD_Element_Trl SET Name='Tipo de Retención',PrintName='Tipo de Retención',Updated=TO_TIMESTAMP('2013-01-23 09:17:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000000 AND AD_Language='es_VE'
 ;
 
 -- 22/01/2013 04:24:11 PM VET
@@ -985,5 +990,49 @@ UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:58:3
 -- 22/01/2013 05:10:19 PM VET
 -- Retention
 UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 17:10:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000068
+;
+
+-- 23/01/2013 10:43:36 AM VET
+-- Retention
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_TIMESTAMP('2013-01-23 10:43:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000020
+;
+
+
+-- 23/01/2013 10:49:45 AM VET
+-- Retention
+UPDATE AD_Element_Trl SET Name='Concepto de Retención',PrintName='Concepto de Retención',Updated=TO_TIMESTAMP('2013-01-23 10:49:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000003 AND AD_Language='es_VE'
+;
+
+-- 23/01/2013 10:50:14 AM VET
+-- Retention
+UPDATE AD_Element_Trl SET Name='Tipo de Persona',PrintName='Tipo de Persona',Updated=TO_TIMESTAMP('2013-01-23 10:50:14','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000005 AND AD_Language='es_VE'
+;
+
+-- 23/01/2013 10:50:30 AM VET
+-- Retention
+UPDATE AD_Element_Trl SET Name='Configurar Retención',PrintName='Configurar Retención',Updated=TO_TIMESTAMP('2013-01-23 10:50:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000001 AND AD_Language='es_VE'
+;
+
+
+-- 23/01/2013 11:32:29 AM VET
+-- Retention
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_TIMESTAMP('2013-01-23 11:32:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000011
+;
+
+
+
+-- 23/01/2013 12:21:28 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Table SET AD_Window_ID=3000002,Updated=TO_TIMESTAMP('2013-01-23 12:21:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000003
+;
+
+-- 23/01/2013 12:22:45 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Table SET AD_Window_ID=3000003,Updated=TO_TIMESTAMP('2013-01-23 12:22:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000004
+;
+
+-- 23/01/2013 12:24:06 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Table SET AD_Window_ID=3000000,Updated=TO_TIMESTAMP('2013-01-23 12:24:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000005
 ;
 

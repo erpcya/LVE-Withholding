@@ -15,6 +15,9 @@
  *************************************************************************************/
 package org.erpcya.process;
 
+import java.sql.Timestamp;
+
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
 /**
@@ -23,15 +26,41 @@ import org.compiere.process.SvrProcess;
  */
 public class GenerateRetention extends SvrProcess {
 
-	private int		
+	/**	Invoice							*/
+	private int			p_C_Invoice_ID			=	0;
+	/**	Business Partner				*/
+	private int			p_C_BPartner_ID			=	0;
+	/**	Accounting	Date				*/
+	private Timestamp	p_DateAcct				=	null;
+	/**	Accounting	Date				*/
+	private Timestamp	p_DateAcct_To			=	null;
+	/**	Retention Type					*/
+	private String		p_CUST_RetentionType_ID	=	null;
+	/**	Record ID						*/
+	private int			record_ID				=	0;
 	
 	/**
 	 * *** Constructor de la Clase ***
 	 * @author Yamel Senih 25/01/2013, 17:51:09
 	 */
 	public GenerateRetention() {
-		
-	
+		record_ID = getRecord_ID();
+		for (ProcessInfoParameter para:getParameter()){
+			String name = para.getParameterName();
+			if (para.getParameter() == null)
+				;
+			else if (name.equals("C_Invoice_ID"))
+				p_C_Invoice_ID = para.getParameterAsInt();
+			else if (name.equals("C_BPartner_ID"))
+				p_C_BPartner_ID = para.getParameterAsInt();
+			else if (name.equals("DateAcct")){
+				p_DateAcct = (Timestamp)para.getParameter();
+				p_DateAcct_To = (Timestamp)para.getParameter_To();
+			}
+			else if (name.equals("CUST_RetentionType_ID"))
+				p_CUST_RetentionType_ID = (String)para.getParameter();
+			record_ID = p_C_Invoice_ID != 0? p_C_Invoice_ID: getRecord_ID();
+		}
 	}
 
 	/* (non-Javadoc)

@@ -108,3 +108,4 @@ Alter Table CUST_CR_PT_Combination Add
 CONSTRAINT FK_CUST_CR_PT_Combination_CUST_RetentionConfig FOREIGN KEY (CUST_RetentionConfig_ID)
 REFERENCES CUST_RetentionConfig (CUST_RetentionConfig_ID)
 On Update Cascade On Delete Restrict;
+

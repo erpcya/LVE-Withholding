@@ -1,6 +1,6 @@
 -- 22/01/2013 04:20:38 PM VET
 -- Retention
-INSERT INTO AD_EntityType (AD_Client_ID,AD_EntityType_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,ModelPackage,Name,Processing,Updated,UpdatedBy) VALUES (0,3000000,0,TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100,'ERPCR','Y','org.erpcya_rt.model','LVE Retention','N',TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_EntityType (AD_Client_ID,AD_EntityType_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,ModelPackage,Name,Processing,Updated,UpdatedBy) VALUES (0,3000000,0,TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100,'ERPCR','Y','org.erpcya.model','LVE Retention','N',TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 04:23:47 PM VET

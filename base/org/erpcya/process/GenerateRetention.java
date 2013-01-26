@@ -39,6 +39,10 @@ public class GenerateRetention extends SvrProcess {
 	/**	Record ID						*/
 	private int			record_ID				=	0;
 	
+	private StringBuffer		m_sql 				= new StringBuffer();
+	/**	Where Clause					*/
+	private StringBuffer		m_parameterWhere	= new StringBuffer();
+	
 	/**
 	 * *** Constructor de la Clase ***
 	 * @author Yamel Senih 25/01/2013, 17:51:09

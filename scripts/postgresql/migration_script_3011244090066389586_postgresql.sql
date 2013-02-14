@@ -158,7 +158,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:27:57 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:27:57','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000008
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:27:57','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000008
 ;
 
 -- 22/01/2013 04:28:49 PM VET
@@ -173,12 +173,12 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:30:07 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:30:07','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000011
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:30:07','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000011
 ;
 
 -- 22/01/2013 04:30:40 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:30:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000009
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:30:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000009
 ;
 
 -- 22/01/2013 04:31:57 PM VET
@@ -303,10 +303,19 @@ INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Refe
 -- LVE Retention
 INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Column_ID, t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Column t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Column_ID=3000020 AND NOT EXISTS (SELECT * FROM AD_Column_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Column_ID=t.AD_Column_ID)
 ;
+--Add Element Aliquot
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,2999999,0,'Aliquot',TO_TIMESTAMP('2013-01-22 16:32:43','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Aliquot','Aliquot',TO_TIMESTAMP('2013-01-22 16:32:43','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+INSERT INTO AD_Element_Trl (AD_Language,AD_Element_ID, Description,Help,Name,PO_Description,PO_Help,PO_Name,PO_PrintName,PrintName, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Element_ID, t.Description,t.Help,t.Name,t.PO_Description,t.PO_Help,t.PO_Name,t.PO_PrintName,t.PrintName, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Element t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Element_ID=2999999 AND NOT EXISTS (SELECT * FROM AD_Element_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Element_ID=t.AD_Element_ID)
+;
+
+UPDATE AD_Element_Trl SET Name='Alícuota',PrintName='Alícuota',Updated=TO_TIMESTAMP('2013-01-23 09:17:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=2999999 AND AD_Language='es_VE'
+;
 
 -- 22/01/2013 04:34:28 PM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000021,1000003,0,22,3000001,'Aliquot',TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Aliquot',0,TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000021,2999999,0,22,3000001,'Aliquot',TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Aliquot',0,TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 22/01/2013 04:34:28 PM VET
@@ -484,7 +493,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:40:51 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:40:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000033
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:40:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000033
 ;
 
 -- 22/01/2013 04:41:41 PM VET
@@ -504,7 +513,7 @@ INSERT INTO AD_Sequence (AD_Client_ID,AD_Org_ID,AD_Sequence_ID,Created,CreatedBy
 
 -- 22/01/2013 04:41:51 PM VET
 -- LVE Retention
-UPDATE AD_Table SET AccessLevel='3', EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:41:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000003
+UPDATE AD_Table SET AccessLevel='3', EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:41:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000003
 ;
 
 -- 22/01/2013 04:42:09 PM VET
@@ -730,7 +739,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:44:40 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:44:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000050
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:44:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000050
 ;
 
 -- 22/01/2013 04:45:07 PM VET
@@ -775,7 +784,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:46:59 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:46:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000054
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:46:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000054
 ;
 
 -- 22/01/2013 04:47:53 PM VET
@@ -933,7 +942,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:50:17 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:50:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000066
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:50:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000066
 ;
 
 -- 22/01/2013 04:54:50 PM VET
@@ -983,13 +992,13 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:58:36 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 16:58:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000069
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 16:58:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000069
 ;
 
 --Olvide la entidad
 -- 22/01/2013 05:10:19 PM VET
 -- LVE Retention
-UPDATE AD_Column SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 17:10:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000068
+UPDATE AD_Column SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-01-22 17:10:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000068
 ;
 
 -- 23/01/2013 10:43:36 AM VET
@@ -1021,18 +1030,4 @@ UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_TIMESTAMP('2013-01-23 11:32:2
 
 
 
--- 23/01/2013 12:21:28 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Table SET AD_Window_ID=3000002,Updated=TO_TIMESTAMP('2013-01-23 12:21:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000003
-;
-
--- 23/01/2013 12:22:45 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Table SET AD_Window_ID=3000003,Updated=TO_TIMESTAMP('2013-01-23 12:22:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000004
-;
-
--- 23/01/2013 12:24:06 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Table SET AD_Window_ID=3000000,Updated=TO_TIMESTAMP('2013-01-23 12:24:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=3000005
-;
 

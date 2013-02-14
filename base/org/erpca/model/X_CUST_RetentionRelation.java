@@ -15,7 +15,7 @@
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
 /** Generated Model - DO NOT CHANGE */
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -176,9 +176,9 @@ public class X_CUST_RetentionRelation extends PO implements I_CUST_RetentionRela
 		return ii.intValue();
 	}
 
-	public org.erpcya.model.I_CUST_RetentionType getCUST_RetentionType() throws RuntimeException
+	public org.erpca.model.I_CUST_RetentionType getCUST_RetentionType() throws RuntimeException
     {
-		return (org.erpcya.model.I_CUST_RetentionType)MTable.get(getCtx(), org.erpcya.model.I_CUST_RetentionType.Table_Name)
+		return (org.erpca.model.I_CUST_RetentionType)MTable.get(getCtx(), org.erpca.model.I_CUST_RetentionType.Table_Name)
 			.getPO(getCUST_RetentionType_ID(), get_TrxName());	}
 
 	/** Set Retention Type.

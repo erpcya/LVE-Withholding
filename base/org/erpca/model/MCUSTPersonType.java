@@ -13,7 +13,7 @@
  * Copyright (C) 2012-2013 E.R.P. Consultores y Asociados, S.A. All Rights Reserved. *
  * Contributor(s): Yamel Senih www.erpconsultoresyasociados.com                      *
  *************************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -23,19 +23,19 @@ import java.util.Properties;
  * @author Yamel Senih
  *
  */
-public class MCUSTConceptRetention extends X_CUST_ConceptRetention{
+public class MCUSTPersonType extends X_CUST_PersonType{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 324720115079426941L;
+	private static final long serialVersionUID = 472981507942654941L;
 
-	public MCUSTConceptRetention(Properties ctx, int CUST_ConceptRetention_ID, String trxName) {
-		super(ctx, CUST_ConceptRetention_ID, trxName);
+	public MCUSTPersonType(Properties ctx, int CUST_PersonType_ID, String trxName) {
+		super(ctx, CUST_PersonType_ID, trxName);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MCUSTConceptRetention(Properties ctx, ResultSet rs, String trxName) {
+	public MCUSTPersonType(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 		// TODO Auto-generated constructor stub
 	}	

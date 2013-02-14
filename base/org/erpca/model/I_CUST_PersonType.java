@@ -14,24 +14,24 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for CUST_CR_PT_Combination
+/** Generated Interface for CUST_PersonType
  *  @author Adempiere (generated) 
  *  @version Release 3.7.0LTS
  */
-public interface I_CUST_CR_PT_Combination 
+public interface I_CUST_PersonType 
 {
 
-    /** TableName=CUST_CR_PT_Combination */
-    public static final String Table_Name = "CUST_CR_PT_Combination";
+    /** TableName=CUST_PersonType */
+    public static final String Table_Name = "CUST_PersonType";
 
-    /** AD_Table_ID=3000003 */
+    /** AD_Table_ID=3000004 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -79,26 +79,6 @@ public interface I_CUST_CR_PT_Combination
 	  */
 	public int getCreatedBy();
 
-    /** Column name CUST_ConceptRetention_ID */
-    public static final String COLUMNNAME_CUST_ConceptRetention_ID = "CUST_ConceptRetention_ID";
-
-	/** Set Concept Retention	  */
-	public void setCUST_ConceptRetention_ID (int CUST_ConceptRetention_ID);
-
-	/** Get Concept Retention	  */
-	public int getCUST_ConceptRetention_ID();
-
-	public org.erpcya.model.I_CUST_ConceptRetention getCUST_ConceptRetention() throws RuntimeException;
-
-    /** Column name CUST_CR_PT_Combination_ID */
-    public static final String COLUMNNAME_CUST_CR_PT_Combination_ID = "CUST_CR_PT_Combination_ID";
-
-	/** Set Concept Retention and Person Type Combination	  */
-	public void setCUST_CR_PT_Combination_ID (int CUST_CR_PT_Combination_ID);
-
-	/** Get Concept Retention and Person Type Combination	  */
-	public int getCUST_CR_PT_Combination_ID();
-
     /** Column name CUST_PersonType_ID */
     public static final String COLUMNNAME_CUST_PersonType_ID = "CUST_PersonType_ID";
 
@@ -108,18 +88,18 @@ public interface I_CUST_CR_PT_Combination
 	/** Get Person Type	  */
 	public int getCUST_PersonType_ID();
 
-	public org.erpcya.model.I_CUST_PersonType getCUST_PersonType() throws RuntimeException;
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
 
-    /** Column name CUST_RetentionConfig_ID */
-    public static final String COLUMNNAME_CUST_RetentionConfig_ID = "CUST_RetentionConfig_ID";
+	/** Set Description.
+	  * Optional short description of the record
+	  */
+	public void setDescription (String Description);
 
-	/** Set Retention Config	  */
-	public void setCUST_RetentionConfig_ID (int CUST_RetentionConfig_ID);
-
-	/** Get Retention Config	  */
-	public int getCUST_RetentionConfig_ID();
-
-	public org.erpcya.model.I_CUST_RetentionConfig getCUST_RetentionConfig() throws RuntimeException;
+	/** Get Description.
+	  * Optional short description of the record
+	  */
+	public String getDescription();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -133,6 +113,19 @@ public interface I_CUST_CR_PT_Combination
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

@@ -15,17 +15,16 @@
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
 /** Generated Model - DO NOT CHANGE */
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
 
-/** Generated Model for CUST_PersonType
+/** Generated Model for CUST_ConceptRetention
  *  @author Adempiere (generated) 
  *  @version Release 3.7.0LTS - $Id$ */
-public class X_CUST_PersonType extends PO implements I_CUST_PersonType, I_Persistent 
+public class X_CUST_ConceptRetention extends PO implements I_CUST_ConceptRetention, I_Persistent 
 {
 
 	/**
@@ -34,18 +33,18 @@ public class X_CUST_PersonType extends PO implements I_CUST_PersonType, I_Persis
 	private static final long serialVersionUID = 20130125L;
 
     /** Standard Constructor */
-    public X_CUST_PersonType (Properties ctx, int CUST_PersonType_ID, String trxName)
+    public X_CUST_ConceptRetention (Properties ctx, int CUST_ConceptRetention_ID, String trxName)
     {
-      super (ctx, CUST_PersonType_ID, trxName);
-      /** if (CUST_PersonType_ID == 0)
+      super (ctx, CUST_ConceptRetention_ID, trxName);
+      /** if (CUST_ConceptRetention_ID == 0)
         {
-			setCUST_PersonType_ID (0);
+			setCUST_ConceptRetention_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_CUST_PersonType (Properties ctx, ResultSet rs, String trxName)
+    public X_CUST_ConceptRetention (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -67,26 +66,26 @@ public class X_CUST_PersonType extends PO implements I_CUST_PersonType, I_Persis
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_CUST_PersonType[")
+      StringBuffer sb = new StringBuffer ("X_CUST_ConceptRetention[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
 
-	/** Set Person Type.
-		@param CUST_PersonType_ID Person Type	  */
-	public void setCUST_PersonType_ID (int CUST_PersonType_ID)
+	/** Set Concept Retention.
+		@param CUST_ConceptRetention_ID Concept Retention	  */
+	public void setCUST_ConceptRetention_ID (int CUST_ConceptRetention_ID)
 	{
-		if (CUST_PersonType_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_CUST_PersonType_ID, null);
+		if (CUST_ConceptRetention_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_CUST_ConceptRetention_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_CUST_PersonType_ID, Integer.valueOf(CUST_PersonType_ID));
+			set_ValueNoCheck (COLUMNNAME_CUST_ConceptRetention_ID, Integer.valueOf(CUST_ConceptRetention_ID));
 	}
 
-	/** Get Person Type.
-		@return Person Type	  */
-	public int getCUST_PersonType_ID () 
+	/** Get Concept Retention.
+		@return Concept Retention	  */
+	public int getCUST_ConceptRetention_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_CUST_PersonType_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_CUST_ConceptRetention_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -125,12 +124,4 @@ public class X_CUST_PersonType extends PO implements I_CUST_PersonType, I_Persis
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
-
-    /** Get Record ID/ColumnName
-        @return ID/ColumnName pair
-      */
-    public KeyNamePair getKeyNamePair() 
-    {
-        return new KeyNamePair(get_ID(), getName());
-    }
 }

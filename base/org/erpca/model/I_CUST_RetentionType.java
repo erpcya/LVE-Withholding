@@ -14,24 +14,24 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for CUST_ConceptRetention
+/** Generated Interface for CUST_RetentionType
  *  @author Adempiere (generated) 
  *  @version Release 3.7.0LTS
  */
-public interface I_CUST_ConceptRetention 
+public interface I_CUST_RetentionType 
 {
 
-    /** TableName=CUST_ConceptRetention */
-    public static final String Table_Name = "CUST_ConceptRetention";
+    /** TableName=CUST_RetentionType */
+    public static final String Table_Name = "CUST_RetentionType";
 
-    /** AD_Table_ID=3000002 */
+    /** AD_Table_ID=3000000 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,6 +63,19 @@ public interface I_CUST_ConceptRetention
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name Classname */
+    public static final String COLUMNNAME_Classname = "Classname";
+
+	/** Set Classname.
+	  * Java Classname
+	  */
+	public void setClassname (String Classname);
+
+	/** Get Classname.
+	  * Java Classname
+	  */
+	public String getClassname();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -79,14 +92,14 @@ public interface I_CUST_ConceptRetention
 	  */
 	public int getCreatedBy();
 
-    /** Column name CUST_ConceptRetention_ID */
-    public static final String COLUMNNAME_CUST_ConceptRetention_ID = "CUST_ConceptRetention_ID";
+    /** Column name CUST_RetentionType_ID */
+    public static final String COLUMNNAME_CUST_RetentionType_ID = "CUST_RetentionType_ID";
 
-	/** Set Concept Retention	  */
-	public void setCUST_ConceptRetention_ID (int CUST_ConceptRetention_ID);
+	/** Set Retention Type	  */
+	public void setCUST_RetentionType_ID (int CUST_RetentionType_ID);
 
-	/** Get Concept Retention	  */
-	public int getCUST_ConceptRetention_ID();
+	/** Get Retention Type	  */
+	public int getCUST_RetentionType_ID();
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";

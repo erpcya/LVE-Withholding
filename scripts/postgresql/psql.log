@@ -2,46 +2,52 @@
 
 #Run Scripts:
 
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:167: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
-DETAIL:  Key (entitytype)=(ERPC) is not present in table "ad_entitytype".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:310: ERROR:  insert or update on table "ad_column" violates foreign key constraint "ad_element_ad_column"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:162: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:177: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:182: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:310: ERROR:  insert or update on table "ad_column" violates foreign key constraint "ad_element_ad_column"
 DETAIL:  Key (ad_element_id)=(1000003) is not present in table "ad_element".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1027: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:488: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:508: ERROR:  insert or update on table "ad_table" violates foreign key constraint "entityt_adtable"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:734: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:779: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:937: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:987: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:993: ERROR:  insert or update on table "ad_column" violates foreign key constraint "entityt_adcolumn"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1027: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
 DETAIL:  Key (ad_window_id)=(3000002) is not present in table "ad_window".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1032: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1032: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
 DETAIL:  Key (ad_window_id)=(3000003) is not present in table "ad_window".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1037: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql:1037: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
 DETAIL:  Key (ad_window_id)=(3000000) is not present in table "ad_window".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:4: ERROR:  column "cust_retentiontype_id" contains null values
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:20: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentiontype_key" for table "cust_retentiontype"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:25: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentionconfig_key" for table "cust_retentionconfig"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:30: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_conceptretention_key" for table "cust_conceptretention"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:35: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_cr_pt_combination_key" for table "cust_cr_pt_combination"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:40: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentionrelation_key" for table "cust_retentionrelation"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:45: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_persontype_key" for table "cust_persontype"
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql:69: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3383703240645949147_postgresql.sql:59: ERROR:  insert or update on table "ad_process_para" violates foreign key constraint "entityt_adprocesspara"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:4: ERROR:  column "cust_retentiontype_id" contains null values
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:20: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentiontype_key" for table "cust_retentiontype"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:25: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentionconfig_key" for table "cust_retentionconfig"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:30: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_conceptretention_key" for table "cust_conceptretention"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:35: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_cr_pt_combination_key" for table "cust_cr_pt_combination"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:40: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_retentionrelation_key" for table "cust_retentionrelation"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql:45: NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "cust_persontype_key" for table "cust_persontype"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql:69: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
 DETAIL:  Key (ad_window_id)=(3000001) is not present in table "ad_window".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql:74: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql:74: ERROR:  insert or update on table "ad_table" violates foreign key constraint "ad_window_table"
 DETAIL:  Key (ad_window_id)=(3000000) is not present in table "ad_window".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:107: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_column_field"
-DETAIL:  Key (ad_column_id)=(3000011) is not present in table "ad_column".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:360: ERROR:  insert or update on table "ad_tab" violates foreign key constraint "entityt_adtab"
-DETAIL:  Key (entitytype)=(ERPC) is not present in table "ad_entitytype".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:383: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:393: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:403: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:413: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:423: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:433: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:443: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:453: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_tab_field"
-DETAIL:  Key (ad_tab_id)=(3000002) is not present in table "ad_tab".
-psql.bin:/opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:734: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_column_field"
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:375: ERROR:  insert or update on table "ad_tab" violates foreign key constraint "entityt_adtab"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:734: ERROR:  insert or update on table "ad_field" violates foreign key constraint "ad_column_field"
 DETAIL:  Key (ad_column_id)=(3000021) is not present in table "ad_column".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:1284: ERROR:  insert or update on table "ad_menu" violates foreign key constraint "entityt_admenu"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".
+psql.bin:/home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql:1299: ERROR:  insert or update on table "ad_window" violates foreign key constraint "entityt_adwindow"
+DETAIL:  Key (entitytype)=(ERPCR) is not present in table "ad_entitytype".

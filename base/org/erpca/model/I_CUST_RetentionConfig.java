@@ -14,24 +14,24 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for CUST_PersonType
+/** Generated Interface for CUST_RetentionConfig
  *  @author Adempiere (generated) 
  *  @version Release 3.7.0LTS
  */
-public interface I_CUST_PersonType 
+public interface I_CUST_RetentionConfig 
 {
 
-    /** TableName=CUST_PersonType */
-    public static final String Table_Name = "CUST_PersonType";
+    /** TableName=CUST_RetentionConfig */
+    public static final String Table_Name = "CUST_RetentionConfig";
 
-    /** AD_Table_ID=3000004 */
+    /** AD_Table_ID=3000001 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,6 +63,19 @@ public interface I_CUST_PersonType
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name Base */
+    public static final String COLUMNNAME_Base = "Base";
+
+	/** Set Base.
+	  * Calculation Base
+	  */
+	public void setBase (BigDecimal Base);
+
+	/** Get Base.
+	  * Calculation Base
+	  */
+	public BigDecimal getBase();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -79,27 +92,25 @@ public interface I_CUST_PersonType
 	  */
 	public int getCreatedBy();
 
-    /** Column name CUST_PersonType_ID */
-    public static final String COLUMNNAME_CUST_PersonType_ID = "CUST_PersonType_ID";
+    /** Column name CUST_RetentionConfig_ID */
+    public static final String COLUMNNAME_CUST_RetentionConfig_ID = "CUST_RetentionConfig_ID";
 
-	/** Set Person Type	  */
-	public void setCUST_PersonType_ID (int CUST_PersonType_ID);
+	/** Set Retention Config	  */
+	public void setCUST_RetentionConfig_ID (int CUST_RetentionConfig_ID);
 
-	/** Get Person Type	  */
-	public int getCUST_PersonType_ID();
+	/** Get Retention Config	  */
+	public int getCUST_RetentionConfig_ID();
 
-    /** Column name Description */
-    public static final String COLUMNNAME_Description = "Description";
+    /** Column name CUST_RetentionType_ID */
+    public static final String COLUMNNAME_CUST_RetentionType_ID = "CUST_RetentionType_ID";
 
-	/** Set Description.
-	  * Optional short description of the record
-	  */
-	public void setDescription (String Description);
+	/** Set Retention Type	  */
+	public void setCUST_RetentionType_ID (int CUST_RetentionType_ID);
 
-	/** Get Description.
-	  * Optional short description of the record
-	  */
-	public String getDescription();
+	/** Get Retention Type	  */
+	public int getCUST_RetentionType_ID();
+
+	public org.erpca.model.I_CUST_RetentionType getCUST_RetentionType() throws RuntimeException;
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -114,18 +125,14 @@ public interface I_CUST_PersonType
 	  */
 	public boolean isActive();
 
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
+    /** Column name MinimalAmt */
+    public static final String COLUMNNAME_MinimalAmt = "MinimalAmt";
 
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
+	/** Set Minimal Amount	  */
+	public void setMinimalAmt (BigDecimal MinimalAmt);
 
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
+	/** Get Minimal Amount	  */
+	public BigDecimal getMinimalAmt();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

@@ -13,7 +13,7 @@
  * Copyright (C) 2012-2013 E.R.P. Consultores y Asociados, S.A. All Rights Reserved. *
  * Contributor(s): Yamel Senih www.erpconsultoresyasociados.com                      *
  *************************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -23,19 +23,19 @@ import java.util.Properties;
  * @author Yamel Senih
  *
  */
-public class MCUSTPersonType extends X_CUST_PersonType{
+public class MCUSTCTPTCombination extends X_CUST_CR_PT_Combination{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 472981507942654941L;
+	private static final long serialVersionUID = 472011507942654941L;
 
-	public MCUSTPersonType(Properties ctx, int CUST_PersonType_ID, String trxName) {
-		super(ctx, CUST_PersonType_ID, trxName);
+	public MCUSTCTPTCombination(Properties ctx, int CUST_CR_PT_Combination_ID, String trxName) {
+		super(ctx, CUST_CR_PT_Combination_ID, trxName);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MCUSTPersonType(Properties ctx, ResultSet rs, String trxName) {
+	public MCUSTCTPTCombination(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 		// TODO Auto-generated constructor stub
 	}	

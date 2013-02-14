@@ -14,24 +14,24 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for CUST_RetentionRelation
+/** Generated Interface for CUST_ConceptRetention
  *  @author Adempiere (generated) 
  *  @version Release 3.7.0LTS
  */
-public interface I_CUST_RetentionRelation 
+public interface I_CUST_ConceptRetention 
 {
 
-    /** TableName=CUST_RetentionRelation */
-    public static final String Table_Name = "CUST_RetentionRelation";
+    /** TableName=CUST_ConceptRetention */
+    public static final String Table_Name = "CUST_ConceptRetention";
 
-    /** AD_Table_ID=3000005 */
+    /** AD_Table_ID=3000002 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,51 +63,6 @@ public interface I_CUST_RetentionRelation
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name C_BPartner_ID */
-    public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
-
-	/** Set Business Partner .
-	  * Identifies a Business Partner
-	  */
-	public void setC_BPartner_ID (int C_BPartner_ID);
-
-	/** Get Business Partner .
-	  * Identifies a Business Partner
-	  */
-	public int getC_BPartner_ID();
-
-	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException;
-
-    /** Column name C_BP_Group_ID */
-    public static final String COLUMNNAME_C_BP_Group_ID = "C_BP_Group_ID";
-
-	/** Set Business Partner Group.
-	  * Business Partner Group
-	  */
-	public void setC_BP_Group_ID (int C_BP_Group_ID);
-
-	/** Get Business Partner Group.
-	  * Business Partner Group
-	  */
-	public int getC_BP_Group_ID();
-
-	public org.compiere.model.I_C_BP_Group getC_BP_Group() throws RuntimeException;
-
-    /** Column name C_DocType_ID */
-    public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
-
-	/** Set Document Type.
-	  * Document type or rules
-	  */
-	public void setC_DocType_ID (int C_DocType_ID);
-
-	/** Get Document Type.
-	  * Document type or rules
-	  */
-	public int getC_DocType_ID();
-
-	public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException;
-
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -124,25 +79,27 @@ public interface I_CUST_RetentionRelation
 	  */
 	public int getCreatedBy();
 
-    /** Column name CUST_RetentionRelation_ID */
-    public static final String COLUMNNAME_CUST_RetentionRelation_ID = "CUST_RetentionRelation_ID";
+    /** Column name CUST_ConceptRetention_ID */
+    public static final String COLUMNNAME_CUST_ConceptRetention_ID = "CUST_ConceptRetention_ID";
 
-	/** Set Retention Relation	  */
-	public void setCUST_RetentionRelation_ID (int CUST_RetentionRelation_ID);
+	/** Set Concept Retention	  */
+	public void setCUST_ConceptRetention_ID (int CUST_ConceptRetention_ID);
 
-	/** Get Retention Relation	  */
-	public int getCUST_RetentionRelation_ID();
+	/** Get Concept Retention	  */
+	public int getCUST_ConceptRetention_ID();
 
-    /** Column name CUST_RetentionType_ID */
-    public static final String COLUMNNAME_CUST_RetentionType_ID = "CUST_RetentionType_ID";
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
 
-	/** Set Retention Type	  */
-	public void setCUST_RetentionType_ID (int CUST_RetentionType_ID);
+	/** Set Description.
+	  * Optional short description of the record
+	  */
+	public void setDescription (String Description);
 
-	/** Get Retention Type	  */
-	public int getCUST_RetentionType_ID();
-
-	public org.erpcya.model.I_CUST_RetentionType getCUST_RetentionType() throws RuntimeException;
+	/** Get Description.
+	  * Optional short description of the record
+	  */
+	public String getDescription();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -156,6 +113,19 @@ public interface I_CUST_RetentionRelation
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

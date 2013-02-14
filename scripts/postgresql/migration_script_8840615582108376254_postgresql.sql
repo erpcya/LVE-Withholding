@@ -1,6 +1,6 @@
 -- 22/01/2013 05:21:39 PM VET
 -- LVE Retention
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000000,TO_TIMESTAMP('2013-01-22 17:21:39','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ERPCR','Y','N','N','Y','Retention Type','N',TO_TIMESTAMP('2013-01-22 17:21:39','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000000,TO_TIMESTAMP('2013-01-22 17:21:39','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','Y','N','N','Y','Retention Type','N',TO_TIMESTAMP('2013-01-22 17:21:39','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- 22/01/2013 05:21:39 PM VET
@@ -15,7 +15,7 @@ UPDATE AD_Window_Trl SET Name='Tipo de Retención',Description='Tipo de Retenci�
 
 -- 22/01/2013 05:22:35 PM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000000,3000000,3000000,TO_TIMESTAMP('2013-01-22 17:22:35','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Retention Type','N',10,0,TO_TIMESTAMP('2013-01-22 17:22:35','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000000,3000000,3000000,TO_TIMESTAMP('2013-01-22 17:22:35','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Retention Type','N',10,0,TO_TIMESTAMP('2013-01-22 17:22:35','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:35 PM VET
@@ -30,7 +30,7 @@ UPDATE AD_Tab_Trl SET Name='Tipo de Retención',Description='Tipo de Retención'
 
 -- 22/01/2013 05:22:41 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000004,3000000,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000004,3000000,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100)
@@ -43,7 +43,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:41 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000010,3000001,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'Java Classname',255,'ERPCR','The Classname identifies the Java classname used by this report or process.','Y','Y','Y','N','N','N','N','N','Classname',TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000010,3000001,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'Java Classname',255,'ECA02','The Classname identifies the Java classname used by this report or process.','Y','Y','Y','N','N','N','N','N','Classname',TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:41 PM VET
@@ -53,7 +53,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000000,3000002,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000000,3000002,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:22:41','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -63,7 +63,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000009,3000003,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ERPCR','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000009,3000003,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ECA02','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -73,7 +73,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000008,3000004,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ERPCR','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000008,3000004,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ECA02','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -83,7 +83,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000001,3000005,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000001,3000005,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -93,7 +93,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000005,3000006,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000005,3000006,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -103,7 +103,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:22:42 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000011,3000007,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Rule',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000011,3000007,0,3000000,TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Rule',TO_TIMESTAMP('2013-01-22 17:22:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:22:42 PM VET
@@ -163,7 +163,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-01-22 17:23:18','Y
 
 -- 22/01/2013 05:25:56 PM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000063,0,3000001,3000005,3000000,TO_TIMESTAMP('2013-01-22 17:25:56','YYYY-MM-DD HH24:MI:SS'),100,'Applies to Ddocuments','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Applies to Documents','N',20,1,TO_TIMESTAMP('2013-01-22 17:25:56','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000063,0,3000001,3000005,3000000,TO_TIMESTAMP('2013-01-22 17:25:56','YYYY-MM-DD HH24:MI:SS'),100,'Applies to Ddocuments','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Applies to Documents','N',20,1,TO_TIMESTAMP('2013-01-22 17:25:56','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:25:57 PM VET
@@ -188,7 +188,7 @@ UPDATE AD_Tab_Trl SET IsTranslated='N' WHERE AD_Tab_ID=3000001
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000008,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000008,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
@@ -201,7 +201,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000009,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ERPCR','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000009,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ECA02','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -211,7 +211,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000010,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ERPCR','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000010,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ECA02','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -221,7 +221,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000011,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000011,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -231,7 +231,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000012,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ERPCR','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000012,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ECA02','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -241,7 +241,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000013,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000013,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -251,7 +251,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:27 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000014,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000014,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:27 PM VET
@@ -261,7 +261,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:26:28 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000015,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000015,0,3000001,TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:26:27','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:26:28 PM VET
@@ -316,7 +316,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-01-22 17:26:53','Y
 
 -- 22/01/2013 05:27:46 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu (AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES (0,3000000,0,TO_TIMESTAMP('2013-01-22 17:27:46','YYYY-MM-DD HH24:MI:SS'),100,'Retention','ERPCR','Y','Y','N','N','Y','Retention',TO_TIMESTAMP('2013-01-22 17:27:46','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES (0,3000000,0,TO_TIMESTAMP('2013-01-22 17:27:46','YYYY-MM-DD HH24:MI:SS'),100,'Retention','ECA02','Y','Y','N','N','Y','Retention',TO_TIMESTAMP('2013-01-22 17:27:46','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:27:46 PM VET
@@ -331,7 +331,7 @@ INSERT INTO AD_TreeNodeMM (AD_Client_ID,AD_Org_ID, IsActive,Created,CreatedBy,Up
 
 -- 22/01/2013 05:28:18 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000001,0,3000000,TO_TIMESTAMP('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ERPCR','Y','Y','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000001,0,3000000,TO_TIMESTAMP('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','Y','Y','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:28:18 PM VET
@@ -356,7 +356,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=3000000, SeqNo=0, Updated=CURRENT_TIMESTAMP W
 
 -- 22/01/2013 05:29:50 PM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000065,0,3000002,3000005,123,TO_TIMESTAMP('2013-01-22 17:29:50','YYYY-MM-DD HH24:MI:SS'),100,'Applied Retention','ERPC','N','N','Y','N','N','Y','N','Y','N','N','Applied Retention','N',120,1,TO_TIMESTAMP('2013-01-22 17:29:50','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000065,0,3000002,3000005,123,TO_TIMESTAMP('2013-01-22 17:29:50','YYYY-MM-DD HH24:MI:SS'),100,'Applied Retention','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Applied Retention','N',120,1,TO_TIMESTAMP('2013-01-22 17:29:50','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:29:50 PM VET
@@ -376,7 +376,7 @@ UPDATE AD_Tab SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-22 17:30:07',
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000016,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000016,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
@@ -389,7 +389,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000017,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ERPCR','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000017,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ECA02','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -399,7 +399,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000018,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ERPCR','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000018,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ECA02','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -409,7 +409,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000019,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000019,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -419,7 +419,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000020,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ERPCR','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000020,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ECA02','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -429,7 +429,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000021,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000021,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -439,7 +439,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000022,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000022,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -449,7 +449,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:30:13 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000023,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000023,0,3000002,TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:30:13','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:30:13 PM VET
@@ -504,7 +504,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-01-22 17:30:58','Y
 
 -- 22/01/2013 05:32:20 PM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000064,0,3000003,3000005,192,TO_TIMESTAMP('2013-01-22 17:32:20','YYYY-MM-DD HH24:MI:SS'),100,'Applied retention','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Applied retention','N',40,1,TO_TIMESTAMP('2013-01-22 17:32:20','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,3000064,0,3000003,3000005,192,TO_TIMESTAMP('2013-01-22 17:32:20','YYYY-MM-DD HH24:MI:SS'),100,'Applied retention','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Applied retention','N',40,1,TO_TIMESTAMP('2013-01-22 17:32:20','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:20 PM VET
@@ -519,7 +519,7 @@ UPDATE AD_Tab_Trl SET Name='Retención Aplicada',Description='Retención Aplicad
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000024,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000059,3000024,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
@@ -532,7 +532,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000025,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ERPCR','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000065,3000025,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Identifies a Business Partner',10,'ECA02','A Business Partner is anyone with whom you transact.  This can include Vendor, Customer, Employee or Salesperson','Y','Y','Y','N','N','N','N','N','Business Partner ',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -542,7 +542,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000026,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ERPCR','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000064,3000026,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Business Partner Group',10,'ECA02','The Business Partner Group provides a method of defining defaults to be used for individual Business Partners.','Y','Y','Y','N','N','N','N','N','Business Partner Group',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -552,7 +552,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000027,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000055,3000027,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -562,7 +562,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000028,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ERPCR','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000066,3000028,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Document type or rules',10,'ECA02','The Document Type determines document sequence and processing rules','Y','Y','Y','N','N','N','N','N','Document Type',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -572,7 +572,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000029,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000056,3000029,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -582,7 +582,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000030,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000060,3000030,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Retention Relation',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -592,7 +592,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:32:33 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000031,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000063,3000031,0,3000003,TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:32:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:32:33 PM VET
@@ -687,7 +687,7 @@ UPDATE AD_Field SET IsReadOnly='Y',Updated=TO_TIMESTAMP('2013-01-22 17:34:21','Y
 
 -- 22/01/2013 05:35:00 PM VET
 -- LVE Retention
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000001,TO_TIMESTAMP('2013-01-22 17:35:00','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ERPCR','Y','N','N','Y','Retention Config','N',TO_TIMESTAMP('2013-01-22 17:35:00','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000001,TO_TIMESTAMP('2013-01-22 17:35:00','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ECA02','Y','N','N','Y','Retention Config','N',TO_TIMESTAMP('2013-01-22 17:35:00','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- 22/01/2013 05:35:00 PM VET
@@ -702,7 +702,7 @@ UPDATE AD_Window_Trl SET Name='Configurar Retención',Description='Configurar Re
 
 -- 22/01/2013 05:35:39 PM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000004,3000001,3000001,TO_TIMESTAMP('2013-01-22 17:35:39','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Retention Config','N',10,0,TO_TIMESTAMP('2013-01-22 17:35:39','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000004,3000001,3000001,TO_TIMESTAMP('2013-01-22 17:35:39','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Retention Config','N',10,0,TO_TIMESTAMP('2013-01-22 17:35:39','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:39 PM VET
@@ -717,7 +717,7 @@ UPDATE AD_Tab_Trl SET Name='Configurar Retención',Description='Configurar Reten
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000016,3000032,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000016,3000032,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
@@ -730,7 +730,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000021,3000033,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Aliquot',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000021,3000033,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Aliquot',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -740,7 +740,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000022,3000034,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Calculation Base',10,'ERPCR','Y','Y','Y','N','N','N','N','N','Base',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000022,3000034,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Calculation Base',10,'ECA02','Y','Y','Y','N','N','N','N','N','Base',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -750,7 +750,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000012,3000035,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000012,3000035,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -760,7 +760,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000023,3000036,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Minimal Amount',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000023,3000036,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Minimal Amount',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -770,7 +770,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000013,3000037,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000013,3000037,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -780,7 +780,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000017,3000038,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000017,3000038,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -790,7 +790,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 22/01/2013 05:35:55 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000020,3000039,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000020,3000039,0,3000004,TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Retention Type',TO_TIMESTAMP('2013-01-22 17:35:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:35:55 PM VET
@@ -850,7 +850,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-01-22 17:36:31','Y
 
 -- 22/01/2013 05:37:06 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000002,0,3000001,TO_TIMESTAMP('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ERPCR','Y','Y','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000002,0,3000001,TO_TIMESTAMP('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ECA02','Y','Y','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:37:06 PM VET
@@ -889,7 +889,7 @@ UPDATE AD_Menu_Trl SET Name='Retención',Description='Retención',Updated=TO_TIM
 
 -- 23/01/2013 09:28:22 AM VET
 -- LVE Retention
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000002,TO_TIMESTAMP('2013-01-23 09:28:22','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ERPCR','Y','N','N','Y','Combination Concept Retention and Person Type','N',TO_TIMESTAMP('2013-01-23 09:28:22','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000002,TO_TIMESTAMP('2013-01-23 09:28:22','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ECA02','Y','N','N','Y','Combination Concept Retention and Person Type','N',TO_TIMESTAMP('2013-01-23 09:28:22','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- 23/01/2013 09:28:22 AM VET
@@ -904,7 +904,7 @@ UPDATE AD_Window_Trl SET Name='Conbinación Concepto de Retención y Tipo de Per
 
 -- 23/01/2013 09:29:11 AM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000005,3000003,3000002,TO_TIMESTAMP('2013-01-23 09:29:11','YYYY-MM-DD HH24:MI:SS'),100,'Conbinación Concepto de Retención y Tipo de Persona','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Conbinación Concepto de Retención y Tipo de Persona','N',10,0,TO_TIMESTAMP('2013-01-23 09:29:11','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000005,3000003,3000002,TO_TIMESTAMP('2013-01-23 09:29:11','YYYY-MM-DD HH24:MI:SS'),100,'Conbinación Concepto de Retención y Tipo de Persona','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Conbinación Concepto de Retención y Tipo de Persona','N',10,0,TO_TIMESTAMP('2013-01-23 09:29:11','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:11 AM VET
@@ -924,7 +924,7 @@ UPDATE AD_Tab_Trl SET IsTranslated='N' WHERE AD_Tab_ID=3000005
 
 -- 23/01/2013 09:29:25 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000038,3000040,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000038,3000040,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100)
@@ -937,7 +937,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:25 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000034,3000041,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000034,3000041,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:25 AM VET
@@ -947,7 +947,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000053,3000042,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Concept Retention',TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000053,3000042,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Concept Retention',TO_TIMESTAMP('2013-01-23 09:29:25','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:26 AM VET
@@ -957,7 +957,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000039,3000043,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Concept Retention and Person Type Combination',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000039,3000043,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Concept Retention and Person Type Combination',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:26 AM VET
@@ -967,7 +967,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000035,3000044,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000035,3000044,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:26 AM VET
@@ -977,7 +977,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000052,3000045,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000052,3000045,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:26 AM VET
@@ -987,7 +987,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:29:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000054,3000046,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','Y','N','N','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000054,3000046,0,3000005,TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Retention Config',TO_TIMESTAMP('2013-01-23 09:29:26','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:29:26 AM VET
@@ -1052,7 +1052,7 @@ UPDATE AD_Window_Trl SET Name='Combinación Concepto de Retención y Tipo de Per
 
 -- 23/01/2013 09:32:01 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000003,0,3000002,TO_TIMESTAMP('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ERPCR','Y','Y','N','N','N','Combination Concept Retention and Person Type',TO_TIMESTAMP('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000003,0,3000002,TO_TIMESTAMP('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ECA02','Y','Y','N','N','N','Combination Concept Retention and Person Type',TO_TIMESTAMP('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:32:01 AM VET
@@ -1087,7 +1087,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=3000000, SeqNo=2, Updated=CURRENT_TIMESTAMP W
 
 -- 23/01/2013 09:33:39 AM VET
 -- LVE Retention
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000003,TO_TIMESTAMP('2013-01-23 09:33:39','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ERPCR','Y','N','N','Y','Person Type','N',TO_TIMESTAMP('2013-01-23 09:33:39','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000003,TO_TIMESTAMP('2013-01-23 09:33:39','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ECA02','Y','N','N','Y','Person Type','N',TO_TIMESTAMP('2013-01-23 09:33:39','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- 23/01/2013 09:33:39 AM VET
@@ -1102,7 +1102,7 @@ UPDATE AD_Window_Trl SET Name='Tipo de Persona',Description='Tipo de Persona',Up
 
 -- 23/01/2013 09:34:15 AM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000006,3000004,3000003,TO_TIMESTAMP('2013-01-23 09:34:15','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Person Type','N',10,0,TO_TIMESTAMP('2013-01-23 09:34:15','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000006,3000004,3000003,TO_TIMESTAMP('2013-01-23 09:34:15','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Person Type','N',10,0,TO_TIMESTAMP('2013-01-23 09:34:15','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:15 AM VET
@@ -1117,7 +1117,7 @@ UPDATE AD_Tab_Trl SET Name='Tipo de Persona',Description='Tipo de Persona',Updat
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000046,3000047,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000046,3000047,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
@@ -1130,7 +1130,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000042,3000048,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000042,3000048,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:44 AM VET
@@ -1140,7 +1140,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000051,3000049,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ERPCR','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000051,3000049,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ECA02','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:44 AM VET
@@ -1150,7 +1150,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000050,3000050,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ERPCR','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000050,3000050,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ECA02','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:44 AM VET
@@ -1160,7 +1160,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000043,3000051,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000043,3000051,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:44 AM VET
@@ -1170,7 +1170,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:34:44 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000047,3000052,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000047,3000052,0,3000006,TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:34:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:34:44 AM VET
@@ -1240,7 +1240,7 @@ UPDATE AD_Field SET IsSameLine='N',Updated=TO_TIMESTAMP('2013-01-23 09:36:06','Y
 
 -- 23/01/2013 09:36:55 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000004,0,3000003,TO_TIMESTAMP('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','U','Y','Y','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000004,0,3000003,TO_TIMESTAMP('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ECA02','Y','Y','N','N','N','Person Type',TO_TIMESTAMP('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:36:55 AM VET
@@ -1285,7 +1285,7 @@ UPDATE AD_Menu SET EntityType='ERPCR',Updated=TO_TIMESTAMP('2013-01-23 09:37:12'
 
 -- 23/01/2013 09:47:17 AM VET
 -- LVE Retention
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000004,TO_TIMESTAMP('2013-01-23 09:47:17','YYYY-MM-DD HH24:MI:SS'),100,'Concept Retention','U','Y','N','N','Y','Concept Retention','N',TO_TIMESTAMP('2013-01-23 09:47:17','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,3000004,TO_TIMESTAMP('2013-01-23 09:47:17','YYYY-MM-DD HH24:MI:SS'),100,'Concept Retention','ECA02','Y','N','N','Y','Concept Retention','N',TO_TIMESTAMP('2013-01-23 09:47:17','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- 23/01/2013 09:47:17 AM VET
@@ -1305,7 +1305,7 @@ UPDATE AD_Window_Trl SET Name='Concepto de Retención',Description='Concepto de 
 
 -- 23/01/2013 09:48:00 AM VET
 -- LVE Retention
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000007,3000002,3000004,TO_TIMESTAMP('2013-01-23 09:48:00','YYYY-MM-DD HH24:MI:SS'),100,'Concept Retention','ERPCR','N','N','Y','N','N','Y','N','Y','N','N','Concept Retention','N',10,0,TO_TIMESTAMP('2013-01-23 09:48:00','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,3000007,3000002,3000004,TO_TIMESTAMP('2013-01-23 09:48:00','YYYY-MM-DD HH24:MI:SS'),100,'Concept Retention','ECA02','N','N','Y','N','N','Y','N','Y','N','N','Concept Retention','N',10,0,TO_TIMESTAMP('2013-01-23 09:48:00','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:00 AM VET
@@ -1315,7 +1315,7 @@ INSERT INTO AD_Tab_Trl (AD_Language,AD_Tab_ID, CommitWarning,Description,Help,Na
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000028,3000053,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ERPCR','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000028,3000053,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
@@ -1328,7 +1328,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000024,3000054,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ERPCR','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000024,3000054,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',10,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:06 AM VET
@@ -1338,7 +1338,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000029,3000055,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,10,'ERPCR','Y','Y','N','N','N','N','N','N','Concept Retention',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000029,3000055,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','N','N','N','N','N','N','Concept Retention',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:06 AM VET
@@ -1348,7 +1348,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000033,3000056,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ERPCR','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000033,3000056,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',255,'ECA02','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:06 AM VET
@@ -1358,7 +1358,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000032,3000057,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ERPCR','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000032,3000057,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity',60,'ECA02','The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','Y','N','N','N','N','N','Name',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:06 AM VET
@@ -1368,7 +1368,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 23/01/2013 09:48:06 AM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000025,3000058,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ERPCR','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,3000025,3000058,0,3000007,TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',10,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-01-23 09:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:48:06 AM VET
@@ -1423,7 +1423,7 @@ UPDATE AD_Table SET AD_Window_ID=3000004,Updated=TO_TIMESTAMP('2013-01-23 09:49:
 
 -- 23/01/2013 09:49:51 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000005,0,3000004,TO_TIMESTAMP('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100,'Concepto de Retención','ERPCR','Y','Y','N','N','N','Concepto de Retención',TO_TIMESTAMP('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000005,0,3000004,TO_TIMESTAMP('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100,'Concepto de Retención','ECA02','Y','Y','N','N','N','Concepto de Retención',TO_TIMESTAMP('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:49:51 AM VET
@@ -1571,4 +1571,7 @@ UPDATE AD_Field SET SeqNo=50,IsDisplayed='Y' WHERE AD_Field_ID=3000053
 UPDATE AD_Field SET IsSameLine='N',Updated=TO_TIMESTAMP('2013-01-23 11:31:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000053
 ;
 
-
+-- Feb 13, 2013 2:51:19 PM VET
+-- LVE Retention
+UPDATE AD_Field SET IsSameLine='N',Updated=TO_TIMESTAMP('2013-02-13 14:51:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000034
+;

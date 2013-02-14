@@ -15,7 +15,7 @@
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
 /** Generated Model - DO NOT CHANGE */
-package org.erpcya.model;
+package org.erpca.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -74,9 +74,9 @@ public class X_CUST_CR_PT_Combination extends PO implements I_CUST_CR_PT_Combina
       return sb.toString();
     }
 
-	public org.erpcya.model.I_CUST_ConceptRetention getCUST_ConceptRetention() throws RuntimeException
+	public org.erpca.model.I_CUST_ConceptRetention getCUST_ConceptRetention() throws RuntimeException
     {
-		return (org.erpcya.model.I_CUST_ConceptRetention)MTable.get(getCtx(), org.erpcya.model.I_CUST_ConceptRetention.Table_Name)
+		return (org.erpca.model.I_CUST_ConceptRetention)MTable.get(getCtx(), org.erpca.model.I_CUST_ConceptRetention.Table_Name)
 			.getPO(getCUST_ConceptRetention_ID(), get_TrxName());	}
 
 	/** Set Concept Retention.
@@ -127,9 +127,9 @@ public class X_CUST_CR_PT_Combination extends PO implements I_CUST_CR_PT_Combina
 		return ii.intValue();
 	}
 
-	public org.erpcya.model.I_CUST_PersonType getCUST_PersonType() throws RuntimeException
+	public org.erpca.model.I_CUST_PersonType getCUST_PersonType() throws RuntimeException
     {
-		return (org.erpcya.model.I_CUST_PersonType)MTable.get(getCtx(), org.erpcya.model.I_CUST_PersonType.Table_Name)
+		return (org.erpca.model.I_CUST_PersonType)MTable.get(getCtx(), org.erpca.model.I_CUST_PersonType.Table_Name)
 			.getPO(getCUST_PersonType_ID(), get_TrxName());	}
 
 	/** Set Person Type.
@@ -152,9 +152,9 @@ public class X_CUST_CR_PT_Combination extends PO implements I_CUST_CR_PT_Combina
 		return ii.intValue();
 	}
 
-	public org.erpcya.model.I_CUST_RetentionConfig getCUST_RetentionConfig() throws RuntimeException
+	public org.erpca.model.I_CUST_RetentionConfig getCUST_RetentionConfig() throws RuntimeException
     {
-		return (org.erpcya.model.I_CUST_RetentionConfig)MTable.get(getCtx(), org.erpcya.model.I_CUST_RetentionConfig.Table_Name)
+		return (org.erpca.model.I_CUST_RetentionConfig)MTable.get(getCtx(), org.erpca.model.I_CUST_RetentionConfig.Table_Name)
 			.getPO(getCUST_RetentionConfig_ID(), get_TrxName());	}
 
 	/** Set Retention Config.

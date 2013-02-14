@@ -1,8 +1,8 @@
 #Build log:
 
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql status 0
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3383703240645949147_postgresql.sql status 0
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql status 0
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql status 0
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql status 0
-File /opt/Development/workspace/LVE_Retention/scripts/postgresql/migration_script_constraint_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3011244090066389586_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3383703240645949147_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_3789008111198968559_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_4640855929614362313_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_8840615582108376254_postgresql.sql status 0
+File /home/administrador/DesarrolloERP/LVE_Retention/scripts/postgresql/migration_script_constraint_postgresql.sql status 0

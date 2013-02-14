@@ -315,7 +315,7 @@ UPDATE AD_Element_Trl SET Name='Alícuota',PrintName='Alícuota',Updated=TO_TIME
 
 -- 22/01/2013 04:34:28 PM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000021,2999999,0,22,3000001,'Aliquot',TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Aliquot',0,TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000021,2999999,0,22,3000001,'Aliquot',TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','Y','N','N','N','N','N','N','Y','Aliquot',1,TO_TIMESTAMP('2013-01-22 16:34:28','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 22/01/2013 04:34:28 PM VET
@@ -346,7 +346,7 @@ AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,
 AD_Reference_ID,AD_Table_ID,ColumnName,Created,
 CreatedBy,Description,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES 
 (0,3000022,3000008,0,
-22,3000001,'Subtrahend',TO_TIMESTAMP('2013-01-22 16:34:52','YYYY-MM-DD HH24:MI:SS'),100,'Subtrahend','ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Subtrahend',0,TO_TIMESTAMP('2013-01-22 16:34:52','YYYY-MM-DD HH24:MI:SS'),100,0)
+22,3000001,'Subtrahend',TO_TIMESTAMP('2013-01-22 16:34:52','YYYY-MM-DD HH24:MI:SS'),100,'Subtrahend','ECA02',10,'Y','Y','N','N','N','Y','N','N','N','N','N','N','Y','Subtrahend',4,TO_TIMESTAMP('2013-01-22 16:34:52','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 22/01/2013 04:34:52 PM VET
@@ -371,7 +371,7 @@ UPDATE AD_Element_Trl SET Name='Monto Mínimo',PrintName='Monto Mínimo',Updated
 
 -- 22/01/2013 04:38:00 PM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000023,3000002,0,22,3000001,'MinimalAmt',TO_TIMESTAMP('2013-01-22 16:38:00','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Minimal Amount',0,TO_TIMESTAMP('2013-01-22 16:38:00','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000023,3000002,0,22,3000001,'MinimalAmt',TO_TIMESTAMP('2013-01-22 16:38:00','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','Y','N','N','N','N','N','N','Y','Minimal Amount',2,TO_TIMESTAMP('2013-01-22 16:38:00','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 22/01/2013 04:38:00 PM VET
@@ -494,7 +494,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 22/01/2013 04:40:22 PM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000032,469,0,10,3000002,'Name',TO_TIMESTAMP('2013-01-22 16:40:22','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity','ECA02',60,'The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','N','N','N','N','N','N','N','Y','N','N','Y','Name',0,TO_TIMESTAMP('2013-01-22 16:40:22','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000032,469,0,10,3000002,'Name',TO_TIMESTAMP('2013-01-22 16:40:22','YYYY-MM-DD HH24:MI:SS'),100,'Alphanumeric identifier of the entity','ECA02',255,'The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.','Y','Y','N','N','N','N','N','N','N','Y','N','N','Y','Name',0,TO_TIMESTAMP('2013-01-22 16:40:22','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 22/01/2013 04:40:22 PM VET

@@ -87,44 +87,22 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 
 			PreparedStatement pstmt = null;
 
-			/*String sql = "SELECT CUST_RetentionType_ID From CUST_RetentionRelation Where"
-					+ " C_BP_Group_ID = ?";
-			pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(1, bpgroup.getC_BP_Group_ID());
-
-			ResultSet res = pstmt.executeQuery();
-			if (res != null) {
-				while (res.next()) {
-					MCUSTRetentionRelation retention = new MCUSTRetentionRelation(
-							Env.getCtx(), 0, bpartner.get_TrxName());
-					retention.setC_BPartner_ID(bpartner.getC_BPartner_ID());
-					retention.setCUST_RetentionType_ID(res
-							.getInt("CUST_RetentionType_ID"));
-					retention.saveEx();
-				}
-			}*/
-			
-			
 			String sql = "SELECT * FROM CUST_RetentionRelation WHERE"
 					+ " C_BP_Group_ID = ?";
 			
 			pstmt = DB.prepareStatement(sql, bpartner.get_TrxName());
 			pstmt.setInt(1, bpgroup.getC_BP_Group_ID());
 			ResultSet res = pstmt.executeQuery();
-			//	test best code
 			if (res != null) {
 				while (res.next()) {				
 					MCUSTRetentionRelation rt = new MCUSTRetentionRelation(Env.getCtx(), res, bpartner.get_TrxName());
 					MCUSTRetentionRelation retention = new MCUSTRetentionRelation(
 							Env.getCtx(), 0, bpartner.get_TrxName());
-					retention.setC_BPartner_ID(rt.getC_BPartner_ID());
+					retention.setC_BPartner_ID(bpartner.getC_BPartner_ID());
 					retention.setCUST_RetentionType_ID(rt.getCUST_RetentionType_ID());
 					retention.saveEx();
 				}
 			}
-			
-			
-			
 			log.info(po.toString());
 		}
 		return null;

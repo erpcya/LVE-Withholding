@@ -31,10 +31,6 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 	private static CLogger log = CLogger.getCLogger(ModelValidator.class);
 	/** Client */
 	private int m_AD_Client_ID = -1;
-	/** User */
-	private int m_AD_User_ID = -1;
-	/** Role */
-	private int m_AD_Role_ID = -1;
 
 	/**
 	 * Initialize Validation
@@ -55,8 +51,6 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 		}
 		// We want to be informed when C_BPartner is created/changed
 		engine.addModelChange(MBPartner.Table_Name, this);
-		// We want to validate Order before preparing
-		engine.addDocValidate(MBPartner.Table_Name, this);
 
 	}
 
@@ -68,8 +62,6 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 	@Override
 	public String login(int AD_Org_ID, int AD_Role_ID, int AD_User_ID) {
 		log.info("AD_User_ID=" + AD_User_ID);
-		m_AD_User_ID = AD_User_ID;
-		m_AD_Role_ID = AD_Role_ID;
 		return null;
 	}
 
@@ -95,7 +87,7 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 
 			PreparedStatement pstmt = null;
 
-			String sql = "SELECT CUST_RetentionType_ID From CUST_RetentionRelation Where"
+			/*String sql = "SELECT CUST_RetentionType_ID From CUST_RetentionRelation Where"
 					+ " C_BP_Group_ID = ?";
 			pstmt = DB.prepareStatement(sql, null);
 			pstmt.setInt(1, bpgroup.getC_BP_Group_ID());
@@ -110,7 +102,29 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 							.getInt("CUST_RetentionType_ID"));
 					retention.saveEx();
 				}
+			}*/
+			
+			
+			String sql = "SELECT * FROM CUST_RetentionRelation WHERE"
+					+ " C_BP_Group_ID = ?";
+			
+			pstmt = DB.prepareStatement(sql, bpartner.get_TrxName());
+			pstmt.setInt(1, bpgroup.getC_BP_Group_ID());
+			ResultSet res = pstmt.executeQuery();
+			//	test best code
+			if (res != null) {
+				while (res.next()) {				
+					MCUSTRetentionRelation rt = new MCUSTRetentionRelation(Env.getCtx(), res, bpartner.get_TrxName());
+					MCUSTRetentionRelation retention = new MCUSTRetentionRelation(
+							Env.getCtx(), 0, bpartner.get_TrxName());
+					retention.setC_BPartner_ID(rt.getC_BPartner_ID());
+					retention.setCUST_RetentionType_ID(rt.getCUST_RetentionType_ID());
+					retention.saveEx();
+				}
 			}
+			
+			
+			
 			log.info(po.toString());
 		}
 		return null;

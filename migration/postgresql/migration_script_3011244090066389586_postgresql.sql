@@ -3,6 +3,11 @@
 INSERT INTO AD_EntityType (AD_Client_ID,AD_EntityType_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,ModelPackage,Name,Processing,Updated,UpdatedBy) VALUES (0,3000000,0,TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','org.erpca.model','LVE Retention','N',TO_TIMESTAMP('2013-01-22 16:20:38','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
+-- Feb 15, 2013 10:16:28 AM VET
+--  LVE Retention
+INSERT INTO AD_ModelValidator (AD_Client_ID,AD_ModelValidator_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,ModelValidationClass,Name,SeqNo,Updated,UpdatedBy) VALUES (0,1000001,0,TO_TIMESTAMP('2013-02-15 10:16:28','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','org.erpca.model.ModelValidator','Model Validator to Retention Venezuela',0,TO_TIMESTAMP('2013-02-15 10:16:28','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
 -- 22/01/2013 04:23:47 PM VET
 -- LVE Retention
 INSERT INTO AD_Table (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Table_ID,CopyColumnsFromTable,Created,CreatedBy,Description,EntityType,ImportTable,IsActive,IsCentrallyMaintained,IsChangeLog,IsDeleteable,IsHighVolume,IsSecurityEnabled,IsView,LoadSeq,Name,ReplicationType,TableName,Updated,UpdatedBy) VALUES ('3',0,0,3000000,'N',TO_TIMESTAMP('2013-01-22 16:23:47','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','N','Y','Y','N','Y','N','N','N',0,'Retention Type','L','CUST_RetentionType',TO_TIMESTAMP('2013-01-22 16:23:47','YYYY-MM-DD HH24:MI:SS'),100)

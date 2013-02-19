@@ -75,9 +75,6 @@ public class GenerateRetention extends SvrProcess {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see org.compiere.process.SvrProcess#doIt()
-	 */
 	@Override
 	protected String doIt() throws Exception {
 		// TODO Auto-generated method stub

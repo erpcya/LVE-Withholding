@@ -15,13 +15,19 @@
  *************************************************************************************/
 package org.erpca.process;
 
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.DB;
+import org.compiere.util.Env;
 
 /**
- * @author Yamel Senih
+ * 
+ * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
  */
 public class GenerateRetention extends SvrProcess {
@@ -39,16 +45,17 @@ public class GenerateRetention extends SvrProcess {
 	/**	Record ID						*/
 	private int			record_ID				=	0;
 	
-	private StringBuffer		m_sql 				= new StringBuffer();
+	private String		sql 					= new String();
 	/**	Where Clause					*/
 	private StringBuffer		m_parameterWhere	= new StringBuffer();
 	
 	/**
+	 * 
 	 * *** Constructor de la Clase ***
-	 * @author Yamel Senih 25/01/2013, 17:51:09
+	 * @author Yamel Senih 19/02/2013, 12:14:38
 	 */
 	public GenerateRetention() {
-		record_ID = getRecord_ID();
+		//record_ID = getRecord_ID();
 		for (ProcessInfoParameter para:getParameter()){
 			String name = para.getParameterName();
 			if (para.getParameter() == null)
@@ -72,12 +79,51 @@ public class GenerateRetention extends SvrProcess {
 	 */
 	@Override
 	protected void prepare() {
+		sql = new String("SELECT bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, " +
+				"SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) LineNetAmt, " +
+				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, rt.C_Charge_ID, rt.C_DocType_ID " + 
+				"FROM C_Invoice inv " + 
+				"INNER JOIN C_InvoiceLine linv ON(linv.C_Invoice_ID = inv.C_Invoice_ID) " + 
+				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " + 
+				"INNER JOIN CUST_RetentionRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
+				"INNER JOIN CUST_RetentionType rt ON(rt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
+				"INNER JOIN CUST_RetentionConfig cn ON(cn.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
+				"INNER JOIN CUST_CR_PT_Combination cb ON(cb.CUST_RetentionConfig_ID = cn.CUST_RetentionConfig_ID) " + 
+				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.CUST_RetentionType_ID FROM CUST_RetentionRelation rrdt) rrdt " + 
+				"ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
+				"WHERE ( " + 
+				"	(inv.CUST_ConceptRetention_ID = cb.CUST_ConceptRetention_ID AND bp.CUST_PersonType_ID = cb.CUST_PersonType_ID) " + 
+				"	OR(cb.CUST_ConceptRetention_ID IS NULL AND cb.CUST_PersonType_ID IS NULL) " + 
+				"	) " + 
+				"GROUP BY bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, " +
+				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, rt.C_Charge_ID, rt.C_DocType_ID " + 
+				"ORDER BY bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, rt.C_Charge_ID, rt.C_DocType_ID");
 		
 	}
 
 	@Override
 	protected String doIt() throws Exception {
-		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		pstmt = DB.prepareStatement(sql, null);
+		ResultSet res = pstmt.executeQuery();
+		
+		int m_C_BPartner_ID = 0;
+		int m_C_Invoice_ID = 0;
+		int m_CUST_RetentionType_ID = 0;
+		BigDecimal m_LineNetAmt = Env.ZERO;
+		BigDecimal m_Aliquot = Env.ZERO;
+		BigDecimal m_MinimalAmt = Env.ZERO;
+		BigDecimal m_Subtrahend = Env.ZERO;
+		int m_C_Charge_ID = 0;
+		int m_C_DocType_ID = 0;
+		
+		
+		if(res != null){
+			while(res.next()){
+				
+			}
+		}
+		
 		return null;
 	}
 

@@ -347,3 +347,258 @@ INSERT INTO CUST_CR_PT_Combination (AD_Client_ID,AD_Org_ID,Created,CreatedBy,CUS
 INSERT INTO CUST_CR_PT_Combination (AD_Client_ID,AD_Org_ID,Created,CreatedBy,CUST_ConceptRetention_ID,CUST_CR_PT_Combination_ID,CUST_PersonType_ID,CUST_RetentionConfig_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,TO_TIMESTAMP('2013-02-14 16:49:24','YYYY-MM-DD HH24:MI:SS'),100,1000015,1000036,1000003,1000007,'Y',TO_TIMESTAMP('2013-02-14 16:49:24','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
+-- Feb 19, 2013 2:45:45 PM VET
+-- LVE Retention
+UPDATE CUST_RetentionRelation SET C_DocType_ID=116,Updated=TO_TIMESTAMP('2013-02-19 14:45:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionRelation_ID=1000000
+;
+
+-- Feb 19, 2013 2:46:23 PM VET
+-- LVE Retention
+INSERT INTO AD_Sequence (AD_Client_ID,AD_Org_ID,AD_Sequence_ID,Created,CreatedBy,CurrentNext,CurrentNextSys,IncrementNo,IsActive,IsAudited,IsAutoSequence,IsTableID,Name,StartNewYear,StartNo,Updated,UpdatedBy) VALUES (11,0,1000541,TO_TIMESTAMP('2013-02-19 14:46:22','YYYY-MM-DD HH24:MI:SS'),100,100001,1000,1,'Y','N','Y','N','AR Invoice (Test)','N',100000,TO_TIMESTAMP('2013-02-19 14:46:22','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 19, 2013 2:46:32 PM VET
+-- LVE Retention
+INSERT INTO C_DocType (AD_Client_ID,AD_Org_ID,C_DocType_ID,Created,CreatedBy,DocBaseType,DocNoSequence_ID,DocumentCopies,DocumentNote,GL_Category_ID,HasCharges,HasProforma,IsActive,IsCreateCounter,IsDefault,IsDefaultCounterDoc,IsDocNoControlled,IsIndexed,IsInTransit,IsOverwriteDateOnComplete,IsOverwriteSeqOnComplete,IsPickQAConfirm,IsPrepareSplitDocument,IsShipConfirm,IsSOTrx,IsSplitWhenDifference,Name,PrintName,Updated,UpdatedBy) VALUES (11,0,1000000,TO_TIMESTAMP('2013-02-19 14:46:32','YYYY-MM-DD HH24:MI:SS'),100,'ARI',1000541,0,'Document Type Note for general and promotional text.',109,'N','N','Y','Y','N','Y','Y','Y','N','N','N','N','Y','N','Y','N','AR Invoice (Test)','Invoice',TO_TIMESTAMP('2013-02-19 14:46:32','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 19, 2013 2:46:32 PM VET
+-- LVE Retention
+INSERT INTO C_DocType_Trl (AD_Language,C_DocType_ID, DocumentNote,Name,PrintName, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.C_DocType_ID, t.DocumentNote,t.Name,t.PrintName, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, C_DocType t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.C_DocType_ID=1000000 AND NOT EXISTS (SELECT * FROM C_DocType_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.C_DocType_ID=t.C_DocType_ID)
+;
+
+-- Feb 19, 2013 2:46:32 PM VET
+-- LVE Retention
+INSERT INTO AD_Document_Action_Access (AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,C_DocType_ID , AD_Ref_List_ID, AD_Role_ID) (SELECT 11,0,'Y', CURRENT_TIMESTAMP,100, CURRENT_TIMESTAMP,100, doctype.C_DocType_ID, "action".AD_Ref_List_ID, rol.AD_Role_ID FROM AD_Client client INNER JOIN C_DocType doctype ON (doctype.AD_Client_ID=client.AD_Client_ID) INNER JOIN AD_Ref_List "action" ON ("action".AD_Reference_ID=135) INNER JOIN AD_Role rol ON (rol.AD_Client_ID=client.AD_Client_ID) WHERE client.AD_Client_ID=11 AND doctype.C_DocType_ID=1000000 AND rol.IsManual='N')
+;
+
+-- Feb 19, 2013 2:46:40 PM VET
+-- LVE Retention
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,103,1000000,TO_TIMESTAMP('2013-02-19 14:46:40','YYYY-MM-DD HH24:MI:SS'),100,1000002,1000000,'Y',TO_TIMESTAMP('2013-02-19 14:46:40','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 19, 2013 2:47:40 PM VET
+-- LVE Retention
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000001
+
+-- Feb 19, 2013 2:58:21 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,103,116,TO_TIMESTAMP('2013-02-19 14:58:21','YYYY-MM-DD HH24:MI:SS'),100,1000003,1000001,'Y',TO_TIMESTAMP('2013-02-19 14:58:21','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 19, 2013 2:58:27 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,103,116,TO_TIMESTAMP('2013-02-19 14:58:27','YYYY-MM-DD HH24:MI:SS'),100,1000004,1000001,'Y',TO_TIMESTAMP('2013-02-19 14:58:27','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 19, 2013 2:58:33 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionRelation SET C_DocType_ID=1000000,Updated=TO_TIMESTAMP('2013-02-19 14:58:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionRelation_ID=1000004
+;
+-- Feb 20, 2013 3:24:21 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_BPartner SET CUST_PersonType_ID=1000002,Updated=TO_TIMESTAMP('2013-02-20 15:24:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_BPartner_ID=121
+;
+
+-- Feb 20, 2013 3:24:58 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_BPartner SET CUST_PersonType_ID=1000000,Updated=TO_TIMESTAMP('2013-02-20 15:24:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_BPartner_ID=114
+;
+-- Feb 21, 2013 4:00:26 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionType SET Name='Retención I.V.A. 75%',Updated=TO_TIMESTAMP('2013-02-21 16:00:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionType_ID=1000001
+;
+
+-- Feb 21, 2013 4:00:34 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionType (AD_Client_ID,AD_Org_ID,Created,CreatedBy,CUST_RetentionType_ID,IsActive,Name,Updated,UpdatedBy) VALUES (11,50001,TO_TIMESTAMP('2013-02-21 16:00:34','YYYY-MM-DD HH24:MI:SS'),100,1000002,'Y','Retención I.V.A. 100%',TO_TIMESTAMP('2013-02-21 16:00:34','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 4:03:38 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionConfig (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,CUST_RetentionConfig_ID,CUST_RetentionType_ID,IsActive,MinimalAmt,Subtrahend,Updated,UpdatedBy) VALUES (11,50001,100.000000000000,TO_TIMESTAMP('2013-02-21 16:03:38','YYYY-MM-DD HH24:MI:SS'),100,1000009,1000002,'Y',0,0,TO_TIMESTAMP('2013-02-21 16:03:38','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 4:03:46 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionConfig (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,CUST_RetentionConfig_ID,CUST_RetentionType_ID,IsActive,MinimalAmt,Subtrahend,Updated,UpdatedBy) VALUES (11,50001,75.000000000000,TO_TIMESTAMP('2013-02-21 16:03:46','YYYY-MM-DD HH24:MI:SS'),100,1000010,1000001,'Y',0,0,TO_TIMESTAMP('2013-02-21 16:03:46','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 4:04:16 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_CR_PT_Combination (AD_Client_ID,AD_Org_ID,Created,CreatedBy,CUST_CR_PT_Combination_ID,CUST_RetentionConfig_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,TO_TIMESTAMP('2013-02-21 16:04:16','YYYY-MM-DD HH24:MI:SS'),100,1000037,1000009,'Y',TO_TIMESTAMP('2013-02-21 16:04:16','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 4:04:21 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_CR_PT_Combination (AD_Client_ID,AD_Org_ID,Created,CreatedBy,CUST_CR_PT_Combination_ID,CUST_RetentionConfig_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,TO_TIMESTAMP('2013-02-21 16:04:21','YYYY-MM-DD HH24:MI:SS'),100,1000038,1000001,'Y',TO_TIMESTAMP('2013-02-21 16:04:21','YYYY-MM-DD HH24:MI:SS'),100)
+;
+-- Feb 21, 2013 7:11:32 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_Invoice SET CUST_ConceptRetention_ID=1000006,Updated=TO_TIMESTAMP('2013-02-21 19:11:32','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Invoice_ID=102
+;
+
+-- Feb 21, 2013 7:13:25 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_Invoice SET CUST_ConceptRetention_ID=1000006,Updated=TO_TIMESTAMP('2013-02-21 19:13:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Invoice_ID=104
+;
+
+-- Feb 21, 2013 7:16:25 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_BPartner SET CUST_PersonType_ID=1000002,Updated=TO_TIMESTAMP('2013-02-21 19:16:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_BPartner_ID=113
+;
+
+-- Feb 21, 2013 7:16:38 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE C_Invoice SET CUST_ConceptRetention_ID=1000000,Updated=TO_TIMESTAMP('2013-02-21 19:16:38','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Invoice_ID=1000002
+;
+
+-- Feb 21, 2013 7:33:06 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000000
+;
+
+-- Feb 21, 2013 7:33:07 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000002
+;
+
+-- Feb 21, 2013 7:33:07 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000006
+;
+
+-- Feb 21, 2013 7:33:07 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000007
+;
+
+-- Feb 21, 2013 7:33:07 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000009
+;
+
+-- Feb 21, 2013 7:43:00 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy,IsSOTrx) VALUES (11,50001,103,123,TO_TIMESTAMP('2013-02-21 19:43:00','YYYY-MM-DD HH24:MI:SS'),100,1000011,1000000,'Y',TO_TIMESTAMP('2013-02-21 19:43:00','YYYY-MM-DD HH24:MI:SS'),100,'N')
+;
+
+-- Feb 21, 2013 7:53:50 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000003
+;
+
+-- Feb 21, 2013 7:53:50 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000004
+;
+
+-- Feb 21, 2013 7:53:50 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000005
+;
+
+-- Feb 21, 2013 7:53:50 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000008
+;
+
+-- Feb 21, 2013 7:53:50 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000010
+;
+
+-- Feb 21, 2013 7:53:58 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy,IsSOTrx) VALUES (11,50001,103,123,TO_TIMESTAMP('2013-02-21 19:53:57','YYYY-MM-DD HH24:MI:SS'),100,1000012,1000001,'Y',TO_TIMESTAMP('2013-02-21 19:53:57','YYYY-MM-DD HH24:MI:SS'),100,'N')
+;
+
+-- Feb 21, 2013 7:54:07 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,C_DocType_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy,IsSOTrx) VALUES (11,50001,103,123,TO_TIMESTAMP('2013-02-21 19:54:07','YYYY-MM-DD HH24:MI:SS'),100,1000013,1000002,'Y',TO_TIMESTAMP('2013-02-21 19:54:07','YYYY-MM-DD HH24:MI:SS'),100,'N')
+;
+
+-- Feb 21, 2013 7:59:57 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,C_BP_Group_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,114,103,TO_TIMESTAMP('2013-02-21 19:59:57','YYYY-MM-DD HH24:MI:SS'),100,1000014,1000000,'Y',TO_TIMESTAMP('2013-02-21 19:59:57','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 8:00:05 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,C_BP_Group_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,114,103,TO_TIMESTAMP('2013-02-21 20:00:05','YYYY-MM-DD HH24:MI:SS'),100,1000015,1000002,'Y',TO_TIMESTAMP('2013-02-21 20:00:05','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 8:00:32 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,C_BP_Group_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,113,103,TO_TIMESTAMP('2013-02-21 20:00:32','YYYY-MM-DD HH24:MI:SS'),100,1000016,1000000,'Y',TO_TIMESTAMP('2013-02-21 20:00:32','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 8:00:37 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,C_BP_Group_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,113,103,TO_TIMESTAMP('2013-02-21 20:00:37','YYYY-MM-DD HH24:MI:SS'),100,1000017,1000001,'Y',TO_TIMESTAMP('2013-02-21 20:00:37','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 8:23:33 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO CUST_RetentionRelation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,C_BP_Group_ID,Created,CreatedBy,CUST_RetentionRelation_ID,CUST_RetentionType_ID,IsActive,Updated,UpdatedBy) VALUES (11,50001,113,103,TO_TIMESTAMP('2013-02-21 20:23:32','YYYY-MM-DD HH24:MI:SS'),100,1000018,1000002,'Y',TO_TIMESTAMP('2013-02-21 20:23:32','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 21, 2013 8:24:14 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000017
+;
+
+-- Feb 25, 2013 4:55:25 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_TaxCategory (AD_Client_ID,AD_Org_ID,Created,CreatedBy,C_TaxCategory_ID,IsActive,IsDefault,Name,Updated,UpdatedBy) VALUES (11,50001,TO_TIMESTAMP('2013-02-25 16:55:25','YYYY-MM-DD HH24:MI:SS'),100,1000000,'Y','N','Sin Impuesto',TO_TIMESTAMP('2013-02-25 16:55:25','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 25, 2013 4:55:25 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_TaxCategory_Trl (AD_Language,C_TaxCategory_ID, Description,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.C_TaxCategory_ID, t.Description,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, C_TaxCategory t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.C_TaxCategory_ID=1000000 AND NOT EXISTS (SELECT * FROM C_TaxCategory_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.C_TaxCategory_ID=t.C_TaxCategory_ID)
+;
+
+-- Feb 25, 2013 4:55:42 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge (AD_Client_ID,AD_Org_ID,C_Charge_ID,ChargeAmt,Created,CreatedBy,C_TaxCategory_ID,IsActive,IsSameCurrency,IsSameTax,IsTaxIncluded,Name,Updated,UpdatedBy) VALUES (11,50001,1000000,1.000000000000,TO_TIMESTAMP('2013-02-25 16:55:42','YYYY-MM-DD HH24:MI:SS'),100,1000000,'Y','N','N','N','Retención I.S.L.R.',TO_TIMESTAMP('2013-02-25 16:55:42','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 25, 2013 4:55:42 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge_Trl (AD_Language,C_Charge_ID, Description,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.C_Charge_ID, t.Description,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, C_Charge t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.C_Charge_ID=1000000 AND NOT EXISTS (SELECT * FROM C_Charge_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.C_Charge_ID=t.C_Charge_ID)
+;
+
+-- Feb 25, 2013 4:55:42 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge_Acct (C_Charge_ID, C_AcctSchema_ID, AD_Client_ID,AD_Org_ID,IsActive, Created,CreatedBy,Updated,UpdatedBy ,Ch_Expense_Acct,Ch_Revenue_Acct) SELECT 1000000, p.C_AcctSchema_ID, p.AD_Client_ID,0,'Y', CURRENT_TIMESTAMP,100,CURRENT_TIMESTAMP,100,p.Ch_Expense_Acct,p.Ch_Revenue_Acct FROM C_AcctSchema_Default p WHERE p.AD_Client_ID=11 AND NOT EXISTS (SELECT * FROM C_Charge_Acct e WHERE e.C_AcctSchema_ID=p.C_AcctSchema_ID AND e.C_Charge_ID=1000000)
+;
+
+-- Feb 25, 2013 4:55:54 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionType SET C_Charge_ID=1000000, C_DocType_ID=124,Updated=TO_TIMESTAMP('2013-02-25 16:55:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionType_ID=1000000
+;
+
+-- Feb 25, 2013 4:56:36 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge (AD_Client_ID,AD_Org_ID,C_Charge_ID,ChargeAmt,Created,CreatedBy,C_TaxCategory_ID,IsActive,IsSameCurrency,IsSameTax,IsTaxIncluded,Name,Updated,UpdatedBy) VALUES (11,50001,1000001,1.000000000000,TO_TIMESTAMP('2013-02-25 16:56:36','YYYY-MM-DD HH24:MI:SS'),100,1000000,'Y','N','N','N','Retención I.V.A.',TO_TIMESTAMP('2013-02-25 16:56:36','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 25, 2013 4:56:36 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge_Trl (AD_Language,C_Charge_ID, Description,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.C_Charge_ID, t.Description,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, C_Charge t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.C_Charge_ID=1000001 AND NOT EXISTS (SELECT * FROM C_Charge_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.C_Charge_ID=t.C_Charge_ID)
+;
+
+-- Feb 25, 2013 4:56:36 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+INSERT INTO C_Charge_Acct (C_Charge_ID, C_AcctSchema_ID, AD_Client_ID,AD_Org_ID,IsActive, Created,CreatedBy,Updated,UpdatedBy ,Ch_Expense_Acct,Ch_Revenue_Acct) SELECT 1000001, p.C_AcctSchema_ID, p.AD_Client_ID,0,'Y', CURRENT_TIMESTAMP,100,CURRENT_TIMESTAMP,100,p.Ch_Expense_Acct,p.Ch_Revenue_Acct FROM C_AcctSchema_Default p WHERE p.AD_Client_ID=11 AND NOT EXISTS (SELECT * FROM C_Charge_Acct e WHERE e.C_AcctSchema_ID=p.C_AcctSchema_ID AND e.C_Charge_ID=1000001)
+;
+
+-- Feb 25, 2013 4:56:59 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionType SET C_Charge_ID=1000001, C_DocType_ID=124,Updated=TO_TIMESTAMP('2013-02-25 16:56:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionType_ID=1000001
+;
+
+-- Feb 25, 2013 4:57:09 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionType SET C_Charge_ID=1000001, C_DocType_ID=124,Updated=TO_TIMESTAMP('2013-02-25 16:57:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_RetentionType_ID=1000002
+;

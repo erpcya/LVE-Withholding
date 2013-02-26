@@ -1,6 +1,6 @@
 -- 23/01/2013 03:26:14 PM VET
 -- LVE Retention
-INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,3000000,'org.erpcya.process.GenerateRetention','N',TO_TIMESTAMP('2013-01-23 15:26:14','YYYY-MM-DD HH24:MI:SS'),100,'GenerateRetention','ECA02','Y','N','N','N','N','Generate Retention','Y',0,0,TO_TIMESTAMP('2013-01-23 15:26:14','YYYY-MM-DD HH24:MI:SS'),100,'prc_GenerateRetention')
+INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,3000000,'org.erpca.process.GenerateRetention','N',TO_TIMESTAMP('2013-01-23 15:26:14','YYYY-MM-DD HH24:MI:SS'),100,'GenerateRetention','ECA02','Y','N','N','N','N','Generate Retention','Y',0,0,TO_TIMESTAMP('2013-01-23 15:26:14','YYYY-MM-DD HH24:MI:SS'),100,'prc_GenerateRetention')
 ;
 
 -- 23/01/2013 03:26:14 PM VET

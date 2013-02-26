@@ -75,3 +75,7 @@ CONSTRAINT FK_CUST_CR_PT_Combination_CUST_RetentionConfig FOREIGN KEY (CUST_Rete
 REFERENCES CUST_RetentionConfig (CUST_RetentionConfig_ID)
 On Update Cascade On Delete Restrict;
 
+Alter Table C_Invoice Add 
+CONSTRAINT FK_C_Invoice_CUST_ConceptRetention FOREIGN KEY (CUST_ConceptRetention_ID)
+REFERENCES CUST_ConceptRetention (CUST_ConceptRetention_ID)
+On Update Cascade On Delete Restrict;

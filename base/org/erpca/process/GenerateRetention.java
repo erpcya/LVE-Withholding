@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
+import org.compiere.model.MAllocationHdr;
+import org.compiere.model.MAllocationLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.process.DocumentEngine;
@@ -50,26 +52,25 @@ public class GenerateRetention extends SvrProcess {
 	/**	Document	Date				*/
 	private Timestamp	p_DateDoc				=	null;
 	
-	private String				sql 				= new String();
+	private String				sql 					= new String();
 	/**	Where Clause					*/
-	private StringBuffer		m_parameterWhere	= new StringBuffer();
+	private StringBuffer		m_parameterWhere		= new StringBuffer();
 	
-	/**	Retentions						*/
-	private MInvoice 			m_Current_Retention = null;
+	/**	Current Retention				*/
+	private MInvoice 			m_Current_Retention 	= null;
+	/**	Current Allocation				*/
+	private MAllocationHdr 		m_Current_Alloc			= null;
 	
-	private int 				m_Generated 		= 0;
+	private int 				m_Generated 			= 0;
 	
-	private int m_Current_C_BPartner_ID = 0;
-	private int m_Current_CUST_RetentionType_ID = 0;
+	private int 				m_Current_C_BPartner_ID = 0;
 	
 	private final int N_UOM = 100;
 	
 	private String trxName = Trx.createTrxName("ProcessRt");
 	private Trx trx = Trx.get(trxName, true);
 
-	/* (non-Javadoc)
-	 * @see org.compiere.process.SvrProcess#prepare()
-	 */
+	
 	@Override
 	protected void prepare() {
 		
@@ -162,7 +163,8 @@ public class GenerateRetention extends SvrProcess {
 						m_C_Charge_ID, m_C_DocType_ID, m_TotalLines, 
 						m_Aliquot, m_MinimalAmt, m_Subtrahend);
 			}
-			completeDoc();
+			completeRetention();
+			completeAlloc();
 		}
 		trx.commit();
 		return "@Generated@ = " + m_Generated;
@@ -196,7 +198,7 @@ public class GenerateRetention extends SvrProcess {
 			retentionAmt = (retentionAmt.compareTo(Env.ZERO) < 0? Env.ZERO: retentionAmt);
 			
 			if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
-				completeDoc();
+				completeRetention();
 				
 				//
 				m_Current_Retention = new MInvoice(getCtx(), 0, trxName);
@@ -205,10 +207,7 @@ public class GenerateRetention extends SvrProcess {
 				m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
 				m_Current_Retention.setDateInvoiced(p_DateDoc);
 				m_Current_Retention.setDateAcct(p_DateDoc);
-				//m_Current_Retention.setSalesRep_ID(getAD_User_ID());
 				m_Current_Retention.saveEx();
-				//	Set Current Business Partner
-				m_Current_C_BPartner_ID = p_C_BPartner_ID;
 				//		
 			}
 			MInvoiceLine retLine = new MInvoiceLine(m_Current_Retention);
@@ -218,9 +217,15 @@ public class GenerateRetention extends SvrProcess {
 			retLine.setC_UOM_ID(N_UOM);
 			retLine.setPrice(retentionAmt);
 			retLine.setLineNetAmt(retentionAmt);
-			retLine.setLineTotalAmt(retentionAmt);
-			
+			retLine.setLineTotalAmt(retentionAmt);			
 			retLine.saveEx();
+			
+			addAllocation(p_C_BPartner_ID, retLine);
+			
+			if(m_Current_C_BPartner_ID != p_C_BPartner_ID)
+				completeAlloc();
+			//	Set Current Business Partner
+			m_Current_C_BPartner_ID = p_C_BPartner_ID;
 		}
 	}
 	/**
@@ -228,7 +233,7 @@ public class GenerateRetention extends SvrProcess {
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 15:59:13
 	 * @return void
 	 */
-	private void completeDoc(){
+	private void completeRetention(){
 		if(m_Current_Retention != null){
 			if(m_Current_Retention.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
 				m_Current_Retention.setDocAction(DocumentEngine.ACTION_Complete);
@@ -238,6 +243,45 @@ public class GenerateRetention extends SvrProcess {
 						m_Current_Retention.getDocumentNo() + 
 						(m_Current_Retention.getProcessMsg() != null && m_Current_Retention.getProcessMsg().length() !=0
 								? ": Error " + m_Current_Retention.getProcessMsg()
+								:" --> " + Msg.translate(getCtx(), "OK")));
+				m_Generated ++;
+			}
+		}
+	}
+	
+	/**
+	 * Create Allocation
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 17:25:59
+	 * @param p_C_BPartner_ID
+	 * @param p_RetentionLine
+	 * @return void
+	 */
+	private void addAllocation(int p_C_BPartner_ID, MInvoiceLine p_RetentionLine){
+		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
+			m_Current_Alloc = new MAllocationHdr(Env.getCtx(), true,	//	manual
+					p_DateDoc, m_Current_Retention.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"), trxName);
+			m_Current_Alloc.setAD_Org_ID(m_Current_Retention.getAD_Org_ID());
+			m_Current_Alloc.saveEx();
+		}
+		
+		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, p_RetentionLine.getLineNetAmt(), 
+				Env.ZERO, Env.ZERO, Env.ZERO);
+			aLine.setDocInfo(p_C_BPartner_ID, 0, p_RetentionLine.get_ValueAsInt("DocAffected_ID"));
+			//aLine.setPaymentInfo(C_Payment_ID, C_CashLine_ID);
+			aLine.saveEx();
+		
+	}
+	
+	private void completeAlloc(){
+		if(m_Current_Alloc != null){
+			if(m_Current_Alloc.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
+				m_Current_Alloc.setDocAction(DocumentEngine.ACTION_Complete);
+				m_Current_Alloc.processIt(DocumentEngine.ACTION_Complete);
+				m_Current_Alloc.saveEx();
+				addLog (0, m_Current_Retention.getUpdated(), null, 
+						m_Current_Alloc.getDocumentNo() + 
+						(m_Current_Alloc.getProcessMsg() != null && m_Current_Alloc.getProcessMsg().length() !=0
+								? ": Error " + m_Current_Alloc.getProcessMsg()
 								:" --> " + Msg.translate(getCtx(), "OK")));
 				m_Generated ++;
 			}

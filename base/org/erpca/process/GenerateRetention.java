@@ -20,10 +20,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
+import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoiceLine;
+import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 
 /**
  * 
@@ -42,10 +47,25 @@ public class GenerateRetention extends SvrProcess {
 	private Timestamp	p_DateAcct				=	null;
 	/**	Accounting	Date				*/
 	private Timestamp	p_DateAcct_To			=	null;
+	/**	Document	Date				*/
+	private Timestamp	p_DateDoc				=	null;
 	
 	private String				sql 				= new String();
 	/**	Where Clause					*/
 	private StringBuffer		m_parameterWhere	= new StringBuffer();
+	
+	/**	Retentions						*/
+	private MInvoice 			m_Current_Retention = null;
+	
+	private int 				m_Generated 		= 0;
+	
+	private int m_Current_C_BPartner_ID = 0;
+	private int m_Current_CUST_RetentionType_ID = 0;
+	
+	private final int N_UOM = 100;
+	
+	private String trxName = Trx.createTrxName("ProcessRt");
+	private Trx trx = Trx.get(trxName, true);
 
 	/* (non-Javadoc)
 	 * @see org.compiere.process.SvrProcess#prepare()
@@ -65,6 +85,8 @@ public class GenerateRetention extends SvrProcess {
 				p_DateAcct = (Timestamp)para.getParameter();
 				p_DateAcct_To = (Timestamp)para.getParameter_To();
 			}
+			else if(name.equals("DateDoc"))
+				p_DateDoc = (Timestamp)para.getParameter();
 			else if (name.equals("CUST_RetentionType_ID"))
 				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
@@ -83,7 +105,7 @@ public class GenerateRetention extends SvrProcess {
 			m_parameterWhere.append("AND rr.CUST_RetentionType_ID = " + p_CUST_RetentionType_ID + " ");
 		
 		//	
-		sql = new String("SELECT bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
+		sql = new String("SELECT bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
 				"SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) LineNetAmt, " +
 				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend " + 
 				"FROM C_Invoice inv " + 
@@ -95,31 +117,28 @@ public class GenerateRetention extends SvrProcess {
 				"INNER JOIN CUST_CR_PT_Combination cb ON(cb.CUST_RetentionConfig_ID = cn.CUST_RetentionConfig_ID) " + 
 				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.CUST_RetentionType_ID FROM CUST_RetentionRelation rrdt) rrdt " + 
 				"ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"WHERE ( " + 
-				"	(inv.CUST_ConceptRetention_ID = cb.CUST_ConceptRetention_ID AND bp.CUST_PersonType_ID = cb.CUST_PersonType_ID) " + 
-				"	OR(cb.CUST_ConceptRetention_ID IS NULL AND cb.CUST_PersonType_ID IS NULL) " + 
-				"	) " + 
+				"WHERE inv.CUST_ConceptRetention_ID = cb.CUST_ConceptRetention_ID AND bp.CUST_PersonType_ID = cb.CUST_PersonType_ID " +
 				//	Sql Where
 				m_parameterWhere.toString() + 
 				//	Group By
-				"GROUP BY bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
+				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
 				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend " + 
-				"ORDER BY bp.C_BPartner_ID, inv.C_Invoice_ID, rr.CUST_RetentionType_ID, rt.C_Charge_ID, rt.C_DocType_ID");
+				"ORDER BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
 		
 	}
 
 	@Override
 	protected String doIt() throws Exception {
 		PreparedStatement pstmt = null;
-		pstmt = DB.prepareStatement(sql, null);
+		pstmt = DB.prepareStatement(sql, trxName);
 		ResultSet rs = pstmt.executeQuery();
 		
 		int m_C_BPartner_ID = 0;
-		int m_C_Invoice_ID = 0;
 		int m_CUST_RetentionType_ID = 0;
+		int m_C_Invoice_ID = 0;
 		int m_C_Charge_ID = 0;
 		int m_C_DocType_ID = 0;
-		BigDecimal m_LineNetAmt = Env.ZERO;
+		BigDecimal m_TotalLines = Env.ZERO;
 		BigDecimal m_Aliquot = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
 		BigDecimal m_Subtrahend = Env.ZERO;
@@ -128,35 +147,100 @@ public class GenerateRetention extends SvrProcess {
 		if(rs != null){
 			while(rs.next()){
 				m_C_BPartner_ID 			= rs.getInt("C_BPartner_ID");
-				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_CUST_RetentionType_ID 	= rs.getInt("CUST_RetentionType_ID");
+				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
 				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
-				m_LineNetAmt 				= rs.getBigDecimal("LineNetAmt");
+				m_TotalLines 				= rs.getBigDecimal("LineNetAmt");
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
 				m_MinimalAmt 				= rs.getBigDecimal("MinimalAmt");
 				m_Subtrahend 				= rs.getBigDecimal("Subtrahend");
-				//	
-				System.out.println("C_Invoice_ID=" + m_C_Invoice_ID);
-				System.out.println("C_BPartner_ID=" + m_C_BPartner_ID);
-				System.out.println("CUST_RetentionType_ID=" + m_CUST_RetentionType_ID);
-				System.out.println("C_Charge_ID=" + m_C_Charge_ID);
-				System.out.println("C_DocType_ID=" + m_C_DocType_ID);
-				System.out.println("LineNetAmt=" + m_LineNetAmt);
-				System.out.println("Aliquot=" + m_Aliquot);
-				System.out.println("MinimalAmt=" + m_MinimalAmt);
-				System.out.println("Subtrahend=" + m_Subtrahend);
+				
+				//	Add Document to Retention
+				
+				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, 
+						m_C_Charge_ID, m_C_DocType_ID, m_TotalLines, 
+						m_Aliquot, m_MinimalAmt, m_Subtrahend);
 			}
+			completeDoc();
 		}
-		
-		return null;
+		trx.commit();
+		return "@Generated@ = " + m_Generated;
 	}
 	
+	/**
+	 * 
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 11:07:38
+	 * @param p_C_BPartner_ID
+	 * @param p_C_Invoice_ID
+	 * @param p_CUST_RetentionType_ID
+	 * @param p_C_Charge_ID
+	 * @param p_C_DocType_ID
+	 * @param p_TotalLines
+	 * @param p_Aliquot
+	 * @param p_MinimalAmt
+	 * @param p_Subtrahend
+	 * @return void
+	 */
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
 			int p_CUST_RetentionType_ID, int p_C_Charge_ID, 
-			int p_C_DocType_ID, BigDecimal m_LineNetAmt, 
-			BigDecimal m_Aliquot, BigDecimal m_MinimalAmt, BigDecimal m_Subtrahend){
+			int p_C_DocType_ID, BigDecimal p_TotalLines, 
+			BigDecimal p_Aliquot, BigDecimal p_MinimalAmt, BigDecimal p_Subtrahend){
 		
+		BigDecimal retentionAmt = Env.ZERO;
+		
+		if(p_TotalLines.compareTo(p_MinimalAmt) > 0){
+			p_Aliquot = p_Aliquot.divide(Env.ONEHUNDRED);
+			retentionAmt = p_TotalLines.multiply(p_Aliquot);
+			retentionAmt = retentionAmt.subtract(p_Subtrahend);
+			retentionAmt = (retentionAmt.compareTo(Env.ZERO) < 0? Env.ZERO: retentionAmt);
+			
+			if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
+				completeDoc();
+				
+				//
+				m_Current_Retention = new MInvoice(getCtx(), 0, trxName);
+				m_Current_Retention.setC_DocTypeTarget_ID(p_C_DocType_ID);
+				m_Current_Retention.setIsSOTrx(false);
+				m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
+				m_Current_Retention.setDateInvoiced(p_DateDoc);
+				m_Current_Retention.setDateAcct(p_DateDoc);
+				//m_Current_Retention.setSalesRep_ID(getAD_User_ID());
+				m_Current_Retention.saveEx();
+				//	Set Current Business Partner
+				m_Current_C_BPartner_ID = p_C_BPartner_ID;
+				//		
+			}
+			MInvoiceLine retLine = new MInvoiceLine(m_Current_Retention);
+			retLine.set_ValueOfColumn("DocAffected_ID", p_C_Invoice_ID);
+			retLine.setC_Charge_ID(p_C_Charge_ID);
+			retLine.setQty(Env.ONE);
+			retLine.setC_UOM_ID(N_UOM);
+			retLine.setPrice(retentionAmt.negate());
+			retLine.setLineNetAmt(retentionAmt);
+			retLine.setLineTotalAmt(retentionAmt);
+			
+			retLine.saveEx();
+		}
 	}
-
+	/**
+	 * Complete Document
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 15:59:13
+	 * @return void
+	 */
+	private void completeDoc(){
+		if(m_Current_Retention != null){
+			if(m_Current_Retention.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
+				m_Current_Retention.setDocAction(DocumentEngine.ACTION_Complete);
+				m_Current_Retention.processIt(DocumentEngine.ACTION_Complete);
+				m_Current_Retention.saveEx();
+				addLog (0, m_Current_Retention.getUpdated(), null, 
+						m_Current_Retention.getDocumentNo() + 
+						(m_Current_Retention.getProcessMsg() != null && m_Current_Retention.getProcessMsg().length() !=0
+								? ": Error " + m_Current_Retention.getProcessMsg()
+								:" --> " + Msg.translate(getCtx(), "OK")));
+				m_Generated ++;
+			}
+		}
+	}
 }

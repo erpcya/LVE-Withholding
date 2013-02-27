@@ -2222,3 +2222,172 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-02-25 16:35:57','Y
 -- LVE Retention
 UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-02-25 16:35:57','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000093
 ;
+
+-- Feb 27, 2013 11:12:04 AM VET
+-- LVE Retention
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,265,0,3000000,3000004,15,'DateDoc',TO_TIMESTAMP('2013-02-27 11:12:04','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','Y','N','Document Date',50,TO_TIMESTAMP('2013-02-27 11:12:04','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 27, 2013 11:12:04 AM VET
+-- LVE Retention
+INSERT INTO AD_Process_Para_Trl (AD_Language,AD_Process_Para_ID, Description,Help,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Process_Para_ID, t.Description,t.Help,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Process_Para t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Process_Para_ID=3000004 AND NOT EXISTS (SELECT * FROM AD_Process_Para_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Process_Para_ID=t.AD_Process_Para_ID)
+;
+-- Feb 27, 2013 2:13:12 PM VET
+-- LVE Retention
+UPDATE AD_Column SET AD_Reference_ID=18, AD_Reference_Value_ID=336,Updated=TO_TIMESTAMP('2013-02-27 14:13:12','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000068
+;
+
+-- Feb 27, 2013 2:14:14 PM VET
+-- LVE Retention
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000068,3000096,0,291,TO_TIMESTAMP('2013-02-27 14:14:14','YYYY-MM-DD HH24:MI:SS'),100,0,'ECA02','N','Y','Y','Y','N','N','N','Y','N','Doc Affected',0,330,0,TO_TIMESTAMP('2013-02-27 14:14:14','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- Feb 27, 2013 2:14:14 PM VET
+-- LVE Retention
+INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Field_ID, t.Description,t.Help,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Field t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Field_ID=3000096 AND NOT EXISTS (SELECT * FROM AD_Field_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Field_ID=t.AD_Field_ID)
+;
+
+-- Feb 27, 2013 2:15:34 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=60,IsDisplayed='Y' WHERE AD_Field_ID=3000096
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=70,IsDisplayed='Y' WHERE AD_Field_ID=3369
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=80,IsDisplayed='Y' WHERE AD_Field_ID=3357
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=90,IsDisplayed='Y' WHERE AD_Field_ID=3371
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=100,IsDisplayed='Y' WHERE AD_Field_ID=3360
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=110,IsDisplayed='Y' WHERE AD_Field_ID=3366
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=120,IsDisplayed='Y' WHERE AD_Field_ID=56252
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=130,IsDisplayed='Y' WHERE AD_Field_ID=56253
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=140,IsDisplayed='Y' WHERE AD_Field_ID=5825
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=150,IsDisplayed='Y' WHERE AD_Field_ID=56254
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=160,IsDisplayed='Y' WHERE AD_Field_ID=10823
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=170,IsDisplayed='Y' WHERE AD_Field_ID=3365
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=180,IsDisplayed='Y' WHERE AD_Field_ID=3374
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=190,IsDisplayed='Y' WHERE AD_Field_ID=10824
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=200,IsDisplayed='Y' WHERE AD_Field_ID=3372
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=210,IsDisplayed='Y' WHERE AD_Field_ID=3373
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=220,IsDisplayed='Y' WHERE AD_Field_ID=3364
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=230,IsDisplayed='Y' WHERE AD_Field_ID=6430
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=240,IsDisplayed='Y' WHERE AD_Field_ID=12747
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=250,IsDisplayed='Y' WHERE AD_Field_ID=13668
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=260,IsDisplayed='Y' WHERE AD_Field_ID=13669
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=270,IsDisplayed='Y' WHERE AD_Field_ID=13693
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=280,IsDisplayed='Y' WHERE AD_Field_ID=13674
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=290,IsDisplayed='Y' WHERE AD_Field_ID=13675
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=300,IsDisplayed='Y' WHERE AD_Field_ID=3370
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=310,IsDisplayed='Y' WHERE AD_Field_ID=8266
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=320,IsDisplayed='Y' WHERE AD_Field_ID=8244
+;
+
+-- Feb 27, 2013 2:15:35 PM VET
+-- LVE Retention
+UPDATE AD_Field SET SeqNo=330,IsDisplayed='Y' WHERE AD_Field_ID=8267
+;
+
+-- Feb 27, 2013 2:15:52 PM VET
+-- LVE Retention
+UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-02-27 14:15:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
+;

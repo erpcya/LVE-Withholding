@@ -114,8 +114,8 @@ public class GenerateRetention extends SvrProcess {
 		pstmt = DB.prepareStatement(sql, null);
 		ResultSet rs = pstmt.executeQuery();
 		
-		int m_C_Invoice_ID = 0;
 		int m_C_BPartner_ID = 0;
+		int m_C_Invoice_ID = 0;
 		int m_CUST_RetentionType_ID = 0;
 		int m_C_Charge_ID = 0;
 		int m_C_DocType_ID = 0;
@@ -127,8 +127,8 @@ public class GenerateRetention extends SvrProcess {
 		
 		if(rs != null){
 			while(rs.next()){
-				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_BPartner_ID 			= rs.getInt("C_BPartner_ID");
+				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_CUST_RetentionType_ID 	= rs.getInt("CUST_RetentionType_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
 				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
@@ -136,11 +136,27 @@ public class GenerateRetention extends SvrProcess {
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
 				m_MinimalAmt 				= rs.getBigDecimal("MinimalAmt");
 				m_Subtrahend 				= rs.getBigDecimal("Subtrahend");
-				
+				//	
+				System.out.println("C_Invoice_ID=" + m_C_Invoice_ID);
+				System.out.println("C_BPartner_ID=" + m_C_BPartner_ID);
+				System.out.println("CUST_RetentionType_ID=" + m_CUST_RetentionType_ID);
+				System.out.println("C_Charge_ID=" + m_C_Charge_ID);
+				System.out.println("C_DocType_ID=" + m_C_DocType_ID);
+				System.out.println("LineNetAmt=" + m_LineNetAmt);
+				System.out.println("Aliquot=" + m_Aliquot);
+				System.out.println("MinimalAmt=" + m_MinimalAmt);
+				System.out.println("Subtrahend=" + m_Subtrahend);
 			}
 		}
 		
 		return null;
+	}
+	
+	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
+			int p_CUST_RetentionType_ID, int p_C_Charge_ID, 
+			int p_C_DocType_ID, BigDecimal m_LineNetAmt, 
+			BigDecimal m_Aliquot, BigDecimal m_MinimalAmt, BigDecimal m_Subtrahend){
+		
 	}
 
 }

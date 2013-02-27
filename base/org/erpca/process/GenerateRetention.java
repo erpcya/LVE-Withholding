@@ -216,7 +216,7 @@ public class GenerateRetention extends SvrProcess {
 			retLine.setC_Charge_ID(p_C_Charge_ID);
 			retLine.setQty(Env.ONE);
 			retLine.setC_UOM_ID(N_UOM);
-			retLine.setPrice(retentionAmt.negate());
+			retLine.setPrice(retentionAmt);
 			retLine.setLineNetAmt(retentionAmt);
 			retLine.setLineTotalAmt(retentionAmt);
 			

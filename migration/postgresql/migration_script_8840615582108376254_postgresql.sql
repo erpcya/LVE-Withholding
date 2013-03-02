@@ -2391,3 +2391,18 @@ UPDATE AD_Field SET SeqNo=330,IsDisplayed='Y' WHERE AD_Field_ID=8267
 -- LVE Retention
 UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-02-27 14:15:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
 ;
+
+-- Mar 2, 2013 2:47:14 AM VET
+-- LVE Retention
+INSERT INTO AD_Message (AD_Client_ID,AD_Message_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,MsgText,MsgType,Updated,UpdatedBy,Value) VALUES (0,1000000,0,TO_TIMESTAMP('2013-03-02 02:47:14','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Exceed Open Invoice Amt','E',TO_TIMESTAMP('2013-03-02 02:47:14','YYYY-MM-DD HH24:MI:SS'),100,'ExceedOpenInvoiceAmt')
+;
+
+-- Mar 2, 2013 2:47:14 AM VET
+-- LVE Retention
+INSERT INTO AD_Message_Trl (AD_Language,AD_Message_ID, MsgText,MsgTip, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Message_ID, t.MsgText,t.MsgTip, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Message t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Message_ID=1000000 AND NOT EXISTS (SELECT * FROM AD_Message_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Message_ID=t.AD_Message_ID)
+;
+
+-- Mar 2, 2013 2:47:48 AM VET
+-- LVE Retention
+UPDATE AD_Message_Trl SET MsgText='Monto Abierto de la Factura Excedido',Updated=TO_TIMESTAMP('2013-03-02 02:47:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Message_ID=1000000 AND AD_Language='es_VE'
+;

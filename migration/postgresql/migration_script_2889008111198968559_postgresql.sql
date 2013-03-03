@@ -6,6 +6,12 @@ REFERENCES AD_Rule (AD_Rule_ID) On Update Cascade On Delete Restrict;
 
 -- 23/01/2013 09:50:16 AM VET
 -- LVE Retention
+Alter Table CUST_RetentionType 
+Add Constraint FK_CUST_RetentionType_AD_Process FOREIGN KEY (AD_Process_ID)
+REFERENCES AD_Process (AD_Process_ID) On Update Cascade On Delete Restrict;
+
+-- 23/01/2013 09:50:16 AM VET
+-- LVE Retention
 Alter Table C_DocType Add Constraint FK_C_DocType_CUST_RetentionType 
 Foreign Key (CUST_RetentionType_ID)
 References CUST_RetentionType(CUST_RetentionType_ID) 

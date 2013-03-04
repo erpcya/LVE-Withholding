@@ -17,12 +17,21 @@ package org.erpca.process;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.logging.Level;
 
+import org.adempiere.util.ProcessUtil;
+import org.compiere.apps.ProcessCtl;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MPInstancePara;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 
 /**
  * 
@@ -34,12 +43,24 @@ public class GenerateRetention extends SvrProcess {
 	/**	Logger							*/
 	public static CLogger log = CLogger.getCLogger(GenerateRetention.class);
 	
+	/**	Invoice							*/
+	private int			p_C_Invoice_ID			=	0;
+	/**	Business Partner				*/
+	private int			p_C_BPartner_ID			=	0;
+	/**	Accounting	Date				*/
+	private Timestamp	p_DateAcct				=	null;
+	/**	Accounting	Date				*/
+	private Timestamp	p_DateAcct_To			=	null;
+	/**	Document	Date				*/
+	private Timestamp	p_DateDoc				=	null;
+	
 	/**	Retention Type					*/
 	private int			p_CUST_RetentionType_ID	= 0;
 	
 	private String			sql 					= null;
-
-	private int				pos						= -1;
+	
+	String 	trxName 	= Trx.createTrxName("GRT");
+	Trx 	trx 		= Trx.get(trxName, true);
 	
 	@Override
 	protected void prepare() {
@@ -50,13 +71,21 @@ public class GenerateRetention extends SvrProcess {
 			String name = para.getParameterName();
 			if (para.getParameter() == null)
 				;
-			else if (name.equals("CUST_RetentionType_ID")){
-				p_CUST_RetentionType_ID = para.getParameterAsInt();
-				pos = i;
+			else if (name.equals("C_Invoice_ID"))
+				p_C_Invoice_ID = para.getParameterAsInt();
+			else if (name.equals("C_BPartner_ID"))
+				p_C_BPartner_ID = para.getParameterAsInt();
+			else if (name.equals("DateAcct")){
+				p_DateAcct = (Timestamp)para.getParameter();
+				p_DateAcct_To = (Timestamp)para.getParameter_To();
 			}
+			else if(name.equals("DateDoc"))
+				p_DateDoc = (Timestamp)para.getParameter();
+			else if (name.equals("CUST_RetentionType_ID"))
+				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
 		//	SQL
-		sql = new String("SELECT rt.AD_Process_ID, rt.CUST_RetentionType_ID " +
+		sql = new String("SELECT rt.AD_Process_ID, rt.CUST_RetentionType_ID, rt.Name " +
 				"FROM CUST_RetentionType rt " +
 				"WHERE rt.IsActive = 'Y' ");
 		//	Add Clause
@@ -69,23 +98,17 @@ public class GenerateRetention extends SvrProcess {
 
 	@Override
 	protected String doIt() throws Exception {
-		if(pos == -1)
-			return "";
 		PreparedStatement pstmt = null;
 		pstmt = DB.prepareStatement(sql, get_TrxName());
 		ResultSet rs = pstmt.executeQuery();
 		
-		ProcessInfoParameter[] para = getParameter();
+		String info = "";
 		
 		if(rs != null){
 			while(rs.next()){
 				int m_AD_Process_ID = rs.getInt("AD_Process_ID");
 				int m_CUST_RetentionType_ID = rs.getInt("CUST_RetentionType_ID");
-				System.out.println("sdsd");
-				ProcessInfo pi = new ProcessInfo("Retention", m_AD_Process_ID);
-				para[pos].setParameter(m_CUST_RetentionType_ID);
-				pi.setParameter(para);
-				startProcess(getCtx(), pi, null);
+				callProcess(m_AD_Process_ID, m_CUST_RetentionType_ID);
 			}
 		}
 		//	Close Connection
@@ -93,38 +116,92 @@ public class GenerateRetention extends SvrProcess {
 		return "@Generated@ = " + 0;
 	}
 	
-	/*private void callProcess(){
-		// Create instance parameters. I e the parameters you want to send to the process.
-		ProcessInfoParameter pi1 = new ProcessInfoParameter("AD_Client_ID", clientId,"","","");
-		ProcessInfoParameter pi2 = new ProcessInfoParameter("AD_Org_ID", orgId, "","","");
-
-		// Create a process info instance. This is a composite class containing the parameters.
-		ProcessInfo pi = new ProcessInfo("Retention", 0);
-		pi.setParameter(new ProcessInfoParameter[] {pi1, pi2, pi3});
-
-		// Lookup process in the AD, in this case by value
-		MProcess pr = new Query(Env.getCtx(), MProcess.Table_Name, "value=?", null)
-		                        .setParameters(new Object[]{"MyProcess"})
-		                        .first();
-		if (pr==null) {
-		      log.warn("Process " + pr.getName() + " does not exist. ");
-		      return false;
+	/**
+	 * Call Process from ID Retention
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 03/03/2013, 20:50:00
+	 * @param p_AD_Process_ID
+	 * @param p_CUST_RetentionType_ID
+	 * @return
+	 * @return String
+	 */
+	private String callProcess(int p_AD_Process_ID, int p_CUST_RetentionType_ID){
+		String info = "";
+		MPInstance instance = new MPInstance(Env.getCtx(), p_AD_Process_ID, 0);
+		if (!instance.save())
+		{
+			info = Msg.getMsg(Env.getCtx(), "ProcessNoInstance");
+			return info;
 		}
+		ProcessInfo pi = new ProcessInfo ("", p_AD_Process_ID);
+		pi.setAD_PInstance_ID (instance.getAD_PInstance_ID());
 
-		// Create an instance of the actual process class.
-		MyProcess process = new MyProcess();
-
-		// Create process instance (mainly for logging/sync purpose)
-		MPInstance mpi = new MPInstance(Env.getCtx(), 0, null);
-		mpi.setAD_Process_ID(pr.get_ID()); 
-		mpi.setRecord_ID(0);
-		mpi.save();
-
-		// Connect the process to the process instance.
-		pi.setAD_PInstance_ID(mpi.get_ID());
-		startProcess(ctx, pi, trx);
-		log.info("Starting process " + pr.getName());
-		boolean result = process.startProcess(ctx, pi, null);
-
-	}*/
+		//	Add Parameters
+		MPInstancePara para = new MPInstancePara(instance, 10);
+		para.setParameter("C_Invoice_ID", p_C_Invoice_ID);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		para = new MPInstancePara(instance, 30);
+		para.setParameter("C_BPartner_ID", p_C_BPartner_ID);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		para = new MPInstancePara(instance, 40);
+		para.setParameter("DateAcct", p_DateAcct);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		para = new MPInstancePara(instance, 50);
+		para.setParameter("DateAcct_To", p_DateAcct_To);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		para = new MPInstancePara(instance, 60);
+		para.setParameter("CUST_RetentionType_ID", p_CUST_RetentionType_ID);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		para = new MPInstancePara(instance, 70);
+		para.setParameter("DateDoc", p_DateDoc);
+		if (!para.save())
+		{
+			String msg = "No Selection Parameter added";  //  not translated
+			info = msg;
+			log.log(Level.SEVERE, msg);
+			return info;
+		}
+		
+		/*GenerateRetention gr = new GenerateRetention();
+		gr.startProcess(getCtx(), pi, trx);*/
+		
+		ProcessCtl worker = new ProcessCtl(null, 0, pi, null);
+		worker.start();
+		
+		return "";
+	}
 }

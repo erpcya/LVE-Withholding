@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 
-import org.adempiere.util.ProcessUtil;
 import org.compiere.apps.ProcessCtl;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPInstancePara;
@@ -57,10 +56,9 @@ public class GenerateRetention extends SvrProcess {
 	/**	Retention Type					*/
 	private int			p_CUST_RetentionType_ID	= 0;
 	
-	private String			sql 					= null;
+	private String		sql 					= null;
 	
-	String 	trxName 	= Trx.createTrxName("GRT");
-	Trx 	trx 		= Trx.get(trxName, true);
+	Trx 				trx 					= null;
 	
 	@Override
 	protected void prepare() {
@@ -85,14 +83,17 @@ public class GenerateRetention extends SvrProcess {
 				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
 		//	SQL
-		sql = new String("SELECT rt.AD_Process_ID, rt.CUST_RetentionType_ID, rt.Name " +
+		sql = new String("SELECT rt.AD_Process_ID, pr.ClassName, rt.CUST_RetentionType_ID, rt.Name " +
 				"FROM CUST_RetentionType rt " +
+				"INNER JOIN AD_Process pr ON(pr.AD_Process_ID = rt.AD_Process_ID) " +
 				"WHERE rt.IsActive = 'Y' ");
 		//	Add Clause
 		if(p_CUST_RetentionType_ID != 0)
 			sql += "AND rt.CUST_RetentionType_ID=" + p_CUST_RetentionType_ID;
 	
 		System.out.println(sql);
+		
+		trx = Trx.get(get_TrxName(), false);
 		
 	}
 
@@ -106,9 +107,11 @@ public class GenerateRetention extends SvrProcess {
 		
 		if(rs != null){
 			while(rs.next()){
-				int m_AD_Process_ID = rs.getInt("AD_Process_ID");
+				int m_AD_Process_ID 		= rs.getInt("AD_Process_ID");
+				String p_ClassName 			= rs.getString("ClassName");
 				int m_CUST_RetentionType_ID = rs.getInt("CUST_RetentionType_ID");
-				callProcess(m_AD_Process_ID, m_CUST_RetentionType_ID);
+				String p_RetentionName				= rs.getString("Name");
+				callProcess(m_AD_Process_ID, p_ClassName, m_CUST_RetentionType_ID, p_RetentionName);
 			}
 		}
 		//	Close Connection
@@ -120,11 +123,13 @@ public class GenerateRetention extends SvrProcess {
 	 * Call Process from ID Retention
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 03/03/2013, 20:50:00
 	 * @param p_AD_Process_ID
+	 * @param p_ClassName
 	 * @param p_CUST_RetentionType_ID
+	 * @param p_RetentionName
 	 * @return
 	 * @return String
 	 */
-	private String callProcess(int p_AD_Process_ID, int p_CUST_RetentionType_ID){
+	private String callProcess(int p_AD_Process_ID, String p_ClassName, int p_CUST_RetentionType_ID, String p_RetentionName){
 		String info = "";
 		MPInstance instance = new MPInstance(Env.getCtx(), p_AD_Process_ID, 0);
 		if (!instance.save())
@@ -196,11 +201,25 @@ public class GenerateRetention extends SvrProcess {
 			return info;
 		}
 		
-		/*GenerateRetention gr = new GenerateRetention();
-		gr.startProcess(getCtx(), pi, trx);*/
+		Class<?> clazz;
+		try {
+			clazz = Class.forName(p_ClassName);
+			SvrProcess pr = (SvrProcess) clazz.newInstance();
+			pr.startProcess(getCtx(), pi, trx);
+			addLog(p_RetentionName + " ||:::>>> " + pi.getSummary());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		ProcessCtl worker = new ProcessCtl(null, 0, pi, null);
-		worker.start();
+		/*ProcessCtl worker = new ProcessCtl(null, 0, pi, null);
+		worker.start();*/
 		
 		return "";
 	}

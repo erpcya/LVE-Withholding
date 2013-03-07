@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 
-import org.compiere.apps.ProcessCtl;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPInstancePara;
 import org.compiere.process.ProcessInfo;
@@ -103,8 +102,6 @@ public class GenerateRetention extends SvrProcess {
 		pstmt = DB.prepareStatement(sql, get_TrxName());
 		ResultSet rs = pstmt.executeQuery();
 		
-		String info = "";
-		
 		if(rs != null){
 			while(rs.next()){
 				int m_AD_Process_ID 		= rs.getInt("AD_Process_ID");
@@ -128,8 +125,13 @@ public class GenerateRetention extends SvrProcess {
 	 * @param p_RetentionName
 	 * @return
 	 * @return String
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	private String callProcess(int p_AD_Process_ID, String p_ClassName, int p_CUST_RetentionType_ID, String p_RetentionName){
+	private String callProcess(int p_AD_Process_ID, String p_ClassName, 
+			int p_CUST_RetentionType_ID, String p_RetentionName) 
+					throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		String info = "";
 		MPInstance instance = new MPInstance(Env.getCtx(), p_AD_Process_ID, 0);
 		if (!instance.save())
@@ -202,25 +204,11 @@ public class GenerateRetention extends SvrProcess {
 		}
 		
 		Class<?> clazz;
-		try {
-			clazz = Class.forName(p_ClassName);
-			SvrProcess pr = (SvrProcess) clazz.newInstance();
-			pr.startProcess(getCtx(), pi, trx);
-			addLog(p_RetentionName + " ||:::>>> " + pi.getSummary());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		clazz = Class.forName(p_ClassName);
+		SvrProcess pr = (SvrProcess) clazz.newInstance();
+		pr.startProcess(getCtx(), pi, trx);
+		addLog(p_RetentionName + " ||:::>>> " + pi.getSummary());
 		
-		/*ProcessCtl worker = new ProcessCtl(null, 0, pi, null);
-		worker.start();*/
-		
-		return "";
+		return "OK";
 	}
 }

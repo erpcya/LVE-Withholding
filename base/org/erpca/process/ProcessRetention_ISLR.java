@@ -197,7 +197,7 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		//	Close Connection
 		DB.close(rs, pstmt);
 		trx.commit();
-		return "@Generated@ = " + m_Generated;
+		return String.valueOf(m_Generated);
 	}
 	
 	/**

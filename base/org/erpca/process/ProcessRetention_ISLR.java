@@ -78,8 +78,7 @@ public class ProcessRetention_ISLR extends SvrProcess {
 	
 	private final int N_UOM = 100;
 	
-	private String trxName = Trx.createTrxName("Process_Ret_ISLR");
-	private Trx trx = Trx.get(trxName, true);
+	private Trx trx 		= null;
 
 	
 	@Override
@@ -102,6 +101,9 @@ public class ProcessRetention_ISLR extends SvrProcess {
 			else if (name.equals("CUST_RetentionType_ID"))
 				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
+		
+		trx = Trx.get(get_TrxName(), false);
+		
 		//	Set RecordID
 		p_C_Invoice_ID = getRecord_ID() != 0 && p_C_Invoice_ID == 0? getRecord_ID(): p_C_Invoice_ID;
 		
@@ -151,12 +153,14 @@ public class ProcessRetention_ISLR extends SvrProcess {
 				"AND SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) > 0) " + 
 				"ORDER BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
 		
+		log.fine("SQL=" + sql);
+		
 	}
 
 	@Override
 	protected String doIt() throws Exception {
 		PreparedStatement pstmt = null;
-		pstmt = DB.prepareStatement(sql, trxName);
+		pstmt = DB.prepareStatement(sql, get_TrxName());
 		ResultSet rs = pstmt.executeQuery();
 		
 		int m_C_BPartner_ID 		= 0;
@@ -183,6 +187,18 @@ public class ProcessRetention_ISLR extends SvrProcess {
 				m_Subtrahend 				= rs.getBigDecimal("Subtrahend");
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Retention		= rs.getBigDecimal("multiplierRet");
+				
+				log.fine("m_C_BPartner_ID=" + m_C_BPartner_ID 
+						+ " m_CUST_RetentionType_ID=" + m_CUST_RetentionType_ID 
+						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
+						+ " m_C_Charge_ID=" + m_C_Charge_ID
+						+ " m_C_DocType_ID=" + m_C_DocType_ID
+						+ " m_TotalLines=" + m_TotalLines
+						+ " m_Aliquot=" + m_Aliquot
+						+ " m_MinimalAmt=" + m_MinimalAmt
+						+ " m_Subtrahend=" + m_Subtrahend
+						+ " m_Current_Mlp_Invoice=" + m_Current_Mlp_Invoice
+						+ " m_Current_Mlp_Retention=" + m_Current_Mlp_Retention);
 				
 				//	Add Document to Retention
 				
@@ -224,14 +240,13 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		retentionAmt = p_TotalLines.multiply(p_Aliquot);
 		retentionAmt = retentionAmt.subtract(p_Subtrahend);
 		retentionAmt = (retentionAmt.compareTo(Env.ZERO) < 0? Env.ZERO: retentionAmt);
-		
-		log.fine("p_Aliquot=" + p_Aliquot + " p_TotalLines=" + p_TotalLines + " p_Subtrahend=" + p_Subtrahend + " retentionAmt=" + retentionAmt);
-		
+		log.fine("retentionAmt=" + retentionAmt);
+		//	
 		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
 			completeRetention();
 			completeAlloc();
 			//
-			m_Current_Retention = new MInvoice(getCtx(), 0, trxName);
+			m_Current_Retention = new MInvoice(getCtx(), 0, get_TrxName());
 			m_Current_Retention.setC_DocTypeTarget_ID(p_C_DocType_ID);
 			m_Current_Retention.setIsSOTrx(false);
 			m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
@@ -287,7 +302,7 @@ public class ProcessRetention_ISLR extends SvrProcess {
 	private void addAllocation(int p_C_BPartner_ID, int p_C_Invoice_ID, MInvoiceLine p_RetentionLine){
 		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
 			m_Current_Alloc = new MAllocationHdr(Env.getCtx(), true,	//	manual
-					p_DateDoc, m_Current_Retention.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"), trxName);
+					p_DateDoc, m_Current_Retention.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"), get_TrxName());
 			m_Current_Alloc.setAD_Org_ID(m_Current_Retention.getAD_Org_ID());
 			m_Current_Alloc.saveEx();
 		}

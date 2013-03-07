@@ -90,7 +90,7 @@ public class GenerateRetention extends SvrProcess {
 		if(p_CUST_RetentionType_ID != 0)
 			sql += "AND rt.CUST_RetentionType_ID=" + p_CUST_RetentionType_ID;
 	
-		System.out.println(sql);
+		log.fine("SQL Retention Type=" + sql);
 		
 		trx = Trx.get(get_TrxName(), false);
 		
@@ -132,6 +132,12 @@ public class GenerateRetention extends SvrProcess {
 	private String callProcess(int p_AD_Process_ID, String p_ClassName, 
 			int p_CUST_RetentionType_ID, String p_RetentionName) 
 					throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+		
+		log.fine("p_AD_Process_ID=" + p_AD_Process_ID 
+				+ " p_ClassName=" + p_ClassName 
+				+ " p_CUST_RetentionType_ID=" + p_CUST_RetentionType_ID 
+				+ " p_RetentionName=" + p_RetentionName);
+		
 		String info = "";
 		MPInstance instance = new MPInstance(Env.getCtx(), p_AD_Process_ID, 0);
 		if (!instance.save())

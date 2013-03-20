@@ -123,3 +123,8 @@ UPDATE AD_Field SET SeqNo=0,IsDisplayed='N' WHERE AD_Field_ID=3000009
 UPDATE AD_Field SET SeqNo=0,IsDisplayed='N' WHERE AD_Field_ID=3000010
 ;
 
+-- Mar 20, 2013 7:12:10 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Tab SET WhereClause='C_DocType_ID IS NOT NULL',Updated=TO_TIMESTAMP('2013-03-20 19:12:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=3000001
+;
+

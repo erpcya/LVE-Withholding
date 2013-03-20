@@ -18,3 +18,11 @@ UPDATE CUST_RetentionType SET AD_Process_ID=3000001,Updated=TO_TIMESTAMP('2013-0
 UPDATE CUST_CR_PT_Combination SET CUST_RetentionConfig_ID=1000010,Updated=TO_TIMESTAMP('2013-03-20 18:08:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE CUST_CR_PT_Combination_ID=1000038
 ;
 
+-- Mar 20, 2013 7:13:13 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+DELETE FROM CUST_RetentionRelation WHERE CUST_RetentionRelation_ID=1000022
+;
+
+-- Mar 20, 2013 7:13:13 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE CUST_RetentionRelation SET C_BP_Group_ID = NULL, C_BPartner_ID = NULL WHERE C_DocType_ID IS NOT NULL;

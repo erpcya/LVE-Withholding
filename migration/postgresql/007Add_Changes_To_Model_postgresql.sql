@@ -25,8 +25,8 @@ DELETE FROM AD_Column_Trl WHERE AD_Column_ID=3000010
 
 -- Mar 3, 2013 1:06:20 AM VET
 -- LVE Retention
-DELETE FROM AD_Column WHERE AD_Column_ID=3000010
-;
+/*DELETE FROM AD_Column WHERE AD_Column_ID=3000010
+;*/
 
 -- Mar 3, 2013 1:07:34 AM VET
 -- LVE Retention

@@ -53,8 +53,3 @@ ALTER TABLE C_BPartner ADD COLUMN CUST_PersonType_ID NUMERIC DEFAULT NULL
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 ALTER TABLE C_InvoiceLine ADD COLUMN IsRetaint CHAR(1) DEFAULT 'Y' CHECK (IsRetaint IN ('Y','N'))
 ;
-
--- Mar 20, 2013 6:22:02 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE CUST_RetentionType ADD COLUMN C_DocTypeTarget_ID NUMERIC(10) DEFAULT NULL 
-;

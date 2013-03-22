@@ -117,8 +117,8 @@ public class ProcessRetention_IVA extends SvrProcess {
 			m_parameterWhere.append("AND rr.CUST_RetentionType_ID = " + p_CUST_RetentionType_ID + " ");
 		
 		//	
-		sql = new String("SELECT bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, " +
-				"cn.Aliquot, rt.C_Charge_ID, rt.C_DocType_ID, SUM(itax.TaxAmt) TaxAmt, " + 
+		sql = new String("SELECT bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, " +
+				"inv.C_Invoice_ID, cn.Aliquot, rt.C_Charge_ID, rt.C_DocType_ID, SUM(itax.TaxAmt) TaxAmt, " + 
 				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " + 
 				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
@@ -142,7 +142,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 				//	Sql Where
 				m_parameterWhere.toString() + 
 				//	Group By
-				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, cn.Aliquot, " +  
+				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, inv.C_Invoice_ID, cn.Aliquot, " +  
 				"rt.C_Charge_ID, rt.C_DocType_ID, dt.DocBaseType, dtr.DocBaseType " + 
 				"HAVING (SUM(itax.TaxAmt) > 0) " + 
 				"ORDER BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
@@ -155,18 +155,20 @@ public class ProcessRetention_IVA extends SvrProcess {
 		pstmt = DB.prepareStatement(sql, trxName);
 		ResultSet rs = pstmt.executeQuery();
 		
-		int m_C_BPartner_ID 		= 0;
-		int m_CUST_RetentionType_ID = 0;
-		int m_C_Invoice_ID 			= 0;
-		int m_C_Charge_ID 			= 0;
-		int m_C_DocType_ID 			= 0;
-		BigDecimal m_TaxAmt 		= Env.ZERO;
-		BigDecimal m_Aliquot 		= Env.ZERO;
+		int m_C_BPartner_ID 			= 0;
+		int m_CUST_RetentionType_ID 	= 0;
+		int m_CUST_CR_PT_Combination_ID = 0;
+		int m_C_Invoice_ID 				= 0;
+		int m_C_Charge_ID 				= 0;
+		int m_C_DocType_ID 				= 0;
+		BigDecimal m_TaxAmt 			= Env.ZERO;
+		BigDecimal m_Aliquot 			= Env.ZERO;
 		
 		if(rs != null){
 			while(rs.next()){
 				m_C_BPartner_ID 			= rs.getInt("C_BPartner_ID");
 				m_CUST_RetentionType_ID 	= rs.getInt("CUST_RetentionType_ID");
+				m_CUST_CR_PT_Combination_ID = rs.getInt("CUST_CR_PT_Combination_ID");
 				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
 				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
@@ -175,9 +177,19 @@ public class ProcessRetention_IVA extends SvrProcess {
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Retention		= rs.getBigDecimal("multiplierRet");
 				
+				log.fine("m_C_BPartner_ID=" + m_C_BPartner_ID 
+						+ " m_CUST_RetentionType_ID=" + m_CUST_RetentionType_ID 
+						+ " m_CUST_CR_PT_Combination_ID=" + m_CUST_CR_PT_Combination_ID
+						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
+						+ " m_C_Charge_ID=" + m_C_Charge_ID
+						+ " m_C_DocType_ID=" + m_C_DocType_ID
+						+ " m_Aliquot=" + m_Aliquot
+						+ " m_Current_Mlp_Invoice=" + m_Current_Mlp_Invoice
+						+ " m_Current_Mlp_Retention=" + m_Current_Mlp_Retention);
+				
 				//	Add Document to Retention
 				
-				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, 
+				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, m_CUST_CR_PT_Combination_ID,
 						m_C_Charge_ID, m_C_DocType_ID, m_TaxAmt, 
 						m_Aliquot);
 				
@@ -198,6 +210,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 	 * @param p_C_BPartner_ID
 	 * @param p_C_Invoice_ID
 	 * @param p_CUST_RetentionType_ID
+	 * @param p_CUST_CR_PT_Combination_ID
 	 * @param p_C_Charge_ID
 	 * @param p_C_DocType_ID
 	 * @param p_TaxAmt
@@ -205,7 +218,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 	 * @return void
 	 */
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
-			int p_CUST_RetentionType_ID, int p_C_Charge_ID, 
+			int p_CUST_RetentionType_ID, int p_CUST_CR_PT_Combination_ID, int p_C_Charge_ID, 
 			int p_C_DocType_ID, BigDecimal p_TaxAmt, 
 			BigDecimal p_Aliquot){
 		
@@ -231,6 +244,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 		}
 		MInvoiceLine retLine = new MInvoiceLine(m_Current_Retention);
 		retLine.set_ValueOfColumn("DocAffected_ID", p_C_Invoice_ID);
+		retLine.set_ValueOfColumn("CUST_CR_PT_Combination_ID", p_CUST_CR_PT_Combination_ID);
 		retLine.setC_Charge_ID(p_C_Charge_ID);
 		retLine.setQty(Env.ONE);
 		retLine.setC_UOM_ID(N_UOM);

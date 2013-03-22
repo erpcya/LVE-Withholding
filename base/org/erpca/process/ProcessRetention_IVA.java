@@ -76,10 +76,9 @@ public class ProcessRetention_IVA extends SvrProcess {
 	/**	Current Multiplier Retention Doc*/
 	private BigDecimal			m_Current_Mlp_Retention	= Env.ZERO;
 	
-	private final int N_UOM = 100;
+	private final int 	N_UOM = 100;
 	
-	private String trxName = Trx.createTrxName("Process_Ret_IVA");
-	private Trx trx = Trx.get(trxName, true);
+	private Trx 		trx = null;
 
 	
 	@Override
@@ -152,7 +151,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		PreparedStatement pstmt = null;
-		pstmt = DB.prepareStatement(sql, trxName);
+		pstmt = DB.prepareStatement(sql, get_TrxName());
 		ResultSet rs = pstmt.executeQuery();
 		
 		int m_C_BPartner_ID 			= 0;
@@ -233,7 +232,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 			completeRetention();
 			completeAlloc();
 			//
-			m_Current_Retention = new MInvoice(getCtx(), 0, trxName);
+			m_Current_Retention = new MInvoice(getCtx(), 0, get_TrxName());
 			m_Current_Retention.setC_DocTypeTarget_ID(p_C_DocType_ID);
 			m_Current_Retention.setIsSOTrx(false);
 			m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
@@ -290,7 +289,7 @@ public class ProcessRetention_IVA extends SvrProcess {
 	private void addAllocation(int p_C_BPartner_ID, int p_C_Invoice_ID, MInvoiceLine p_RetentionLine){
 		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
 			m_Current_Alloc = new MAllocationHdr(Env.getCtx(), true,	//	manual
-					p_DateDoc, m_Current_Retention.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"), trxName);
+					p_DateDoc, m_Current_Retention.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"), get_TrxName());
 			m_Current_Alloc.setAD_Org_ID(m_Current_Retention.getAD_Org_ID());
 			m_Current_Alloc.saveEx();
 		}
@@ -312,8 +311,13 @@ public class ProcessRetention_IVA extends SvrProcess {
 		log.fine("Current Invoice Allocation Amt=" + amt);
 		log.fine("newOpenAmt=" + newOpenAmt);
 		
-		if(newOpenAmt.compareTo(Env.ZERO) < 0)
-			throw new AdempiereException("@ExcededOpenInvoiceAmt@");
+		if(newOpenAmt.compareTo(Env.ZERO) < 0){
+			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
+			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
+					+ " @OpenAmt@=" + openAmt 
+					+ " @AllocatedAmt@=" + amt 
+					+ " @DifferenceAmt@=" + newOpenAmt);
+		}
 		
 		//	
 		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, amt.multiply(m_Current_Mlp_Invoice), 

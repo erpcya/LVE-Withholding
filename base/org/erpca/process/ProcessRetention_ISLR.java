@@ -76,9 +76,9 @@ public class ProcessRetention_ISLR extends SvrProcess {
 	/**	Current Multiplier Retention Doc*/
 	private BigDecimal			m_Current_Mlp_Retention	= Env.ZERO;
 	
-	private final int N_UOM = 100;
+	private final int 	N_UOM = 100;
 	
-	private Trx trx 		= null;
+	private Trx 		trx 		= null;
 
 	
 	@Override
@@ -330,8 +330,13 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		log.fine("Current Invoice Allocation Amt=" + amt);
 		log.fine("newOpenAmt=" + newOpenAmt);
 		
-		if(newOpenAmt.compareTo(Env.ZERO) < 0)
-			throw new AdempiereException("@ExcededOpenInvoiceAmt@");
+		if(newOpenAmt.compareTo(Env.ZERO) < 0){
+			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
+			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
+					+ " @OpenAmt@=" + openAmt 
+					+ " @AllocatedAmt@=" + amt 
+					+ " @DifferenceAmt@=" + newOpenAmt);
+		}
 		
 		//	
 		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, amt.multiply(m_Current_Mlp_Invoice), 

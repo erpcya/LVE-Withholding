@@ -13,6 +13,11 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 ALTER TABLE C_InvoiceLine ADD COLUMN CUST_CR_PT_Combination_ID NUMERIC(10) DEFAULT NULL 
 ;
 
+Alter Table C_InvoiceLine Add 
+CONSTRAINT FK_C_InvoiceLine_CUST_CR_PT_Combination FOREIGN KEY (CUST_CR_PT_Combination_ID)
+REFERENCES CUST_CR_PT_Combination (CUST_CR_PT_Combination_ID)
+On Update Cascade On Delete Restrict;
+
 -- Mar 22, 2013 11:11:03 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 UPDATE AD_Field SET DisplayLogic='DocAffected_ID ! 0',Updated=TO_TIMESTAMP('2013-03-22 11:11:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096

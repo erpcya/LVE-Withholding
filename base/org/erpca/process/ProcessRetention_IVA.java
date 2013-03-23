@@ -101,6 +101,9 @@ public class ProcessRetention_IVA extends SvrProcess {
 			else if (name.equals("CUST_RetentionType_ID"))
 				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
+		//	Trx
+		trx = Trx.get(get_TrxName(), false);
+		
 		//	Set RecordID
 		p_C_Invoice_ID = getRecord_ID() != 0 && p_C_Invoice_ID == 0? getRecord_ID(): p_C_Invoice_ID;
 		

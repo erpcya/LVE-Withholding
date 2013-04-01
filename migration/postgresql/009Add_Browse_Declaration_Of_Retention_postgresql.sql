@@ -32,7 +32,7 @@ Where
 Not Exists (Select 1 From 
 		C_invoice CIS Inner Join 
 		C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
-		Where CILS.DocAffected_ID = CI.C_Invoice_ID And CIS.DocStatus IN('CO','CL')
+		Where CILS.DocAffected_ID = CI.C_Invoice_ID And CIS.DocStatus IN('CO','CL','DR')
 		);
 
 -- Mar 21, 2013 6:07:30 PM VET
@@ -1080,5 +1080,10 @@ UPDATE AD_Process_Para SET AD_Element_ID=289, AD_Reference_ID=17, AD_Reference_V
 -- Mar 22, 2013 8:51:48 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 UPDATE AD_Process_Para_Trl SET IsTranslated='N' WHERE AD_Process_Para_ID=3000017
+;
+
+-- Apr 1, 2013 2:07:53 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Browse_Field SET IsKey='Y',Updated=TO_TIMESTAMP('2013-04-01 14:07:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Browse_Field_ID=3000007
 ;
 

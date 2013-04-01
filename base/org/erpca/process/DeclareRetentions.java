@@ -105,9 +105,9 @@ public class DeclareRetentions extends SvrProcess{
 		
 		DB.close(rs, ps);
 		trx.commit();
-		if (!m_SGenerated.equals(""))
-			ADialog.info(0, null, m_SGenerated);
-		return "@Generated@ = " + m_Generated;
+		/*if (!m_Generated.equals(""))
+			ADialog.info(0, null, m_Generated);*/
+		return m_Generated;//"@Generated@ = " + m_Generated;
 	}
 	
 	/**
@@ -155,9 +155,7 @@ public class DeclareRetentions extends SvrProcess{
 	 */
 	private void processDocument(MInvoice m_Invoice)
 	{
-		m_Generated++;
-		
-		m_SGenerated+=Msg.translate(getCtx(), "DocumentNo") + " : " +m_Invoice.getDocumentNo()+" \n";
+		m_Generated+=Msg.translate(getCtx(), "DocumentNo") + " : " +m_Invoice.getDocumentNo()+" \n";
 		
 		if(!p_DocStatus.equals(DocumentEngine.STATUS_Drafted)){
 			m_Invoice.setDocAction(p_DocStatus);
@@ -184,10 +182,8 @@ public class DeclareRetentions extends SvrProcess{
 	private String		sql 					= null;
 	/** Transaction	 */
 	Trx 				trx 					= null;
-	/** Documents Generated		*/
-	private int			m_Generated=0;
 	/** UOM Default*/
 	private final int 	N_UOM = 100;
 	/** String Message Generated*/
-	private String m_SGenerated="";
+	private String m_Generated="";
 }

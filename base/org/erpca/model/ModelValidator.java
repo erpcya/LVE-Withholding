@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MClient;
+import org.compiere.model.MDocType;
+import org.compiere.model.MInvoice;
+import org.compiere.model.MSequence;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
@@ -31,7 +34,7 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 	private static CLogger log = CLogger.getCLogger(ModelValidator.class);
 	/** Client */
 	private int m_AD_Client_ID = -1;
-
+	
 	/**
 	 * Initialize Validation
 	 * 
@@ -51,6 +54,8 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 		}
 		// We want to be informed when C_BPartner is created/changed
 		engine.addModelChange(MBPartner.Table_Name, this);
+		//	Add Timing change in C_Invoice
+		engine.addDocValidate(MInvoice.Table_Name, this);
 
 	}
 
@@ -110,7 +115,36 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 
 	@Override
 	public String docValidate(PO po, int timing) {
-		// TODO Auto-generated method stub
+		if(timing == TIMING_AFTER_COMPLETE){
+			if(po.get_TableName().equals(MInvoice.Table_Name)){
+				MInvoice inv = (MInvoice) po;
+				if(inv.isSOTrx()){
+					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
+					int m_Seq_ControlNo = doc.get_ValueAsInt("Seq_ControlNo");
+					if(m_Seq_ControlNo != 0){
+						MSequence seq_ControlNo = new MSequence(Env.getCtx(), m_Seq_ControlNo, inv.get_TrxName());
+						String prefix = seq_ControlNo.getPrefix();
+						String suffix = seq_ControlNo.getSuffix();
+						int next = seq_ControlNo.getNextID();
+						
+						if(prefix == null 
+								|| prefix.length() == 0)
+							prefix = "";
+						
+						if(suffix == null 
+								|| suffix.length() == 0)
+							suffix = "";
+						
+						inv.set_ValueOfColumn("ControlNo", prefix + next + suffix);
+						if(!inv.save())
+							return inv.getProcessMsg();
+						if(!seq_ControlNo.save())
+							return "Error @ControlNo@";
+					}
+				}
+				
+			}
+		}
 		return null;
 	}
 

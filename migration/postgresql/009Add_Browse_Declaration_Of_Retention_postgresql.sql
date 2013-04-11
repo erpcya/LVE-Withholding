@@ -28,7 +28,7 @@ C_Invoice CI
 Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID
 Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID 
 Inner Join CUST_RetentionType CRT On CRT.C_DocType_ID = CDT.C_DocType_ID 
-Where 
+Where CI.DocStatus IN('CO','CL') And
 Not Exists (Select 1 From 
 		C_invoice CIS Inner Join 
 		C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID

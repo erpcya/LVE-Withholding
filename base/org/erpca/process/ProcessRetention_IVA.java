@@ -27,6 +27,7 @@ import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MSequence;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -241,6 +242,11 @@ public class ProcessRetention_IVA extends SvrProcess {
 			m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
 			m_Current_Retention.setDateInvoiced(p_DateDoc);
 			m_Current_Retention.setDateAcct(p_DateDoc);
+			m_Current_Retention.saveEx();
+			//	Set New Document No
+			int docNo = Integer.parseInt(m_Current_Retention.getDocumentNo());
+			
+			m_Current_Retention.setDocumentNo(String.format("%08d", docNo));
 			m_Current_Retention.saveEx();
 			//		
 		}

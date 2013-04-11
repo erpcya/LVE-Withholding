@@ -1,0 +1,64 @@
+-- Apr 11, 2013 9:53:11 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN A_Base_Amount NUMERIC DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:53:27 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN AccountNo VARCHAR(20) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:53:40 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN AffectsBook CHAR(1) DEFAULT 'Y' CHECK (AffectsBook IN ('Y','N'))
+;
+
+-- Apr 11, 2013 9:53:44 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN C_Activity_ID NUMERIC(10) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:53:48 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN C_Bank_ID NUMERIC(10) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:54:01 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN C_BPartner_ID NUMERIC(10) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:54:07 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN CheckNo VARCHAR(20) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:54:13 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN C_Tax_ID NUMERIC(10) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:54:19 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN DateDoc TIMESTAMP DEFAULT NULL 
+;
+
+-- Apr 11, 2013 9:54:28 AM VET
+-- LVE Retention
+INSERT INTO t_alter_column values('c_cashline','DateDoc','TIMESTAMP',null,'NULL')
+;
+
+-- Apr 11, 2013 9:54:37 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN IsOverUnderPayment CHAR(1) DEFAULT NULL CHECK (IsOverUnderPayment IN ('Y','N'))
+;
+
+-- Apr 11, 2013 9:54:43 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN ReferenceNo VARCHAR(40) DEFAULT NULL 
+;
+-- Apr 11, 2013 10:12:48 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD COLUMN ControlNo VARCHAR(15) DEFAULT NULL 
+;
+

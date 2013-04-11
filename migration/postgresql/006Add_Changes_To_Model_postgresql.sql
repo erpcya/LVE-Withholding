@@ -1881,14 +1881,14 @@ UPDATE AD_Field SET SeqNo=410,IsDisplayed='Y' WHERE AD_Field_ID=3900
 
 -- Feb 21, 2013 7:09:12 PM VET
 -- LVE Retention
-INSERT INTO AD_Val_Rule (AD_Client_ID,AD_Org_ID,AD_Val_Rule_ID,Code,Created,CreatedBy,EntityType,IsActive,Name,Type,Updated,UpdatedBy) VALUES (0,0,1000000,'EXISTS(SELECT 1 FROM CUST_CR_PT_Combination cn 
+INSERT INTO AD_Val_Rule (AD_Client_ID,AD_Org_ID,AD_Val_Rule_ID,Code,Created,CreatedBy,EntityType,IsActive,Name,Type,Updated,UpdatedBy) VALUES (0,0,3000000,'EXISTS(SELECT 1 FROM CUST_CR_PT_Combination cn 
 INNER JOIN C_BPartner bp ON(bp.CUST_PersonType_ID = cn.CUST_PersonType_ID)
 WHERE cn.CUST_ConceptRetention_ID = CUST_ConceptRetention.CUST_ConceptRetention_ID AND bp.C_BPartner_ID = @C_BPartner_ID@)',TO_TIMESTAMP('2013-02-21 19:09:12','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','CUST_ConceptRetention_ID Person Type & Concept Retention','S',TO_TIMESTAMP('2013-02-21 19:09:12','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Feb 21, 2013 7:09:22 PM VET
 -- LVE Retention
-UPDATE AD_Column SET AD_Val_Rule_ID=1000000,Updated=TO_TIMESTAMP('2013-02-21 19:09:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000071
+UPDATE AD_Column SET AD_Val_Rule_ID=3000000,Updated=TO_TIMESTAMP('2013-02-21 19:09:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000071
 ;
 -- Feb 21, 2013 7:20:29 PM VET
 -- LVE Retention

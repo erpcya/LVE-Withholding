@@ -89,6 +89,9 @@
 <column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f04" mandatory="false" name="AD_Rule_ID">
 <data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
 </column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7ed6" mandatory="true" name="CUST_RetentionGroup_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
 </column-list>
 <primary-key id="5fd259c0:13c48f28c77:-7f42" name="PK_CUST_RETENTIONTYPE">
 <primary-key-column name="CUST_RetentionType_ID"/>
@@ -96,6 +99,12 @@
 <foreign-key-list>
 <foreign-key id="5fd259c0:13c48f28c77:-7f06" name="FK_CUST_RetentionType_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_AD_RULE" referenced-table="AD_Rule" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="AD_Rule_ID" referenced-key-column-name="AD_Rule_ID"/>
+</foreign-key>
+<foreign-key id="3c7173bf:13df9b01c35:-7f75" name="FK_CUST_RetentionType_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONTYPE" referenced-table="CUST_RetentionType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionType_ID" referenced-key-column-name="CUST_RetentionType_ID"/>
+</foreign-key>
+<foreign-key id="3c7173bf:13df9b01c35:-7ed8" name="FK_CUST_RetentionType_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONGROUP" referenced-table="CUST_RetentionGroup" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionGroup_ID" referenced-key-column-name="CUST_RetentionGroup_ID"/>
 </foreign-key>
 </foreign-key-list>
 </table>
@@ -292,6 +301,22 @@
 </foreign-key>
 </foreign-key-list>
 </table>
+<table id="3c7173bf:13df9b01c35:-7fd2" name="CUST_RetentionGroup">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fcc" mandatory="true" name="CUST_RetentionGroup_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fcb" mandatory="false" name="Value">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fca" mandatory="false" name="Name">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="3c7173bf:13df9b01c35:-7fd1" name="PK_CUST_RETENTIONGROUP">
+<primary-key-column name="CUST_RetentionGroup_ID"/>
+</primary-key>
+</table>
 </table-list>
 </schema>
 </schema-list>
@@ -301,7 +326,7 @@
 <table-figure height="45" refid="5fd259c0:13c48f28c77:-7ff9" width="127" x="42" y="554"/>
 <table-figure height="69" refid="5fd259c0:13c48f28c77:-7ff4" width="131" x="46" y="365"/>
 <table-figure height="57" refid="5fd259c0:13c48f28c77:-7f63" width="235" x="255" y="528"/>
-<table-figure height="100" refid="5fd259c0:13c48f28c77:-7f43" width="245" x="531" y="10"/>
+<table-figure height="121" refid="5fd259c0:13c48f28c77:-7f43" width="245" x="531" y="10"/>
 <table-figure height="41" refid="5fd259c0:13c48f28c77:-7f1f" width="113" x="961" y="24"/>
 <table-figure height="74" refid="5fd259c0:13c48f28c77:-7eec" width="221" x="519" y="863"/>
 <table-figure height="38" refid="5fd259c0:13c48f28c77:-7ee7" width="101" x="136" y="935"/>
@@ -311,5 +336,6 @@
 <table-figure height="86" refid="5fd259c0:13c48f28c77:-7d99" width="226" x="506" y="448"/>
 <table-figure height="92" refid="5fd259c0:13c48f28c77:-7d73" width="263" x="917" y="446"/>
 <table-figure height="83" refid="5fd259c0:13c48f28c77:-7d6c" width="265" x="791" y="861"/>
+<table-figure refid="3c7173bf:13df9b01c35:-7fd2" x="975" y="118"/>
 </diagram>
 </clay-model>

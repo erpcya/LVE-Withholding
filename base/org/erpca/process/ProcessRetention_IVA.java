@@ -21,13 +21,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
-import org.compiere.model.MSequence;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -243,10 +243,16 @@ public class ProcessRetention_IVA extends SvrProcess {
 			m_Current_Retention.setDateInvoiced(p_DateDoc);
 			m_Current_Retention.setDateAcct(p_DateDoc);
 			m_Current_Retention.saveEx();
-			//	Set New Document No
+			//	Get Document No
 			int docNo = Integer.parseInt(m_Current_Retention.getDocumentNo());
-			
-			m_Current_Retention.setDocumentNo(String.format("%08d", docNo));
+			//	Format Date
+			String format = "yyyyMM";
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			String prefix = sdf.format(p_DateDoc.getTime());
+			if(prefix == null)
+				prefix = "";
+			//	Set New Document No
+			m_Current_Retention.setDocumentNo(prefix + String.format("%08d", docNo));
 			m_Current_Retention.saveEx();
 			//		
 		}

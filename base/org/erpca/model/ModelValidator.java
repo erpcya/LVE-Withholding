@@ -144,6 +144,27 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 				}
 				
 			}
+		} else if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
+			if(po.get_TableName().equals(MInvoice.Table_Name)){
+				log.fine(MInvoice.Table_Name + " -- TIMING_BEFORE_REVERSECORRECT || TIMING_BEFORE_VOID");
+				//	Retention
+				MInvoice ret = (MInvoice) po;
+				//	Verify Reference from Declaration
+				String sql = new String("SELECT MAX(dr.DocumentNo) DocumentNo " +
+						"FROM C_Invoice dr " +
+						"INNER JOIN C_InvoiceLine drl ON(drl.C_Invoice_ID = dr.C_Invoice_ID) " +
+						"WHERE dr.DocStatus IN('CO', 'CL') " +
+						"AND drl.DocAffected_ID = ?");
+				//	Log
+				log.fine("SQL Declaration=" + sql);
+				//	Search
+				String declarationDocNo = DB.getSQLValueString(ret.get_TrxName(), 
+						sql, ret.getC_Invoice_ID());
+				//	If exist a Declaration
+				if(declarationDocNo != null)
+					return "Error Referenced in " + declarationDocNo;
+				
+			}
 		}
 		return null;
 	}

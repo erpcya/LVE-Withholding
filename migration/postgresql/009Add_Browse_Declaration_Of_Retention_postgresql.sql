@@ -28,7 +28,7 @@ C_Invoice CI
 Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID
 Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID 
 Inner Join CUST_RetentionType CRT On CRT.C_DocType_ID = CDT.C_DocType_ID 
-Where 
+Where CI.DocStatus IN('CO','CL') And
 Not Exists (Select 1 From 
 		C_invoice CIS Inner Join 
 		C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
@@ -462,17 +462,7 @@ INSERT INTO AD_View_Column (AD_Client_ID,AD_Column_ID,AD_Org_ID,AD_View_Column_I
 
 -- Mar 21, 2013 6:14:09 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM AD_View_Column_Trl WHERE AD_View_Column_ID=?
-;
-
--- Mar 21, 2013 6:14:09 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 DELETE FROM AD_View_Column WHERE AD_View_Column_ID=3000009
-;
-
--- Mar 21, 2013 6:14:10 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM AD_View_Column_Trl WHERE AD_View_Column_ID=?
 ;
 
 -- Mar 21, 2013 6:14:10 PM VET
@@ -482,27 +472,12 @@ DELETE FROM AD_View_Column WHERE AD_View_Column_ID=3000010
 
 -- Mar 21, 2013 6:14:10 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM AD_View_Column_Trl WHERE AD_View_Column_ID=?
-;
-
--- Mar 21, 2013 6:14:10 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 DELETE FROM AD_View_Column WHERE AD_View_Column_ID=3000018
 ;
 
 -- Mar 21, 2013 6:14:11 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM AD_View_Column_Trl WHERE AD_View_Column_ID=?
-;
-
--- Mar 21, 2013 6:14:11 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 DELETE FROM AD_View_Column WHERE AD_View_Column_ID=3000023
-;
-
--- Mar 21, 2013 6:14:11 PM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM AD_View_Column_Trl WHERE AD_View_Column_ID=?
 ;
 
 -- Mar 21, 2013 6:14:11 PM VET

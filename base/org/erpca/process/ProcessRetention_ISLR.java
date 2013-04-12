@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAllocationHdr;
@@ -257,6 +258,17 @@ public class ProcessRetention_ISLR extends SvrProcess {
 			m_Current_Retention.setC_BPartner_ID(p_C_BPartner_ID);
 			m_Current_Retention.setDateInvoiced(p_DateDoc);
 			m_Current_Retention.setDateAcct(p_DateDoc);
+			m_Current_Retention.saveEx();
+			//	Get Document No
+			int docNo = Integer.parseInt(m_Current_Retention.getDocumentNo());
+			//	Format Date
+			String format = "yyyyMM";
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			String prefix = sdf.format(p_DateDoc.getTime());
+			if(prefix == null)
+				prefix = "";
+			//	Set New Document No
+			m_Current_Retention.setDocumentNo(prefix + String.format("%08d", docNo));
 			m_Current_Retention.saveEx();
 			//		
 		}

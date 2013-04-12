@@ -91,3 +91,13 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=120,Updated=TO_TIMESTAMP('2013-04-12 
 UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-04-12 18:05:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000260
 ;
 
+-- Apr 12, 2013 6:33:52 PM VET
+-- RRHH LVE
+UPDATE AD_Column SET IsUpdateable='Y',Updated=TO_TIMESTAMP('2013-04-12 18:33:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000265
+;
+
+-- Apr 12, 2013 6:57:20 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+UPDATE AD_Column SET IsParent='N', IsUpdateable='Y',Updated=TO_TIMESTAMP('2013-04-12 18:57:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000265
+;
+

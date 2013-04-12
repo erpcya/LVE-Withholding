@@ -1,4 +1,4 @@
-
+﻿
 -- Apr 12, 2013 12:03:20 PM VET
 -- LVE Retention
 ALTER TABLE C_CashLine ADD COLUMN A_Base_Amount NUMERIC DEFAULT NULL 

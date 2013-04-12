@@ -1,4 +1,4 @@
--- Apr 12, 2013 11:56:21 AM VET
+﻿-- Apr 12, 2013 11:56:21 AM VET
 -- LVE Retention
 INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000267,53498,0,12,410,'A_Base_Amount',TO_TIMESTAMP('2013-04-12 11:56:20','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',22,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Base Amount',0,TO_TIMESTAMP('2013-04-12 11:56:20','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
@@ -20,22 +20,22 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Apr 12, 2013 11:57:37 AM VET
 -- LVE Retention
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,3000219,0,'AffectsBook',TO_TIMESTAMP('2013-04-12 11:57:37','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Affects Book','Affects Book',TO_TIMESTAMP('2013-04-12 11:57:37','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,3000220,0,'AffectsBook',TO_TIMESTAMP('2013-04-12 11:57:37','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Affects Book','Affects Book',TO_TIMESTAMP('2013-04-12 11:57:37','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Apr 12, 2013 11:57:37 AM VET
 -- LVE Retention
-INSERT INTO AD_Element_Trl (AD_Language,AD_Element_ID, Description,Help,Name,PO_Description,PO_Help,PO_Name,PO_PrintName,PrintName, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Element_ID, t.Description,t.Help,t.Name,t.PO_Description,t.PO_Help,t.PO_Name,t.PO_PrintName,t.PrintName, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Element t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Element_ID=3000219 AND NOT EXISTS (SELECT * FROM AD_Element_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Element_ID=t.AD_Element_ID)
+INSERT INTO AD_Element_Trl (AD_Language,AD_Element_ID, Description,Help,Name,PO_Description,PO_Help,PO_Name,PO_PrintName,PrintName, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Element_ID, t.Description,t.Help,t.Name,t.PO_Description,t.PO_Help,t.PO_Name,t.PO_PrintName,t.PrintName, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Element t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Element_ID=3000220 AND NOT EXISTS (SELECT * FROM AD_Element_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Element_ID=t.AD_Element_ID)
 ;
 
 -- Apr 12, 2013 11:57:47 AM VET
 -- LVE Retention
-UPDATE AD_Element_Trl SET Name='Afecta Libro',PrintName='Afecta Libro',Updated=TO_TIMESTAMP('2013-04-12 11:57:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000219 AND AD_Language='es_MX'
+UPDATE AD_Element_Trl SET Name='Afecta Libro',PrintName='Afecta Libro',Updated=TO_TIMESTAMP('2013-04-12 11:57:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000220 AND AD_Language='es_MX'
 ;
 
 -- Apr 12, 2013 11:58:26 AM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,DefaultValue,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000269,3000219,0,20,410,'AffectsBook',TO_TIMESTAMP('2013-04-12 11:58:26','YYYY-MM-DD HH24:MI:SS'),100,'''Y''','ECA02',1,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Affects Book',0,TO_TIMESTAMP('2013-04-12 11:58:26','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,DefaultValue,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000269,3000220,0,20,410,'AffectsBook',TO_TIMESTAMP('2013-04-12 11:58:26','YYYY-MM-DD HH24:MI:SS'),100,'''Y''','ECA02',1,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Affects Book',0,TO_TIMESTAMP('2013-04-12 11:58:26','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- Apr 12, 2013 11:58:26 AM VET

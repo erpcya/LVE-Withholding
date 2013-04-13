@@ -3,7 +3,7 @@ Select  Distinct
 	ci.AD_Client_ID,/*Company ID*/
 	ci.AD_Org_ID,/*Org ID*/
 	cil.C_Invoice_ID ,/*Root Document(Document Retention ID)*/ 
-	ci.DocumentNo , /*Document No */
+	ci.C_Invoice_ID As DocAffected_ID , /*Document Retain*/
 	ci.DateInvoiced ,/*Date Documentno*/
 	ci.ControlNo, /*Control No*/
 	cdt.Name, /*Document Type Name*/
@@ -13,7 +13,7 @@ Select  Distinct
 	ci.TotalLines,/*Total Lines exclude tax*/
 	ci.GrandTotal,/*Total Document*/
 	cil.LineNetAmt, /*Line Net (Retention Amt)*/
-	ciaffected.DocumentNo As DocAffected_ID, /* Document Affeected*/
+	ciaffected.DocumentNo, /* DocumentNo Affeected*/
 	ciaffected.Amount, /*Amount Affected*/
 	crc.Aliquot,/*Aliquot Retention*/
 	crc.Subtrahend, /*Subtrahend*/
@@ -47,5 +47,4 @@ Left Join
 	Inner Join C_AllocationLine cal on cah.C_AllocationHdr_ID= cal.C_AllocationHdr_ID
 	Inner Join C_AllocationLine calrel on cah.C_AllocationHdr_ID= calrel.C_AllocationHdr_ID
 	Inner Join C_Invoice ci On ci.C_Invoice_ID = calrel.C_Invoice_ID
-	Where Not Exists (Select 1 From CUST_RetentionType Where C_DocType_ID = ci.C_DocType_ID )) ciaffected On ciaffected.Retention_ID = ci.C_Invoice_ID And ciaffected.C_Invoice_ID <>ci.C_Invoice_ID 
-
+	Where Not Exists (Select 1 From CUST_RetentionType Where C_DocType_ID = ci.C_DocType_ID )) ciaffected On ciaffected.Retention_ID = ci.C_Invoice_ID And ciaffected.C_Invoice_ID <>ci.C_Invoice_ID; 

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="5fd259c0:13c48f28c77:-8000" name="retentions" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
+<schema-list>
+<schema id="5fd259c0:13c48f28c77:-7ffd" name="DEFAULT_SCHEMA">
+<table-list>
+<table alias="Invoice" id="5fd259c0:13c48f28c77:-7fff" name="C_Invoice">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ffa" mandatory="true" name="C_Invoice_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f48" mandatory="true" name="C_DocType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ffe" name="PK_C_INVOICE">
+<primary-key-column name="C_Invoice_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7f4a" name="FK_C_Invoice_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_DOCTYPE" referenced-table="C_DocType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_DocType_ID" referenced-key-column-name="C_DocType_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Allocation Header" id="5fd259c0:13c48f28c77:-7ff9" name="C_AllocationHDR">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ff5" mandatory="true" name="C_AllocationHDR_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ff8" name="PK_C_ALLOCATIONHDR">
+<primary-key-column name="C_AllocationHDR_ID"/>
+</primary-key>
+</table>
+<table alias="Allocation Line" id="5fd259c0:13c48f28c77:-7ff4" name="C_AllocationLine">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ff2" mandatory="false" name="C_AllocationLine_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7fd5" mandatory="true" name="C_Invoice_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f74" mandatory="true" name="C_AllocationHDR_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ff1" name="PK_C_ALLOCATIONLINE"/>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7fd7" name="FK_C_AllocationLine_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_INVOICE" referenced-table="C_Invoice" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_Invoice_ID" referenced-key-column-name="C_Invoice_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7f76" name="FK_C_AllocationLine_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_ALLOCATIONHDR" referenced-table="C_AllocationHDR" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_AllocationHDR_ID" referenced-key-column-name="C_AllocationHDR_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Document Type" id="5fd259c0:13c48f28c77:-7f63" name="C_DocType">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f5f" mandatory="true" name="C_DocType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f2b" mandatory="true" name="CUST_RetentionType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7f62" name="PK_C_DOCTYPE">
+<primary-key-column name="C_DocType_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7f2d" name="FK_C_DocType_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONTYPE" referenced-table="CUST_RetentionType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionType_ID" referenced-key-column-name="CUST_RetentionType_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Retention Type" id="5fd259c0:13c48f28c77:-7f43" name="CUST_RetentionType">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f3f" mandatory="true" name="CUST_RetentionType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d9f" mandatory="true" name="Name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d9c" mandatory="false" name="Description">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f20" mandatory="false" name="ClassName">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f04" mandatory="false" name="AD_Rule_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7ed6" mandatory="true" name="CUST_RetentionGroup_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7f42" name="PK_CUST_RETENTIONTYPE">
+<primary-key-column name="CUST_RetentionType_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7f06" name="FK_CUST_RetentionType_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_AD_RULE" referenced-table="AD_Rule" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="AD_Rule_ID" referenced-key-column-name="AD_Rule_ID"/>
+</foreign-key>
+<foreign-key id="3c7173bf:13df9b01c35:-7f75" name="FK_CUST_RetentionType_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONTYPE" referenced-table="CUST_RetentionType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionType_ID" referenced-key-column-name="CUST_RetentionType_ID"/>
+</foreign-key>
+<foreign-key id="3c7173bf:13df9b01c35:-7ed8" name="FK_CUST_RetentionType_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONGROUP" referenced-table="CUST_RetentionGroup" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionGroup_ID" referenced-key-column-name="CUST_RetentionGroup_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Rule" id="5fd259c0:13c48f28c77:-7f1f" name="AD_Rule">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7f1b" mandatory="true" name="AD_Rule_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7f1e" name="PK_AD_RULE">
+<primary-key-column name="AD_Rule_ID"/>
+</primary-key>
+</table>
+<table alias="Business Partner" id="5fd259c0:13c48f28c77:-7eec" name="C_BPartner">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ee8" mandatory="true" name="C_BPartner_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ecb" mandatory="true" name="C_BP_Group_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d78" mandatory="true" name="CUST_PersonType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7eeb" name="PK_C_BPARTNER">
+<primary-key-column name="C_BPartner_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7ecd" name="FK_C_BPartner_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_BP_GROUP" referenced-table="C_BP_Group" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_BP_Group_ID" referenced-key-column-name="C_BP_Group_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7d7a" name="FK_C_BPartner_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_PERSONTYPE" referenced-table="CUST_PersonType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_PersonType_ID" referenced-key-column-name="CUST_PersonType_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Business Partner Group" id="5fd259c0:13c48f28c77:-7ee7" name="C_BP_Group">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ee3" mandatory="true" name="C_BP_Group_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ee6" name="PK_C_BP_GROUP">
+<primary-key-column name="C_BP_Group_ID"/>
+</primary-key>
+</table>
+<table alias="Retention Relation" id="5fd259c0:13c48f28c77:-7ebf" name="CUST_RetentionRelation">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7ebb" mandatory="true" name="CUST_RetentionRelation_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e99" mandatory="true" name="CUST_RetentionType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e70" mandatory="true" name="C_BP_Group_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e57" mandatory="true" name="C_BPartner_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e2e" mandatory="true" name="C_DocType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ebe" name="PK_CUST_RETENTIONRELATION">
+<primary-key-column name="CUST_RetentionRelation_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7e9b" name="FK_CUST_RetentionRelation_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONTYPE" referenced-table="CUST_RetentionType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionType_ID" referenced-key-column-name="CUST_RetentionType_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7e72" name="FK_CUST_RetentionRelation_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_BP_GROUP" referenced-table="C_BP_Group" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_BP_Group_ID" referenced-key-column-name="C_BP_Group_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7e59" name="FK_CUST_RetentionRelation_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_BPARTNER" referenced-table="C_BPartner" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_BPartner_ID" referenced-key-column-name="C_BPartner_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7e30" name="FK_CUST_RetentionRelation_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_DOCTYPE" referenced-table="C_DocType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_DocType_ID" referenced-key-column-name="C_DocType_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Invoice Line" id="5fd259c0:13c48f28c77:-7e22" name="C_InvoiceLine">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e1e" mandatory="true" name="C_InvoiceLine_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e1d" mandatory="false" name="DocAffected_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7e07" mandatory="true" name="C_Invoice_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="1" decimal-digits="0" default-value="'Y'" id="57c59fac:13cf915d51d:-7fce" mandatory="true" name="IsRetaint">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7e21" name="PK_C_INVOICELINE">
+<primary-key-column name="C_InvoiceLine_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7e09" name="FK_C_InvoiceLine_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_C_INVOICE" referenced-table="C_Invoice" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="C_Invoice_ID" referenced-key-column-name="C_Invoice_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Retention Config" id="5fd259c0:13c48f28c77:-7dde" name="CUST_RetentionConfig">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7dda" mandatory="true" name="CUST_RetentionConfig_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7dc7" mandatory="true" name="CUST_RetentionType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7da4" mandatory="false" name="Aliquot">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7da3" mandatory="false" name="Subtrahend">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7da2" mandatory="false" name="MinimalAmt">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7ddd" name="PK_CUST_RETENTIONCONFIG">
+<primary-key-column name="CUST_RetentionConfig_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7dc9" name="FK_CUST_RetentionConfig_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONTYPE" referenced-table="CUST_RetentionType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionType_ID" referenced-key-column-name="CUST_RetentionType_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Person Type" id="5fd259c0:13c48f28c77:-7d99" name="CUST_PersonType">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d95" mandatory="true" name="CUST_PersonType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d94" mandatory="true" name="Name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d93" mandatory="false" name="Description">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7d98" name="PK_CUST_PERSONTYPE">
+<primary-key-column name="CUST_PersonType_ID"/>
+</primary-key>
+</table>
+<table alias="Concept Retention" id="5fd259c0:13c48f28c77:-7d73" name="CUST_ConceptRetention">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d6f" mandatory="true" name="CUST_ConceptRetention_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d6e" mandatory="true" name="Name">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="255" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d6d" mandatory="false" name="Description">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7d72" name="PK_CUST_CONCEPTRETENTION">
+<primary-key-column name="CUST_ConceptRetention_ID"/>
+</primary-key>
+</table>
+<table alias="Concept Retention and Person Type Combination" id="5fd259c0:13c48f28c77:-7d6c" name="CUST_CR_PT_Combination">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d68" mandatory="true" name="CUST_CR_PT_Combination_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d60" mandatory="false" name="CUST_PersonType_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d48" mandatory="false" name="CUST_ConceptRetention_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="5fd259c0:13c48f28c77:-7d33" mandatory="true" name="CUST_RetentionConfig_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+</column-list>
+<primary-key id="5fd259c0:13c48f28c77:-7d6b" name="PK_CUST_CR_PT_COMBINATION">
+<primary-key-column name="CUST_CR_PT_Combination_ID"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="5fd259c0:13c48f28c77:-7d62" name="FK_CUST_CR_PT_Combination_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_PERSONTYPE" referenced-table="CUST_PersonType" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_PersonType_ID" referenced-key-column-name="CUST_PersonType_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7d4a" name="FK_CUST_CR_PT_Combination_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_CONCEPTRETENTION" referenced-table="CUST_ConceptRetention" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_ConceptRetention_ID" referenced-key-column-name="CUST_ConceptRetention_ID"/>
+</foreign-key>
+<foreign-key id="5fd259c0:13c48f28c77:-7d35" name="FK_CUST_CR_PT_Combination_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CUST_RETENTIONCONFIG" referenced-table="CUST_RetentionConfig" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="CUST_RetentionConfig_ID" referenced-key-column-name="CUST_RetentionConfig_ID"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="3c7173bf:13df9b01c35:-7fd2" name="CUST_RetentionGroup">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fcc" mandatory="true" name="CUST_RetentionGroup_ID">
+<data-type name="NUMERIC" selected-variant-pattern="NUMERIC(%p)"/>
+</column>
+<column auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fcb" mandatory="false" name="Value">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="3c7173bf:13df9b01c35:-7fca" mandatory="false" name="Name">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="3c7173bf:13df9b01c35:-7fd1" name="PK_CUST_RETENTIONGROUP">
+<primary-key-column name="CUST_RetentionGroup_ID"/>
+</primary-key>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="54" refid="5fd259c0:13c48f28c77:-7fff" width="88" x="43" y="17"/>
+<table-figure height="45" refid="5fd259c0:13c48f28c77:-7ff9" width="127" x="42" y="554"/>
+<table-figure height="69" refid="5fd259c0:13c48f28c77:-7ff4" width="131" x="46" y="365"/>
+<table-figure height="57" refid="5fd259c0:13c48f28c77:-7f63" width="235" x="255" y="528"/>
+<table-figure height="121" refid="5fd259c0:13c48f28c77:-7f43" width="245" x="531" y="10"/>
+<table-figure height="41" refid="5fd259c0:13c48f28c77:-7f1f" width="113" x="961" y="24"/>
+<table-figure height="74" refid="5fd259c0:13c48f28c77:-7eec" width="221" x="519" y="863"/>
+<table-figure height="38" refid="5fd259c0:13c48f28c77:-7ee7" width="101" x="136" y="935"/>
+<table-figure height="108" refid="5fd259c0:13c48f28c77:-7ebf" width="261" x="55" y="682"/>
+<table-figure height="70" refid="5fd259c0:13c48f28c77:-7e22" width="192" x="268" y="142"/>
+<table-figure height="106" refid="5fd259c0:13c48f28c77:-7dde" width="249" x="698" y="285"/>
+<table-figure height="86" refid="5fd259c0:13c48f28c77:-7d99" width="226" x="506" y="448"/>
+<table-figure height="92" refid="5fd259c0:13c48f28c77:-7d73" width="263" x="917" y="446"/>
+<table-figure height="83" refid="5fd259c0:13c48f28c77:-7d6c" width="265" x="791" y="861"/>
+<table-figure refid="3c7173bf:13df9b01c35:-7fd2" x="975" y="118"/>
+</diagram>
+</clay-model>

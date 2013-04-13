@@ -338,11 +338,11 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		}
 		
 		BigDecimal amt = p_RetentionLine.getLineNetAmt();
-		BigDecimal newOpenAmt = openAmt.subtract(amt);
+		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(m_Current_Mlp_Retention));
 		log.fine("Current Invoice Allocation Amt=" + amt);
 		log.fine("newOpenAmt=" + newOpenAmt);
 		
-		if(newOpenAmt.compareTo(Env.ZERO) < 0){
+		if(newOpenAmt.multiply(m_Current_Mlp_Retention).compareTo(Env.ZERO) < 0){
 			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
 			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
 					+ " @OpenAmt@=" + openAmt 

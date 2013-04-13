@@ -127,7 +127,6 @@ public class ProcessRetention_IVA extends SvrProcess {
 				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " + 
 				"FROM C_Invoice inv " + 
-				"INNER JOIN C_InvoiceLine linv ON(linv.C_Invoice_ID = inv.C_Invoice_ID) " + 
 				"INNER JOIN C_InvoiceTax itax ON(itax.C_Invoice_ID = inv.C_Invoice_ID) " + 
 				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " + 
 				"INNER JOIN CUST_RetentionRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " + 
@@ -322,11 +321,11 @@ public class ProcessRetention_IVA extends SvrProcess {
 		}
 		
 		BigDecimal amt = p_RetentionLine.getLineNetAmt();
-		BigDecimal newOpenAmt = openAmt.subtract(amt);
+		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(m_Current_Mlp_Retention));
 		log.fine("Current Invoice Allocation Amt=" + amt);
 		log.fine("newOpenAmt=" + newOpenAmt);
 		
-		if(newOpenAmt.compareTo(Env.ZERO) < 0){
+		if(newOpenAmt.multiply(m_Current_Mlp_Retention).compareTo(Env.ZERO) < 0){
 			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
 			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
 					+ " @OpenAmt@=" + openAmt 

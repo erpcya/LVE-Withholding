@@ -20,7 +20,8 @@ Select  Distinct
 	/*crt.Name As Name_RetentionType,Name Retention Type*/
 	crg.Value As Value_RetentionGroup,/*Value Retention Group*/
 	crg.Name As Name_RetentionGroup, /*Name Retention Group*/
-	(cil.Line/10) AS Line
+	(cil.Line/10) AS Line,
+	ccpc.value
 From 
 C_DocType cdt
 Inner Join C_Invoice ci On ci.C_DocType_ID=cdt.C_DocType_ID

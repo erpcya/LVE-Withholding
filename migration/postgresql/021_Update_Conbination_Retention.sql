@@ -1,3 +1,8 @@
+-- 17/04/2013 03:50:22 PM VET
+-- LVE Retention
+ALTER TABLE CUST_CR_PT_Combination ADD COLUMN Value VARCHAR(60) DEFAULT NULL 
+;
+
 -- 17/04/2013 03:50:16 PM VET
 -- LVE Retention
 INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000322,620,0,10,3000003,'Value',TO_TIMESTAMP('2013-04-17 15:50:15','YYYY-MM-DD HH24:MI:SS'),100,'Search key for the record in the format required - must be unique','ECA02',60,'A search key allows you a fast method of finding a particular record.
@@ -7,11 +12,6 @@ If you leave the search key empty, the system automatically creates a numeric nu
 -- 17/04/2013 03:50:16 PM VET
 -- LVE Retention
 INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Column_ID, t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Column t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Column_ID=3000322 AND NOT EXISTS (SELECT * FROM AD_Column_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Column_ID=t.AD_Column_ID)
-;
-
--- 17/04/2013 03:50:22 PM VET
--- LVE Retention
-ALTER TABLE CUST_CR_PT_Combination ADD COLUMN Value VARCHAR(60) DEFAULT NULL 
 ;
 
 -- 17/04/2013 03:50:47 PM VET

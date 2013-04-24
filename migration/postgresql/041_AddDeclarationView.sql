@@ -1,5 +1,5 @@
 Create Or Replace View CUST_RV_Declaration As
-Select 
+Select distinct 
 	ci.ad_client_id, ci.ad_org_id,
 	ci.C_Invoice_ID, /*Invoice ID Document Declaration*/
 	cil.DocAffected_ID, /*Retention Document ID*/
@@ -21,7 +21,10 @@ Select
 	crr.Aliquot, /*Aliquot Retention*/
 	cdti.C_BPartner_ID, /*Bussiness Partner ID*/
 	cdti.Name, /*Bussiness Partner Name*/
-	cdti.DateAcct/*Date Acct Document Retained*/	
+	cdti.DateAcct,/*Date Acct Document Retained*/	
+	o.value AS RifOrg, 
+	ci.dateinvoiced, 
+	ifac.totalex
 From 
 AD_OrgInfo oi 
 Inner Join C_Invoice ci On oi.AD_Org_ID = ci.AD_Org_ID
@@ -41,4 +44,25 @@ Left Join (Select ci.C_Invoice_ID,
 		From C_Invoice ci 
 		Inner Join C_DocType cdt  On  ci.C_DocType_ID = cdt.C_DocType_ID
 		Inner Join C_BPartner cbp On ci.C_BPartner_ID = cbp.C_BPartner_ID
-	  ) cdti on cdti.C_Invoice_ID=crr.DocAffected_ID;
+	  ) cdti on cdti.C_Invoice_ID=crr.DocAffected_ID
+JOIN AD_Org o ON o.AD_Org_ID = oi.AD_Org_ID
+ JOIN ( SELECT li.c_invoice_id, 
+    sum(
+        CASE
+            WHEN li.taxamt = 0::numeric THEN li.taxbaseamt
+            ELSE 0::numeric
+        END) AS totalex, 
+    sum(
+        CASE
+            WHEN li.taxamt <> 0::numeric THEN li.taxbaseamt
+            ELSE 0::numeric
+        END) AS totalbi, 
+    sum(
+        CASE
+            WHEN li.taxamt <> 0::numeric THEN li.taxamt
+            ELSE 0::numeric
+        END) AS totalimpuesto, 
+    max(im.rate) AS tasaimpuesto
+   FROM c_invoicetax li
+   JOIN c_tax im ON im.c_tax_id = li.c_tax_id
+  GROUP BY li.c_invoice_id) ifac ON ifac.c_invoice_id = cdti.c_invoice_id;

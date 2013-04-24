@@ -70,5 +70,5 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-04-24 15:41:33','Y
 
 -- 24/04/2013 04:16:06 PM VET
 -- LVE Retention
-ALTER TABLE C_DocType ADD COLUMN AffectsBook CHAR(1) DEFAULT NULL CHECK (AffectsBook IN ('Y','N'))
+ALTER TABLE C_DocType ADD COLUMN AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN ('Y','N'))
 ;

@@ -68,3 +68,7 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=350,Updated=TO_TIMESTAMP('2013-04-24 
 UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-04-24 15:41:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000266
 ;
 
+-- 24/04/2013 04:16:06 PM VET
+-- LVE Retention
+ALTER TABLE C_DocType ADD COLUMN AffectsBook CHAR(1) DEFAULT NULL CHECK (AffectsBook IN ('Y','N'))
+;

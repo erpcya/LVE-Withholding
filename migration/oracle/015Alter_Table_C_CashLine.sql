@@ -1,0 +1,60 @@
+﻿
+-- Apr 12, 2013 12:03:20 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD A_Base_Amount NUMBER DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:25 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD AccountNo NVARCHAR2(20) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:28 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD AffectsBook CHAR(1) DEFAULT 'Y' CHECK (AffectsBook IN ('Y','N'))
+;
+
+-- Apr 12, 2013 12:03:31 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD C_Activity_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:35 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD C_Bank_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:37 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD C_BPartner_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:41 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD CheckNo NVARCHAR2(20) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:43 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD C_Tax_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:46 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD DateDoc DATE DEFAULT NULL 
+;
+
+-- Apr 12, 2013 12:03:50 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD IsOverUnderPayment CHAR(1) DEFAULT NULL CHECK (IsOverUnderPayment IN ('Y','N'))
+;
+
+-- Apr 12, 2013 12:03:53 PM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD ReferenceNo NVARCHAR2(40) DEFAULT NULL 
+;
+
+-- Apr 11, 2013 10:12:48 AM VET
+-- LVE Retention
+ALTER TABLE C_CashLine ADD ControlNo NVARCHAR2(15) DEFAULT NULL 
+;

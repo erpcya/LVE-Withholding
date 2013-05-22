@@ -1,6 +1,6 @@
 -- Apr 4, 2013 5:09:32 PM VET
 -- LVE Retention
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,Description,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,3000216,0,'ControlNo',TO_TIMESTAMP('2013-04-04 17:09:29','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record','ECA02','Y','Control No','Control No',TO_TIMESTAMP('2013-04-04 17:09:29','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,Description,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,3000216,0,'ControlNo',TO_DATE('2013-04-04 17:09:29','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record','ECA02','Y','Control No','Control No',TO_DATE('2013-04-04 17:09:29','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Apr 4, 2013 5:09:33 PM VET
@@ -10,12 +10,12 @@ INSERT INTO AD_Element_Trl (AD_Language,AD_Element_ID, Description,Help,Name,PO_
 
 -- Apr 4, 2013 5:11:11 PM VET
 -- LVE Retention
-UPDATE AD_Element_Trl SET Name='No. Control',PrintName='No. Control',Description='No. Control, para el Registro Físico',Updated=TO_TIMESTAMP('2013-04-04 17:11:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000216 AND AD_Language='es_MX'
+UPDATE AD_Element_Trl SET Name='No. Control',PrintName='No. Control',Description='No. Control, para el Registro Físico',Updated=TO_DATE('2013-04-04 17:11:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=3000216 AND AD_Language='es_MX'
 ;
 
 -- Apr 4, 2013 5:12:08 PM VET
 -- LVE Retention
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000234,3000216,0,10,318,'ControlNo',TO_TIMESTAMP('2013-04-04 17:12:06','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record','ECA02',60,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Control No',0,TO_TIMESTAMP('2013-04-04 17:12:06','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000234,3000216,0,10,318,'ControlNo',TO_DATE('2013-04-04 17:12:06','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record','ECA02',60,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Control No',0,TO_DATE('2013-04-04 17:12:06','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- Apr 4, 2013 5:12:08 PM VET
@@ -25,12 +25,12 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Apr 4, 2013 5:12:25 PM VET
 -- LVE Retention
-ALTER TABLE C_Invoice ADD COLUMN ControlNo VARCHAR(60) DEFAULT NULL 
+ALTER TABLE C_Invoice ADD COLUMN ControlNo NVARCHAR2(60) DEFAULT NULL 
 ;
 
 -- Apr 4, 2013 5:18:20 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000234,3000224,0,290,TO_TIMESTAMP('2013-04-04 17:18:19','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record',0,'ECA02','N','Y','Y','Y','N','N','N','N','N','Control No',0,420,0,TO_TIMESTAMP('2013-04-04 17:18:19','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000234,3000224,0,290,TO_DATE('2013-04-04 17:18:19','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record',0,'ECA02','N','Y','Y','Y','N','N','N','N','N','Control No',0,420,0,TO_DATE('2013-04-04 17:18:19','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Apr 4, 2013 5:18:20 PM VET
@@ -220,17 +220,17 @@ UPDATE AD_Field SET SeqNo=420,IsDisplayed='Y' WHERE AD_Field_ID=3900
 
 -- Apr 4, 2013 5:22:53 PM VET
 -- LVE Retention
-UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-04-04 17:22:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000224
+UPDATE AD_Field SET IsSameLine='Y',Updated=TO_DATE('2013-04-04 17:22:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000224
 ;
 
 -- Apr 4, 2013 5:24:17 PM VET
 -- LVE Retention
-UPDATE AD_Field SET IsSameLine='N',Updated=TO_TIMESTAMP('2013-04-04 17:24:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3338
+UPDATE AD_Field SET IsSameLine='N',Updated=TO_DATE('2013-04-04 17:24:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3338
 ;
 
 -- Apr 4, 2013 5:25:35 PM VET
 -- LVE Retention
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000234,3000225,0,263,TO_TIMESTAMP('2013-04-04 17:25:34','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record',0,'ECA02','N','Y','Y','Y','N','N','N','N','Y','Control No',0,430,0,TO_TIMESTAMP('2013-04-04 17:25:34','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000234,3000225,0,263,TO_DATE('2013-04-04 17:25:34','YYYY-MM-DD HH24:MI:SS'),100,'Control No for Physical Record',0,'ECA02','N','Y','Y','Y','N','N','N','N','Y','Control No',0,430,0,TO_DATE('2013-04-04 17:25:34','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Apr 4, 2013 5:25:35 PM VET
@@ -615,11 +615,11 @@ UPDATE AD_Field SET SeqNo=440,IsDisplayed='Y' WHERE AD_Field_ID=53258
 
 -- Apr 4, 2013 5:28:19 PM VET
 -- LVE Retention
-UPDATE AD_Field SET IsSameLine='N',Updated=TO_TIMESTAMP('2013-04-04 17:28:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2781
+UPDATE AD_Field SET IsSameLine='N',Updated=TO_DATE('2013-04-04 17:28:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2781
 ;
 
 -- Apr 4, 2013 5:28:40 PM VET
 -- LVE Retention
-UPDATE AD_Field SET IsReadOnly='Y',Updated=TO_TIMESTAMP('2013-04-04 17:28:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000225
+UPDATE AD_Field SET IsReadOnly='Y',Updated=TO_DATE('2013-04-04 17:28:40','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000225
 ;
 

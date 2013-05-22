@@ -1,6 +1,6 @@
 -- Mar 22, 2013 11:09:05 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000102,3000004,0,19,333,'CUST_CR_PT_Combination_ID',TO_TIMESTAMP('2013-03-22 11:09:04','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','N','Retention Combination',0,TO_TIMESTAMP('2013-03-22 11:09:04','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,3000102,3000004,0,19,333,'CUST_CR_PT_Combination_ID',TO_DATE('2013-03-22 11:09:04','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','N','Retention Combination',0,TO_DATE('2013-03-22 11:09:04','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- Mar 22, 2013 11:09:05 AM VET
@@ -10,22 +10,21 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Mar 22, 2013 11:09:11 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE C_InvoiceLine ADD COLUMN CUST_CR_PT_Combination_ID NUMERIC(10) DEFAULT NULL 
+ALTER TABLE C_InvoiceLine ADD COLUMN CUST_CR_PT_Combination_ID NUMBER(10) DEFAULT NULL 
 ;
 
 Alter Table C_InvoiceLine Add 
 CONSTRAINT FK_C_InvoiceLine_CUST_CR_PT_Combination FOREIGN KEY (CUST_CR_PT_Combination_ID)
-REFERENCES CUST_CR_PT_Combination (CUST_CR_PT_Combination_ID)
-On Update Cascade On Delete Restrict;
+REFERENCES CUST_CR_PT_Combination (CUST_CR_PT_Combination_ID);
 
 -- Mar 22, 2013 11:11:03 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Field SET DisplayLogic='DocAffected_ID ! 0',Updated=TO_TIMESTAMP('2013-03-22 11:11:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
+UPDATE AD_Field SET DisplayLogic='DocAffected_ID ! 0',Updated=TO_DATE('2013-03-22 11:11:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
 ;
 
 -- Mar 22, 2013 11:11:34 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,DisplayLogic,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000102,3000098,0,291,TO_TIMESTAMP('2013-03-22 11:11:34','YYYY-MM-DD HH24:MI:SS'),100,0,'CUST_CR_PT_Combination_ID ! 0','ECA02','N','Y','Y','Y','N','N','N','Y','N','Retention Combination',0,60,0,TO_TIMESTAMP('2013-03-22 11:11:34','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,DisplayLogic,EntityType,HideInListView,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,PreferredWidth,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,3000102,3000098,0,291,TO_DATE('2013-03-22 11:11:34','YYYY-MM-DD HH24:MI:SS'),100,0,'CUST_CR_PT_Combination_ID ! 0','ECA02','N','Y','Y','Y','N','N','N','Y','N','Retention Combination',0,60,0,TO_DATE('2013-03-22 11:11:34','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Mar 22, 2013 11:11:34 AM VET
@@ -175,16 +174,16 @@ UPDATE AD_Field SET SeqNo=340,IsDisplayed='Y' WHERE AD_Field_ID=8267
 
 -- Mar 22, 2013 11:18:26 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Field SET DisplayLogic='@DocAffected_ID@ ! 0',Updated=TO_TIMESTAMP('2013-03-22 11:18:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
+UPDATE AD_Field SET DisplayLogic='@DocAffected_ID@ ! 0',Updated=TO_DATE('2013-03-22 11:18:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000096
 ;
 
 -- Mar 22, 2013 11:19:13 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Field SET DisplayLogic='@CUST_CR_PT_Combination_ID@ ! 0',Updated=TO_TIMESTAMP('2013-03-22 11:19:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000098
+UPDATE AD_Field SET DisplayLogic='@CUST_CR_PT_Combination_ID@ ! 0',Updated=TO_DATE('2013-03-22 11:19:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000098
 ;
 
 -- Mar 22, 2013 11:19:44 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Field SET DisplayLogic='@DocAffected_ID@ = 0',Updated=TO_TIMESTAMP('2013-03-22 11:19:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000063
+UPDATE AD_Field SET DisplayLogic='@DocAffected_ID@ = 0',Updated=TO_DATE('2013-03-22 11:19:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3000063
 ;
 

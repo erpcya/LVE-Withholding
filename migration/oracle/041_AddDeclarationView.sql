@@ -49,18 +49,18 @@ JOIN AD_Org o ON o.AD_Org_ID = oi.AD_Org_ID
  JOIN ( SELECT li.c_invoice_id, 
     sum(
         CASE
-            WHEN li.taxamt = 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
+            WHEN li.taxamt = 0 THEN li.taxbaseamt
+            ELSE 0
         END) AS totalex, 
     sum(
         CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
+            WHEN li.taxamt <> 0 THEN li.taxbaseamt
+            ELSE 0
         END) AS totalbi, 
     sum(
         CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxamt
-            ELSE 0::numeric
+            WHEN li.taxamt <> 0 THEN li.taxamt
+            ELSE 0
         END) AS totalimpuesto, 
     max(im.rate) AS tasaimpuesto
    FROM c_invoicetax li

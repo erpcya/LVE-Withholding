@@ -9,62 +9,62 @@ DROP VIEW cust_rv_retention;
 
 -- 15-may-2013 10:08:39 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_TIMESTAMP('2013-05-15 10:08:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000022
+UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_DATE('2013-05-15 10:08:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000022
 ;
 
 -- 15-may-2013 10:08:55 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_TIMESTAMP('2013-05-15 10:08:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000023
+UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_DATE('2013-05-15 10:08:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000023
 ;
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-INSERT INTO t_alter_column values('cust_retentionconfig','Subtrahend','NUMERIC',null,'NULL')
+INSERT INTO t_alter_column values('cust_retentionconfig','Subtrahend','NUMBER',null,'NULL')
 ;
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column Subtrahend Type NUMERIC
+Alter Table CUST_RetentionConfig Alter Column Subtrahend Type NUMBER
 ;
 
 -- 15-may-2013 10:13:36 VET
 -- RETENTION LVE
-INSERT INTO t_alter_column values('cust_retentionconfig','MinimalAmt','NUMERIC',null,'NULL')
+INSERT INTO t_alter_column values('cust_retentionconfig','MinimalAmt','NUMBER',null,'NULL')
 ;
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column MinimalAmt Type NUMERIC
+Alter Table CUST_RetentionConfig Alter Column MinimalAmt Type NUMBER
 ;
 
 -- 15-may-2013 10:15:22 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12, SeqNo=3,Updated=TO_TIMESTAMP('2013-05-15 10:15:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000021
+UPDATE AD_Column SET AD_Reference_ID=12, SeqNo=3,Updated=TO_DATE('2013-05-15 10:15:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000021
 ;
 
 -- 15-may-2013 10:15:28 VET
 -- RETENTION LVE
-INSERT INTO t_alter_column values('cust_retentionconfig','Aliquot','NUMERIC',null,'NULL')
+INSERT INTO t_alter_column values('cust_retentionconfig','Aliquot','NUMBER',null,'NULL')
 ;
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column Aliquot Type NUMERIC
+Alter Table CUST_RetentionConfig Alter Column Aliquot Type NUMBER
 ;
 
 -- 15-may-2013 10:16:36 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_TIMESTAMP('2013-05-15 10:16:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000309
+UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_DATE('2013-05-15 10:16:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000309
 ;
 
 -- 15-may-2013 10:17:28 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_TIMESTAMP('2013-05-15 10:17:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000310
+UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_DATE('2013-05-15 10:17:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000310
 ;
 
 -- 15-may-2013 10:18:51 VET
 -- RETENTION LVE
-UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_TIMESTAMP('2013-05-15 10:18:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000403
+UPDATE AD_Column SET AD_Reference_ID=12,Updated=TO_DATE('2013-05-15 10:18:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000403
 ;
 
 -- 15-may-2013 10:18:51 VET
@@ -173,18 +173,18 @@ JOIN AD_Org o ON o.AD_Org_ID = oi.AD_Org_ID
  JOIN ( SELECT li.c_invoice_id, 
     sum(
         CASE
-            WHEN li.taxamt = 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
+            WHEN li.taxamt = 0 THEN li.taxbaseamt
+            ELSE 0
         END) AS totalex, 
     sum(
         CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
+            WHEN li.taxamt <> 0 THEN li.taxbaseamt
+            ELSE 0
         END) AS totalbi, 
     sum(
         CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxamt
-            ELSE 0::numeric
+            WHEN li.taxamt <> 0 THEN li.taxamt
+            ELSE 0
         END) AS totalimpuesto, 
     max(im.rate) AS tasaimpuesto
    FROM c_invoicetax li

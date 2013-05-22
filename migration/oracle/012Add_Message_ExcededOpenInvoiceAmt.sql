@@ -1,6 +1,6 @@
 -- Mar 22, 2013 3:43:38 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO AD_Message (AD_Client_ID,AD_Message_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,MsgText,MsgType,Updated,UpdatedBy,Value) VALUES (0,3000001,0,TO_TIMESTAMP('2013-03-22 15:43:38','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Exceded Open Invoice Amount','E',TO_TIMESTAMP('2013-03-22 15:43:38','YYYY-MM-DD HH24:MI:SS'),100,'ExcededOpenInvoiceAmt')
+INSERT INTO AD_Message (AD_Client_ID,AD_Message_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,MsgText,MsgType,Updated,UpdatedBy,Value) VALUES (0,3000001,0,TO_DATE('2013-03-22 15:43:38','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Exceded Open Invoice Amount','E',TO_DATE('2013-03-22 15:43:38','YYYY-MM-DD HH24:MI:SS'),100,'ExcededOpenInvoiceAmt')
 ;
 
 -- Mar 22, 2013 3:43:38 PM VET
@@ -10,6 +10,6 @@ INSERT INTO AD_Message_Trl (AD_Language,AD_Message_ID, MsgText,MsgTip, IsTransla
 
 -- Mar 22, 2013 3:50:45 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-UPDATE AD_Message_Trl SET MsgText='Monto Excede a Pendiente de Factura',Updated=TO_TIMESTAMP('2013-03-22 15:50:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Message_ID=3000001 AND AD_Language='es_MX'
+UPDATE AD_Message_Trl SET MsgText='Monto Excede a Pendiente de Factura',Updated=TO_DATE('2013-03-22 15:50:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Message_ID=3000001 AND AD_Language='es_MX'
 ;
 

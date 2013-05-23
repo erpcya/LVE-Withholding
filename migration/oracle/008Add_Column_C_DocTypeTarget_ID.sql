@@ -10,7 +10,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Mar 20, 2013 6:22:02 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE CUST_RetentionType ADD COLUMN C_DocTypeTarget_ID NUMBER(10) DEFAULT NULL 
+ALTER TABLE CUST_RetentionType ADD C_DocTypeTarget_ID NUMBER(10) DEFAULT NULL 
 ;
 
 Alter Table CUST_RetentionType Add 

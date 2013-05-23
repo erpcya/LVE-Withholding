@@ -90,7 +90,7 @@ UPDATE AD_Process_Para_Trl SET Name='Tipo de Retención',Description='Tipo de Re
 
 -- 23/01/2013 03:32:52 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('P',0,3000006,0,3000000,TO_DATE('2013-01-23 15:32:52','YYYY-MM-DD HH24:MI:SS'),100,'Generate Retention','ECA02','Y','Y','N','N','N','Generate Retention',TO_DATE('2013-01-23 15:32:52','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('P',0,3000006,0,3000000,TO_DATE('2013-01-23 15:32:52','YYYY-MM-DD HH24:MI:SS'),100,'Generate Retention','ECA02','Y','Y','N','N','N','Generate Retention',TO_DATE('2013-01-23 15:32:52','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 03:32:52 PM VET

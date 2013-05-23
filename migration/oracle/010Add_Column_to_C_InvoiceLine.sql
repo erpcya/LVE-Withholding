@@ -10,7 +10,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Mar 22, 2013 11:09:11 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE C_InvoiceLine ADD COLUMN CUST_CR_PT_Combination_ID NUMBER(10) DEFAULT NULL 
+ALTER TABLE C_InvoiceLine ADD CUST_CR_PT_Combination_ID NUMBER(10) DEFAULT NULL 
 ;
 
 Alter Table C_InvoiceLine Add 

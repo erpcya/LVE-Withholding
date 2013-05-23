@@ -556,7 +556,7 @@ UPDATE AD_Table SET AD_Window_ID=3000201,Updated=TO_DATE('2013-04-12 09:32:49','
 
 -- Apr 12, 2013 9:37:50 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000203,0,3000201,TO_DATE('2013-04-12 09:37:49','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Retention Group',TO_DATE('2013-04-12 09:37:49','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000203,0,3000201,TO_DATE('2013-04-12 09:37:49','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Retention Group',TO_DATE('2013-04-12 09:37:49','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Apr 12, 2013 9:37:50 AM VET

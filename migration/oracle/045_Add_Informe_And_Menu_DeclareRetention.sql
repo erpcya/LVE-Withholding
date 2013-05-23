@@ -25,7 +25,7 @@ UPDATE AD_Process_Trl SET Name='Declaracion de Retenciones',Updated=TO_DATE('201
 
 -- 17/04/2013 05:32:32 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000204,0,3000201,TO_DATE('2013-04-17 17:32:32','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Declare Retention',TO_DATE('2013-04-17 17:32:32','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000204,0,3000201,TO_DATE('2013-04-17 17:32:32','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Declare Retention',TO_DATE('2013-04-17 17:32:32','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 17/04/2013 05:32:32 PM VET

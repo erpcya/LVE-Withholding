@@ -40,7 +40,7 @@ UPDATE AD_Field SET DisplayLogic='@DocBaseType@=''API'' | @DocBaseType@=''APC'' 
 
 -- Apr 4, 2013 5:57:41 PM VET
 -- LVE Retention
-ALTER TABLE C_DocType ADD COLUMN Seq_ControlNo NVARCHAR2(10) DEFAULT NULL 
+ALTER TABLE C_DocType ADD Seq_ControlNo NVARCHAR2(10) DEFAULT NULL 
 ;
 
 -- Apr 4, 2013 5:58:37 PM VET

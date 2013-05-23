@@ -25,7 +25,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Apr 4, 2013 5:12:25 PM VET
 -- LVE Retention
-ALTER TABLE C_Invoice ADD COLUMN ControlNo NVARCHAR2(60) DEFAULT NULL 
+ALTER TABLE C_Invoice ADD ControlNo NVARCHAR2(60) DEFAULT NULL 
 ;
 
 -- Apr 4, 2013 5:18:20 PM VET

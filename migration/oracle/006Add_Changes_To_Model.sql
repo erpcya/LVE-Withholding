@@ -331,7 +331,7 @@ INSERT INTO AD_TreeNodeMM (AD_Client_ID,AD_Org_ID, IsActive,Created,CreatedBy,Up
 
 -- 22/01/2013 05:28:18 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000001,0,3000000,TO_DATE('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','Y','Y','N','N','N','Retention Type',TO_DATE('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000001,0,3000000,TO_DATE('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100,'Retention Type','ECA02','Y','Y','N','N','N','Retention Type',TO_DATE('2013-01-22 17:28:18','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:28:18 PM VET
@@ -850,7 +850,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_DATE('2013-01-22 17:36:31','YYYY-M
 
 -- 22/01/2013 05:37:06 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000002,0,3000001,TO_DATE('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ECA02','Y','Y','N','N','N','Retention Config',TO_DATE('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000002,0,3000001,TO_DATE('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100,'Retention Config','ECA02','Y','Y','N','N','N','Retention Config',TO_DATE('2013-01-22 17:37:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 22/01/2013 05:37:06 PM VET
@@ -1052,7 +1052,7 @@ UPDATE AD_Window_Trl SET Name='Combinación Concepto de Retención y Tipo de Per
 
 -- 23/01/2013 09:32:01 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000003,0,3000002,TO_DATE('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ECA02','Y','Y','N','N','N','Combination Concept Retention and Person Type',TO_DATE('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000003,0,3000002,TO_DATE('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100,'Combination Concept Retention and Person Type','ECA02','Y','Y','N','N','N','Combination Concept Retention and Person Type',TO_DATE('2013-01-23 09:32:01','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:32:01 AM VET
@@ -1240,7 +1240,7 @@ UPDATE AD_Field SET IsSameLine='N',Updated=TO_DATE('2013-01-23 09:36:06','YYYY-M
 
 -- 23/01/2013 09:36:55 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000004,0,3000003,TO_DATE('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ECA02','Y','Y','N','N','N','Person Type',TO_DATE('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000004,0,3000003,TO_DATE('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100,'Person Type','ECA02','Y','Y','N','N','N','Person Type',TO_DATE('2013-01-23 09:36:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:36:55 AM VET
@@ -1423,7 +1423,7 @@ UPDATE AD_Table SET AD_Window_ID=3000004,Updated=TO_DATE('2013-01-23 09:49:23','
 
 -- 23/01/2013 09:49:51 AM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000005,0,3000004,TO_DATE('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100,'Concepto de Retención','ECA02','Y','Y','N','N','N','Concepto de Retención',TO_DATE('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,3000005,0,3000004,TO_DATE('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100,'Concepto de Retención','ECA02','Y','Y','N','N','N','Concepto de Retención',TO_DATE('2013-01-23 09:49:51','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 23/01/2013 09:49:51 AM VET

@@ -24,7 +24,7 @@ INSERT INTO t_alter_column values('cust_retentionconfig','Subtrahend','NUMBER',n
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column Subtrahend Type NUMBER
+Alter Table CUST_RetentionConfig Modify Subtrahend NUMBER
 ;
 
 -- 15-may-2013 10:13:36 VET
@@ -34,7 +34,7 @@ INSERT INTO t_alter_column values('cust_retentionconfig','MinimalAmt','NUMBER',n
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column MinimalAmt Type NUMBER
+Alter Table CUST_RetentionConfig Modify MinimalAmt NUMBER
 ;
 
 -- 15-may-2013 10:15:22 VET
@@ -49,7 +49,7 @@ INSERT INTO t_alter_column values('cust_retentionconfig','Aliquot','NUMBER',null
 
 -- 15-may-2013 10:10:06 VET
 -- RETENTION LVE
-Alter Table CUST_RetentionConfig Alter Column Aliquot Type NUMBER
+Alter Table CUST_RetentionConfig Modify Aliquot NUMBER
 ;
 
 -- 15-may-2013 10:16:36 VET

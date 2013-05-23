@@ -1,6 +1,6 @@
 -- 29/04/2013 12:10:45 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000205,0,3000202,TO_DATE('2013-04-29 12:10:45','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Books Purchases',TO_DATE('2013-04-29 12:10:45','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000205,0,3000202,TO_DATE('2013-04-29 12:10:45','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Books Purchases',TO_DATE('2013-04-29 12:10:45','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 29/04/2013 12:10:45 PM VET
@@ -20,7 +20,7 @@ UPDATE AD_Menu_Trl SET Name='Libro de Compras',Updated=TO_DATE('2013-04-29 12:10
 
 -- 29/04/2013 12:12:05 PM VET
 -- LVE Retention
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000206,0,3000203,TO_DATE('2013-04-29 12:12:05','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Books Sales',TO_DATE('2013-04-29 12:12:05','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('R',0,3000206,0,3000203,TO_DATE('2013-04-29 12:12:05','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Books Sales',TO_DATE('2013-04-29 12:12:05','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 29/04/2013 12:12:05 PM VET

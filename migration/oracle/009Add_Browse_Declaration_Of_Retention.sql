@@ -964,7 +964,7 @@ UPDATE AD_Browse_Field SET IsQueryCriteria='Y', IsRange='Y',Updated=TO_DATE('201
 
 -- Mar 21, 2013 6:30:18 PM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO AD_Menu ("action",AD_Browse_ID,AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('S',3000000,0,3000007,0,TO_DATE('2013-03-21 18:30:18','YYYY-MM-DD HH24:MI:SS'),100,'Declare Retentions','ECA02','Y','Y','N','N','N','Declare Retentions',TO_DATE('2013-03-21 18:30:18','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (action,AD_Browse_ID,AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('S',3000000,0,3000007,0,TO_DATE('2013-03-21 18:30:18','YYYY-MM-DD HH24:MI:SS'),100,'Declare Retentions','ECA02','Y','Y','N','N','N','Declare Retentions',TO_DATE('2013-03-21 18:30:18','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Mar 21, 2013 6:30:18 PM VET

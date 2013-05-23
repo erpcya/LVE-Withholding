@@ -80,7 +80,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- 17/04/2013 12:38:47 PM VET
 -- LVE Retention
-ALTER TABLE C_DocType ADD COLUMN DocTypeDeclare NVARCHAR2(2) DEFAULT NULL 
+ALTER TABLE C_DocType ADD DocTypeDeclare NVARCHAR2(2) DEFAULT NULL 
 ;
 
 -- 17/04/2013 12:39:29 PM VET

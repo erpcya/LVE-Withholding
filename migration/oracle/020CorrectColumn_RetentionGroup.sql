@@ -101,3 +101,40 @@ UPDATE AD_Column SET IsUpdateable='Y',Updated=TO_DATE('2013-04-12 18:33:52','YYY
 UPDATE AD_Column SET IsParent='N', IsUpdateable='Y',Updated=TO_DATE('2013-04-12 18:57:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3000265
 ;
 
+-- Mar 21, 2013 6:07:30 PM VET
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+Create Or Replace View CUST_RV_RetentionsDeclare As 
+Select 
+	Distinct
+	CI.AD_Client_ID,
+	CI.AD_ORG_ID,
+	CI.C_Invoice_ID,
+	CI.DocumentNo,
+	CI.IsSoTrx,
+	CI.DocStatus,
+	CI.DocAction,
+	CI.C_DocType_ID,
+	CI.C_DocTypeTarget_ID,
+	CI.SalesRep_ID,
+	CI.DateInvoiced,
+	CI.DateAcct,
+	CI.C_BPartner_ID,
+	CI.C_BPartner_Location_ID,
+	CI.C_Currency_ID,
+	CI.PaymentRule,
+	CI.C_PaymentTerm_ID,
+	CI.GrandTotal,
+	CI.TotalLines,
+	CRT.CUST_RetentionType_ID,
+	CRT.CUST_RetentionGroup_ID
+From 
+C_Invoice CI 
+Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID
+Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID 
+Inner Join CUST_RetentionType CRT On CRT.C_DocType_ID = CDT.C_DocType_ID 
+Where CI.DocStatus IN('CO','CL') And
+Not Exists (Select 1 From 
+		C_invoice CIS Inner Join 
+		C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
+		Where CILS.DocAffected_ID = CI.C_Invoice_ID And CIS.DocStatus IN('CO','CL','DR')
+		);

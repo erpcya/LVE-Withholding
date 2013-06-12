@@ -97,7 +97,7 @@ public class BPGroutRetentionRelationCopy extends SvrProcess {
 			rs = pstmt.executeQuery();
 			if (rs != null) 
 			{						
-				deleteRetention();
+			//	deleteRetention();
 				while (rs.next()) 
 				{	
 					MBPartner bpartner = new MBPartner(Env.getCtx(),rs,null);				

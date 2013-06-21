@@ -16,22 +16,17 @@
  *****************************************************************************/
 package org.erpca.process;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import org.adempiere.exceptions.DBException;
-import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
-import org.compiere.model.PO;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.erpca.model.MCUSTRetentionRelation;
-import org.python.modules.newmodule;
 
 /**
  * Copy default Retention Relation 
@@ -42,8 +37,6 @@ public class BPGroutRetentionRelationCopy extends SvrProcess {
 
 	/** BP Group					*/
 	private int			p_C_BP_Group_ID = 0;
-	/** BP Partner 					*/
-	private int			p_C_BPartner_ID = 0;
 	
 	/**
 	 * *** Constructor ***
@@ -63,8 +56,6 @@ public class BPGroutRetentionRelationCopy extends SvrProcess {
 				;
 			else if(name.equals("C_BP_Group_ID"))
 				p_C_BP_Group_ID = para.getParameterAsInt();
-			else if(name.equals("C_BPartner_ID"))
-				p_C_BPartner_ID = para.getParameterAsInt();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);				
 		}

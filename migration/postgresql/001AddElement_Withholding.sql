@@ -1,3 +1,9 @@
+-- Mar 24, 2013 10:29:52 PM VET
+-- Get weight from scale
+INSERT INTO AD_EntityType (AD_Client_ID,AD_EntityType_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,Name,Processing,Updated,UpdatedBy,ModelPackage) VALUES (0,3000200,0,TO_DATE('2013-03-24 22:29:39','YYYY-MM-DD HH24:MI:SS'),100,'E.R.P. Consultores y Asociados, C.A Spin Contribution','ECA03','Y','ERP C y A Spin Contribution','N',TO_DATE('2013-03-24 22:29:39','YYYY-MM-DD HH24:MI:SS'),100,'org.erpca.model')
+;
+
+
 -- Jul 30, 2013 7:58:18 AM VET
 -- LVE Withholding
 INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56052,0,'LVE_WithholdingType_ID',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Type','Withholding Type',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100)

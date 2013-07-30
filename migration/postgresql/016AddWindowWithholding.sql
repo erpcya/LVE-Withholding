@@ -1,8 +1,3 @@
--- Jul 30, 2013 10:52:27 AM VET
--- LVE Withholding
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,53253,TO_TIMESTAMP('2013-07-30 10:52:26','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','N','N','Y','Withholding','N',TO_TIMESTAMP('2013-07-30 10:52:26','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
-;
-
 -- Jul 30, 2013 10:52:40 AM VET
 -- LVE Withholding
 INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,53254,TO_TIMESTAMP('2013-07-30 10:52:37','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','N','N','Y','Withholding ','N',TO_TIMESTAMP('2013-07-30 10:52:37','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)

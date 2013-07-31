@@ -36,7 +36,7 @@ import org.compiere.util.Trx;
  * @author <a href="mailto:carlosaparadam@gmail.com">Carlos Parada</a>
  *
  */
-public class DeclareRetentions extends SvrProcess{
+public class WithholdingDeclare extends SvrProcess{
 
 	@Override
 	protected void prepare() {
@@ -169,7 +169,7 @@ public class DeclareRetentions extends SvrProcess{
 	}
 	
 	/**	Logger							*/
-	public static CLogger log = CLogger.getCLogger(DeclareRetentions.class);
+	public static CLogger log = CLogger.getCLogger(WithholdingDeclare.class);
 	
 	/**	Business Partner				*/
 	private int			p_C_BPartner_ID			=	0;

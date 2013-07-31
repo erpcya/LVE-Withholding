@@ -1,6 +1,6 @@
 -- 30/07/2013 04:32:09 PM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66490,67934,0,291,TO_DATE('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Doc Affected',TO_DATE('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66490,67934,0,291,TO_DATE('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Doc Affected',TO_DATE('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 30/07/2013 04:32:09 PM VET
@@ -30,7 +30,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 30/07/2013 04:32:10 PM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66489,67937,0,291,TO_DATE('2013-07-30 16:32:10','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Withholding Config',TO_DATE('2013-07-30 16:32:10','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66489,67937,0,291,TO_DATE('2013-07-30 16:32:10','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Withholding Config',TO_DATE('2013-07-30 16:32:10','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 30/07/2013 04:32:10 PM VET

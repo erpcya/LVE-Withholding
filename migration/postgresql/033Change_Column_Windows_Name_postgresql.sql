@@ -25,7 +25,7 @@ UPDATE AD_Menu_Trl SET Name='Retención',Updated=TO_TIMESTAMP('2013-07-31 08:24:
 
 -- 31/07/2013 08:28:07 AM VET
 -- LVE Withholding
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66493,56059,0,19,291,'LVE_PersonType_ID',TO_TIMESTAMP('2013-07-31 08:28:05','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Person Type',0,TO_TIMESTAMP('2013-07-31 08:28:05','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66493,56059,0,19,291,'LVE_PersonType_ID',TO_TIMESTAMP('2013-07-31 08:28:05','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',10,'Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Person Type',0,TO_TIMESTAMP('2013-07-31 08:28:05','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- 31/07/2013 08:28:07 AM VET
@@ -45,7 +45,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- 31/07/2013 08:28:21 AM VET
 -- LVE Withholding
-UPDATE AD_Field SET EntityType='ECA03',Updated=TO_TIMESTAMP('2013-07-31 08:28:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=67956
+UPDATE AD_Field SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-07-31 08:28:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=67956
 ;
 
 -- 31/07/2013 08:31:58 AM VET

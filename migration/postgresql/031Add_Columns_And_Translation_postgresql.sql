@@ -5,7 +5,7 @@ UPDATE AD_Column SET IsMandatory='Y',Updated=TO_TIMESTAMP('2013-07-30 22:49:41',
 
 -- Jul 30, 2013 10:52:01 PM VET
 -- LVE Withholding
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66491,275,0,14,53541,'Description',TO_TIMESTAMP('2013-07-30 22:52:00','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record','ECA03',255,'A description is limited to 255 characters.','Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Description',0,TO_TIMESTAMP('2013-07-30 22:52:00','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66491,275,0,14,53541,'Description',TO_TIMESTAMP('2013-07-30 22:52:00','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record','ECA02',255,'A description is limited to 255 characters.','Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Description',0,TO_TIMESTAMP('2013-07-30 22:52:00','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- Jul 30, 2013 10:52:01 PM VET
@@ -320,7 +320,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-07-31 00:04:41','Y
 
 -- Jul 31, 2013 12:05:56 AM VET
 -- LVE Withholding
-INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66492,275,0,14,53533,'Description',TO_TIMESTAMP('2013-07-31 00:05:56','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record','ECA03',255,'A description is limited to 255 characters.','Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Description',0,TO_TIMESTAMP('2013-07-31 00:05:56','YYYY-MM-DD HH24:MI:SS'),100,0)
+INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAllowLogging,IsAlwaysUpdateable,IsAutocomplete,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsSyncDatabase,IsTranslated,IsUpdateable,Name,SeqNo,Updated,UpdatedBy,Version) VALUES (0,66492,275,0,14,53533,'Description',TO_TIMESTAMP('2013-07-31 00:05:56','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record','ECA02',255,'A description is limited to 255 characters.','Y','Y','N','N','N','N','N','N','N','N','N','N','Y','Description',0,TO_TIMESTAMP('2013-07-31 00:05:56','YYYY-MM-DD HH24:MI:SS'),100,0)
 ;
 
 -- Jul 31, 2013 12:05:56 AM VET
@@ -330,7 +330,7 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 
 -- Jul 31, 2013 12:06:21 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,66492,67954,0,53697,TO_TIMESTAMP('2013-07-31 00:06:20','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',0,'ECA03','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',60,0,TO_TIMESTAMP('2013-07-31 00:06:20','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,SeqNo,SortNo,Updated,UpdatedBy) VALUES (0,66492,67954,0,53697,TO_TIMESTAMP('2013-07-31 00:06:20','YYYY-MM-DD HH24:MI:SS'),100,'Optional short description of the record',0,'ECA02','A description is limited to 255 characters.','Y','Y','Y','N','N','N','N','N','Description',60,0,TO_TIMESTAMP('2013-07-31 00:06:20','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 31, 2013 12:06:21 AM VET

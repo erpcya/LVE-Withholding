@@ -1,6 +1,6 @@
 -- 31/07/2013 11:03:36 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53424,'org.erpca.process.GenerateWithholding','N',TO_TIMESTAMP('2013-07-31 11:03:35','YYYY-MM-DD HH24:MI:SS'),100,'Generate Withholding','ECA03','Y','N','N','N','N','Generate Withholding','Y',0,0,TO_TIMESTAMP('2013-07-31 11:03:35','YYYY-MM-DD HH24:MI:SS'),100,'LVE_Withholding GenerateWithholding')
+INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53424,'org.erpca.process.GenerateWithholding','N',TO_TIMESTAMP('2013-07-31 11:03:35','YYYY-MM-DD HH24:MI:SS'),100,'Generate Withholding','ECA02','Y','N','N','N','N','Generate Withholding','Y',0,0,TO_TIMESTAMP('2013-07-31 11:03:35','YYYY-MM-DD HH24:MI:SS'),100,'LVE_Withholding GenerateWithholding')
 ;
 
 -- 31/07/2013 11:03:36 AM VET
@@ -15,7 +15,7 @@ UPDATE AD_Process_Trl SET Name='Generar Retención',Description='Generar Retenci
 
 -- 31/07/2013 11:04:48 AM VET
 -- LVE Withholding
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('P',0,53579,0,53424,TO_TIMESTAMP('2013-07-31 11:04:47','YYYY-MM-DD HH24:MI:SS'),100,'Generate Withholding','ECA03','Y','Y','N','N','N','Generate Withholding',TO_TIMESTAMP('2013-07-31 11:04:47','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Process_ID,Created,CreatedBy,Description,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('P',0,53579,0,53424,TO_TIMESTAMP('2013-07-31 11:04:47','YYYY-MM-DD HH24:MI:SS'),100,'Generate Withholding','ECA02','Y','Y','N','N','N','Generate Withholding',TO_TIMESTAMP('2013-07-31 11:04:47','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:04:48 AM VET
@@ -60,7 +60,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=53572, SeqNo=4, Updated=CURRENT_TIMESTAMP WHE
 
 -- 31/07/2013 11:12:41 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,187,0,53424,53934,19,'C_BPartner_ID',TO_TIMESTAMP('2013-07-31 11:12:40','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',0,'Y','Y','N','N','Business Partner ',10,TO_TIMESTAMP('2013-07-31 11:12:40','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,187,0,53424,53934,19,'C_BPartner_ID',TO_TIMESTAMP('2013-07-31 11:12:40','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','N','N','Business Partner ',10,TO_TIMESTAMP('2013-07-31 11:12:40','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:12:41 AM VET
@@ -70,7 +70,7 @@ INSERT INTO AD_Process_Para_Trl (AD_Language,AD_Process_Para_ID, Description,Hel
 
 -- 31/07/2013 11:13:31 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,AD_Val_Rule_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,1008,0,53424,53935,19,145,'C_Invoice_ID',TO_TIMESTAMP('2013-07-31 11:13:31','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',0,'Y','Y','N','N','Invoice',20,TO_TIMESTAMP('2013-07-31 11:13:31','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,AD_Val_Rule_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,1008,0,53424,53935,19,145,'C_Invoice_ID',TO_TIMESTAMP('2013-07-31 11:13:31','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','N','N','Invoice',20,TO_TIMESTAMP('2013-07-31 11:13:31','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:13:31 AM VET
@@ -80,7 +80,7 @@ INSERT INTO AD_Process_Para_Trl (AD_Language,AD_Process_Para_ID, Description,Hel
 
 -- 31/07/2013 11:16:09 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,263,0,53424,53936,15,'DateAcct',TO_TIMESTAMP('2013-07-31 11:16:09','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',0,'Y','Y','N','Y','Account Date',30,TO_TIMESTAMP('2013-07-31 11:16:09','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,263,0,53424,53936,15,'DateAcct',TO_TIMESTAMP('2013-07-31 11:16:09','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','N','Y','Account Date',30,TO_TIMESTAMP('2013-07-31 11:16:09','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:16:09 AM VET
@@ -90,7 +90,7 @@ INSERT INTO AD_Process_Para_Trl (AD_Language,AD_Process_Para_ID, Description,Hel
 
 -- 31/07/2013 11:16:59 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,56052,0,53424,53937,19,'LVE_WithholdingType_ID',TO_TIMESTAMP('2013-07-31 11:16:58','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',0,'Y','Y','N','N','Withholding Type',40,TO_TIMESTAMP('2013-07-31 11:16:58','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,56052,0,53424,53937,19,'LVE_WithholdingType_ID',TO_TIMESTAMP('2013-07-31 11:16:58','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','N','N','Withholding Type',40,TO_TIMESTAMP('2013-07-31 11:16:58','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:16:59 AM VET
@@ -100,7 +100,7 @@ INSERT INTO AD_Process_Para_Trl (AD_Language,AD_Process_Para_ID, Description,Hel
 
 -- 31/07/2013 11:17:33 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,DefaultValue,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,265,0,53424,53938,15,'DateDoc',TO_TIMESTAMP('2013-07-31 11:17:33','YYYY-MM-DD HH24:MI:SS'),100,'@#Date@','ECA03',0,'Y','Y','Y','N','Document Date',50,TO_TIMESTAMP('2013-07-31 11:17:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,DefaultValue,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,265,0,53424,53938,15,'DateDoc',TO_TIMESTAMP('2013-07-31 11:17:33','YYYY-MM-DD HH24:MI:SS'),100,'@#Date@','ECA02',0,'Y','Y','Y','N','Document Date',50,TO_TIMESTAMP('2013-07-31 11:17:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 31/07/2013 11:17:33 AM VET

@@ -1,12 +1,6 @@
--- Mar 24, 2013 10:29:52 PM VET
--- Get weight from scale
-INSERT INTO AD_EntityType (AD_Client_ID,AD_EntityType_ID,AD_Org_ID,Created,CreatedBy,Description,EntityType,IsActive,Name,Processing,Updated,UpdatedBy,ModelPackage) VALUES (0,3000200,0,TO_DATE('2013-03-24 22:29:39','YYYY-MM-DD HH24:MI:SS'),100,'E.R.P. Consultores y Asociados, C.A Spin Contribution','ECA03','Y','ERP C y A Spin Contribution','N',TO_DATE('2013-03-24 22:29:39','YYYY-MM-DD HH24:MI:SS'),100,'org.erpca.model')
-;
-
-
 -- Jul 30, 2013 7:58:18 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56052,0,'LVE_WithholdingType_ID',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Type','Withholding Type',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56052,0,'LVE_WithholdingType_ID',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding Type','Withholding Type',TO_TIMESTAMP('2013-07-30 07:58:17','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 7:58:18 AM VET
@@ -21,7 +15,7 @@ UPDATE AD_Element_Trl SET Name='Tipo de Retencion',PrintName='Tipo de Retencion'
 
 -- Jul 30, 2013 8:00:44 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56053,0,'LVE_Withholding_ID',TO_TIMESTAMP('2013-07-30 08:00:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding','Withholding',TO_TIMESTAMP('2013-07-30 08:00:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56053,0,'LVE_Withholding_ID',TO_TIMESTAMP('2013-07-30 08:00:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding','Withholding',TO_TIMESTAMP('2013-07-30 08:00:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:00:44 AM VET
@@ -36,7 +30,7 @@ UPDATE AD_Element_Trl SET Name='Retencion',PrintName='Retencion',Updated=TO_TIME
 
 -- Jul 30, 2013 8:01:31 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56054,0,'WithholdingDocType',TO_TIMESTAMP('2013-07-30 08:01:31','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Doc Type','Withholding Doc Type',TO_TIMESTAMP('2013-07-30 08:01:31','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56054,0,'WithholdingDocType',TO_TIMESTAMP('2013-07-30 08:01:31','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding Doc Type','Withholding Doc Type',TO_TIMESTAMP('2013-07-30 08:01:31','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:01:31 AM VET
@@ -51,7 +45,7 @@ UPDATE AD_Element_Trl SET Name='Tipo de Documento de Retencion',PrintName='Tipo 
 
 -- Jul 30, 2013 8:02:55 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56055,0,'DeclarationDocType',TO_TIMESTAMP('2013-07-30 08:02:54','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Declaration Doc Type','Declaration Doc Type',TO_TIMESTAMP('2013-07-30 08:02:54','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56055,0,'DeclarationDocType',TO_TIMESTAMP('2013-07-30 08:02:54','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Declaration Doc Type','Declaration Doc Type',TO_TIMESTAMP('2013-07-30 08:02:54','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:02:55 AM VET
@@ -66,7 +60,7 @@ UPDATE AD_Element_Trl SET Name='Tipo de Documento de Declaracion',PrintName='Tip
 
 -- Jul 30, 2013 8:03:45 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56056,0,'TaxUnitRate',TO_TIMESTAMP('2013-07-30 08:03:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Tax Unit Rate','Tax Unit Rate',TO_TIMESTAMP('2013-07-30 08:03:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56056,0,'TaxUnitRate',TO_TIMESTAMP('2013-07-30 08:03:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Tax Unit Rate','Tax Unit Rate',TO_TIMESTAMP('2013-07-30 08:03:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:03:45 AM VET
@@ -81,7 +75,7 @@ UPDATE AD_Element_Trl SET Name='Unidad de Cambio del Impuesto',PrintName='Unidad
 
 -- Jul 30, 2013 8:05:44 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56057,0,'LVE_WithholdingConcept_ID',TO_TIMESTAMP('2013-07-30 08:05:43','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Concept','Withholding Concept',TO_TIMESTAMP('2013-07-30 08:05:43','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56057,0,'LVE_WithholdingConcept_ID',TO_TIMESTAMP('2013-07-30 08:05:43','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding Concept','Withholding Concept',TO_TIMESTAMP('2013-07-30 08:05:43','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:05:44 AM VET
@@ -96,7 +90,7 @@ UPDATE AD_Element_Trl SET Name='Concepto Retención',PrintName='Concepto Retenci
 
 -- Jul 30, 2013 8:07:45 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56058,0,'LVE_WH_Conbination_ID',TO_TIMESTAMP('2013-07-30 08:07:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','WH Conbination','WH Conbination',TO_TIMESTAMP('2013-07-30 08:07:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56058,0,'LVE_WH_Conbination_ID',TO_TIMESTAMP('2013-07-30 08:07:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','WH Conbination','WH Conbination',TO_TIMESTAMP('2013-07-30 08:07:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:07:45 AM VET
@@ -111,7 +105,7 @@ UPDATE AD_Element_Trl SET Name='WH Conbinación',PrintName='WH Conbinación',Upd
 
 -- Jul 30, 2013 8:11:34 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56059,0,'LVE_PersonType_ID',TO_TIMESTAMP('2013-07-30 08:11:33','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Person Type','Person Type',TO_TIMESTAMP('2013-07-30 08:11:33','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56059,0,'LVE_PersonType_ID',TO_TIMESTAMP('2013-07-30 08:11:33','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Person Type','Person Type',TO_TIMESTAMP('2013-07-30 08:11:33','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:11:34 AM VET
@@ -126,7 +120,7 @@ UPDATE AD_Element_Trl SET Name='Tipo de Persona',PrintName='Tipo de Persona',Upd
 
 -- Jul 30, 2013 8:12:53 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56060,0,'Aliquot',TO_TIMESTAMP('2013-07-30 08:12:52','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Aliquot','Aliquot',TO_TIMESTAMP('2013-07-30 08:12:52','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56060,0,'Aliquot',TO_TIMESTAMP('2013-07-30 08:12:52','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Aliquot','Aliquot',TO_TIMESTAMP('2013-07-30 08:12:52','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:12:53 AM VET
@@ -141,7 +135,7 @@ UPDATE AD_Element_Trl SET Name='Alícuota',PrintName='Alícuota',Updated=TO_TIME
 
 -- Jul 30, 2013 8:13:52 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56061,0,'LVE_WC_ProductCharge_ID',TO_TIMESTAMP('2013-07-30 08:13:52','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','WC Product Charge','WC Product Charge',TO_TIMESTAMP('2013-07-30 08:13:52','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56061,0,'LVE_WC_ProductCharge_ID',TO_TIMESTAMP('2013-07-30 08:13:52','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','WC Product Charge','WC Product Charge',TO_TIMESTAMP('2013-07-30 08:13:52','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:13:52 AM VET
@@ -156,7 +150,7 @@ UPDATE AD_Element_Trl SET Name='WC Producto, Cargo',PrintName='WC Producto, Carg
 
 -- Jul 30, 2013 8:16:25 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56062,0,'LVE_WithholdingRelation_ID',TO_TIMESTAMP('2013-07-30 08:16:24','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Relation','Withholding Relation',TO_TIMESTAMP('2013-07-30 08:16:24','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56062,0,'LVE_WithholdingRelation_ID',TO_TIMESTAMP('2013-07-30 08:16:24','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding Relation','Withholding Relation',TO_TIMESTAMP('2013-07-30 08:16:24','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:16:25 AM VET
@@ -171,7 +165,7 @@ UPDATE AD_Element_Trl SET Name='Relación Retención',PrintName='Relación Reten
 
 -- Jul 30, 2013 8:23:53 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56063,0,'LVE_WithholdingConfig_ID',TO_TIMESTAMP('2013-07-30 08:23:53','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Withholding Config','Withholding Config',TO_TIMESTAMP('2013-07-30 08:23:53','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56063,0,'LVE_WithholdingConfig_ID',TO_TIMESTAMP('2013-07-30 08:23:53','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Withholding Config','Withholding Config',TO_TIMESTAMP('2013-07-30 08:23:53','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:23:53 AM VET
@@ -186,7 +180,7 @@ UPDATE AD_Element_Trl SET Name='Configurar Retencion',PrintName='Configurar Rete
 
 -- Jul 30, 2013 8:24:50 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56064,0,'LVE_TaxUnit_ID',TO_TIMESTAMP('2013-07-30 08:24:49','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Tax Unit','Tax Unit',TO_TIMESTAMP('2013-07-30 08:24:49','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56064,0,'LVE_TaxUnit_ID',TO_TIMESTAMP('2013-07-30 08:24:49','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Tax Unit','Tax Unit',TO_TIMESTAMP('2013-07-30 08:24:49','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:24:50 AM VET
@@ -201,7 +195,7 @@ UPDATE AD_Element_Trl SET Name='Unidad Tributaria',PrintName='Unidad Tributaria'
 
 -- Jul 30, 2013 8:25:57 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56065,0,'Subtrahend',TO_TIMESTAMP('2013-07-30 08:25:56','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Subtrahend','Subtrahend',TO_TIMESTAMP('2013-07-30 08:25:56','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56065,0,'Subtrahend',TO_TIMESTAMP('2013-07-30 08:25:56','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Subtrahend','Subtrahend',TO_TIMESTAMP('2013-07-30 08:25:56','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:25:57 AM VET
@@ -216,7 +210,7 @@ UPDATE AD_Element_Trl SET Name='Sustraendo',PrintName='Sustraendo',Updated=TO_TI
 
 -- Jul 30, 2013 8:27:07 AM VET
 -- LVE Withholding
-INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56066,0,'MinimalAmt',TO_TIMESTAMP('2013-07-30 08:27:07','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Minimal Amt','Minimal Amt',TO_TIMESTAMP('2013-07-30 08:27:07','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Element (AD_Client_ID,AD_Element_ID,AD_Org_ID,ColumnName,Created,CreatedBy,EntityType,IsActive,Name,PrintName,Updated,UpdatedBy) VALUES (0,56066,0,'MinimalAmt',TO_TIMESTAMP('2013-07-30 08:27:07','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Minimal Amt','Minimal Amt',TO_TIMESTAMP('2013-07-30 08:27:07','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 8:27:07 AM VET

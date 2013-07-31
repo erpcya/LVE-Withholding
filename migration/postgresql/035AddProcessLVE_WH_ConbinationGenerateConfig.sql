@@ -10,7 +10,7 @@ INSERT INTO AD_Process_Trl (AD_Language,AD_Process_ID, Description,Help,Name, Is
 
 -- Jul 31, 2013 10:41:03 AM VET
 -- LVE Withholding
-UPDATE AD_Process SET Classname='org.erpca.process.GenerateConfigConbination', EntityType='ECA03',Updated=TO_TIMESTAMP('2013-07-31 10:41:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=53423
+UPDATE AD_Process SET Classname='org.erpca.process.GenerateConfigConbination', EntityType='ECA02',Updated=TO_TIMESTAMP('2013-07-31 10:41:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=53423
 ;
 
 -- Jul 31, 2013 10:41:48 AM VET
@@ -20,7 +20,7 @@ UPDATE AD_Column SET AD_Process_ID=53423,Updated=TO_TIMESTAMP('2013-07-31 10:41:
 
 -- Jul 31, 2013 10:44:48 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,56064,0,53423,53933,19,'LVE_TaxUnit_ID',TO_TIMESTAMP('2013-07-31 10:44:47','YYYY-MM-DD HH24:MI:SS'),100,'ECA03',0,'Y','Y','N','N','Tax Unit',10,TO_TIMESTAMP('2013-07-31 10:44:47','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Process_Para (AD_Client_ID,AD_Element_ID,AD_Org_ID,AD_Process_ID,AD_Process_Para_ID,AD_Reference_ID,ColumnName,Created,CreatedBy,EntityType,FieldLength,IsActive,IsCentrallyMaintained,IsMandatory,IsRange,Name,SeqNo,Updated,UpdatedBy) VALUES (0,56064,0,53423,53933,19,'LVE_TaxUnit_ID',TO_TIMESTAMP('2013-07-31 10:44:47','YYYY-MM-DD HH24:MI:SS'),100,'ECA02',0,'Y','Y','N','N','Tax Unit',10,TO_TIMESTAMP('2013-07-31 10:44:47','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 31, 2013 10:44:48 AM VET

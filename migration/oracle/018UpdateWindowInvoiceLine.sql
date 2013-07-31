@@ -30,7 +30,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:14:19 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66490,67861,0,270,TO_DATE('2013-07-30 11:14:19','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Doc Affected',TO_DATE('2013-07-30 11:14:19','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66490,67861,0,270,TO_DATE('2013-07-30 11:14:19','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Doc Affected',TO_DATE('2013-07-30 11:14:19','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:14:19 AM VET
@@ -60,7 +60,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:14:21 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66489,67864,0,270,TO_DATE('2013-07-30 11:14:20','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Withholding Config',TO_DATE('2013-07-30 11:14:20','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66489,67864,0,270,TO_DATE('2013-07-30 11:14:20','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Withholding Config',TO_DATE('2013-07-30 11:14:20','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:14:21 AM VET

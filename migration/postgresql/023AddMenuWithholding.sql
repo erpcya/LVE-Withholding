@@ -1,6 +1,6 @@
 -- Jul 30, 2013 12:05:42 PM VET
 -- LVE Withholding
-INSERT INTO AD_Menu (AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES (0,53572,0,TO_TIMESTAMP('2013-07-30 12:05:41','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Y','N','N','Y','Withholding ',TO_TIMESTAMP('2013-07-30 12:05:41','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu (AD_Client_ID,AD_Menu_ID,AD_Org_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES (0,53572,0,TO_TIMESTAMP('2013-07-30 12:05:41','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','Y','Withholding ',TO_TIMESTAMP('2013-07-30 12:05:41','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 12:05:42 PM VET
@@ -60,12 +60,12 @@ UPDATE AD_Menu_Trl SET Name='Tipo de Retención',Updated=TO_TIMESTAMP('2013-07-3
 
 -- Jul 30, 2013 12:07:48 PM VET
 -- LVE Withholding
-UPDATE AD_Menu SET EntityType='ECA03',Updated=TO_TIMESTAMP('2013-07-30 12:07:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=53574
+UPDATE AD_Menu SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-07-30 12:07:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=53574
 ;
 
 -- Jul 30, 2013 12:07:53 PM VET
 -- LVE Withholding
-UPDATE AD_Menu SET EntityType='ECA03',Updated=TO_TIMESTAMP('2013-07-30 12:07:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=53573
+UPDATE AD_Menu SET EntityType='ECA02',Updated=TO_TIMESTAMP('2013-07-30 12:07:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=53573
 ;
 
 -- Jul 30, 2013 12:07:56 PM VET
@@ -85,7 +85,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=53572, SeqNo=1, Updated=CURRENT_TIMESTAMP WHE
 
 -- Jul 30, 2013 12:08:42 PM VET
 -- LVE Withholding
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53575,0,53255,TO_TIMESTAMP('2013-07-30 12:08:41','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Y','N','N','N','Withholding Concept',TO_TIMESTAMP('2013-07-30 12:08:41','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53575,0,53255,TO_TIMESTAMP('2013-07-30 12:08:41','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Withholding Concept',TO_TIMESTAMP('2013-07-30 12:08:41','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 12:08:42 PM VET
@@ -100,7 +100,7 @@ INSERT INTO AD_TreeNodeMM (AD_Client_ID,AD_Org_ID, IsActive,Created,CreatedBy,Up
 
 -- Jul 30, 2013 12:10:03 PM VET
 -- LVE Withholding
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53576,0,53256,TO_TIMESTAMP('2013-07-30 12:10:03','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Y','N','N','N','Withholding Conbination',TO_TIMESTAMP('2013-07-30 12:10:03','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53576,0,53256,TO_TIMESTAMP('2013-07-30 12:10:03','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Withholding Conbination',TO_TIMESTAMP('2013-07-30 12:10:03','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 12:10:03 PM VET
@@ -240,7 +240,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=53572, SeqNo=3, Updated=CURRENT_TIMESTAMP WHE
 
 -- Jul 30, 2013 12:11:02 PM VET
 -- LVE Withholding
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53577,0,53251,TO_TIMESTAMP('2013-07-30 12:10:58','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Y','N','N','N','Tax Unit',TO_TIMESTAMP('2013-07-30 12:10:58','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53577,0,53251,TO_TIMESTAMP('2013-07-30 12:10:58','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Tax Unit',TO_TIMESTAMP('2013-07-30 12:10:58','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 12:11:02 PM VET
@@ -285,7 +285,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=53572, SeqNo=4, Updated=CURRENT_TIMESTAMP WHE
 
 -- Jul 30, 2013 12:11:45 PM VET
 -- LVE Withholding
-INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53578,0,53252,TO_TIMESTAMP('2013-07-30 12:11:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','Y','N','N','N','Person Type',TO_TIMESTAMP('2013-07-30 12:11:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Menu ("action",AD_Client_ID,AD_Menu_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsCentrallyMaintained,IsReadOnly,IsSOTrx,IsSummary,Name,Updated,UpdatedBy) VALUES ('W',0,53578,0,53252,TO_TIMESTAMP('2013-07-30 12:11:44','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Y','N','N','N','Person Type',TO_TIMESTAMP('2013-07-30 12:11:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 12:11:45 PM VET

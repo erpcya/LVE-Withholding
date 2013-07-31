@@ -1,6 +1,6 @@
 -- Jul 30, 2013 11:46:58 AM VET
 -- LVE Withholding
-INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,53256,TO_TIMESTAMP('2013-07-30 11:46:57','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','Y','N','N','Y','WH Conbination','N',TO_TIMESTAMP('2013-07-30 11:46:57','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
+INSERT INTO AD_Window (AD_Client_ID,AD_Org_ID,AD_Window_ID,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDefault,IsSOTrx,Name,Processing,Updated,UpdatedBy,WindowType,WinHeight,WinWidth) VALUES (0,0,53256,TO_TIMESTAMP('2013-07-30 11:46:57','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','N','N','Y','WH Conbination','N',TO_TIMESTAMP('2013-07-30 11:46:57','YYYY-MM-DD HH24:MI:SS'),100,'M',0,0)
 ;
 
 -- Jul 30, 2013 11:46:58 AM VET
@@ -15,7 +15,7 @@ UPDATE AD_Window_Trl SET Name='WH Conbinacion',Updated=TO_TIMESTAMP('2013-07-30 
 
 -- Jul 30, 2013 11:48:00 AM VET
 -- LVE Withholding
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,53703,53537,53256,TO_TIMESTAMP('2013-07-30 11:47:59','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','N','N','Y','N','N','Y','N','Y','N','N','WH Conbination','N',10,0,TO_TIMESTAMP('2013-07-30 11:47:59','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,53703,53537,53256,TO_TIMESTAMP('2013-07-30 11:47:59','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','N','N','Y','N','N','Y','N','Y','N','N','WH Conbination','N',10,0,TO_TIMESTAMP('2013-07-30 11:47:59','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:00 AM VET
@@ -25,7 +25,7 @@ INSERT INTO AD_Tab_Trl (AD_Language,AD_Tab_ID, CommitWarning,Description,Help,Na
 
 -- Jul 30, 2013 11:48:03 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66434,67872,0,53703,TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA03','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66434,67872,0,53703,TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100)
@@ -38,7 +38,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:04 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66441,67873,0,53703,TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA03','Y','Y','Y','N','N','N','N','N','Aliquot',TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66441,67873,0,53703,TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA02','Y','Y','Y','N','N','N','N','N','Aliquot',TO_TIMESTAMP('2013-07-30 11:48:03','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:04 AM VET
@@ -48,7 +48,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:04 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66430,67874,0,53703,TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',22,'ECA03','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66430,67874,0,53703,TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',22,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:04 AM VET
@@ -58,7 +58,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:05 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66431,67875,0,53703,TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',22,'ECA03','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66431,67875,0,53703,TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',22,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-07-30 11:48:04','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:05 AM VET
@@ -68,7 +68,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:05 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66439,67876,0,53703,TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66439,67876,0,53703,TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Person Type',TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:05 AM VET
@@ -78,7 +78,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:06 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66442,67877,0,53703,TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100,1,'ECA03','Y','Y','Y','N','N','N','N','N','Process Now',TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66442,67877,0,53703,TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100,1,'ECA02','Y','Y','Y','N','N','N','N','N','Process Now',TO_TIMESTAMP('2013-07-30 11:48:05','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:06 AM VET
@@ -88,7 +88,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:06 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66440,67878,0,53703,TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Search key for the record in the format required - must be unique',60,'ECA03','A search key allows you a fast method of finding a particular record.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66440,67878,0,53703,TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100,'Search key for the record in the format required - must be unique',60,'ECA02','A search key allows you a fast method of finding a particular record.
 If you leave the search key empty, the system automatically creates a numeric number.  The document sequence used for this fallback number is defined in the "Maintain Sequence" window with the name "DocumentNo_<TableName>", where TableName is the actual name of the table (e.g. C_Order).','Y','Y','Y','N','N','N','N','N','Search Key',TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
@@ -99,7 +99,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:07 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66435,67879,0,53703,TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100,22,'ECA03','Y','Y','N','N','N','N','N','N','WH Conbination',TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66435,67879,0,53703,TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100,22,'ECA02','Y','Y','N','N','N','N','N','N','WH Conbination',TO_TIMESTAMP('2013-07-30 11:48:06','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:07 AM VET
@@ -109,7 +109,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:48:07 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66438,67880,0,53703,TO_TIMESTAMP('2013-07-30 11:48:07','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Withholding Concept',TO_TIMESTAMP('2013-07-30 11:48:07','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66438,67880,0,53703,TO_TIMESTAMP('2013-07-30 11:48:07','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Withholding Concept',TO_TIMESTAMP('2013-07-30 11:48:07','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:48:07 AM VET
@@ -224,7 +224,7 @@ UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-07-30 11:50:05','Y
 
 -- Jul 30, 2013 11:50:33 AM VET
 -- LVE Withholding
-INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,53704,53540,53256,TO_TIMESTAMP('2013-07-30 11:50:32','YYYY-MM-DD HH24:MI:SS'),100,'ECA03','N','N','Y','N','N','Y','N','N','N','N','Withholding Config','N',20,0,TO_TIMESTAMP('2013-07-30 11:50:32','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Tab (AD_Client_ID,AD_Org_ID,AD_Tab_ID,AD_Table_ID,AD_Window_ID,Created,CreatedBy,EntityType,HasTree,ImportFields,IsActive,IsAdvancedTab,IsInfoTab,IsInsertRecord,IsReadOnly,IsSingleRow,IsSortTab,IsTranslationTab,Name,Processing,SeqNo,TabLevel,Updated,UpdatedBy) VALUES (0,0,53704,53540,53256,TO_TIMESTAMP('2013-07-30 11:50:32','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','N','N','Y','N','N','Y','N','N','N','N','Withholding Config','N',20,0,TO_TIMESTAMP('2013-07-30 11:50:32','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:50:33 AM VET
@@ -244,7 +244,7 @@ UPDATE AD_Tab SET AD_Column_ID=66472, IsSingleRow='Y', TabLevel=1,Updated=TO_TIM
 
 -- Jul 30, 2013 11:51:41 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66468,67881,0,53704,TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA03','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66468,67881,0,53704,TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100,'The record is active in the system',1,'ECA02','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
 There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.','Y','Y','Y','N','N','N','N','N','Active',TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100)
@@ -257,7 +257,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:42 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66464,67882,0,53704,TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',22,'ECA03','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66464,67882,0,53704,TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.',22,'ECA02','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','Y','Y','N','N','N','N','N','Client',TO_TIMESTAMP('2013-07-30 11:51:41','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:42 AM VET
@@ -267,7 +267,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:42 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66475,67883,0,53704,TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA03','Y','Y','Y','N','N','N','N','N','Minimal Amt',TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66475,67883,0,53704,TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA02','Y','Y','Y','N','N','N','N','N','Minimal Amt',TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:42 AM VET
@@ -277,7 +277,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:43 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66465,67884,0,53704,TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',22,'ECA03','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,Description,DisplayLength,EntityType,Help,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66465,67884,0,53704,TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100,'Organizational entity within client',22,'ECA02','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.','Y','Y','Y','N','N','N','N','N','Organization',TO_TIMESTAMP('2013-07-30 11:51:42','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:43 AM VET
@@ -287,7 +287,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:43 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66474,67885,0,53704,TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA03','Y','Y','Y','N','N','N','N','N','Subtrahend',TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66474,67885,0,53704,TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100,14,'ECA02','Y','Y','Y','N','N','N','N','N','Subtrahend',TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:43 AM VET
@@ -297,7 +297,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:44 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66473,67886,0,53704,TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','Tax Unit',TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66473,67886,0,53704,TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Tax Unit',TO_TIMESTAMP('2013-07-30 11:51:43','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:44 AM VET
@@ -307,7 +307,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:44 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66472,67887,0,53704,TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA03','Y','Y','Y','N','N','N','N','N','WH Conbination',TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66472,67887,0,53704,TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','WH Conbination',TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:44 AM VET
@@ -317,7 +317,7 @@ INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTran
 
 -- Jul 30, 2013 11:51:45 AM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66469,67888,0,53704,TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100,22,'ECA03','Y','Y','N','N','N','N','N','N','Withholding Config',TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66469,67888,0,53704,TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100,22,'ECA02','Y','Y','N','N','N','N','N','N','Withholding Config',TO_TIMESTAMP('2013-07-30 11:51:44','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Jul 30, 2013 11:51:45 AM VET

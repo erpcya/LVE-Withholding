@@ -498,7 +498,7 @@ UPDATE AD_Menu SET IsActive='N',Updated=TO_TIMESTAMP('2013-07-30 15:39:04','YYYY
 
 -- 30/07/2013 04:02:52 PM VET
 -- LVE Withholding
-UPDATE AD_Tab_Trl SET Name='Concepto de Retención',Updated=TO_TIMESTAMP('2013-07-30 16:02:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53706 AND AD_Language='es_MX'
+UPDATE AD_Tab_Trl SET Name='Concepto de RetenciÃ³n',Updated=TO_TIMESTAMP('2013-07-30 16:02:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53706 AND AD_Language='es_MX'
 ;
 
 -- 30/07/2013 04:03:17 PM VET
@@ -508,11 +508,11 @@ UPDATE AD_Tab_Trl SET Name='WC Producto, Cargo',Updated=TO_TIMESTAMP('2013-07-30
 
 -- 30/07/2013 04:03:29 PM VET
 -- LVE Withholding
-UPDATE AD_Tab_Trl SET Name='WH Combinación',Updated=TO_TIMESTAMP('2013-07-30 16:03:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53708 AND AD_Language='es_MX'
+UPDATE AD_Tab_Trl SET Name='WH CombinaciÃ³n',Updated=TO_TIMESTAMP('2013-07-30 16:03:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53708 AND AD_Language='es_MX'
 ;
 
 -- 30/07/2013 04:03:47 PM VET
 -- LVE Withholding
-UPDATE AD_Tab_Trl SET Name='Configurar Retención',Updated=TO_TIMESTAMP('2013-07-30 16:03:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53709 AND AD_Language='es_MX'
+UPDATE AD_Tab_Trl SET Name='Configurar RetenciÃ³n',Updated=TO_TIMESTAMP('2013-07-30 16:03:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=53709 AND AD_Language='es_MX'
 ;
 

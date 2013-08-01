@@ -78,7 +78,7 @@ public class WithholdingGenerate extends SvrProcess {
 		}
 		//	SQL
 		sql = new String("SELECT wh.ClassName, wh.LVE_Withholding_ID, wh.Name " +
-				"FROM LVE_Withholding_ID wh " +
+				"FROM LVE_Withholding wh " +
 				"WHERE wh.IsActive = 'Y' ");
 		//	Add Clause
 		if(p_LVE_Withholding_ID != 0)

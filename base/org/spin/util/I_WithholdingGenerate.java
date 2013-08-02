@@ -14,7 +14,7 @@
  * All Rights Reserved.                                                       *
  * Contributor(s): Yamel Senih www.erpconsultoresyasociados.com               *
  *****************************************************************************/
-package org.erpca.util;
+package org.spin.util;
 
 import java.sql.Timestamp;
 import java.util.Properties;

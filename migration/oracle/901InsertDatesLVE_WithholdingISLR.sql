@@ -65,7 +65,7 @@ INSERT INTO AD_Document_Action_Access (AD_Client_ID,AD_Org_ID,IsActive,Created,C
 
 -- 1/08/2013 03:49:34 PM VET
 -- LVE Withholding
-INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000000,TO_DATE('2013-08-01 15:49:34','YYYY-MM-DD HH24:MI:SS'),100,1000001,'Y','N',1000000,1000001,'RETENCIÓN I.S.L.R.',0,TO_DATE('2013-08-01 15:49:34','YYYY-MM-DD HH24:MI:SS'),100,1000000)
+INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,ClassName,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000000,'Test',TO_DATE('2013-08-01 15:49:34','YYYY-MM-DD HH24:MI:SS'),100,1000001,'Y','N',1000000,1000001,'RETENCIÓN I.S.L.R.',0,TO_DATE('2013-08-01 15:49:34','YYYY-MM-DD HH24:MI:SS'),100,1000000)
 ;
 
 -- 1/08/2013 03:50:42 PM VET

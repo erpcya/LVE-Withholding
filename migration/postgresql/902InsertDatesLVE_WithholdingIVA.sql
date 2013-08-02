@@ -80,12 +80,12 @@ INSERT INTO AD_Document_Action_Access (AD_Client_ID,AD_Org_ID,IsActive,Created,C
 
 -- 1/08/2013 05:03:57 PM VET
 -- LVE Withholding
-INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000001,TO_TIMESTAMP('2013-08-01 17:03:57','YYYY-MM-DD HH24:MI:SS'),100,1000004,'Y','N',1000001,1000000,'RETENCIÓN I.V.A. 75%',0,TO_TIMESTAMP('2013-08-01 17:03:57','YYYY-MM-DD HH24:MI:SS'),100,1000003)
+INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,ClassName,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000001,'Test',TO_TIMESTAMP('2013-08-01 17:03:57','YYYY-MM-DD HH24:MI:SS'),100,1000004,'Y','N',1000001,1000000,'RETENCIÓN I.V.A. 75%',0,TO_TIMESTAMP('2013-08-01 17:03:57','YYYY-MM-DD HH24:MI:SS'),100,1000003)
 ;
 
 -- 1/08/2013 05:04:48 PM VET
 -- LVE Withholding
-INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000001,TO_TIMESTAMP('2013-08-01 17:04:48','YYYY-MM-DD HH24:MI:SS'),100,1000004,'Y','N',1000002,1000000,'RETENCIÓN I.V.A. 100%',0,TO_TIMESTAMP('2013-08-01 17:04:48','YYYY-MM-DD HH24:MI:SS'),100,1000003)
+INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,ClassName,Created,CreatedBy,DeclarationDocType,IsActive,IsSOTrx,LVE_Withholding_ID,LVE_WithholdingType_ID,Name,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType) VALUES (11,50001,113,1000001,'Test',TO_TIMESTAMP('2013-08-01 17:04:48','YYYY-MM-DD HH24:MI:SS'),100,1000004,'Y','N',1000002,1000000,'RETENCIÓN I.V.A. 100%',0,TO_TIMESTAMP('2013-08-01 17:04:48','YYYY-MM-DD HH24:MI:SS'),100,1000003)
 ;
 
 -- 1/08/2013 05:05:32 PM VET

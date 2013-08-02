@@ -24,6 +24,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
+import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.spin.util.I_WithholdingGenerate;
 
@@ -103,29 +104,32 @@ public class WithholdingGenerate extends SvrProcess {
 				String p_ClassName 			= rs.getString("ClassName");
 				int p_LVE_Withholding_ID 	= rs.getInt("LVE_Withholding_ID");
 				String p_WithholdingName		= rs.getString("Name");
-				
-				//	Load Class for Withholding
-				I_WithholdingGenerate wh = loadClass(p_ClassName);
-				//	Generate Documents
-				StringBuffer sb = new StringBuffer();
-				//	Info
-				log.fine("WithholdingGenerate" +
-						"\nTrxName=" + trx.getTrxName() + 
-						"\nAD_PInstance_ID=" + getAD_PInstance_ID() + 
-						"\nC_Invoice_ID=" + p_C_Invoice_ID + 
-						"\nC_BPartner_ID=" + p_C_BPartner_ID + 
-						"\nDateAcct=" + p_DateAcct + 
-						"\nDateAcct_To=" + p_DateAcct_To + 
-						"\nDateDoc=" + p_DateDoc + 
-						"\nLVE_Withholding_ID=" + p_LVE_Withholding_ID);
-				
-				generated = wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
-						p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, sb);
-				//	Add Buffer
-				if(sb != null){
-					prcLog.append(sb);
-					addLog(p_WithholdingName + " ||:::>>> " + sb.toString());	
-				}
+				if(p_ClassName != null 
+						&& p_ClassName.length() != 0){
+					//	Load Class for Withholding
+					I_WithholdingGenerate wh = loadClass(p_ClassName);
+					//	Generate Documents
+					StringBuffer sb = new StringBuffer();
+					//	Info
+					log.fine("WithholdingGenerate" +
+							"\nTrxName=" + trx.getTrxName() + 
+							"\nAD_PInstance_ID=" + getAD_PInstance_ID() + 
+							"\nC_Invoice_ID=" + p_C_Invoice_ID + 
+							"\nC_BPartner_ID=" + p_C_BPartner_ID + 
+							"\nDateAcct=" + p_DateAcct + 
+							"\nDateAcct_To=" + p_DateAcct_To + 
+							"\nDateDoc=" + p_DateDoc + 
+							"\nLVE_Withholding_ID=" + p_LVE_Withholding_ID);
+					
+					generated = wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
+							p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, sb);
+					//	Add Buffer
+					if(sb != null){
+						prcLog.append(sb);
+						addLog(p_WithholdingName + " ||:::>>> " + sb.toString());
+					}
+				} else
+					addLog(p_WithholdingName + " ||:::>>> " + Msg.translate(getCtx(), "ClassName") + " = null");
 			}
 		}
 		//	Close Connection

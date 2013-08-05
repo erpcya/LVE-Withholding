@@ -10,7 +10,7 @@ SELECT 	DISTINCT
 	-- Invoice Line
 	il.C_Invoice_ID, -- Invoice ID from Invoice Line
 	il.DocAffected_ID, -- Invoiced Affected
-	--il.LineNetAmt, -- Line Amount Net
+	il.LineNetAmt, -- Line Amount Net
 	il.Line / 10::NUMERIC AS Line, -- Number Line Invoice Line
 	--Document Infor
 	dt.Name, -- Document Name 
@@ -38,7 +38,7 @@ FROM C_DocType dt
 JOIN C_Invoice i ON i.C_DocType_ID = dt.C_DocType_ID
 JOIN C_InvoiceLine il ON i.C_Invoice_ID = il.DocAffected_ID
 JOIN LVE_WithholdingConfig wc ON wc.LVE_WithholdingConfig_ID = il.LVE_WithholdingConfig_ID
-JOIN LVE_WH_Conbination whc ON whc.LVE_WH_Conbination_ID = wc.LVE_WH_Conbination_ID
+JOIN LVE_WH_Combination whc ON whc.LVE_WH_Combination_ID = wc.LVE_WH_Combination_ID
 JOIN LVE_WithholdingConcept wct ON wct.LVE_WithholdingConcept_ID = whc.LVE_WithholdingConcept_ID
 JOIN LVE_Withholding w ON w.LVE_Withholding_ID = wct.LVE_Withholding_ID
 JOIN LVE_WithholdingType wt ON wt.LVE_WithholdingType_ID = w.LVE_WithholdingType_ID

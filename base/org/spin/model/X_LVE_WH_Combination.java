@@ -23,31 +23,31 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.Env;
 
-/** Generated Model for LVE_WH_Conbination
+/** Generated Model for LVE_WH_Combination
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_WH_Conbination extends PO implements I_LVE_WH_Conbination, I_Persistent 
+public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
-    public X_LVE_WH_Conbination (Properties ctx, int LVE_WH_Conbination_ID, String trxName)
+    public X_LVE_WH_Combination (Properties ctx, int LVE_WH_Combination_ID, String trxName)
     {
-      super (ctx, LVE_WH_Conbination_ID, trxName);
-      /** if (LVE_WH_Conbination_ID == 0)
+      super (ctx, LVE_WH_Combination_ID, trxName);
+      /** if (LVE_WH_Combination_ID == 0)
         {
 			setAliquot (Env.ZERO);
-			setLVE_WH_Conbination_ID (0);
+			setLVE_WH_Combination_ID (0);
 			setLVE_WithholdingConcept_ID (0);
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_WH_Conbination (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_Combination (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -69,7 +69,7 @@ public class X_LVE_WH_Conbination extends PO implements I_LVE_WH_Conbination, I_
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_WH_Conbination[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_Combination[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -116,21 +116,21 @@ public class X_LVE_WH_Conbination extends PO implements I_LVE_WH_Conbination, I_
 		return ii.intValue();
 	}
 
-	/** Set Withholding Conbination.
-		@param LVE_WH_Conbination_ID Withholding Conbination	  */
-	public void setLVE_WH_Conbination_ID (int LVE_WH_Conbination_ID)
+	/** Set Withholding Combination.
+		@param LVE_WH_Combination_ID Withholding Combination	  */
+	public void setLVE_WH_Combination_ID (int LVE_WH_Combination_ID)
 	{
-		if (LVE_WH_Conbination_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_WH_Conbination_ID, null);
+		if (LVE_WH_Combination_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Combination_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_WH_Conbination_ID, Integer.valueOf(LVE_WH_Conbination_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Combination_ID, Integer.valueOf(LVE_WH_Combination_ID));
 	}
 
-	/** Get Withholding Conbination.
-		@return Withholding Conbination	  */
-	public int getLVE_WH_Conbination_ID () 
+	/** Get Withholding Combination.
+		@return Withholding Combination	  */
+	public int getLVE_WH_Combination_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Conbination_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Combination_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

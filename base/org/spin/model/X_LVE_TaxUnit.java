@@ -33,7 +33,7 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_TaxUnit (Properties ctx, int LVE_TaxUnit_ID, String trxName)

@@ -30,7 +30,7 @@ public class X_LVE_WC_ProductCharge extends PO implements I_LVE_WC_ProductCharge
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_WC_ProductCharge (Properties ctx, int LVE_WC_ProductCharge_ID, String trxName)

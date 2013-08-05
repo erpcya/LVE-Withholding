@@ -30,7 +30,7 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_WithholdingConcept (Properties ctx, int LVE_WithholdingConcept_ID, String trxName)
@@ -38,8 +38,8 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
       super (ctx, LVE_WithholdingConcept_ID, trxName);
       /** if (LVE_WithholdingConcept_ID == 0)
         {
-			setLVE_Withholding_ID (0);
 			setLVE_WithholdingConcept_ID (0);
+			setLVE_Withholding_ID (0);
 			setName (null);
         } */
     }
@@ -89,6 +89,26 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
+	/** Set Withholding Concept.
+		@param LVE_WithholdingConcept_ID Withholding Concept	  */
+	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID)
+	{
+		if (LVE_WithholdingConcept_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, Integer.valueOf(LVE_WithholdingConcept_ID));
+	}
+
+	/** Get Withholding Concept.
+		@return Withholding Concept	  */
+	public int getLVE_WithholdingConcept_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WithholdingConcept_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException
     {
 		return (org.spin.model.I_LVE_Withholding)MTable.get(getCtx(), org.spin.model.I_LVE_Withholding.Table_Name)
@@ -109,26 +129,6 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
 	public int getLVE_Withholding_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_Withholding_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Withholding Concept.
-		@param LVE_WithholdingConcept_ID Withholding Concept	  */
-	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID)
-	{
-		if (LVE_WithholdingConcept_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, Integer.valueOf(LVE_WithholdingConcept_ID));
-	}
-
-	/** Get Withholding Concept.
-		@return Withholding Concept	  */
-	public int getLVE_WithholdingConcept_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WithholdingConcept_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

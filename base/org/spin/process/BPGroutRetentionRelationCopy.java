@@ -14,7 +14,7 @@
  * All Rights Reserved.                                                       *
  * Contributor(s): Yamel Senih www.erpconsultoresyasociados.com               *
  *****************************************************************************/
-package org.erpca.process;
+package org.spin.process;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,6 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.erpca.model.MCUSTRetentionRelation;
 
 /**
  * Copy default Retention Relation 
@@ -144,11 +143,11 @@ public class BPGroutRetentionRelationCopy extends SvrProcess {
 			{
 				while (rs.next()) 
 				{	
-					MCUSTRetentionRelation rt = new MCUSTRetentionRelation(Env.getCtx(), rs, get_TrxName);
+					/*MCUSTRetentionRelation rt = new MCUSTRetentionRelation(Env.getCtx(), rs, get_TrxName);
 					MCUSTRetentionRelation retention = new MCUSTRetentionRelation(Env.getCtx(), 0, get_TrxName);
 					retention.setC_BPartner_ID(c_BPartner);
 					retention.setCUST_RetentionType_ID(rt.getCUST_RetentionType_ID());
-					retention.saveEx();	
+					retention.saveEx();	*/
 				}
 			}
 			rs.close();

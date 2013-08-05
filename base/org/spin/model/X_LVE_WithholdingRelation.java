@@ -31,7 +31,7 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_WithholdingRelation (Properties ctx, int LVE_WithholdingRelation_ID, String trxName)
@@ -72,34 +72,6 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
       return sb.toString();
     }
 
-	public I_C_BP_Group getC_BP_Group() throws RuntimeException
-    {
-		return (I_C_BP_Group)MTable.get(getCtx(), I_C_BP_Group.Table_Name)
-			.getPO(getC_BP_Group_ID(), get_TrxName());	}
-
-	/** Set Business Partner Group.
-		@param C_BP_Group_ID 
-		Business Partner Group
-	  */
-	public void setC_BP_Group_ID (int C_BP_Group_ID)
-	{
-		if (C_BP_Group_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_BP_Group_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_C_BP_Group_ID, Integer.valueOf(C_BP_Group_ID));
-	}
-
-	/** Get Business Partner Group.
-		@return Business Partner Group
-	  */
-	public int getC_BP_Group_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_C_BP_Group_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	public I_C_BPartner getC_BPartner() throws RuntimeException
     {
 		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
@@ -123,6 +95,34 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
 	public int getC_BPartner_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_C_BPartner_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_BP_Group getC_BP_Group() throws RuntimeException
+    {
+		return (I_C_BP_Group)MTable.get(getCtx(), I_C_BP_Group.Table_Name)
+			.getPO(getC_BP_Group_ID(), get_TrxName());	}
+
+	/** Set Business Partner Group.
+		@param C_BP_Group_ID 
+		Business Partner Group
+	  */
+	public void setC_BP_Group_ID (int C_BP_Group_ID)
+	{
+		if (C_BP_Group_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_BP_Group_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_C_BP_Group_ID, Integer.valueOf(C_BP_Group_ID));
+	}
+
+	/** Get Business Partner Group.
+		@return Business Partner Group
+	  */
+	public int getC_BP_Group_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_BP_Group_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

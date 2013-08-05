@@ -32,7 +32,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_Withholding (Properties ctx, int LVE_Withholding_ID, String trxName)
@@ -42,6 +42,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
         {
 			setBeneficiary (0);
 			setC_Charge_ID (0);
+			setClassname (null);
 			setDeclarationDocType (0);
 			setLVE_Withholding_ID (0);
 			setLVE_WithholdingType_ID (0);

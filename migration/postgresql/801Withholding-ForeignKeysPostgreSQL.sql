@@ -1,9 +1,9 @@
-ALTER TABLE LVE_WH_Conbination ADD CONSTRAINT FK_WH_Conbination_PersonType FOREIGN KEY (LVE_PersonType_ID)
+ALTER TABLE LVE_WH_Combination ADD CONSTRAINT FK_WH_Combination_PersonType FOREIGN KEY (LVE_PersonType_ID)
 REFERENCES LVE_PersonType (LVE_PersonType_ID)
 ON UPDATE CASCADE
 ON DELETE RESTRICT;
 
-ALTER TABLE LVE_WH_Conbination ADD CONSTRAINT FK_WH_Conbination_WithholdingConcept FOREIGN KEY (LVE_WithholdingConcept_ID)
+ALTER TABLE LVE_WH_Combination ADD CONSTRAINT FK_WH_Combination_WithholdingConcept FOREIGN KEY (LVE_WithholdingConcept_ID)
 REFERENCES LVE_WithholdingConcept (LVE_WithholdingConcept_ID)
 ON UPDATE CASCADE
 ON DELETE RESTRICT;
@@ -28,8 +28,8 @@ REFERENCES LVE_TaxUnit (LVE_TaxUnit_ID)
 ON UPDATE CASCADE
 ON DELETE RESTRICT;
 
-ALTER TABLE LVE_WithholdingConfig ADD CONSTRAINT FK_WithholdingConfig_WH_Conbination FOREIGN KEY (LVE_WH_Conbination_ID)
-REFERENCES LVE_WH_Conbination (LVE_WH_Conbination_ID)
+ALTER TABLE LVE_WithholdingConfig ADD CONSTRAINT FK_WithholdingConfig_WH_Conbination FOREIGN KEY (LVE_WH_Combination_ID)
+REFERENCES lve_wh_combination (lve_wh_combination_ID)
 ON UPDATE CASCADE
 ON DELETE RESTRICT;
 

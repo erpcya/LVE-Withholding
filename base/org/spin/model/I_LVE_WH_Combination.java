@@ -14,24 +14,24 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.erpca.model;
+package org.spin.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for CUST_PersonType
+/** Generated Interface for LVE_WH_Combination
  *  @author Adempiere (generated) 
- *  @version Release 3.7.0LTS
+ *  @version Release 3.6.0LTS
  */
-public interface I_CUST_PersonType 
+public interface I_LVE_WH_Combination 
 {
 
-    /** TableName=CUST_PersonType */
-    public static final String Table_Name = "CUST_PersonType";
+    /** TableName=LVE_WH_Combination */
+    public static final String Table_Name = "LVE_WH_Combination";
 
-    /** AD_Table_ID=3000004 */
+    /** AD_Table_ID=53537 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,6 +63,15 @@ public interface I_CUST_PersonType
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name Aliquot */
+    public static final String COLUMNNAME_Aliquot = "Aliquot";
+
+	/** Set Aliquot	  */
+	public void setAliquot (BigDecimal Aliquot);
+
+	/** Get Aliquot	  */
+	public BigDecimal getAliquot();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -79,28 +88,6 @@ public interface I_CUST_PersonType
 	  */
 	public int getCreatedBy();
 
-    /** Column name CUST_PersonType_ID */
-    public static final String COLUMNNAME_CUST_PersonType_ID = "CUST_PersonType_ID";
-
-	/** Set Person Type	  */
-	public void setCUST_PersonType_ID (int CUST_PersonType_ID);
-
-	/** Get Person Type	  */
-	public int getCUST_PersonType_ID();
-
-    /** Column name Description */
-    public static final String COLUMNNAME_Description = "Description";
-
-	/** Set Description.
-	  * Optional short description of the record
-	  */
-	public void setDescription (String Description);
-
-	/** Get Description.
-	  * Optional short description of the record
-	  */
-	public String getDescription();
-
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -114,18 +101,45 @@ public interface I_CUST_PersonType
 	  */
 	public boolean isActive();
 
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
+    /** Column name LVE_PersonType_ID */
+    public static final String COLUMNNAME_LVE_PersonType_ID = "LVE_PersonType_ID";
 
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
+	/** Set Person Type	  */
+	public void setLVE_PersonType_ID (int LVE_PersonType_ID);
 
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
+	/** Get Person Type	  */
+	public int getLVE_PersonType_ID();
+
+	public org.spin.model.I_LVE_PersonType getLVE_PersonType() throws RuntimeException;
+
+    /** Column name LVE_WH_Combination_ID */
+    public static final String COLUMNNAME_LVE_WH_Combination_ID = "LVE_WH_Combination_ID";
+
+	/** Set Withholding Combination	  */
+	public void setLVE_WH_Combination_ID (int LVE_WH_Combination_ID);
+
+	/** Get Withholding Combination	  */
+	public int getLVE_WH_Combination_ID();
+
+    /** Column name LVE_WithholdingConcept_ID */
+    public static final String COLUMNNAME_LVE_WithholdingConcept_ID = "LVE_WithholdingConcept_ID";
+
+	/** Set Withholding Concept	  */
+	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID);
+
+	/** Get Withholding Concept	  */
+	public int getLVE_WithholdingConcept_ID();
+
+	public org.spin.model.I_LVE_WithholdingConcept getLVE_WithholdingConcept() throws RuntimeException;
+
+    /** Column name Processing */
+    public static final String COLUMNNAME_Processing = "Processing";
+
+	/** Set Process Now	  */
+	public void setProcessing (boolean Processing);
+
+	/** Get Process Now	  */
+	public boolean isProcessing();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -142,4 +156,17 @@ public interface I_CUST_PersonType
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name Value */
+    public static final String COLUMNNAME_Value = "Value";
+
+	/** Set Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
+	public void setValue (String Value);
+
+	/** Get Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
+	public String getValue();
 }

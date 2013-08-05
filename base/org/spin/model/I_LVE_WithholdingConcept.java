@@ -105,6 +105,15 @@ public interface I_LVE_WithholdingConcept
 	  */
 	public boolean isActive();
 
+    /** Column name LVE_WithholdingConcept_ID */
+    public static final String COLUMNNAME_LVE_WithholdingConcept_ID = "LVE_WithholdingConcept_ID";
+
+	/** Set Withholding Concept	  */
+	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID);
+
+	/** Get Withholding Concept	  */
+	public int getLVE_WithholdingConcept_ID();
+
     /** Column name LVE_Withholding_ID */
     public static final String COLUMNNAME_LVE_Withholding_ID = "LVE_Withholding_ID";
 
@@ -115,15 +124,6 @@ public interface I_LVE_WithholdingConcept
 	public int getLVE_Withholding_ID();
 
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
-
-    /** Column name LVE_WithholdingConcept_ID */
-    public static final String COLUMNNAME_LVE_WithholdingConcept_ID = "LVE_WithholdingConcept_ID";
-
-	/** Set Withholding Concept	  */
-	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID);
-
-	/** Get Withholding Concept	  */
-	public int getLVE_WithholdingConcept_ID();
 
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";

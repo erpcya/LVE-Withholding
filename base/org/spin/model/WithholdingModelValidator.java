@@ -1,4 +1,4 @@
-package org.erpca.model;
+package org.spin.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,18 +20,21 @@ import org.compiere.util.Env;
  * Model Validator
  * 
  * @author Dixon Martinez
+ * @contributor <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
+ * 		<l>	Add Control No
+ * 		<l>	Change to Withholding Relation
  */
-public class ModelValidator implements org.compiere.model.ModelValidator {
+public class WithholdingModelValidator implements org.compiere.model.ModelValidator {
 
 	/**
 	 * Constructor.
 	 */
-	public ModelValidator() {
+	public WithholdingModelValidator() {
 		super();
 	} // ModelValidator
 
 	/** Logger */
-	private static CLogger log = CLogger.getCLogger(ModelValidator.class);
+	private static CLogger log = CLogger.getCLogger(WithholdingModelValidator.class);
 	/** Client */
 	private int m_AD_Client_ID = -1;
 	
@@ -92,7 +95,7 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 
 			PreparedStatement pstmt = null;
 
-			String sql = "SELECT * FROM CUST_RetentionRelation WHERE"
+			String sql = "SELECT * FROM LVE_WithholdingRelation WHERE"
 					+ " C_BP_Group_ID = ?";
 			
 			pstmt = DB.prepareStatement(sql, bpartner.get_TrxName());
@@ -100,11 +103,11 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 			ResultSet res = pstmt.executeQuery();
 			if (res != null) {
 				while (res.next()) {				
-					MCUSTRetentionRelation rt = new MCUSTRetentionRelation(Env.getCtx(), res, bpartner.get_TrxName());
-					MCUSTRetentionRelation retention = new MCUSTRetentionRelation(
+					MLVEWithholdingRelation rt = new MLVEWithholdingRelation(Env.getCtx(), res, bpartner.get_TrxName());
+					MLVEWithholdingRelation retention = new MLVEWithholdingRelation(
 							Env.getCtx(), 0, bpartner.get_TrxName());
 					retention.setC_BPartner_ID(bpartner.getC_BPartner_ID());
-					retention.setCUST_RetentionType_ID(rt.getCUST_RetentionType_ID());
+					retention.setLVE_Withholding_ID(rt.getLVE_Withholding_ID());
 					retention.saveEx();
 				}
 			}
@@ -154,7 +157,7 @@ public class ModelValidator implements org.compiere.model.ModelValidator {
 						"FROM C_Invoice dr " +
 						"INNER JOIN C_InvoiceLine drl ON(drl.C_Invoice_ID = dr.C_Invoice_ID) " +
 						"WHERE dr.DocStatus IN('CO', 'CL') " +
-						"AND drl.DocAffected_ID = ?");
+						"AND drl.DocAffected = ?");
 				//	Log
 				log.fine("SQL Declaration=" + sql);
 				//	Search

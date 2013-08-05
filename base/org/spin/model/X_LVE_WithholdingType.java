@@ -30,7 +30,7 @@ public class X_LVE_WithholdingType extends PO implements I_LVE_WithholdingType, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130801L;
+	private static final long serialVersionUID = 20130805L;
 
     /** Standard Constructor */
     public X_LVE_WithholdingType (Properties ctx, int LVE_WithholdingType_ID, String trxName)

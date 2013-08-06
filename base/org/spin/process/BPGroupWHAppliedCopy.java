@@ -16,14 +16,17 @@
  *****************************************************************************/
 package org.spin.process;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.compiere.model.MAcctSchema;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.AdempiereSystemError;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.spin.model.I_LVE_WithholdingRelation;
@@ -34,7 +37,7 @@ import org.spin.model.MLVEWithholdingRelation;
  * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
  *
  */
-public class BPGroupWHRelationCopy extends SvrProcess {
+public class BPGroupWHAppliedCopy extends SvrProcess {
 
 	/** BP Group					*/
 	private int								p_C_BP_Group_ID = 0;
@@ -70,40 +73,51 @@ public class BPGroupWHRelationCopy extends SvrProcess {
 	 */
 	@Override
 	protected String doIt() throws Exception {
-		//	Load List
-		m_WH_RelationList = new Query(getCtx(), MLVEWithholdingRelation.Table_Name, 
-				I_LVE_WithholdingRelation.COLUMNNAME_C_BP_Group_ID+"=?)", get_TrxName())
-			.setParameters(p_C_BP_Group_ID)
-			.setOnlyActiveRecords(true)
-			.<MLVEWithholdingRelation>list();
 		
-		if(m_WH_RelationList == null 
-				|| m_WH_RelationList.isEmpty())
-			return "@Copied@ = " + 0;
-		//	Sql
-		String sql = new String("SELECT bp.C_BPartner_ID " +
-				"FROM C_BPartner bp " +
-				"WHERE bp.C_BP_Group_ID = ?");
-		log.fine("SQL=" + sql);
-		log.fine("C_BP_Group_ID=" + p_C_BP_Group_ID);
+		log.info("C_BP_Group_ID=" + p_C_BP_Group_ID);
+		if (p_C_BP_Group_ID == 0)
+			throw new AdempiereSystemError("C_BP_Group_ID=0");
+		//
+		String sql = null;
+		int updated = 0;
+		int created = 0;
+		int updatedTotal = 0;
+		int createdTotal = 0;
+
+		//	Update existing Relations
+		sql = "UPDATE LVE_WithholdingRelation whr "
+			+ "SET (LVE_Withholding_ID)="
+			 + " (SELECT whrf.LVE_Withholding_ID "
+			 + " FROM LVE_Withholding whrf"
+			 + " WHERE whrf.C_BP_Group_ID=" + p_C_BP_Group_ID
+			 + " AND whrf.C_BPartner_ID IS NULL), Updated=SysDate, UpdatedBy= " + getAD_User_ID()
+			+ "WHERE EXISTS (SELECT 1 FROM C_BPartner p "
+				+ "WHERE p.C_BPartner_ID=whr.C_BPartner_ID"
+				+ " AND p.C_BP_Group_ID=" + p_C_BP_Group_ID + ")";
+		updated = DB.executeUpdate(sql, get_TrxName());
+		addLog(0, null, new BigDecimal(updated), "@Updated@ @C_BPartner_ID@");
+		updatedTotal += updated;
 		
-		PreparedStatement pstmt = null;
-		pstmt = DB.prepareStatement(sql, get_TrxName());
-		pstmt.setInt(1,p_C_BP_Group_ID);
-		ResultSet rs = pstmt.executeQuery();
-		//	Try
-		if (rs != null) {						
-			while (rs.next()) {
-				int p_C_BPartner_ID = rs.getInt("C_BPartner_ID");
-				//	Delete Old Relations
-				deleteWithholding(p_C_BPartner_ID);
-				//	Add New Relations
-				addRelation(p_C_BPartner_ID, get_TrxName());
-			}
-		}
-		//	Close Connection
-		DB.close(rs, pstmt);
-		return "@Copied@=" + m_Copied;
+		//	Insert new Relation
+		sql = "INSERT INTO LVE_WithholdingRelation "
+			+ "(C_BPartner_ID, C_AcctSchema_ID,"
+			+ " AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy,"
+			+ " C_Receivable_Acct, C_Receivable_Services_Acct, C_PrePayment_Acct) "
+			+ "SELECT p.C_BPartner_ID, acct.C_AcctSchema_ID,"
+			+ " p.AD_Client_ID, p.AD_Org_ID, 'Y', SysDate, 0, SysDate, 0,"
+			+ " acct.C_Receivable_Acct, acct.C_Receivable_Services_Acct, acct.C_PrePayment_Acct "
+			+ "FROM C_BPartner p"
+			+ " INNER JOIN C_BP_Group_Acct acct ON (acct.C_BP_Group_ID=p.C_BP_Group_ID)"
+			+ "WHERE acct.C_AcctSchema_ID=" + p_C_AcctSchema_ID			//	#
+			+ " AND p.C_BP_Group_ID=" + p_C_BP_Group_ID
+			+ " AND NOT EXISTS (SELECT * FROM C_BP_Customer_Acct ca "
+				+ "WHERE ca.C_BPartner_ID=p.C_BPartner_ID"
+				+ " AND ca.C_AcctSchema_ID=acct.C_AcctSchema_ID)";
+		created = DB.executeUpdate(sql, get_TrxName());
+		addLog(0, null, new BigDecimal(created), "@Created@ @C_BPartner_ID@ @IsCustomer@");
+		createdTotal += created;
+		
+		return "@Created@=" + createdTotal + ", @Updated@=" + updatedTotal;
 	}
 
 	/**

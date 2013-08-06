@@ -13,7 +13,7 @@
  * Copyright (C) 2012-2013 E.R.P. Consultores y Asociados, S.A. All Rights Reserved. *
  * Contributor(s): Yamel Senih www.erpconsultoresyasociados.com                      *
  *************************************************************************************/
-package org.erpca.process;
+package org.spin.process;
 
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -42,10 +42,10 @@ import org.compiere.util.Trx;
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
  */
-public class ProcessRetention_ISLR extends SvrProcess {
+public class ProcessRetention_IVA extends SvrProcess {
 
 	/**	Logger							*/
-	public static CLogger log = CLogger.getCLogger(ProcessRetention_ISLR.class);
+	public static CLogger log = CLogger.getCLogger(ProcessRetention_IVA.class);
 	
 	/**	Invoice							*/
 	private int			p_C_Invoice_ID			=	0;
@@ -79,7 +79,7 @@ public class ProcessRetention_ISLR extends SvrProcess {
 	
 	private final int 	N_UOM = 100;
 	
-	private Trx 		trx 		= null;
+	private Trx 		trx = null;
 
 	
 	@Override
@@ -102,7 +102,7 @@ public class ProcessRetention_ISLR extends SvrProcess {
 			else if (name.equals("CUST_RetentionType_ID"))
 				p_CUST_RetentionType_ID = para.getParameterAsInt();
 		}
-		
+		//	Trx
 		trx = Trx.get(get_TrxName(), false);
 		
 		//	Set RecordID
@@ -121,41 +121,33 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		
 		//	
 		sql = new String("SELECT bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, " +
-				"inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
-				"SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) TotalLines, " +
-				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, " +
+				"inv.C_Invoice_ID, cn.Aliquot, rt.C_Charge_ID, rt.C_DocType_ID, SUM(itax.TaxAmt) TaxAmt, " + 
 				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
-				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
-				"CASE WHEN charat(dtr.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
+				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " + 
+				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " + 
 				"FROM C_Invoice inv " + 
-				"INNER JOIN C_InvoiceLine linv ON(linv.C_Invoice_ID = inv.C_Invoice_ID) " + 
+				"INNER JOIN C_InvoiceTax itax ON(itax.C_Invoice_ID = inv.C_Invoice_ID) " + 
 				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " + 
-				"INNER JOIN CUST_RetentionRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
+				"INNER JOIN CUST_RetentionRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " + 
 				"INNER JOIN CUST_RetentionType rt ON(rt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
 				"INNER JOIN CUST_RetentionConfig cn ON(cn.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"INNER JOIN CUST_CR_PT_Combination cb ON(cb.CUST_RetentionConfig_ID = cn.CUST_RetentionConfig_ID) " +
-				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " +
+				"INNER JOIN CUST_CR_PT_Combination cb ON(cb.CUST_RetentionConfig_ID = cn.CUST_RetentionConfig_ID) " + 
+				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " + 
 				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.C_DocType_ID) " + 
-				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.CUST_RetentionType_ID FROM CUST_RetentionRelation rrdt) rrdt " +  
+				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.CUST_RetentionType_ID FROM CUST_RetentionRelation rrdt) rrdt " + 
 				"ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"WHERE inv.CUST_ConceptRetention_ID = cb.CUST_ConceptRetention_ID " +
-				"AND bp.CUST_PersonType_ID = cb.CUST_PersonType_ID " +
-				//	Valid Exists other Retention
+				"WHERE inv.DocStatus IN('CO') " + 
 				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret " + 
-				"		LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) WHERE ret.DocStatus IN('CO', 'CL') "+ 
-				"		AND ret.C_DocType_ID = rt.C_DocType_ID AND retl.DocAffected_ID = inv.C_Invoice_ID) " + 
-
+				"LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) WHERE ret.DocStatus IN('CO', 'CL') " + 
+				"AND ret.C_DocType_ID = rt.C_DocType_ID AND retl.DocAffected_ID = inv.C_Invoice_ID) " + 
 				//	Sql Where
 				m_parameterWhere.toString() + 
 				//	Group By
-				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
-				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, dt.DocBaseType, dtr.DocBaseType " +
-				"HAVING (SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) >= cn.MinimalAmt " +
-				"AND SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) > 0) " + 
+				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, inv.C_Invoice_ID, cn.Aliquot, " +  
+				"rt.C_Charge_ID, rt.C_DocType_ID, dt.DocBaseType, dtr.DocBaseType " + 
+				"HAVING (SUM(itax.TaxAmt) > 0) " + 
 				"ORDER BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
-		
-		log.fine("SQL=" + sql);
 		
 	}
 
@@ -171,11 +163,8 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		int m_C_Invoice_ID 				= 0;
 		int m_C_Charge_ID 				= 0;
 		int m_C_DocType_ID 				= 0;
-		BigDecimal m_TotalLines 		= Env.ZERO;
+		BigDecimal m_TaxAmt 			= Env.ZERO;
 		BigDecimal m_Aliquot 			= Env.ZERO;
-		BigDecimal m_MinimalAmt 		= Env.ZERO;
-		BigDecimal m_Subtrahend 		= Env.ZERO;
-		
 		
 		if(rs != null){
 			while(rs.next()){
@@ -185,10 +174,8 @@ public class ProcessRetention_ISLR extends SvrProcess {
 				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
 				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
-				m_TotalLines 				= rs.getBigDecimal("TotalLines");
+				m_TaxAmt 					= rs.getBigDecimal("TaxAmt");
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
-				m_MinimalAmt 				= rs.getBigDecimal("MinimalAmt");
-				m_Subtrahend 				= rs.getBigDecimal("Subtrahend");
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Retention		= rs.getBigDecimal("multiplierRet");
 				
@@ -198,18 +185,15 @@ public class ProcessRetention_ISLR extends SvrProcess {
 						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
 						+ " m_C_Charge_ID=" + m_C_Charge_ID
 						+ " m_C_DocType_ID=" + m_C_DocType_ID
-						+ " m_TotalLines=" + m_TotalLines
 						+ " m_Aliquot=" + m_Aliquot
-						+ " m_MinimalAmt=" + m_MinimalAmt
-						+ " m_Subtrahend=" + m_Subtrahend
 						+ " m_Current_Mlp_Invoice=" + m_Current_Mlp_Invoice
 						+ " m_Current_Mlp_Retention=" + m_Current_Mlp_Retention);
 				
 				//	Add Document to Retention
 				
-				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, m_CUST_CR_PT_Combination_ID, 
-						m_C_Charge_ID, m_C_DocType_ID, m_TotalLines, 
-						m_Aliquot, m_MinimalAmt, m_Subtrahend);
+				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, m_CUST_CR_PT_Combination_ID,
+						m_C_Charge_ID, m_C_DocType_ID, m_TaxAmt, 
+						m_Aliquot);
 				
 			}
 			completeRetention();
@@ -218,36 +202,35 @@ public class ProcessRetention_ISLR extends SvrProcess {
 		//	Close Connection
 		DB.close(rs, pstmt);
 		trx.commit();
-		return String.valueOf(m_Generated);
+		return "@Generated@ = " + m_Generated;
 	}
 	
 	/**
 	 * Add Documents to Retention
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 11:07:38
+	 * <li> RetentionAmt = TaxAmt*Aliquot
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 03/03/2013, 00:33:58
 	 * @param p_C_BPartner_ID
 	 * @param p_C_Invoice_ID
 	 * @param p_CUST_RetentionType_ID
 	 * @param p_CUST_CR_PT_Combination_ID
 	 * @param p_C_Charge_ID
 	 * @param p_C_DocType_ID
-	 * @param p_TotalLines
+	 * @param p_TaxAmt
 	 * @param p_Aliquot
-	 * @param p_MinimalAmt
-	 * @param p_Subtrahend
 	 * @return void
 	 */
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
 			int p_CUST_RetentionType_ID, int p_CUST_CR_PT_Combination_ID, int p_C_Charge_ID, 
-			int p_C_DocType_ID, BigDecimal p_TotalLines, 
-			BigDecimal p_Aliquot, BigDecimal p_MinimalAmt, BigDecimal p_Subtrahend){
+			int p_C_DocType_ID, BigDecimal p_TaxAmt, 
+			BigDecimal p_Aliquot){
 		
 		BigDecimal retentionAmt = Env.ZERO;
 		p_Aliquot = p_Aliquot.divide(Env.ONEHUNDRED);
-		retentionAmt = p_TotalLines.multiply(p_Aliquot);
-		retentionAmt = retentionAmt.subtract(p_Subtrahend);
+		retentionAmt = p_TaxAmt.multiply(p_Aliquot);
 		retentionAmt = (retentionAmt.compareTo(Env.ZERO) < 0? Env.ZERO: retentionAmt);
-		log.fine("retentionAmt=" + retentionAmt);
-		//	
+		
+		log.fine("p_Aliquot=" + p_Aliquot + " p_TaxAmt=" + p_TaxAmt + " retentionAmt=" + retentionAmt);
+		
 		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
 			completeRetention();
 			completeAlloc();

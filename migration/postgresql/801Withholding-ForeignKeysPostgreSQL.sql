@@ -1,0 +1,92 @@
+ALTER TABLE LVE_WH_Combination ADD CONSTRAINT FK_WH_Combination_PersonType FOREIGN KEY (LVE_PersonType_ID)
+REFERENCES LVE_PersonType (LVE_PersonType_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WH_Combination ADD CONSTRAINT FK_WH_Combination_WithholdingConcept FOREIGN KEY (LVE_WithholdingConcept_ID)
+REFERENCES LVE_WithholdingConcept (LVE_WithholdingConcept_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_Withholding ADD CONSTRAINT FK_Withholding_Charge FOREIGN KEY (C_Charge_ID)
+REFERENCES C_Charge (C_Charge_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_Withholding ADD CONSTRAINT FK_Withholding_WithholdingType FOREIGN KEY (LVE_WithholdingType_ID)
+REFERENCES LVE_WithholdingType (LVE_WithholdingType_ID  )
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingConcept ADD CONSTRAINT FK_WithholdingConcept_Withholding FOREIGN KEY (LVE_Withholding_ID)
+REFERENCES LVE_Withholding (LVE_Withholding_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingConfig ADD CONSTRAINT FK_WithholdingConfig_TaxUnit FOREIGN KEY (LVE_TaxUnit_ID)
+REFERENCES LVE_TaxUnit (LVE_TaxUnit_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingConfig ADD CONSTRAINT FK_WithholdingConfig_WH_Conbination FOREIGN KEY (LVE_WH_Combination_ID)
+REFERENCES lve_wh_combination (lve_wh_combination_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingRelation ADD CONSTRAINT FK_WithholdingRelation_BP_Group FOREIGN KEY (C_BP_Group_ID)
+REFERENCES C_BP_Group (C_BP_Group_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingRelation ADD CONSTRAINT FK_WithholdingRelation_BPartner FOREIGN KEY (C_BPartner_ID)
+REFERENCES C_BPartner (C_BPartner_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingRelation ADD CONSTRAINT FK_WithholdingRelation_DocType FOREIGN KEY (C_DocType_ID)
+REFERENCES C_DocType (C_DocType_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WithholdingRelation ADD CONSTRAINT FK_WithholdingRelation_Withholding FOREIGN KEY (LVE_Withholding_ID)
+REFERENCES LVE_Withholding (LVE_Withholding_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WC_ProductCharge ADD CONSTRAINT FK_WC_ProductCharge_Charge FOREIGN KEY (C_Charge_ID)
+REFERENCES C_Charge (C_Charge_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE LVE_WC_ProductCharge ADD CONSTRAINT FK_WC_ProductCharge_WithholdingConcept FOREIGN KEY (LVE_WithholdingConcept_ID)
+REFERENCES LVE_WithholdingConcept (LVE_WithholdingConcept_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+
+ALTER TABLE LVE_WC_ProductCharge ADD CONSTRAINT FK_WC_ProductCharge_Product FOREIGN KEY (M_Product_ID)
+REFERENCES M_Product (M_Product_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+
+ALTER TABLE C_Invoice ADD CONSTRAINT FK_Invoice_WithholdingConcept FOREIGN KEY (LVE_WithholdingConcept_ID)
+REFERENCES LVE_WithholdingConcept (LVE_WithholdingConcept_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE C_InvoiceLine ADD CONSTRAINT FK_InvoiceLine_WithholdingConfig FOREIGN KEY (LVE_WithholdingConfig_ID)
+REFERENCES LVE_WithholdingConfig (LVE_WithholdingConfig_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+ALTER TABLE C_BPartner ADD CONSTRAINT FK_BPartner_PersonType FOREIGN KEY (LVE_PersonType_ID)
+REFERENCES LVE_PersonType (LVE_PersonType_ID)
+ON UPDATE CASCADE
+ON DELETE RESTRICT;
+
+CREATE UNIQUE INDEX UK_WHR_C_BP_Group ON LVE_WithholdingRelation(AD_Client_ID, C_BP_Group_ID, LVE_Withholding_ID);
+
+CREATE UNIQUE INDEX UK_WHR_C_BPartner ON LVE_WithholdingRelation(AD_Client_ID, C_BPartner_ID, LVE_Withholding_ID);
+
+CREATE UNIQUE INDEX UK_WHR_LVE_Withholding ON LVE_WithholdingRelation(AD_Client_ID, LVE_Withholding_ID, C_DocType_ID);

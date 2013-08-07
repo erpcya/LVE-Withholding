@@ -22,11 +22,9 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.compiere.model.MAcctSchema;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.AdempiereSystemError;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.spin.model.I_LVE_WithholdingRelation;
@@ -47,6 +45,9 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	
 	/**	Copied						*/
 	private int								m_Copied = 0;
+	
+	/**	Deleted						*/
+	private int								m_Deleted = 0;
 
 	/* (non-Javadoc)
 	 * @see org.compiere.process.SvrProcess#prepare()
@@ -73,61 +74,61 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	 */
 	@Override
 	protected String doIt() throws Exception {
+		//	Load List
+		m_WH_RelationList = new Query(getCtx(), MLVEWithholdingRelation.Table_Name, 
+				I_LVE_WithholdingRelation.COLUMNNAME_C_BP_Group_ID+"=?", get_TrxName())
+			.setParameters(p_C_BP_Group_ID)
+			.setOnlyActiveRecords(true)
+			.<MLVEWithholdingRelation>list();
 		
-		log.info("C_BP_Group_ID=" + p_C_BP_Group_ID);
-		if (p_C_BP_Group_ID == 0)
-			throw new AdempiereSystemError("C_BP_Group_ID=0");
-		//
-		String sql = null;
-		int updated = 0;
-		int created = 0;
-		int updatedTotal = 0;
-		int createdTotal = 0;
-
-		//	Update existing Relations
-		sql = "UPDATE LVE_WithholdingRelation whr "
-			+ "SET (LVE_Withholding_ID)="
-			 + " (SELECT whrf.LVE_Withholding_ID "
-			 + " FROM LVE_Withholding whrf"
-			 + " WHERE whrf.C_BP_Group_ID=" + p_C_BP_Group_ID
-			 + " AND whrf.C_BPartner_ID IS NULL), Updated=SysDate, UpdatedBy= " + getAD_User_ID()
-			+ "WHERE EXISTS (SELECT 1 FROM C_BPartner p "
-				+ "WHERE p.C_BPartner_ID=whr.C_BPartner_ID"
-				+ " AND p.C_BP_Group_ID=" + p_C_BP_Group_ID + ")";
-		updated = DB.executeUpdate(sql, get_TrxName());
-		addLog(0, null, new BigDecimal(updated), "@Updated@ @C_BPartner_ID@");
-		updatedTotal += updated;
+		if(m_WH_RelationList == null 
+				|| m_WH_RelationList.isEmpty())
+			return "@Copied@ = " + 0;
+		//	Sql
+		String sql = new String("SELECT bp.C_BPartner_ID " +
+				"FROM C_BPartner bp " +
+				"WHERE bp.C_BP_Group_ID = ?");
+		log.fine("SQL=" + sql);
+		log.fine("C_BP_Group_ID=" + p_C_BP_Group_ID);
 		
-		//	Insert new Relation
-		sql = "INSERT INTO LVE_WithholdingRelation "
-			+ "(C_BPartner_ID, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy,"
-			+ " LVE_Withholding_ID) "
-			+ "SELECT p.C_BPartner_ID, p.AD_Client_ID, p.AD_Org_ID, 'Y', SysDate, 0, SysDate, 0,"
-			+ "whr.LVE_Withholding_ID "
-			+ "FROM C_BPartner p "
-			+ "INNER JOIN LVE_WithholdingRelation whr ON(whr.C_BP_Group_ID = p.C_BP_Group_ID)";
-		created = DB.executeUpdate(sql, get_TrxName());
-		addLog(0, null, new BigDecimal(created), "@Created@ @C_BPartner_ID@ @IsCustomer@");
-		createdTotal += created;
-		
-		return "@Created@=" + createdTotal + ", @Updated@=" + updatedTotal;
+		PreparedStatement pstmt = null;
+		pstmt = DB.prepareStatement(sql, get_TrxName());
+		pstmt.setInt(1,p_C_BP_Group_ID);
+		ResultSet rs = pstmt.executeQuery();
+		//	Try
+		if (rs != null) {						
+			//	Delete Old Relations
+			deleteWithholding();
+			while (rs.next()) {
+				int p_C_BPartner_ID = rs.getInt("C_BPartner_ID");
+				//	Add New Relations
+				addRelation(p_C_BPartner_ID, get_TrxName());
+			}
+			addLog(0, null, new BigDecimal(m_Copied), "@LVE_WithholdingRelation_ID@ @Copied@");
+		}
+		//	Close Connection
+		DB.close(rs, pstmt);
+		return "@Deleted@=" + m_Deleted + " @Copied@=" + m_Copied;
 	}
 
 	/**
 	 * Delete Withholding
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 06/08/2013, 16:36:46
-	 * @param p_C_BPartner_ID
 	 * @return void
 	 */
-	private void deleteWithholding(int p_C_BPartner_ID) {
+	private void deleteWithholding() {
 		String sql = new String("DELETE FROM LVE_WithholdingRelation " +
-				"WHERE C_BPartner_ID = " + p_C_BPartner_ID);
+				"WHERE EXISTS(SELECT 1 " +
+				"				FROM C_BPartner cp " +
+				"				INNER JOIN LVE_WithholdingRelation whr ON(whr.C_BPartner_ID = cp.C_BPartner_ID) " +
+				"				WHERE LVE_WithholdingRelation.LVE_WithholdingRelation_ID = whr.LVE_WithholdingRelation_ID " +
+				"				AND cp.C_BP_Group_ID = " + p_C_BP_Group_ID + ")");
 		//	Info
 		log.fine("SQL=" + sql);
-		log.fine("C_BPartner_ID=" + p_C_BPartner_ID);
 		//	
-		int deleted = DB.executeUpdateEx(sql, get_TrxName());
-		log.info("C_BPartner_ID= " + p_C_BPartner_ID + " Withholding Relation Deleted=" + deleted);
+		m_Deleted = DB.executeUpdateEx(sql, get_TrxName());
+		log.info("Withholding Relation Deleted=" + m_Deleted);
+		addLog(0, null, new BigDecimal(m_Deleted), "@LVE_WithholdingRelation_ID@ @Deleted@");
 	}
 	
 	/**
@@ -144,9 +145,9 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 			withholding.setC_BPartner_ID(p_C_BPartner_ID);
 			withholding.setLVE_Withholding_ID(whR.getLVE_Withholding_ID());
 			withholding.saveEx();
+			//	Count Generated
+			m_Copied ++;
 		}
-		//	Count Generated
-		m_Copied ++;
 	}
 
 }

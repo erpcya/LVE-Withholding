@@ -33,6 +33,8 @@ import org.spin.model.MLVEWithholdingRelation;
 /**
  * Copy default Retention Relation 
  * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
+ * @contributor <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
+ * 		<br> Best Programming Practices
  *
  */
 public class BPGroupWHAppliedCopy extends SvrProcess {

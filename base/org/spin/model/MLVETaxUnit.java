@@ -18,7 +18,6 @@ package org.spin.model;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.Query;
@@ -59,7 +58,7 @@ public class MLVETaxUnit extends X_LVE_TaxUnit {
 	}
 
 	/**
-	 * Get Valid Tax Unit from DateAcct
+	 * Get Valid Tax Unit valid for DateAcct
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 07/08/2013, 12:03:14
 	 * @param ctx
 	 * @param DateAcct
@@ -67,13 +66,14 @@ public class MLVETaxUnit extends X_LVE_TaxUnit {
 	 * @return
 	 * @return MLVETaxUnit
 	 */
-	public static List<MLVETaxUnit> get(Properties ctx, Timestamp DateAcct, String trxName){
+	public static MLVETaxUnit get(Properties ctx, Timestamp DateAcct, String trxName){
 		//	Get Tax Unit
-		List<MLVETaxUnit> m_TaxUnitList = new Query(ctx, Table_Name, 
-				I_LVE_TaxUnit.COLUMNNAME_ValidFrom +"<=?", trxName)
+		MLVETaxUnit m_TaxUnitList = new Query(ctx, Table_Name, 
+				COLUMNNAME_ValidFrom +"<=?", trxName)
 			.setParameters(DateAcct)
 			.setOnlyActiveRecords(true)
-			.<MLVETaxUnit>list();
+			.setOrderBy(COLUMNNAME_ValidFrom + " DESC")
+			.firstOnly();
 		return m_TaxUnitList;
 	}
 }

@@ -100,19 +100,12 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 		
 		//	Insert new Relation
 		sql = "INSERT INTO LVE_WithholdingRelation "
-			+ "(C_BPartner_ID, C_AcctSchema_ID,"
-			+ " AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy,"
-			+ " C_Receivable_Acct, C_Receivable_Services_Acct, C_PrePayment_Acct) "
-			+ "SELECT p.C_BPartner_ID, acct.C_AcctSchema_ID,"
-			+ " p.AD_Client_ID, p.AD_Org_ID, 'Y', SysDate, 0, SysDate, 0,"
-			+ " acct.C_Receivable_Acct, acct.C_Receivable_Services_Acct, acct.C_PrePayment_Acct "
-			+ "FROM C_BPartner p"
-			+ " INNER JOIN C_BP_Group_Acct acct ON (acct.C_BP_Group_ID=p.C_BP_Group_ID)"
-			+ "WHERE acct.C_AcctSchema_ID=" + p_C_AcctSchema_ID			//	#
-			+ " AND p.C_BP_Group_ID=" + p_C_BP_Group_ID
-			+ " AND NOT EXISTS (SELECT * FROM C_BP_Customer_Acct ca "
-				+ "WHERE ca.C_BPartner_ID=p.C_BPartner_ID"
-				+ " AND ca.C_AcctSchema_ID=acct.C_AcctSchema_ID)";
+			+ "(C_BPartner_ID, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy,"
+			+ " LVE_Withholding_ID) "
+			+ "SELECT p.C_BPartner_ID, p.AD_Client_ID, p.AD_Org_ID, 'Y', SysDate, 0, SysDate, 0,"
+			+ "whr.LVE_Withholding_ID "
+			+ "FROM C_BPartner p "
+			+ "INNER JOIN LVE_WithholdingRelation whr ON(whr.C_BP_Group_ID = p.C_BP_Group_ID)";
 		created = DB.executeUpdate(sql, get_TrxName());
 		addLog(0, null, new BigDecimal(created), "@Created@ @C_BPartner_ID@ @IsCustomer@");
 		createdTotal += created;

@@ -90,3 +90,6 @@ CREATE UNIQUE INDEX UK_WHR_C_BP_Group ON LVE_WithholdingRelation(AD_Client_ID, C
 CREATE UNIQUE INDEX UK_WHR_C_BPartner ON LVE_WithholdingRelation(AD_Client_ID, C_BPartner_ID, LVE_Withholding_ID);
 
 CREATE UNIQUE INDEX UK_WHR_LVE_Withholding ON LVE_WithholdingRelation(AD_Client_ID, LVE_Withholding_ID, C_DocType_ID);
+
+
+CREATE UNIQUE INDEX UK_WH_ConfigTaxUnit ON LVE_WithholdingConfig(AD_Client_ID, LVE_WH_Combination_ID, LVE_TaxUnit_ID);

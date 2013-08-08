@@ -23,11 +23,6 @@ UPDATE LVE_PersonType SET Value='J',Updated=TO_DATE('2013-08-08 11:08:58','YYYY-
 UPDATE LVE_Withholding SET Name='RETENCIÓN I.V.A.',Updated=TO_DATE('2013-08-08 11:10:32','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000001
 ;
 
--- Aug 8, 2013 11:10:48 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO LVE_WH_Concept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_WH_Concept_ID,LVE_Withholding_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-08 11:10:48','YYYY-MM-DD HH24:MI:SS'),100,'IVA 100','Y',1000000,1000001,'IVA 100',TO_DATE('2013-08-08 11:10:48','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
 -- Aug 8, 2013 11:11:36 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 INSERT INTO LVE_WH_Concept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_WH_Concept_ID,LVE_Withholding_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-08 11:11:36','YYYY-MM-DD HH24:MI:SS'),100,'IVA 100','Y',1000017,1000001,'IVA 100',TO_DATE('2013-08-08 11:11:36','YYYY-MM-DD HH24:MI:SS'),100)
@@ -36,16 +31,6 @@ INSERT INTO LVE_WH_Concept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description
 -- Aug 8, 2013 11:12:04 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,Updated,UpdatedBy,Value) VALUES (11,50001,100.000000000000,TO_DATE('2013-08-08 11:12:04','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000039,1000017,'N',TO_DATE('2013-08-08 11:12:04','YYYY-MM-DD HH24:MI:SS'),100,'IVA100')
-;
-
--- Aug 8, 2013 11:12:36 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM LVE_Withholding WHERE LVE_Withholding_ID=1000002
-;
-
--- Aug 8, 2013 11:12:40 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-DELETE FROM LVE_WH_Concept WHERE LVE_WH_Concept_ID=1000015
 ;
 
 -- Aug 8, 2013 11:12:44 AM VET
@@ -283,19 +268,9 @@ INSERT INTO LVE_WH_Relation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,Created,Create
 INSERT INTO LVE_WH_Relation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,Created,CreatedBy,IsActive,LVE_Withholding_ID,LVE_WH_Relation_ID,Updated,UpdatedBy) VALUES (11,11,104,TO_DATE('2013-08-08 11:21:01','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,1000005,TO_DATE('2013-08-08 11:21:01','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
--- Aug 8, 2013 11:21:03 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO LVE_WH_Relation (AD_Client_ID,AD_Org_ID,C_BP_Group_ID,Created,CreatedBy,IsActive,LVE_Withholding_ID,LVE_WH_Relation_ID,Updated,UpdatedBy) VALUES (11,11,104,TO_DATE('2013-08-08 11:21:03','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,1000006,TO_DATE('2013-08-08 11:21:03','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
 -- Aug 8, 2013 11:21:10 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 DELETE FROM LVE_WH_Relation WHERE EXISTS(SELECT 1 				FROM C_BPartner cp 				INNER JOIN LVE_WH_Relation whr ON(whr.C_BPartner_ID = cp.C_BPartner_ID) 				WHERE LVE_WH_Relation.LVE_WH_Relation_ID = whr.LVE_WH_Relation_ID 				AND cp.C_BP_Group_ID = 105)
-;
-
--- Aug 8, 2013 11:21:10 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO LVE_WH_Relation (AD_Client_ID,AD_Org_ID,C_BPartner_ID,Created,CreatedBy,IsActive,LVE_Withholding_ID,LVE_WH_Relation_ID,Updated,UpdatedBy) VALUES (11,50001,119,TO_DATE('2013-08-08 11:21:10','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000000,1000007,TO_DATE('2013-08-08 11:21:10','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- Aug 8, 2013 11:21:10 AM VET

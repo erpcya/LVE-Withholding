@@ -48,4 +48,4 @@ JOIN ( SELECT citax.c_invoice_id, max(ctax.rate) AS rate,
    JOIN c_invoice ci ON ci.c_invoice_id = calrel.c_invoice_id
   WHERE NOT (EXISTS ( SELECT 1
    FROM LVE_Withholding
-  WHERE LVE_Withholding.WithholdingDocType_ID = ci.c_doctype_id::bpchar))) ciaffected ON ciaffected.retention_id = ci.c_invoice_id AND ciaffected.c_invoice_id <> ci.c_invoice_id;
+  WHERE LVE_Withholding.WithholdingDocType_ID = ci.c_doctype_id))) ciaffected ON ciaffected.retention_id = ci.c_invoice_id AND ciaffected.c_invoice_id <> ci.c_invoice_id;

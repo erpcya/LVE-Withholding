@@ -18,41 +18,40 @@ package org.spin.process;
 
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MCurrency;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.spin.model.MLVETaxUnit;
-import org.spin.model.MLVEWHCombination;
-import org.spin.model.MLVEWithholding;
-import org.spin.model.MLVEWithholdingConcept;
 import org.spin.model.MLVEWithholdingConfig;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
- *	<br> Generate a Configuration from Withholding Combination and Tax Unit
+ *	<br> Generate a Configuration from Withholding Combination and Tax Unit, 
+ *			Copied from other Tax Unit
  */
-public class GenerateConfigConbination extends SvrProcess {
+public class CopyFromTaxUnit extends SvrProcess {
 
-	/**	Logger							*/
-	public static CLogger log = CLogger.getCLogger(GenerateConfigConbination.class);
+	/**	Logger									*/
+	public static CLogger log = CLogger.getCLogger(CopyFromTaxUnit.class);
 	
-	/**	Tax Unit								*/
-	private int 			p_LVE_TaxUnit_ID = 0;
+	/**	Tax Unit From							*/
+	private int 			p_LVE_TaxUnitFrom_ID = 0;
 	
 	/**	Withholding Combination					*/
-	private int 			m_LVE_WHCombination_ID = 0;
-	
-	/**	Date Accounting							*/
-	private Timestamp		m_DateAcct = null;
+	private int 			m_LVE_TaxUnit_ID = 0;
 	
 	/**	Precision								*/
 	private int				m_Precision = 0;
 	
+	/**	Created									*/
+	private int				m_Created = 0;
 	
 	
 	/* (non-Javadoc)
@@ -65,16 +64,10 @@ public class GenerateConfigConbination extends SvrProcess {
 			if (para.getParameter() == null)
 				;
 			else if (name.equals("LVE_TaxUnit_ID"))
-				p_LVE_TaxUnit_ID = para.getParameterAsInt();
-			else if (name.equals("DateAcct"))
-				m_DateAcct = (Timestamp) para.getParameter();
+				p_LVE_TaxUnitFrom_ID = para.getParameterAsInt();
 		}
-		//	If Date Accounting is Null
-		if(m_DateAcct == null)
-			m_DateAcct = Env.getContextAsDate(getCtx(), "#Date");
-		
 		//	get ID from GridTab
-		m_LVE_WHCombination_ID = getRecord_ID();
+		m_LVE_TaxUnit_ID = getRecord_ID();
 	}
 
 	/* (non-Javadoc)
@@ -82,55 +75,75 @@ public class GenerateConfigConbination extends SvrProcess {
 	 */
 	@Override
 	protected String doIt() throws Exception {
-		if(m_LVE_WHCombination_ID == 0)
-			throw new AdempiereException("@LVE_WHCombination_ID@ Not Found");
-		log.info("LVE_WHCombination_ID=" + m_LVE_WHCombination_ID);
+		if(p_LVE_TaxUnitFrom_ID == 0)
+			throw new AdempiereException("@LVE_TaxUnitFrom_ID@ Not Found");
+		log.info("LVE_TaxUnitFrom_ID=" + p_LVE_TaxUnitFrom_ID);
 		
 		//	Currency Precision
 		m_Precision = MCurrency.getStdPrecision(getCtx(), Env.getContextAsInt(getCtx(), "$C_Currency_ID"));
 		
 		//	Tax Unit
-		MLVETaxUnit m_LVE_TaxUnit = null;
-		
-		//	Combination
-		MLVEWHCombination m_LVE_WHCombination = new MLVEWHCombination(getCtx(), m_LVE_WHCombination_ID, get_TrxName());
-		
-		//	Tax Unit
-		if(p_LVE_TaxUnit_ID != 0)
-			m_LVE_TaxUnit = new MLVETaxUnit(getCtx(), p_LVE_TaxUnit_ID, get_TrxName());
-		else
-			m_LVE_TaxUnit = MLVETaxUnit.get(getCtx(), m_DateAcct, get_TrxName());
-		
-		//	Withholding Concept
-		MLVEWithholdingConcept m_LVE_WithholdingConcept = (MLVEWithholdingConcept) m_LVE_WHCombination.getLVE_WithholdingConcept();
-		//	Withholding
-		MLVEWithholding m_LVE_Withholding = (MLVEWithholding) m_LVE_WithholdingConcept.getLVE_Withholding();
-		
-		//	
-		BigDecimal m_Subtrahend = Env.ZERO;
-		BigDecimal m_MinimalAmt = Env.ZERO;
-		//	Get Values
-		BigDecimal m_Aliquot = m_LVE_WHCombination.getAliquot();
-		BigDecimal m_TaxUnitRate = m_LVE_Withholding.getTaxUnitRate();
+		MLVETaxUnit m_LVE_TaxUnit = new MLVETaxUnit(getCtx(), m_LVE_TaxUnit_ID, get_TrxName());
+		//	Get Amount
 		BigDecimal m_TaxUnitAmt = m_LVE_TaxUnit.getTaxAmt();
 		
 		
-		//	If Null
-		if(m_Aliquot == null)
-			m_Aliquot = Env.ZERO;
-		if(m_TaxUnitRate == null)
-			m_TaxUnitRate = Env.ZERO;
-		//	
-		if(m_TaxUnitAmt == null)
-			m_TaxUnitAmt = Env.ZERO;
-		//	Log
-		log.fine("Aliquot=" + m_Aliquot
-				+"TaxUnitRate=" + m_TaxUnitRate
-				+"TaxUnit=" + m_TaxUnitAmt);
+		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whb.LVE_WH_Combination_ID " +
+				"FROM LVE_Withholding wh " +
+				"INNER JOIN LVE_WithholdingConcept whc ON(whc.LVE_Withholding_ID = wh.LVE_Withholding_ID) " +
+				"INNER JOIN LVE_WH_Combination whb ON(whb.LVE_WithholdingConcept_ID = whc.LVE_WithholdingConcept_ID) " +
+				"INNER JOIN LVE_WithholdingConfig whf ON(whf.LVE_WH_Combination_ID = whb.LVE_WH_Combination_ID) " +
+				"WHERE whf.IsActive = 'Y' " +
+				"AND whf.LVE_TaxUnit_ID = ?");
 		
-		m_MinimalAmt = m_TaxUnitAmt.multiply(m_TaxUnitRate)
+		PreparedStatement pstmt = null;
+		pstmt = DB.prepareStatement(sql, get_TrxName());
+		
+		//	Add Parameters
+		pstmt.setInt(1, p_LVE_TaxUnitFrom_ID);
+		
+		ResultSet rs = pstmt.executeQuery();
+		if(rs != null){
+			while(rs.next()){
+				BigDecimal m_TaxUnitRate	= rs.getBigDecimal("TaxUnitRate");
+				BigDecimal m_Aliquot		= rs.getBigDecimal("Aliquot");
+				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
+				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_WH_Combination_ID);
+			}
+		}
+				
+		return "@Created@=" + m_Created;
+	}
+	
+	/**
+	 * Add a new Withholding Configuration or Update if Exists
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 08/08/2013, 14:09:45
+	 * @param p_Aliquot
+	 * @param p_TaxUnitRate
+	 * @param p_TaxUnitAmt
+	 * @param p_LVE_WH_Combination_ID
+	 * @return void
+	 */
+	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, int p_LVE_WH_Combination_ID){
+		//	
+		BigDecimal m_Subtrahend = Env.ZERO;
+		BigDecimal m_MinimalAmt = Env.ZERO;
+		//	If Null
+		if(p_Aliquot == null)
+			p_Aliquot = Env.ZERO;
+		if(p_TaxUnitRate == null)
+			p_TaxUnitRate = Env.ZERO;
+		//	
+		if(p_TaxUnitAmt == null)
+			p_TaxUnitAmt = Env.ZERO;
+		//	Log
+		log.fine("Aliquot=" + p_Aliquot
+				+"TaxUnitRate=" + p_TaxUnitRate
+				+"TaxUnit=" + p_TaxUnitAmt);
+		
+		m_MinimalAmt = p_TaxUnitAmt.multiply(p_TaxUnitRate)
 				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
-		m_Subtrahend = m_Aliquot.multiply(m_MinimalAmt)
+		m_Subtrahend = p_Aliquot.multiply(m_MinimalAmt)
 				.divide(Env.ONEHUNDRED)
 				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);
 		
@@ -138,14 +151,15 @@ public class GenerateConfigConbination extends SvrProcess {
 		log.fine("Sustrahend=" + m_Subtrahend);
 		
 		MLVEWithholdingConfig m_Config = MLVEWithholdingConfig
-				.createFrom(getCtx(), m_LVE_WHCombination_ID, m_LVE_TaxUnit.getLVE_TaxUnit_ID(), get_TrxName());
+				.createFrom(getCtx(), p_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID, get_TrxName());
 		//	Set Values
 		m_Config.setSubtrahend(m_Subtrahend);
 		m_Config.setMinimalAmt(m_MinimalAmt);
 		//	Save
 		m_Config.saveEx();
-		
-		return "@MinimalAmt@=" + m_MinimalAmt + " @Subtrahend@=" + m_Subtrahend;
+		//	Created
+		addLog("@MinimalAmt@=" + m_MinimalAmt + " @Subtrahend@=" + m_Subtrahend);
+		m_Created++;
 	}
 
 }

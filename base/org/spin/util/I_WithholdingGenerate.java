@@ -42,5 +42,5 @@ public interface I_WithholdingGenerate {
 	 * @return int
 	 */
 	public int generate(Properties ctx, String trxName, int p_ADPinstance, int p_C_Invoice_ID, int p_C_BPartner_ID, 
-			Timestamp p_DateAcct, Timestamp	p_DateAcct_To, Timestamp p_DateDoc, int p_LVE_Withholding_ID, StringBuffer log);
+			Timestamp p_DateAcct, Timestamp	p_DateAcct_To, Timestamp p_DateDoc, int p_LVE_Withholding_ID, StringBuffer log) throws Exception;
 }

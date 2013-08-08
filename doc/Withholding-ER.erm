@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>0.75</zoom>
-	<x>1448</x>
-	<y>50</y>
+	<x>1512</x>
+	<y>0</y>
 	<default_color>
 		<r>144</r>
 		<g>238</g>
@@ -162,7 +162,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2013-07-26 14:33:25</creation_date>
-			<updated_date>2013-08-08 16:53:32</updated_date>
+			<updated_date>2013-08-08 16:45:44</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -517,8 +517,8 @@
 			<unsigned>false</unsigned>
 			<args></args>
 			<description></description>
-			<logical_name>name</logical_name>
-			<physical_name>name</physical_name>
+			<logical_name>Name</logical_name>
+			<physical_name>Name</physical_name>
 			<type>varchar(n)</type>
 		</word>
 		<word>
@@ -530,8 +530,8 @@
 			<unsigned>false</unsigned>
 			<args></args>
 			<description></description>
-			<logical_name>Name</logical_name>
-			<physical_name>Name</physical_name>
+			<logical_name>name</logical_name>
+			<physical_name>name</physical_name>
 			<type>varchar(n)</type>
 		</word>
 		<word>
@@ -621,8 +621,8 @@
 			<unsigned>false</unsigned>
 			<args></args>
 			<description></description>
-			<logical_name>Value</logical_name>
-			<physical_name>Value</physical_name>
+			<logical_name>value</logical_name>
+			<physical_name>value</physical_name>
 			<type>varchar(n)</type>
 		</word>
 		<word>
@@ -634,8 +634,8 @@
 			<unsigned>false</unsigned>
 			<args></args>
 			<description></description>
-			<logical_name>value</logical_name>
-			<physical_name>value</physical_name>
+			<logical_name>Value</logical_name>
+			<physical_name>Value</physical_name>
 			<type>varchar(n)</type>
 		</word>
 	</dictionary>
@@ -989,7 +989,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>33</word_id>
+					<word_id>32</word_id>
 					<id>7</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1021,7 +1021,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>24</word_id>
+					<word_id>25</word_id>
 					<id>8</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1337,14 +1337,14 @@
 				</relation>
 				<relation>
 					<id>4</id>
-					<source>15</source>
+					<source>7</source>
 					<target>6</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
 					<reference_for_pk>true</reference_for_pk>
-					<name>fk_cust_retentionrelation_cust_retentiontype</name>
+					<name></name>
 					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>CASCADE</on_update_action>
+					<on_update_action>RESTRICT</on_update_action>
 					<source_xp>-1</source_xp>
 					<source_yp>-1</source_yp>
 					<target_xp>-1</target_xp>
@@ -1354,14 +1354,14 @@
 				</relation>
 				<relation>
 					<id>5</id>
-					<source>7</source>
+					<source>15</source>
 					<target>6</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
 					<reference_for_pk>true</reference_for_pk>
-					<name></name>
+					<name>fk_cust_retentionrelation_cust_retentiontype</name>
 					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
+					<on_update_action>CASCADE</on_update_action>
 					<source_xp>-1</source_xp>
 					<source_yp>-1</source_yp>
 					<target_xp>-1</target_xp>
@@ -1412,7 +1412,7 @@
 				<normal_column>
 					<id>14</id>
 					<referenced_column>53</referenced_column>
-					<relation>4</relation>
+					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1445,7 +1445,7 @@
 				<normal_column>
 					<id>15</id>
 					<referenced_column>18</referenced_column>
-					<relation>5</relation>
+					<relation>4</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>c_doctype_id</logical_name>
@@ -1630,7 +1630,7 @@
 			<connections>
 				<relation>
 					<id>6</id>
-					<source>5</source>
+					<source>10</source>
 					<target>8</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -1664,7 +1664,7 @@
 				</relation>
 				<relation>
 					<id>8</id>
-					<source>10</source>
+					<source>5</source>
 					<target>8</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -1722,7 +1722,7 @@
 				<normal_column>
 					<id>20</id>
 					<referenced_column>12</referenced_column>
-					<relation>6</relation>
+					<relation>8</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1755,7 +1755,7 @@
 				<normal_column>
 					<id>21</id>
 					<referenced_column>29</referenced_column>
-					<relation>8</relation>
+					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1844,7 +1844,7 @@
 			<connections>
 				<relation>
 					<id>9</id>
-					<source>0</source>
+					<source>12</source>
 					<target>9</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -1861,7 +1861,7 @@
 				</relation>
 				<relation>
 					<id>10</id>
-					<source>12</source>
+					<source>0</source>
 					<target>9</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -1878,23 +1878,6 @@
 				</relation>
 				<relation>
 					<id>11</id>
-					<source>5</source>
-					<target>9</target>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<source_xp>-1</source_xp>
-					<source_yp>-1</source_yp>
-					<target_xp>-1</target_xp>
-					<target_yp>-1</target_yp>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>12</id>
 					<source>12</source>
 					<target>9</target>
 					<child_cardinality>1..n</child_cardinality>
@@ -1911,8 +1894,25 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 				<relation>
-					<id>13</id>
+					<id>12</id>
 					<source>1</source>
+					<target>9</target>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<source_xp>-1</source_xp>
+					<source_yp>-1</source_yp>
+					<target_xp>-1</target_xp>
+					<target_yp>-1</target_yp>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>13</id>
+					<source>5</source>
 					<target>9</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -1970,7 +1970,7 @@
 				<normal_column>
 					<id>24</id>
 					<referenced_column>38</referenced_column>
-					<relation>12</relation>
+					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2003,7 +2003,7 @@
 				<normal_column>
 					<id>25</id>
 					<referenced_column>0</referenced_column>
-					<relation>9</relation>
+					<relation>10</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2036,7 +2036,7 @@
 				<normal_column>
 					<id>26</id>
 					<referenced_column>38</referenced_column>
-					<relation>10</relation>
+					<relation>11</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>DocAffected</logical_name>
@@ -2069,7 +2069,7 @@
 				<normal_column>
 					<id>27</id>
 					<referenced_column>5</referenced_column>
-					<relation>13</relation>
+					<relation>12</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2102,7 +2102,7 @@
 				<normal_column>
 					<id>28</id>
 					<referenced_column>12</referenced_column>
-					<relation>11</relation>
+					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2375,7 +2375,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>25</word_id>
+					<word_id>24</word_id>
 					<id>34</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2528,7 +2528,7 @@
 			<connections>
 				<relation>
 					<id>15</id>
-					<source>10</source>
+					<source>7</source>
 					<target>12</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -2545,7 +2545,7 @@
 				</relation>
 				<relation>
 					<id>16</id>
-					<source>7</source>
+					<source>10</source>
 					<target>12</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -2620,7 +2620,7 @@
 				<normal_column>
 					<id>39</id>
 					<referenced_column>29</referenced_column>
-					<relation>15</relation>
+					<relation>16</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2686,7 +2686,7 @@
 				<normal_column>
 					<id>41</id>
 					<referenced_column>18</referenced_column>
-					<relation>16</relation>
+					<relation>15</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2913,7 +2913,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>33</word_id>
+					<word_id>32</word_id>
 					<id>46</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3073,7 +3073,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>32</word_id>
+					<word_id>33</word_id>
 					<id>50</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3105,7 +3105,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>24</word_id>
+					<word_id>25</word_id>
 					<id>51</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3194,7 +3194,7 @@
 			<connections>
 				<relation>
 					<id>20</id>
-					<source>7</source>
+					<source>1</source>
 					<target>15</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -3245,7 +3245,7 @@
 				</relation>
 				<relation>
 					<id>23</id>
-					<source>1</source>
+					<source>7</source>
 					<target>15</target>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
@@ -3334,7 +3334,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>24</word_id>
+					<word_id>25</word_id>
 					<id>55</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3464,7 +3464,7 @@
 				<normal_column>
 					<id>59</id>
 					<referenced_column>5</referenced_column>
-					<relation>23</relation>
+					<relation>20</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3497,7 +3497,7 @@
 				<normal_column>
 					<id>60</id>
 					<referenced_column>18</referenced_column>
-					<relation>22</relation>
+					<relation>23</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>WithholdingDocType_ID</logical_name>
@@ -3530,7 +3530,7 @@
 				<normal_column>
 					<id>61</id>
 					<referenced_column>18</referenced_column>
-					<relation>20</relation>
+					<relation>22</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>DeclarationDocType_ID</logical_name>

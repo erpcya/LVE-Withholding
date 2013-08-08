@@ -43,7 +43,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 			int p_C_Invoice_ID, int p_C_BPartner_ID, Timestamp p_DateAcct,
 			Timestamp p_DateAcct_To, Timestamp p_DateDoc,
 			int p_LVE_Withholding_ID, StringBuffer log) {
-		ADialog.info(0, null, "Hola " + p_LVE_Withholding_ID);
+		//ADialog.info(0, null, "Hola " + p_LVE_Withholding_ID);
 		return 0;
 	}
 

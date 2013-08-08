@@ -1,5 +1,10 @@
 -- 1/08/2013 03:43:24 PM VET
 -- LVE Withholding
+INSERT INTO C_TaxCategory (AD_Client_ID,AD_Org_ID,C_TaxCategory_ID,Created,CreatedBy,Description,IsActive,IsDefault,Name,Updated,UpdatedBy) VALUES (11,50001,1000000,TO_TIMESTAMP('2013-08-01 15:43:24','YYYY-MM-DD HH24:MI:SS'),100,'EXENTO','Y','N','EXENTO',TO_TIMESTAMP('2013-08-01 15:43:24','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- 1/08/2013 03:43:24 PM VET
+-- LVE Withholding
 INSERT INTO C_TaxCategory_Trl (AD_Language,C_TaxCategory_ID, Description,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.C_TaxCategory_ID, t.Description,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, C_TaxCategory t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.C_TaxCategory_ID=1000000 AND NOT EXISTS (SELECT * FROM C_TaxCategory_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.C_TaxCategory_ID=t.C_TaxCategory_ID)
 ;
 

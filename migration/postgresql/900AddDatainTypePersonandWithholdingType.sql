@@ -20,11 +20,11 @@ INSERT INTO LVE_PersonType (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description
 
 -- 30/07/2013 03:53:33 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WithholdingType (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,LVE_WithholdingType_ID,Name,Updated,UpdatedBy,Value) VALUES (11,50001,TO_TIMESTAMP('2013-07-30 15:53:33','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000000,'Retencion IVA',TO_TIMESTAMP('2013-07-30 15:53:33','YYYY-MM-DD HH24:MI:SS'),100,'RIVA')
+INSERT INTO LVE_WH_Type (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,LVE_WH_Type_ID,Name,Updated,UpdatedBy,Value) VALUES (11,50001,TO_TIMESTAMP('2013-07-30 15:53:33','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000000,'Retencion IVA',TO_TIMESTAMP('2013-07-30 15:53:33','YYYY-MM-DD HH24:MI:SS'),100,'RIVA')
 ;
 
 -- 30/07/2013 03:53:40 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WithholdingType (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,LVE_WithholdingType_ID,Name,Updated,UpdatedBy,Value) VALUES (11,50001,TO_TIMESTAMP('2013-07-30 15:53:40','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,'Retencion ISLR',TO_TIMESTAMP('2013-07-30 15:53:40','YYYY-MM-DD HH24:MI:SS'),100,'RISLR')
+INSERT INTO LVE_WH_Type (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,LVE_WH_Type_ID,Name,Updated,UpdatedBy,Value) VALUES (11,50001,TO_TIMESTAMP('2013-07-30 15:53:40','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,'Retencion ISLR',TO_TIMESTAMP('2013-07-30 15:53:40','YYYY-MM-DD HH24:MI:SS'),100,'RISLR')
 ;
 

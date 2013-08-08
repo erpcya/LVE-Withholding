@@ -8,11 +8,6 @@ UPDATE AD_Table SET Name='Withholding Combination', TableName='LVE_WH_Combinatio
 UPDATE AD_Table_Trl SET IsTranslated='N' WHERE AD_Table_ID=53537
 ;
 
--- 5/08/2013 02:41:30 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-INSERT INTO AD_Sequence (AD_Client_ID,AD_Org_ID,AD_Sequence_ID,Created,CreatedBy,CurrentNext,CurrentNextSys,Description,IncrementNo,IsActive,IsAudited,IsAutoSequence,IsTableID,Name,StartNewYear,StartNo,Updated,UpdatedBy) VALUES (0,0,1000000,TO_DATE('2013-08-05 02:41:30','YYYY-MM-DD HH24:MI:SS'),100,1000000,50000,'Table LVE_WH_Combination',1,'Y','N','Y','Y','LVE_WH_Combination','N',1000000,TO_DATE('2013-08-05 02:41:30','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
 -- 5/08/2013 02:42:38 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 UPDATE AD_Element SET ColumnName='LVE_WH_Combination_ID', Name='Withholding Combination', PrintName='Withholding Combination',Updated=TO_DATE('2013-08-05 02:42:38','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=56058

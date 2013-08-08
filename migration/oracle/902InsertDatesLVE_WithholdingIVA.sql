@@ -90,21 +90,21 @@ INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,Beneficiary,C_Charge_ID,Crea
 
 -- 1/08/2013 05:05:32 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WithholdingConcept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_Withholding_ID,LVE_WithholdingConcept_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-01 17:05:32','YYYY-MM-DD HH24:MI:SS'),100,'IVA 100','Y',1000002,1000015,'IVA 100',TO_DATE('2013-08-01 17:05:32','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO LVE_WH_Concept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_Withholding_ID,LVE_WH_Concept_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-01 17:05:32','YYYY-MM-DD HH24:MI:SS'),100,'IVA 100','Y',1000002,1000015,'IVA 100',TO_DATE('2013-08-01 17:05:32','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 1/08/2013 05:06:13 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WH_Conbination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,LVE_WH_Conbination_ID,LVE_WithholdingConcept_ID,Processing,Updated,UpdatedBy,Value) VALUES (11,50001,100.000000000000,TO_DATE('2013-08-01 17:06:13','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000037,1000015,'N',TO_DATE('2013-08-01 17:06:13','YYYY-MM-DD HH24:MI:SS'),100,'IVA100')
+INSERT INTO LVE_WH_Conbination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,LVE_WH_Conbination_ID,LVE_WH_Concept_ID,Processing,Updated,UpdatedBy,Value) VALUES (11,50001,100.000000000000,TO_DATE('2013-08-01 17:06:13','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000037,1000015,'N',TO_DATE('2013-08-01 17:06:13','YYYY-MM-DD HH24:MI:SS'),100,'IVA100')
 ;
 
 -- 1/08/2013 05:06:39 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WithholdingConcept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_Withholding_ID,LVE_WithholdingConcept_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-01 17:06:39','YYYY-MM-DD HH24:MI:SS'),100,'IVA 75','Y',1000001,1000016,'IVA 75',TO_DATE('2013-08-01 17:06:39','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO LVE_WH_Concept (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_Withholding_ID,LVE_WH_Concept_ID,Name,Updated,UpdatedBy) VALUES (11,50001,TO_DATE('2013-08-01 17:06:39','YYYY-MM-DD HH24:MI:SS'),100,'IVA 75','Y',1000001,1000016,'IVA 75',TO_DATE('2013-08-01 17:06:39','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 1/08/2013 05:06:50 PM VET
 -- LVE Withholding
-INSERT INTO LVE_WH_Conbination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,LVE_WH_Conbination_ID,LVE_WithholdingConcept_ID,Processing,Updated,UpdatedBy,Value) VALUES (11,50001,75.000000000000,TO_DATE('2013-08-01 17:06:50','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000038,1000016,'N',TO_DATE('2013-08-01 17:06:50','YYYY-MM-DD HH24:MI:SS'),100,'IVA75')
+INSERT INTO LVE_WH_Conbination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,LVE_WH_Conbination_ID,LVE_WH_Concept_ID,Processing,Updated,UpdatedBy,Value) VALUES (11,50001,75.000000000000,TO_DATE('2013-08-01 17:06:50','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000038,1000016,'N',TO_DATE('2013-08-01 17:06:50','YYYY-MM-DD HH24:MI:SS'),100,'IVA75')
 ;
 

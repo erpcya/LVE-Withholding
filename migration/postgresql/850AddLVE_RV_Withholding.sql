@@ -25,11 +25,11 @@ SELECT DISTINCT
 FROM c_doctype cdt
 JOIN c_invoice ci ON ci.c_doctype_id = cdt.c_doctype_id
 JOIN c_invoiceline cil ON ci.c_invoice_id = cil.docaffected_id
-JOIN LVE_WithholdingConcept wc ON wc.LVE_WithholdingConcept_ID = ci.LVE_WithholdingConcept_ID
-JOIN LVE_WH_Combination whc ON whc.LVE_WithholdingConcept_ID = wc.LVE_WithholdingConcept_ID
-JOIN LVE_WithholdingConfig wcc ON wcc.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID
+JOIN LVE_WH_Concept wc ON wc.LVE_WH_Concept_ID = ci.LVE_WH_Concept_ID
+JOIN LVE_WH_Combination whc ON whc.LVE_WH_Concept_ID = wc.LVE_WH_Concept_ID
+JOIN LVE_WH_Config wcc ON wcc.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID
 JOIN LVE_Withholding w ON wc.LVE_Withholding_ID = w.LVE_Withholding_ID
-JOIN LVE_WithholdingType wt ON wt.LVE_WithholdingType_ID = w.LVE_WithholdingType_ID
+JOIN LVE_WH_Type wt ON wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID
 JOIN ( SELECT citax.c_invoice_id, max(ctax.rate) AS rate, 
     sum(citax.taxamt) AS taxamt, 
     sum(
@@ -48,4 +48,4 @@ JOIN ( SELECT citax.c_invoice_id, max(ctax.rate) AS rate,
    JOIN c_invoice ci ON ci.c_invoice_id = calrel.c_invoice_id
   WHERE NOT (EXISTS ( SELECT 1
    FROM LVE_Withholding
-  WHERE LVE_Withholding.WithholdingDocType = ci.c_doctype_id::bpchar))) ciaffected ON ciaffected.retention_id = ci.c_invoice_id AND ciaffected.c_invoice_id <> ci.c_invoice_id;
+  WHERE LVE_Withholding.WithholdingDocType_ID = ci.c_doctype_id::bpchar))) ciaffected ON ciaffected.retention_id = ci.c_invoice_id AND ciaffected.c_invoice_id <> ci.c_invoice_id;

@@ -95,7 +95,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 
 			PreparedStatement pstmt = null;
 
-			String sql = "SELECT * FROM LVE_WithholdingRelation WHERE"
+			String sql = "SELECT * FROM LVE_WH_Relation WHERE"
 					+ " C_BP_Group_ID = ?";
 			
 			pstmt = DB.prepareStatement(sql, bpartner.get_TrxName());
@@ -103,8 +103,8 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 			ResultSet res = pstmt.executeQuery();
 			if (res != null) {
 				while (res.next()) {				
-					MLVEWithholdingRelation rt = new MLVEWithholdingRelation(Env.getCtx(), res, bpartner.get_TrxName());
-					MLVEWithholdingRelation retention = new MLVEWithholdingRelation(
+					MLVEWHRelation rt = new MLVEWHRelation(Env.getCtx(), res, bpartner.get_TrxName());
+					MLVEWHRelation retention = new MLVEWHRelation(
 							Env.getCtx(), 0, bpartner.get_TrxName());
 					retention.setC_BPartner_ID(bpartner.getC_BPartner_ID());
 					retention.setLVE_Withholding_ID(rt.getLVE_Withholding_ID());
@@ -157,7 +157,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 						"FROM C_Invoice dr " +
 						"INNER JOIN C_InvoiceLine drl ON(drl.C_Invoice_ID = dr.C_Invoice_ID) " +
 						"WHERE dr.DocStatus IN('CO', 'CL') " +
-						"AND drl.DocAffected = ?");
+						"AND drl.DocAffected_ID = ?");
 				//	Log
 				log.fine("SQL Declaration=" + sql);
 				//	Search

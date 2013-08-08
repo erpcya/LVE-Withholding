@@ -21,17 +21,17 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LVE_TaxUnit
+/** Generated Interface for LVE_WH_Type
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS
  */
-public interface I_LVE_TaxUnit 
+public interface I_LVE_WH_Type 
 {
 
-    /** TableName=LVE_TaxUnit */
-    public static final String Table_Name = "LVE_TaxUnit";
+    /** TableName=LVE_WH_Type */
+    public static final String Table_Name = "LVE_WH_Type";
 
-    /** AD_Table_ID=53541 */
+    /** AD_Table_ID=53533 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -105,14 +105,14 @@ public interface I_LVE_TaxUnit
 	  */
 	public boolean isActive();
 
-    /** Column name LVE_TaxUnit_ID */
-    public static final String COLUMNNAME_LVE_TaxUnit_ID = "LVE_TaxUnit_ID";
+    /** Column name LVE_WH_Type_ID */
+    public static final String COLUMNNAME_LVE_WH_Type_ID = "LVE_WH_Type_ID";
 
-	/** Set Tax Unit	  */
-	public void setLVE_TaxUnit_ID (int LVE_TaxUnit_ID);
+	/** Set Withholding Type	  */
+	public void setLVE_WH_Type_ID (int LVE_WH_Type_ID);
 
-	/** Get Tax Unit	  */
-	public int getLVE_TaxUnit_ID();
+	/** Get Withholding Type	  */
+	public int getLVE_WH_Type_ID();
 
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
@@ -126,28 +126,6 @@ public interface I_LVE_TaxUnit
 	  * Alphanumeric identifier of the entity
 	  */
 	public String getName();
-
-    /** Column name Processing */
-    public static final String COLUMNNAME_Processing = "Processing";
-
-	/** Set Process Now	  */
-	public void setProcessing (boolean Processing);
-
-	/** Get Process Now	  */
-	public boolean isProcessing();
-
-    /** Column name TaxAmt */
-    public static final String COLUMNNAME_TaxAmt = "TaxAmt";
-
-	/** Set Tax Amount.
-	  * Tax Amount for a document
-	  */
-	public void setTaxAmt (BigDecimal TaxAmt);
-
-	/** Get Tax Amount.
-	  * Tax Amount for a document
-	  */
-	public BigDecimal getTaxAmt();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -165,16 +143,16 @@ public interface I_LVE_TaxUnit
 	  */
 	public int getUpdatedBy();
 
-    /** Column name ValidFrom */
-    public static final String COLUMNNAME_ValidFrom = "ValidFrom";
+    /** Column name Value */
+    public static final String COLUMNNAME_Value = "Value";
 
-	/** Set Valid from.
-	  * Valid from including this date (first day)
+	/** Set Search Key.
+	  * Search key for the record in the format required - must be unique
 	  */
-	public void setValidFrom (Timestamp ValidFrom);
+	public void setValue (String Value);
 
-	/** Get Valid from.
-	  * Valid from including this date (first day)
+	/** Get Search Key.
+	  * Search key for the record in the format required - must be unique
 	  */
-	public Timestamp getValidFrom();
+	public String getValue();
 }

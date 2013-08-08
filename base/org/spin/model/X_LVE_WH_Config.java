@@ -23,33 +23,33 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.Env;
 
-/** Generated Model for LVE_WithholdingConfig
+/** Generated Model for LVE_WH_Config
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_WithholdingConfig extends PO implements I_LVE_WithholdingConfig, I_Persistent 
+public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130805L;
+	private static final long serialVersionUID = 20130808L;
 
     /** Standard Constructor */
-    public X_LVE_WithholdingConfig (Properties ctx, int LVE_WithholdingConfig_ID, String trxName)
+    public X_LVE_WH_Config (Properties ctx, int LVE_WH_Config_ID, String trxName)
     {
-      super (ctx, LVE_WithholdingConfig_ID, trxName);
-      /** if (LVE_WithholdingConfig_ID == 0)
+      super (ctx, LVE_WH_Config_ID, trxName);
+      /** if (LVE_WH_Config_ID == 0)
         {
 			setLVE_TaxUnit_ID (0);
 			setLVE_WH_Combination_ID (0);
-			setLVE_WithholdingConfig_ID (0);
+			setLVE_WH_Config_ID (0);
 			setMinimalAmt (Env.ZERO);
 			setSubtrahend (Env.ZERO);
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_WithholdingConfig (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_Config (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -71,7 +71,7 @@ public class X_LVE_WithholdingConfig extends PO implements I_LVE_WithholdingConf
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_WithholdingConfig[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_Config[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -127,20 +127,20 @@ public class X_LVE_WithholdingConfig extends PO implements I_LVE_WithholdingConf
 	}
 
 	/** Set Withholding Config.
-		@param LVE_WithholdingConfig_ID Withholding Config	  */
-	public void setLVE_WithholdingConfig_ID (int LVE_WithholdingConfig_ID)
+		@param LVE_WH_Config_ID Withholding Config	  */
+	public void setLVE_WH_Config_ID (int LVE_WH_Config_ID)
 	{
-		if (LVE_WithholdingConfig_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConfig_ID, null);
+		if (LVE_WH_Config_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Config_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConfig_ID, Integer.valueOf(LVE_WithholdingConfig_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Config_ID, Integer.valueOf(LVE_WH_Config_ID));
 	}
 
 	/** Get Withholding Config.
 		@return Withholding Config	  */
-	public int getLVE_WithholdingConfig_ID () 
+	public int getLVE_WH_Config_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WithholdingConfig_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Config_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

@@ -22,30 +22,30 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for LVE_WithholdingRelation
+/** Generated Model for LVE_WH_Relation
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRelation, I_Persistent 
+public class X_LVE_WH_Relation extends PO implements I_LVE_WH_Relation, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130805L;
+	private static final long serialVersionUID = 20130808L;
 
     /** Standard Constructor */
-    public X_LVE_WithholdingRelation (Properties ctx, int LVE_WithholdingRelation_ID, String trxName)
+    public X_LVE_WH_Relation (Properties ctx, int LVE_WH_Relation_ID, String trxName)
     {
-      super (ctx, LVE_WithholdingRelation_ID, trxName);
-      /** if (LVE_WithholdingRelation_ID == 0)
+      super (ctx, LVE_WH_Relation_ID, trxName);
+      /** if (LVE_WH_Relation_ID == 0)
         {
+			setLVE_WH_Relation_ID (0);
 			setLVE_Withholding_ID (0);
-			setLVE_WithholdingRelation_ID (0);
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_WithholdingRelation (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_Relation (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -67,7 +67,7 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_WithholdingRelation[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_Relation[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -156,6 +156,26 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
 		return ii.intValue();
 	}
 
+	/** Set Withholding Relation.
+		@param LVE_WH_Relation_ID Withholding Relation	  */
+	public void setLVE_WH_Relation_ID (int LVE_WH_Relation_ID)
+	{
+		if (LVE_WH_Relation_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Relation_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Relation_ID, Integer.valueOf(LVE_WH_Relation_ID));
+	}
+
+	/** Get Withholding Relation.
+		@return Withholding Relation	  */
+	public int getLVE_WH_Relation_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Relation_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException
     {
 		return (org.spin.model.I_LVE_Withholding)MTable.get(getCtx(), org.spin.model.I_LVE_Withholding.Table_Name)
@@ -188,24 +208,4 @@ public class X_LVE_WithholdingRelation extends PO implements I_LVE_WithholdingRe
     {
         return new KeyNamePair(get_ID(), String.valueOf(getLVE_Withholding_ID()));
     }
-
-	/** Set Withholding Relation.
-		@param LVE_WithholdingRelation_ID Withholding Relation	  */
-	public void setLVE_WithholdingRelation_ID (int LVE_WithholdingRelation_ID)
-	{
-		if (LVE_WithholdingRelation_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingRelation_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingRelation_ID, Integer.valueOf(LVE_WithholdingRelation_ID));
-	}
-
-	/** Get Withholding Relation.
-		@return Withholding Relation	  */
-	public int getLVE_WithholdingRelation_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WithholdingRelation_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
 }

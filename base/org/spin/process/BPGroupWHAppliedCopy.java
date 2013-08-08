@@ -27,8 +27,8 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.spin.model.I_LVE_WithholdingRelation;
-import org.spin.model.MLVEWithholdingRelation;
+import org.spin.model.I_LVE_WH_Relation;
+import org.spin.model.MLVEWHRelation;
 
 /**
  * Copy default Retention Relation 
@@ -43,7 +43,7 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	private int								p_C_BP_Group_ID = 0;
 	
 	/**	Withholding Relation		*/
-	private List<MLVEWithholdingRelation> 	m_WH_RelationList = null;
+	private List<MLVEWHRelation> 	m_WH_RelationList = null;
 	
 	/**	Copied						*/
 	private int								m_Copied = 0;
@@ -77,11 +77,11 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		//	Load List
-		m_WH_RelationList = new Query(getCtx(), MLVEWithholdingRelation.Table_Name, 
-				I_LVE_WithholdingRelation.COLUMNNAME_C_BP_Group_ID+"=?", get_TrxName())
+		m_WH_RelationList = new Query(getCtx(), MLVEWHRelation.Table_Name, 
+				I_LVE_WH_Relation.COLUMNNAME_C_BP_Group_ID+"=?", get_TrxName())
 			.setParameters(p_C_BP_Group_ID)
 			.setOnlyActiveRecords(true)
-			.<MLVEWithholdingRelation>list();
+			.<MLVEWHRelation>list();
 		
 		if(m_WH_RelationList == null 
 				|| m_WH_RelationList.isEmpty())
@@ -106,7 +106,7 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 				//	Add New Relations
 				addRelation(p_C_BPartner_ID, get_TrxName());
 			}
-			addLog(0, null, new BigDecimal(m_Copied), "@LVE_WithholdingRelation_ID@ @Copied@");
+			addLog(0, null, new BigDecimal(m_Copied), "@LVE_WH_Relation_ID@ @Copied@");
 		}
 		//	Close Connection
 		DB.close(rs, pstmt);
@@ -119,18 +119,18 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	 * @return void
 	 */
 	private void deleteWithholding() {
-		String sql = new String("DELETE FROM LVE_WithholdingRelation " +
+		String sql = new String("DELETE FROM LVE_WH_Relation " +
 				"WHERE EXISTS(SELECT 1 " +
 				"				FROM C_BPartner cp " +
-				"				INNER JOIN LVE_WithholdingRelation whr ON(whr.C_BPartner_ID = cp.C_BPartner_ID) " +
-				"				WHERE LVE_WithholdingRelation.LVE_WithholdingRelation_ID = whr.LVE_WithholdingRelation_ID " +
+				"				INNER JOIN LVE_WH_Relation whr ON(whr.C_BPartner_ID = cp.C_BPartner_ID) " +
+				"				WHERE LVE_WH_Relation.LVE_WH_Relation_ID = whr.LVE_WH_Relation_ID " +
 				"				AND cp.C_BP_Group_ID = " + p_C_BP_Group_ID + ")");
 		//	Info
 		log.fine("SQL=" + sql);
 		//	
 		m_Deleted = DB.executeUpdateEx(sql, get_TrxName());
 		log.info("Withholding Relation Deleted=" + m_Deleted);
-		addLog(0, null, new BigDecimal(m_Deleted), "@LVE_WithholdingRelation_ID@ @Deleted@");
+		addLog(0, null, new BigDecimal(m_Deleted), "@LVE_WH_Relation_ID@ @Deleted@");
 	}
 	
 	/**
@@ -142,8 +142,8 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 	 */
 	private void addRelation(int p_C_BPartner_ID,String get_TrxName) {	
 		//	Iterate
-		for (MLVEWithholdingRelation whR : m_WH_RelationList) {			
-			MLVEWithholdingRelation withholding = new MLVEWithholdingRelation(Env.getCtx(), 0, get_TrxName);
+		for (MLVEWHRelation whR : m_WH_RelationList) {			
+			MLVEWHRelation withholding = new MLVEWHRelation(Env.getCtx(), 0, get_TrxName);
 			withholding.setC_BPartner_ID(p_C_BPartner_ID);
 			withholding.setLVE_Withholding_ID(whR.getLVE_Withholding_ID());
 			withholding.saveEx();

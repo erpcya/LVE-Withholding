@@ -23,34 +23,34 @@ import java.util.Properties;
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
  */
-public class LVEWithholdingConfig extends X_LVE_WithholdingConfig {
+public class MLVEWHConcept extends X_LVE_WH_Concept {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5162158623578338887L;
+	private static final long serialVersionUID = -2137308357827013437L;
 
 	/**
 	 * *** Constructor ***
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:47:30
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:19:48
 	 * @param ctx
-	 * @param LVE_WithholdingConfig_ID
+	 * @param LVE_WithholdingConcept_ID
 	 * @param trxName
 	 */
-	public LVEWithholdingConfig(Properties ctx, int LVE_WithholdingConfig_ID,
-			String trxName) {
-		super(ctx, LVE_WithholdingConfig_ID, trxName);
+	public MLVEWHConcept(Properties ctx,
+			int LVE_WithholdingConcept_ID, String trxName) {
+		super(ctx, LVE_WithholdingConcept_ID, trxName);
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * *** Constructor ***
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:47:30
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:19:48
 	 * @param ctx
 	 * @param rs
 	 * @param trxName
 	 */
-	public LVEWithholdingConfig(Properties ctx, ResultSet rs, String trxName) {
+	public MLVEWHConcept(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 		// TODO Auto-generated constructor stub
 	}

@@ -21,17 +21,17 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LVE_WithholdingRelation
+/** Generated Interface for LVE_WH_Config
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS
  */
-public interface I_LVE_WithholdingRelation 
+public interface I_LVE_WH_Config 
 {
 
-    /** TableName=LVE_WithholdingRelation */
-    public static final String Table_Name = "LVE_WithholdingRelation";
+    /** TableName=LVE_WH_Config */
+    public static final String Table_Name = "LVE_WH_Config";
 
-    /** AD_Table_ID=53535 */
+    /** AD_Table_ID=53540 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,51 +63,6 @@ public interface I_LVE_WithholdingRelation
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name C_BPartner_ID */
-    public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
-
-	/** Set Business Partner .
-	  * Identifies a Business Partner
-	  */
-	public void setC_BPartner_ID (int C_BPartner_ID);
-
-	/** Get Business Partner .
-	  * Identifies a Business Partner
-	  */
-	public int getC_BPartner_ID();
-
-	public I_C_BPartner getC_BPartner() throws RuntimeException;
-
-    /** Column name C_BP_Group_ID */
-    public static final String COLUMNNAME_C_BP_Group_ID = "C_BP_Group_ID";
-
-	/** Set Business Partner Group.
-	  * Business Partner Group
-	  */
-	public void setC_BP_Group_ID (int C_BP_Group_ID);
-
-	/** Get Business Partner Group.
-	  * Business Partner Group
-	  */
-	public int getC_BP_Group_ID();
-
-	public I_C_BP_Group getC_BP_Group() throws RuntimeException;
-
-    /** Column name C_DocType_ID */
-    public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
-
-	/** Set Document Type.
-	  * Document type or rules
-	  */
-	public void setC_DocType_ID (int C_DocType_ID);
-
-	/** Get Document Type.
-	  * Document type or rules
-	  */
-	public int getC_DocType_ID();
-
-	public I_C_DocType getC_DocType() throws RuntimeException;
-
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -137,25 +92,54 @@ public interface I_LVE_WithholdingRelation
 	  */
 	public boolean isActive();
 
-    /** Column name LVE_Withholding_ID */
-    public static final String COLUMNNAME_LVE_Withholding_ID = "LVE_Withholding_ID";
+    /** Column name LVE_TaxUnit_ID */
+    public static final String COLUMNNAME_LVE_TaxUnit_ID = "LVE_TaxUnit_ID";
 
-	/** Set Withholding	  */
-	public void setLVE_Withholding_ID (int LVE_Withholding_ID);
+	/** Set Tax Unit	  */
+	public void setLVE_TaxUnit_ID (int LVE_TaxUnit_ID);
 
-	/** Get Withholding	  */
-	public int getLVE_Withholding_ID();
+	/** Get Tax Unit	  */
+	public int getLVE_TaxUnit_ID();
 
-	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
+	public org.spin.model.I_LVE_TaxUnit getLVE_TaxUnit() throws RuntimeException;
 
-    /** Column name LVE_WithholdingRelation_ID */
-    public static final String COLUMNNAME_LVE_WithholdingRelation_ID = "LVE_WithholdingRelation_ID";
+    /** Column name LVE_WH_Combination_ID */
+    public static final String COLUMNNAME_LVE_WH_Combination_ID = "LVE_WH_Combination_ID";
 
-	/** Set Withholding Relation	  */
-	public void setLVE_WithholdingRelation_ID (int LVE_WithholdingRelation_ID);
+	/** Set Withholding Combination	  */
+	public void setLVE_WH_Combination_ID (int LVE_WH_Combination_ID);
 
-	/** Get Withholding Relation	  */
-	public int getLVE_WithholdingRelation_ID();
+	/** Get Withholding Combination	  */
+	public int getLVE_WH_Combination_ID();
+
+	public org.spin.model.I_LVE_WH_Combination getLVE_WH_Combination() throws RuntimeException;
+
+    /** Column name LVE_WH_Config_ID */
+    public static final String COLUMNNAME_LVE_WH_Config_ID = "LVE_WH_Config_ID";
+
+	/** Set Withholding Config	  */
+	public void setLVE_WH_Config_ID (int LVE_WH_Config_ID);
+
+	/** Get Withholding Config	  */
+	public int getLVE_WH_Config_ID();
+
+    /** Column name MinimalAmt */
+    public static final String COLUMNNAME_MinimalAmt = "MinimalAmt";
+
+	/** Set Minimal Amt	  */
+	public void setMinimalAmt (BigDecimal MinimalAmt);
+
+	/** Get Minimal Amt	  */
+	public BigDecimal getMinimalAmt();
+
+    /** Column name Subtrahend */
+    public static final String COLUMNNAME_Subtrahend = "Subtrahend";
+
+	/** Set Subtrahend	  */
+	public void setSubtrahend (BigDecimal Subtrahend);
+
+	/** Get Subtrahend	  */
+	public BigDecimal getSubtrahend();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

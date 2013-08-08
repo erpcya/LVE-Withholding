@@ -19,71 +19,40 @@ package org.spin.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
-import org.compiere.model.Query;
-
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
  */
-public class MLVEWithholdingConfig extends X_LVE_WithholdingConfig {
+public class MLVEWHRelation extends X_LVE_WH_Relation {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1521689641627106133L;
+	private static final long serialVersionUID = 6332173735033787532L;
 
 	/**
 	 * *** Constructor ***
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:52:45
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:21:19
 	 * @param ctx
-	 * @param LVE_WithholdingConfig_ID
+	 * @param LVE_WithholdingRelation_ID
 	 * @param trxName
 	 */
-	public MLVEWithholdingConfig(Properties ctx, int LVE_WithholdingConfig_ID,
-			String trxName) {
-		super(ctx, LVE_WithholdingConfig_ID, trxName);
+	public MLVEWHRelation(Properties ctx,
+			int LVE_WithholdingRelation_ID, String trxName) {
+		super(ctx, LVE_WithholdingRelation_ID, trxName);
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * *** Constructor ***
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:52:45
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:21:19
 	 * @param ctx
 	 * @param rs
 	 * @param trxName
 	 */
-	public MLVEWithholdingConfig(Properties ctx, ResultSet rs, String trxName) {
+	public MLVEWHRelation(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 		// TODO Auto-generated constructor stub
 	}
-	
-	/**
-	 * Create Configuration From Combination, if exists a Configuration with the same 
-	 * Combination ID and Tax Unit ID will be Updated
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 07/08/2013, 17:10:02
-	 * @param ctx
-	 * @param LVE_WH_Combination_ID
-	 * @param LVE_TaxUnit_ID
-	 * @param trxName
-	 * @return
-	 * @return MLVEWithholdingConfig
-	 */
-	public static MLVEWithholdingConfig createFrom(Properties ctx, int LVE_WH_Combination_ID, int LVE_TaxUnit_ID, 
-			String trxName) {
-		//	Load if Exists
-		MLVEWithholdingConfig config = new Query(ctx, Table_Name, 
-				COLUMNNAME_LVE_WH_Combination_ID + "=? " +
-				"AND " + COLUMNNAME_LVE_TaxUnit_ID + "=?", trxName)
-			.setParameters(LVE_WH_Combination_ID, LVE_TaxUnit_ID)
-			.setOnlyActiveRecords(true)
-			.firstOnly();
-		//	Create New
-		if(config == null) {
-			config = new MLVEWithholdingConfig(ctx, 0, trxName);
-			config.setLVE_WH_Combination_ID(LVE_WH_Combination_ID);
-			config.setLVE_TaxUnit_ID(LVE_TaxUnit_ID);
-		}
-		return config;
-	}
-	
+
 }

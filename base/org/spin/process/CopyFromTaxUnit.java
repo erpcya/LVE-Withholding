@@ -29,7 +29,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.spin.model.MLVETaxUnit;
-import org.spin.model.MLVEWithholdingConfig;
+import org.spin.model.MLVEWHConfig;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
@@ -150,7 +150,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 		log.fine("MinimalAmt=" + m_MinimalAmt);
 		log.fine("Sustrahend=" + m_Subtrahend);
 		
-		MLVEWithholdingConfig m_Config = MLVEWithholdingConfig
+		MLVEWHConfig m_Config = MLVEWHConfig
 				.createFrom(getCtx(), p_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID, get_TrxName());
 		//	Set Values
 		m_Config.setSubtrahend(m_Subtrahend);

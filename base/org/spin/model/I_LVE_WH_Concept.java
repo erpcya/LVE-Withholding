@@ -21,17 +21,17 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LVE_WithholdingConfig
+/** Generated Interface for LVE_WH_Concept
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS
  */
-public interface I_LVE_WithholdingConfig 
+public interface I_LVE_WH_Concept 
 {
 
-    /** TableName=LVE_WithholdingConfig */
-    public static final String Table_Name = "LVE_WithholdingConfig";
+    /** TableName=LVE_WH_Concept */
+    public static final String Table_Name = "LVE_WH_Concept";
 
-    /** AD_Table_ID=53540 */
+    /** AD_Table_ID=53536 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -79,6 +79,19 @@ public interface I_LVE_WithholdingConfig
 	  */
 	public int getCreatedBy();
 
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
+
+	/** Set Description.
+	  * Optional short description of the record
+	  */
+	public void setDescription (String Description);
+
+	/** Get Description.
+	  * Optional short description of the record
+	  */
+	public String getDescription();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -92,54 +105,38 @@ public interface I_LVE_WithholdingConfig
 	  */
 	public boolean isActive();
 
-    /** Column name LVE_TaxUnit_ID */
-    public static final String COLUMNNAME_LVE_TaxUnit_ID = "LVE_TaxUnit_ID";
+    /** Column name LVE_WH_Concept_ID */
+    public static final String COLUMNNAME_LVE_WH_Concept_ID = "LVE_WH_Concept_ID";
 
-	/** Set Tax Unit	  */
-	public void setLVE_TaxUnit_ID (int LVE_TaxUnit_ID);
+	/** Set Withholding Concept	  */
+	public void setLVE_WH_Concept_ID (int LVE_WH_Concept_ID);
 
-	/** Get Tax Unit	  */
-	public int getLVE_TaxUnit_ID();
+	/** Get Withholding Concept	  */
+	public int getLVE_WH_Concept_ID();
 
-	public org.spin.model.I_LVE_TaxUnit getLVE_TaxUnit() throws RuntimeException;
+    /** Column name LVE_Withholding_ID */
+    public static final String COLUMNNAME_LVE_Withholding_ID = "LVE_Withholding_ID";
 
-    /** Column name LVE_WH_Combination_ID */
-    public static final String COLUMNNAME_LVE_WH_Combination_ID = "LVE_WH_Combination_ID";
+	/** Set Withholding	  */
+	public void setLVE_Withholding_ID (int LVE_Withholding_ID);
 
-	/** Set Withholding Combination	  */
-	public void setLVE_WH_Combination_ID (int LVE_WH_Combination_ID);
+	/** Get Withholding	  */
+	public int getLVE_Withholding_ID();
 
-	/** Get Withholding Combination	  */
-	public int getLVE_WH_Combination_ID();
+	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
 
-	public org.spin.model.I_LVE_WH_Combination getLVE_WH_Combination() throws RuntimeException;
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
 
-    /** Column name LVE_WithholdingConfig_ID */
-    public static final String COLUMNNAME_LVE_WithholdingConfig_ID = "LVE_WithholdingConfig_ID";
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
 
-	/** Set Withholding Config	  */
-	public void setLVE_WithholdingConfig_ID (int LVE_WithholdingConfig_ID);
-
-	/** Get Withholding Config	  */
-	public int getLVE_WithholdingConfig_ID();
-
-    /** Column name MinimalAmt */
-    public static final String COLUMNNAME_MinimalAmt = "MinimalAmt";
-
-	/** Set Minimal Amt	  */
-	public void setMinimalAmt (BigDecimal MinimalAmt);
-
-	/** Get Minimal Amt	  */
-	public BigDecimal getMinimalAmt();
-
-    /** Column name Subtrahend */
-    public static final String COLUMNNAME_Subtrahend = "Subtrahend";
-
-	/** Set Subtrahend	  */
-	public void setSubtrahend (BigDecimal Subtrahend);
-
-	/** Get Subtrahend	  */
-	public BigDecimal getSubtrahend();
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

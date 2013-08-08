@@ -21,31 +21,31 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for LVE_WithholdingConcept
+/** Generated Model for LVE_WH_Concept
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingConcept, I_Persistent 
+public class X_LVE_WH_Concept extends PO implements I_LVE_WH_Concept, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130805L;
+	private static final long serialVersionUID = 20130808L;
 
     /** Standard Constructor */
-    public X_LVE_WithholdingConcept (Properties ctx, int LVE_WithholdingConcept_ID, String trxName)
+    public X_LVE_WH_Concept (Properties ctx, int LVE_WH_Concept_ID, String trxName)
     {
-      super (ctx, LVE_WithholdingConcept_ID, trxName);
-      /** if (LVE_WithholdingConcept_ID == 0)
+      super (ctx, LVE_WH_Concept_ID, trxName);
+      /** if (LVE_WH_Concept_ID == 0)
         {
-			setLVE_WithholdingConcept_ID (0);
+			setLVE_WH_Concept_ID (0);
 			setLVE_Withholding_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_WithholdingConcept (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_Concept (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -67,7 +67,7 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_WithholdingConcept[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_Concept[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -90,20 +90,20 @@ public class X_LVE_WithholdingConcept extends PO implements I_LVE_WithholdingCon
 	}
 
 	/** Set Withholding Concept.
-		@param LVE_WithholdingConcept_ID Withholding Concept	  */
-	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID)
+		@param LVE_WH_Concept_ID Withholding Concept	  */
+	public void setLVE_WH_Concept_ID (int LVE_WH_Concept_ID)
 	{
-		if (LVE_WithholdingConcept_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, null);
+		if (LVE_WH_Concept_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Concept_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_WithholdingConcept_ID, Integer.valueOf(LVE_WithholdingConcept_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Concept_ID, Integer.valueOf(LVE_WH_Concept_ID));
 	}
 
 	/** Get Withholding Concept.
 		@return Withholding Concept	  */
-	public int getLVE_WithholdingConcept_ID () 
+	public int getLVE_WH_Concept_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WithholdingConcept_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Concept_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

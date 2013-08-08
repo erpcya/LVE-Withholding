@@ -17,39 +17,34 @@
 /** Generated Model - DO NOT CHANGE */
 package org.spin.model;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
-import org.compiere.util.Env;
 
-/** Generated Model for LVE_TaxUnit
+/** Generated Model for LVE_WH_Type
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent 
+public class X_LVE_WH_Type extends PO implements I_LVE_WH_Type, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130805L;
+	private static final long serialVersionUID = 20130808L;
 
     /** Standard Constructor */
-    public X_LVE_TaxUnit (Properties ctx, int LVE_TaxUnit_ID, String trxName)
+    public X_LVE_WH_Type (Properties ctx, int LVE_WH_Type_ID, String trxName)
     {
-      super (ctx, LVE_TaxUnit_ID, trxName);
-      /** if (LVE_TaxUnit_ID == 0)
+      super (ctx, LVE_WH_Type_ID, trxName);
+      /** if (LVE_WH_Type_ID == 0)
         {
-			setLVE_TaxUnit_ID (0);
+			setLVE_WH_Type_ID (0);
 			setName (null);
-			setTaxAmt (Env.ZERO);
-			setValidFrom (new Timestamp( System.currentTimeMillis() ));
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_TaxUnit (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_Type (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -71,7 +66,7 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_TaxUnit[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_Type[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -93,21 +88,21 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
-	/** Set Tax Unit.
-		@param LVE_TaxUnit_ID Tax Unit	  */
-	public void setLVE_TaxUnit_ID (int LVE_TaxUnit_ID)
+	/** Set Withholding Type.
+		@param LVE_WH_Type_ID Withholding Type	  */
+	public void setLVE_WH_Type_ID (int LVE_WH_Type_ID)
 	{
-		if (LVE_TaxUnit_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_TaxUnit_ID, null);
+		if (LVE_WH_Type_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Type_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_TaxUnit_ID, Integer.valueOf(LVE_TaxUnit_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Type_ID, Integer.valueOf(LVE_WH_Type_ID));
 	}
 
-	/** Get Tax Unit.
-		@return Tax Unit	  */
-	public int getLVE_TaxUnit_ID () 
+	/** Get Withholding Type.
+		@return Withholding Type	  */
+	public int getLVE_WH_Type_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_TaxUnit_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Type_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -130,61 +125,20 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 		return (String)get_Value(COLUMNNAME_Name);
 	}
 
-	/** Set Process Now.
-		@param Processing Process Now	  */
-	public void setProcessing (boolean Processing)
-	{
-		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public boolean isProcessing () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processing);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Tax Amount.
-		@param TaxAmt 
-		Tax Amount for a document
+	/** Set Search Key.
+		@param Value 
+		Search key for the record in the format required - must be unique
 	  */
-	public void setTaxAmt (BigDecimal TaxAmt)
+	public void setValue (String Value)
 	{
-		set_Value (COLUMNNAME_TaxAmt, TaxAmt);
+		set_Value (COLUMNNAME_Value, Value);
 	}
 
-	/** Get Tax Amount.
-		@return Tax Amount for a document
+	/** Get Search Key.
+		@return Search key for the record in the format required - must be unique
 	  */
-	public BigDecimal getTaxAmt () 
+	public String getValue () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_TaxAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set Valid from.
-		@param ValidFrom 
-		Valid from including this date (first day)
-	  */
-	public void setValidFrom (Timestamp ValidFrom)
-	{
-		set_Value (COLUMNNAME_ValidFrom, ValidFrom);
-	}
-
-	/** Get Valid from.
-		@return Valid from including this date (first day)
-	  */
-	public Timestamp getValidFrom () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_ValidFrom);
+		return (String)get_Value(COLUMNNAME_Value);
 	}
 }

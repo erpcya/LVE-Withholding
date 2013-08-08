@@ -21,17 +21,17 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LVE_WithholdingConcept
+/** Generated Interface for LVE_WH_Relation
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS
  */
-public interface I_LVE_WithholdingConcept 
+public interface I_LVE_WH_Relation 
 {
 
-    /** TableName=LVE_WithholdingConcept */
-    public static final String Table_Name = "LVE_WithholdingConcept";
+    /** TableName=LVE_WH_Relation */
+    public static final String Table_Name = "LVE_WH_Relation";
 
-    /** AD_Table_ID=53536 */
+    /** AD_Table_ID=53535 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -63,6 +63,51 @@ public interface I_LVE_WithholdingConcept
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name C_BPartner_ID */
+    public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
+
+	/** Set Business Partner .
+	  * Identifies a Business Partner
+	  */
+	public void setC_BPartner_ID (int C_BPartner_ID);
+
+	/** Get Business Partner .
+	  * Identifies a Business Partner
+	  */
+	public int getC_BPartner_ID();
+
+	public I_C_BPartner getC_BPartner() throws RuntimeException;
+
+    /** Column name C_BP_Group_ID */
+    public static final String COLUMNNAME_C_BP_Group_ID = "C_BP_Group_ID";
+
+	/** Set Business Partner Group.
+	  * Business Partner Group
+	  */
+	public void setC_BP_Group_ID (int C_BP_Group_ID);
+
+	/** Get Business Partner Group.
+	  * Business Partner Group
+	  */
+	public int getC_BP_Group_ID();
+
+	public I_C_BP_Group getC_BP_Group() throws RuntimeException;
+
+    /** Column name C_DocType_ID */
+    public static final String COLUMNNAME_C_DocType_ID = "C_DocType_ID";
+
+	/** Set Document Type.
+	  * Document type or rules
+	  */
+	public void setC_DocType_ID (int C_DocType_ID);
+
+	/** Get Document Type.
+	  * Document type or rules
+	  */
+	public int getC_DocType_ID();
+
+	public I_C_DocType getC_DocType() throws RuntimeException;
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -79,19 +124,6 @@ public interface I_LVE_WithholdingConcept
 	  */
 	public int getCreatedBy();
 
-    /** Column name Description */
-    public static final String COLUMNNAME_Description = "Description";
-
-	/** Set Description.
-	  * Optional short description of the record
-	  */
-	public void setDescription (String Description);
-
-	/** Get Description.
-	  * Optional short description of the record
-	  */
-	public String getDescription();
-
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -105,14 +137,14 @@ public interface I_LVE_WithholdingConcept
 	  */
 	public boolean isActive();
 
-    /** Column name LVE_WithholdingConcept_ID */
-    public static final String COLUMNNAME_LVE_WithholdingConcept_ID = "LVE_WithholdingConcept_ID";
+    /** Column name LVE_WH_Relation_ID */
+    public static final String COLUMNNAME_LVE_WH_Relation_ID = "LVE_WH_Relation_ID";
 
-	/** Set Withholding Concept	  */
-	public void setLVE_WithholdingConcept_ID (int LVE_WithholdingConcept_ID);
+	/** Set Withholding Relation	  */
+	public void setLVE_WH_Relation_ID (int LVE_WH_Relation_ID);
 
-	/** Get Withholding Concept	  */
-	public int getLVE_WithholdingConcept_ID();
+	/** Get Withholding Relation	  */
+	public int getLVE_WH_Relation_ID();
 
     /** Column name LVE_Withholding_ID */
     public static final String COLUMNNAME_LVE_Withholding_ID = "LVE_Withholding_ID";
@@ -124,19 +156,6 @@ public interface I_LVE_WithholdingConcept
 	public int getLVE_Withholding_ID();
 
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
-
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
-
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
-
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

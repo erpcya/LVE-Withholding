@@ -30,7 +30,7 @@ public class X_LVE_WH_Concept extends PO implements I_LVE_WH_Concept, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130808L;
+	private static final long serialVersionUID = 20130809L;
 
     /** Standard Constructor */
     public X_LVE_WH_Concept (Properties ctx, int LVE_WH_Concept_ID, String trxName)
@@ -39,7 +39,6 @@ public class X_LVE_WH_Concept extends PO implements I_LVE_WH_Concept, I_Persiste
       /** if (LVE_WH_Concept_ID == 0)
         {
 			setLVE_WH_Concept_ID (0);
-			setLVE_Withholding_ID (0);
 			setName (null);
         } */
     }
@@ -89,6 +88,31 @@ public class X_LVE_WH_Concept extends PO implements I_LVE_WH_Concept, I_Persiste
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
+	public org.spin.model.I_LVE_WH_ConceptGroup getLVE_WH_ConceptGroup() throws RuntimeException
+    {
+		return (org.spin.model.I_LVE_WH_ConceptGroup)MTable.get(getCtx(), org.spin.model.I_LVE_WH_ConceptGroup.Table_Name)
+			.getPO(getLVE_WH_ConceptGroup_ID(), get_TrxName());	}
+
+	/** Set Concept Group.
+		@param LVE_WH_ConceptGroup_ID Concept Group	  */
+	public void setLVE_WH_ConceptGroup_ID (int LVE_WH_ConceptGroup_ID)
+	{
+		if (LVE_WH_ConceptGroup_ID < 1) 
+			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, null);
+		else 
+			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, Integer.valueOf(LVE_WH_ConceptGroup_ID));
+	}
+
+	/** Get Concept Group.
+		@return Concept Group	  */
+	public int getLVE_WH_ConceptGroup_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_ConceptGroup_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Withholding Concept.
 		@param LVE_WH_Concept_ID Withholding Concept	  */
 	public void setLVE_WH_Concept_ID (int LVE_WH_Concept_ID)
@@ -104,31 +128,6 @@ public class X_LVE_WH_Concept extends PO implements I_LVE_WH_Concept, I_Persiste
 	public int getLVE_WH_Concept_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Concept_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException
-    {
-		return (org.spin.model.I_LVE_Withholding)MTable.get(getCtx(), org.spin.model.I_LVE_Withholding.Table_Name)
-			.getPO(getLVE_Withholding_ID(), get_TrxName());	}
-
-	/** Set Withholding.
-		@param LVE_Withholding_ID Withholding	  */
-	public void setLVE_Withholding_ID (int LVE_Withholding_ID)
-	{
-		if (LVE_Withholding_ID < 1) 
-			set_Value (COLUMNNAME_LVE_Withholding_ID, null);
-		else 
-			set_Value (COLUMNNAME_LVE_Withholding_ID, Integer.valueOf(LVE_Withholding_ID));
-	}
-
-	/** Get Withholding.
-		@return Withholding	  */
-	public int getLVE_Withholding_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_Withholding_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

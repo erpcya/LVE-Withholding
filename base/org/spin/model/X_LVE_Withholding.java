@@ -32,7 +32,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130808L;
+	private static final long serialVersionUID = 20130809L;
 
     /** Standard Constructor */
     public X_LVE_Withholding (Properties ctx, int LVE_Withholding_ID, String trxName)
@@ -42,12 +42,12 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
         {
 			setBeneficiary (0);
 			setC_Charge_ID (0);
-			setClassname (null);
-			setDeclarationDocType (0);
+			setDeclarationDocType_ID (0);
+			setLVE_WH_ConceptGroup_ID (0);
 			setLVE_WH_Type_ID (0);
 			setLVE_Withholding_ID (0);
 			setName (null);
-			setWithholdingDocType (0);
+			setWithholdingDocType_ID (0);
         } */
     }
 
@@ -149,23 +149,26 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 		return (String)get_Value(COLUMNNAME_Classname);
 	}
 
-	public I_C_DocType getDeclarationDocT() throws RuntimeException
+	public I_C_DocType getDeclarationDocType() throws RuntimeException
     {
 		return (I_C_DocType)MTable.get(getCtx(), I_C_DocType.Table_Name)
-			.getPO(getDeclarationDocType(), get_TrxName());	}
+			.getPO(getDeclarationDocType_ID(), get_TrxName());	}
 
 	/** Set Declaration Doc Type.
-		@param DeclarationDocType Declaration Doc Type	  */
-	public void setDeclarationDocType (int DeclarationDocType)
+		@param DeclarationDocType_ID Declaration Doc Type	  */
+	public void setDeclarationDocType_ID (int DeclarationDocType_ID)
 	{
-		set_ValueNoCheck (COLUMNNAME_DeclarationDocType, Integer.valueOf(DeclarationDocType));
+		if (DeclarationDocType_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_DeclarationDocType_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_DeclarationDocType_ID, Integer.valueOf(DeclarationDocType_ID));
 	}
 
 	/** Get Declaration Doc Type.
 		@return Declaration Doc Type	  */
-	public int getDeclarationDocType () 
+	public int getDeclarationDocType_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_DeclarationDocType);
+		Integer ii = (Integer)get_Value(COLUMNNAME_DeclarationDocType_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -212,6 +215,31 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 		return false;
 	}
 
+	public org.spin.model.I_LVE_WH_ConceptGroup getLVE_WH_ConceptGroup() throws RuntimeException
+    {
+		return (org.spin.model.I_LVE_WH_ConceptGroup)MTable.get(getCtx(), org.spin.model.I_LVE_WH_ConceptGroup.Table_Name)
+			.getPO(getLVE_WH_ConceptGroup_ID(), get_TrxName());	}
+
+	/** Set Concept Group.
+		@param LVE_WH_ConceptGroup_ID Concept Group	  */
+	public void setLVE_WH_ConceptGroup_ID (int LVE_WH_ConceptGroup_ID)
+	{
+		if (LVE_WH_ConceptGroup_ID < 1) 
+			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, null);
+		else 
+			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, Integer.valueOf(LVE_WH_ConceptGroup_ID));
+	}
+
+	/** Get Concept Group.
+		@return Concept Group	  */
+	public int getLVE_WH_ConceptGroup_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_ConceptGroup_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.spin.model.I_LVE_WH_Type getLVE_WH_Type() throws RuntimeException
     {
 		return (org.spin.model.I_LVE_WH_Type)MTable.get(getCtx(), org.spin.model.I_LVE_WH_Type.Table_Name)
@@ -222,9 +250,9 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	public void setLVE_WH_Type_ID (int LVE_WH_Type_ID)
 	{
 		if (LVE_WH_Type_ID < 1) 
-			set_Value (COLUMNNAME_LVE_WH_Type_ID, null);
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Type_ID, null);
 		else 
-			set_Value (COLUMNNAME_LVE_WH_Type_ID, Integer.valueOf(LVE_WH_Type_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_Type_ID, Integer.valueOf(LVE_WH_Type_ID));
 	}
 
 	/** Get Withholding Type.
@@ -291,23 +319,26 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 		return bd;
 	}
 
-	public I_C_DocType getWithholdingDocT() throws RuntimeException
+	public I_C_DocType getWithholdingDocType() throws RuntimeException
     {
 		return (I_C_DocType)MTable.get(getCtx(), I_C_DocType.Table_Name)
-			.getPO(getWithholdingDocType(), get_TrxName());	}
+			.getPO(getWithholdingDocType_ID(), get_TrxName());	}
 
 	/** Set Withholding Doc Type.
-		@param WithholdingDocType Withholding Doc Type	  */
-	public void setWithholdingDocType (int WithholdingDocType)
+		@param WithholdingDocType_ID Withholding Doc Type	  */
+	public void setWithholdingDocType_ID (int WithholdingDocType_ID)
 	{
-		set_ValueNoCheck (COLUMNNAME_WithholdingDocType, Integer.valueOf(WithholdingDocType));
+		if (WithholdingDocType_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_WithholdingDocType_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_WithholdingDocType_ID, Integer.valueOf(WithholdingDocType_ID));
 	}
 
 	/** Get Withholding Doc Type.
 		@return Withholding Doc Type	  */
-	public int getWithholdingDocType () 
+	public int getWithholdingDocType_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_WithholdingDocType);
+		Integer ii = (Integer)get_Value(COLUMNNAME_WithholdingDocType_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

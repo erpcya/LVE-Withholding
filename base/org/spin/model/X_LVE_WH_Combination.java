@@ -32,7 +32,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130808L;
+	private static final long serialVersionUID = 20130809L;
 
     /** Standard Constructor */
     public X_LVE_WH_Combination (Properties ctx, int LVE_WH_Combination_ID, String trxName)
@@ -78,7 +78,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 		@param Aliquot Aliquot	  */
 	public void setAliquot (BigDecimal Aliquot)
 	{
-		set_Value (COLUMNNAME_Aliquot, Aliquot);
+		set_ValueNoCheck (COLUMNNAME_Aliquot, Aliquot);
 	}
 
 	/** Get Aliquot.

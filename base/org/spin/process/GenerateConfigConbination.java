@@ -28,6 +28,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.spin.model.MLVETaxUnit;
 import org.spin.model.MLVEWHCombination;
+import org.spin.model.MLVEWHConceptGroup;
 import org.spin.model.MLVEWithholding;
 import org.spin.model.MLVEWHConcept;
 import org.spin.model.MLVEWHConfig;
@@ -103,8 +104,10 @@ public class GenerateConfigConbination extends SvrProcess {
 		
 		//	Withholding Concept
 		MLVEWHConcept m_LVE_WH_Concept = (MLVEWHConcept) m_LVE_WHCombination.getLVE_WH_Concept();
+		//	Concept Group
+		MLVEWHConceptGroup m_LVE_WH_ConceptGroup;
 		//	Withholding
-		MLVEWithholding m_LVE_Withholding = (MLVEWithholding) m_LVE_WH_Concept.getLVE_Withholding();
+		MLVEWithholding m_LVE_Withholding = (MLVEWithholding) m_LVE_WH_ConceptGroup.getLVE_Withholding();
 		
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;

@@ -122,16 +122,16 @@ public interface I_LVE_Withholding
 	  */
 	public int getCreatedBy();
 
-    /** Column name DeclarationDocType */
-    public static final String COLUMNNAME_DeclarationDocType = "DeclarationDocType";
+    /** Column name DeclarationDocType_ID */
+    public static final String COLUMNNAME_DeclarationDocType_ID = "DeclarationDocType_ID";
 
 	/** Set Declaration Doc Type	  */
-	public void setDeclarationDocType (int DeclarationDocType);
+	public void setDeclarationDocType_ID (int DeclarationDocType_ID);
 
 	/** Get Declaration Doc Type	  */
-	public int getDeclarationDocType();
+	public int getDeclarationDocType_ID();
 
-	public I_C_DocType getDeclarationDocT() throws RuntimeException;
+	public I_C_DocType getDeclarationDocType() throws RuntimeException;
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
@@ -171,6 +171,17 @@ public interface I_LVE_Withholding
 	  * This is a Sales Transaction
 	  */
 	public boolean isSOTrx();
+
+    /** Column name LVE_WH_ConceptGroup_ID */
+    public static final String COLUMNNAME_LVE_WH_ConceptGroup_ID = "LVE_WH_ConceptGroup_ID";
+
+	/** Set Concept Group	  */
+	public void setLVE_WH_ConceptGroup_ID (int LVE_WH_ConceptGroup_ID);
+
+	/** Get Concept Group	  */
+	public int getLVE_WH_ConceptGroup_ID();
+
+	public org.spin.model.I_LVE_WH_ConceptGroup getLVE_WH_ConceptGroup() throws RuntimeException;
 
     /** Column name LVE_WH_Type_ID */
     public static final String COLUMNNAME_LVE_WH_Type_ID = "LVE_WH_Type_ID";
@@ -230,14 +241,14 @@ public interface I_LVE_Withholding
 	  */
 	public int getUpdatedBy();
 
-    /** Column name WithholdingDocType */
-    public static final String COLUMNNAME_WithholdingDocType = "WithholdingDocType";
+    /** Column name WithholdingDocType_ID */
+    public static final String COLUMNNAME_WithholdingDocType_ID = "WithholdingDocType_ID";
 
 	/** Set Withholding Doc Type	  */
-	public void setWithholdingDocType (int WithholdingDocType);
+	public void setWithholdingDocType_ID (int WithholdingDocType_ID);
 
 	/** Get Withholding Doc Type	  */
-	public int getWithholdingDocType();
+	public int getWithholdingDocType_ID();
 
-	public I_C_DocType getWithholdingDocT() throws RuntimeException;
+	public I_C_DocType getWithholdingDocType() throws RuntimeException;
 }

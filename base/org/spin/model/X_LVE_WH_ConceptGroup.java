@@ -21,10 +21,10 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for LVE_PersonType
+/** Generated Model for LVE_WH_ConceptGroup
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS - $Id$ */
-public class X_LVE_PersonType extends PO implements I_LVE_PersonType, I_Persistent 
+public class X_LVE_WH_ConceptGroup extends PO implements I_LVE_WH_ConceptGroup, I_Persistent 
 {
 
 	/**
@@ -33,18 +33,19 @@ public class X_LVE_PersonType extends PO implements I_LVE_PersonType, I_Persiste
 	private static final long serialVersionUID = 20130809L;
 
     /** Standard Constructor */
-    public X_LVE_PersonType (Properties ctx, int LVE_PersonType_ID, String trxName)
+    public X_LVE_WH_ConceptGroup (Properties ctx, int LVE_WH_ConceptGroup_ID, String trxName)
     {
-      super (ctx, LVE_PersonType_ID, trxName);
-      /** if (LVE_PersonType_ID == 0)
+      super (ctx, LVE_WH_ConceptGroup_ID, trxName);
+      /** if (LVE_WH_ConceptGroup_ID == 0)
         {
-			setLVE_PersonType_ID (0);
+			setLVE_WH_ConceptGroup_ID (0);
 			setName (null);
+			setValue (null);
         } */
     }
 
     /** Load Constructor */
-    public X_LVE_PersonType (Properties ctx, ResultSet rs, String trxName)
+    public X_LVE_WH_ConceptGroup (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -66,7 +67,7 @@ public class X_LVE_PersonType extends PO implements I_LVE_PersonType, I_Persiste
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LVE_PersonType[")
+      StringBuffer sb = new StringBuffer ("X_LVE_WH_ConceptGroup[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -88,21 +89,21 @@ public class X_LVE_PersonType extends PO implements I_LVE_PersonType, I_Persiste
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
-	/** Set Person Type.
-		@param LVE_PersonType_ID Person Type	  */
-	public void setLVE_PersonType_ID (int LVE_PersonType_ID)
+	/** Set Concept Group.
+		@param LVE_WH_ConceptGroup_ID Concept Group	  */
+	public void setLVE_WH_ConceptGroup_ID (int LVE_WH_ConceptGroup_ID)
 	{
-		if (LVE_PersonType_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LVE_PersonType_ID, null);
+		if (LVE_WH_ConceptGroup_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_ConceptGroup_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LVE_PersonType_ID, Integer.valueOf(LVE_PersonType_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_ConceptGroup_ID, Integer.valueOf(LVE_WH_ConceptGroup_ID));
 	}
 
-	/** Get Person Type.
-		@return Person Type	  */
-	public int getLVE_PersonType_ID () 
+	/** Get Concept Group.
+		@return Concept Group	  */
+	public int getLVE_WH_ConceptGroup_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_PersonType_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_ConceptGroup_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

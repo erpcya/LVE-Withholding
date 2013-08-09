@@ -119,8 +119,41 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		if(p_LVE_Withholding_ID != 0)
 			m_parameterWhere.append("AND rr.LVE_Withholding_ID = " + p_LVE_Withholding_ID + " ");
 		
+		
 		//	
-		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
+		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID, " +
+				"inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, SUM(itax.TaxAmt) TaxAmt, " +
+				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * 	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
+				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * 	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " +
+				"FROM C_Invoice inv " +
+				"INNER JOIN C_InvoiceTax itax ON(itax.C_Invoice_ID = inv.C_Invoice_ID) " +
+				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " +
+				"INNER JOIN LVE_WH_Relation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
+				"INNER JOIN LVE_Withholding rt ON(rt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
+				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_Withholding_ID = rt.LVE_Withholding_ID)" +
+				"INNER JOIN LVE_WH_Combination cb ON(cb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
+				"INNER JOIN LVE_WH_Config cn ON(cn.LVE_WH_Combination_ID = cb.LVE_WH_Combination_ID)  " +
+				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " +
+				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.WithholdingDocType_ID) " +
+				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.LVE_Withholding_ID " +
+				"FROM LVE_WH_Relation rrdt) rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
+				"WHERE inv.DocStatus IN('CO') " +
+				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret " +
+				"						LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) " +
+				"						WHERE ret.DocStatus IN('CO', 'CL') " +
+				"						AND ret.C_DocType_ID = rt.WithholdingDocType_ID " +
+				"						AND retl.DocAffected_ID = inv.C_Invoice_ID) " + 
+				//	Sql Where
+				m_parameterWhere.toString() + 
+				//	Group By
+
+				AND rr.LVE_Withholding_ID = 1000001 
+		GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID,  
+		inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, dt.DocBaseType, dtr.DocBaseType 
+		HAVING (SUM(itax.TaxAmt) > 0) 
+		ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID
+		
+SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 				"inv.C_Invoice_ID, cn.Aliquot, rt.C_Charge_ID, rt.C_DocType_ID, SUM(itax.TaxAmt) TaxAmt, " + 
 				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " + 

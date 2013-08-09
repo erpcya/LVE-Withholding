@@ -123,6 +123,17 @@ public interface I_LVE_WH_Config
 	/** Get Withholding Config	  */
 	public int getLVE_WH_Config_ID();
 
+    /** Column name LVE_Withholding_ID */
+    public static final String COLUMNNAME_LVE_Withholding_ID = "LVE_Withholding_ID";
+
+	/** Set Withholding	  */
+	public void setLVE_Withholding_ID (int LVE_Withholding_ID);
+
+	/** Get Withholding	  */
+	public int getLVE_Withholding_ID();
+
+	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
+
     /** Column name MinimalAmt */
     public static final String COLUMNNAME_MinimalAmt = "MinimalAmt";
 

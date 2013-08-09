@@ -88,7 +88,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 		BigDecimal m_TaxUnitAmt = m_LVE_TaxUnit.getTaxAmt();
 		
 		
-		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whb.LVE_WH_Combination_ID " +
+		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID " +
 				"FROM LVE_Withholding wh " +
 				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_Withholding_ID = wh.LVE_Withholding_ID) " +
 				"INNER JOIN LVE_WH_Combination whb ON(whb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
@@ -107,8 +107,9 @@ public class CopyFromTaxUnit extends SvrProcess {
 			while(rs.next()){
 				BigDecimal m_TaxUnitRate	= rs.getBigDecimal("TaxUnitRate");
 				BigDecimal m_Aliquot		= rs.getBigDecimal("Aliquot");
+				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
-				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_WH_Combination_ID);
+				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID);
 			}
 		}
 				
@@ -121,10 +122,12 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 * @param p_Aliquot
 	 * @param p_TaxUnitRate
 	 * @param p_TaxUnitAmt
+	 * @param p_LVE_Withholding_ID
 	 * @param p_LVE_WH_Combination_ID
 	 * @return void
 	 */
-	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, int p_LVE_WH_Combination_ID){
+	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
+			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
@@ -151,7 +154,11 @@ public class CopyFromTaxUnit extends SvrProcess {
 		log.fine("Sustrahend=" + m_Subtrahend);
 		
 		MLVEWHConfig m_Config = MLVEWHConfig
-				.createFrom(getCtx(), p_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID, get_TrxName());
+				.createFrom(getCtx(), 
+						p_LVE_Withholding_ID, 
+						p_LVE_WH_Combination_ID, 
+						m_LVE_TaxUnit_ID, 
+						get_TrxName());
 		//	Set Values
 		m_Config.setSubtrahend(m_Subtrahend);
 		m_Config.setMinimalAmt(m_MinimalAmt);

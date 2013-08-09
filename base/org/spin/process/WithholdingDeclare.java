@@ -47,8 +47,6 @@ public class WithholdingDeclare extends SvrProcess{
 			String name = para.getParameterName();
 			if (para.getParameter() == null)
 				;
-			else if (name.equals("C_BPartner_ID"))
-				p_C_BPartner_ID = para.getParameterAsInt();
 			else if (name.equals("DateInvoiced"))
 				p_DateInvoiced = (Timestamp)para.getParameter();
 			else if(name.equals("DocStatus"))

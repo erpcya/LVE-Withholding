@@ -19,6 +19,8 @@ package org.spin.util;
 import java.sql.Timestamp;
 import java.util.Properties;
 
+import org.compiere.util.CLogger;
+
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
@@ -38,9 +40,10 @@ public interface I_WithholdingGenerate {
 	 * @param p_DateDoc
 	 * @param p_LVE_Withholding_ID
 	 * @param log
+	 * @param out
 	 * @return
 	 * @return int
 	 */
 	public int generate(Properties ctx, String trxName, int p_ADPinstance, int p_C_Invoice_ID, int p_C_BPartner_ID, 
-			Timestamp p_DateAcct, Timestamp	p_DateAcct_To, Timestamp p_DateDoc, int p_LVE_Withholding_ID, StringBuffer log) throws Exception;
+			Timestamp p_DateAcct, Timestamp	p_DateAcct_To, Timestamp p_DateDoc, int p_LVE_Withholding_ID, CLogger log, StringBuffer out) throws Exception;
 }

@@ -122,7 +122,7 @@ public class WithholdingGenerate extends SvrProcess {
 							"\nLVE_Withholding_ID=" + p_LVE_Withholding_ID);
 					
 					generated = wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
-							p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, sb);
+							p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, log, sb);
 					//	Add Buffer
 					if(sb != null){
 						prcLog.append(sb);

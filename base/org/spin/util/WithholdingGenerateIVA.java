@@ -31,6 +31,7 @@ import org.compiere.model.MAllocationLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.process.DocumentEngine;
+import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
@@ -70,8 +71,10 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 	private BigDecimal			m_Current_Mlp_Invoice		= Env.ZERO;
 	/**	Current Multiplier Withholding Doc*/
 	private BigDecimal			m_Current_Mlp_Withholding	= Env.ZERO;
+	/**	Out								*/
+	private StringBuffer 	out 	= null;
 	/**	Log								*/
-	private StringBuffer 	log 	= null;
+	private CLogger			log		= null;
 	
 	private final int 		N_UOM 	= 100;
 	
@@ -86,7 +89,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 	public int generate(Properties ctx, String trxName, int p_ADPinstance,
 			int p_C_Invoice_ID, int p_C_BPartner_ID, Timestamp p_DateAcct,
 			Timestamp p_DateAcct_To, Timestamp p_DateDoc,
-			int p_LVE_Withholding_ID, StringBuffer log) throws Exception {
+			int p_LVE_Withholding_ID, CLogger log, StringBuffer out) throws Exception {
 			
 		this.ctx = ctx;
 		this.trxName = trxName;
@@ -97,6 +100,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		this.p_DateDoc = p_DateDoc;
 		this.p_LVE_Withholding_ID = p_LVE_Withholding_ID;
 		this.log = log;
+		this.out = out;
 		loadQuery();
 		createWithholding();
 		return 0;
@@ -144,7 +148,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 				"rt.C_Charge_ID, rt.C_DocType_ID, dt.DocBaseType, dtr.DocBaseType " + 
 				"HAVING (SUM(itax.TaxAmt) > 0) " + 
 				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
-		System.out.println("SQL=" + sql);
+		log.fine("SQL=" + sql);
 	}
 	
 	protected String createWithholding() throws Exception {
@@ -174,7 +178,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Withholding		= rs.getBigDecimal("multiplierRet");
 				
-				System.out.println("m_C_BPartner_ID=" + m_C_BPartner_ID 
+				log.fine("m_C_BPartner_ID=" + m_C_BPartner_ID 
 						+ " m_LVE_Withholding_ID=" + m_LVE_Withholding_ID 
 						+ " m_LVE_WH_Combination_ID=" + m_LVE_WH_Combination_ID
 						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
@@ -223,7 +227,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		WithholdingAmt = p_TaxAmt.multiply(p_Aliquot);
 		WithholdingAmt = (WithholdingAmt.compareTo(Env.ZERO) < 0? Env.ZERO: WithholdingAmt);
 		
-		System.out.println("p_Aliquot=" + p_Aliquot + " p_TaxAmt=" + p_TaxAmt + " WithholdingAmt=" + WithholdingAmt);
+		log.fine("p_Aliquot=" + p_Aliquot + " p_TaxAmt=" + p_TaxAmt + " WithholdingAmt=" + WithholdingAmt);
 		
 		if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
 			completeWithholding();
@@ -276,7 +280,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 				m_Current_Withholding.setDocAction(DocumentEngine.ACTION_Complete);
 				m_Current_Withholding.processIt(DocumentEngine.ACTION_Complete);
 				m_Current_Withholding.saveEx();
-				log.append(/*m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getUpdated(), null,*/ 
+				out.append(/*m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getUpdated(), null,*/ 
 						m_Current_Withholding.getDocumentNo() + 
 						(m_Current_Withholding.getProcessMsg() != null && m_Current_Withholding.getProcessMsg().length() !=0
 								? ": Error " + m_Current_Withholding.getProcessMsg()
@@ -316,8 +320,8 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		
 		BigDecimal amt = p_WithholdingLine.getLineNetAmt();
 		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(m_Current_Mlp_Withholding));
-		System.out.println("Current Invoice Allocation Amt=" + amt);
-		System.out.println("newOpenAmt=" + newOpenAmt);
+		log.fine("Current Invoice Allocation Amt=" + amt);
+		log.fine("newOpenAmt=" + newOpenAmt);
 		
 		if(newOpenAmt.multiply(m_Current_Mlp_Withholding).compareTo(Env.ZERO) < 0){
 			MInvoice inv = new MInvoice(ctx, p_C_Invoice_ID, trxName);
@@ -344,7 +348,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 	 */
 	private void completeAlloc(){
 		if(m_Current_Alloc != null){
-			System.out.println("Amt Total Allocation=" + m_Current_Withholding.getGrandTotal().multiply(m_Current_Mlp_Withholding));
+			log.fine("Amt Total Allocation=" + m_Current_Withholding.getGrandTotal().multiply(m_Current_Mlp_Withholding));
 			//	
 			MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, m_Current_Withholding.getGrandTotal().multiply(m_Current_Mlp_Withholding), 
 					Env.ZERO, Env.ZERO, Env.ZERO);
@@ -352,7 +356,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 			aLine.saveEx();
 			//	
 			if(m_Current_Alloc.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
-				System.out.println("Current Allocation = " + m_Current_Alloc.getDocumentNo());
+				log.fine("Current Allocation = " + m_Current_Alloc.getDocumentNo());
 				//	
 				m_Current_Alloc.setDocAction(DocumentEngine.ACTION_Complete);
 				m_Current_Alloc.processIt(DocumentEngine.ACTION_Complete);

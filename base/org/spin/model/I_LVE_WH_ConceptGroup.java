@@ -21,17 +21,17 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LVE_WH_Concept
+/** Generated Interface for LVE_WH_ConceptGroup
  *  @author Adempiere (generated) 
  *  @version Release 3.6.0LTS
  */
-public interface I_LVE_WH_Concept 
+public interface I_LVE_WH_ConceptGroup 
 {
 
-    /** TableName=LVE_WH_Concept */
-    public static final String Table_Name = "LVE_WH_Concept";
+    /** TableName=LVE_WH_ConceptGroup */
+    public static final String Table_Name = "LVE_WH_ConceptGroup";
 
-    /** AD_Table_ID=53536 */
+    /** AD_Table_ID=53548 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -114,17 +114,6 @@ public interface I_LVE_WH_Concept
 	/** Get Concept Group	  */
 	public int getLVE_WH_ConceptGroup_ID();
 
-	public org.spin.model.I_LVE_WH_ConceptGroup getLVE_WH_ConceptGroup() throws RuntimeException;
-
-    /** Column name LVE_WH_Concept_ID */
-    public static final String COLUMNNAME_LVE_WH_Concept_ID = "LVE_WH_Concept_ID";
-
-	/** Set Withholding Concept	  */
-	public void setLVE_WH_Concept_ID (int LVE_WH_Concept_ID);
-
-	/** Get Withholding Concept	  */
-	public int getLVE_WH_Concept_ID();
-
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 
@@ -153,4 +142,17 @@ public interface I_LVE_WH_Concept
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name Value */
+    public static final String COLUMNNAME_Value = "Value";
+
+	/** Set Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
+	public void setValue (String Value);
+
+	/** Get Search Key.
+	  * Search key for the record in the format required - must be unique
+	  */
+	public String getValue();
 }

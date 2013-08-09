@@ -33,7 +33,7 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130808L;
+	private static final long serialVersionUID = 20130809L;
 
     /** Standard Constructor */
     public X_LVE_TaxUnit (Properties ctx, int LVE_TaxUnit_ID, String trxName)
@@ -157,7 +157,7 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 	  */
 	public void setTaxAmt (BigDecimal TaxAmt)
 	{
-		set_Value (COLUMNNAME_TaxAmt, TaxAmt);
+		set_ValueNoCheck (COLUMNNAME_TaxAmt, TaxAmt);
 	}
 
 	/** Get Tax Amount.
@@ -177,7 +177,7 @@ public class X_LVE_TaxUnit extends PO implements I_LVE_TaxUnit, I_Persistent
 	  */
 	public void setValidFrom (Timestamp ValidFrom)
 	{
-		set_Value (COLUMNNAME_ValidFrom, ValidFrom);
+		set_ValueNoCheck (COLUMNNAME_ValidFrom, ValidFrom);
 	}
 
 	/** Get Valid from.

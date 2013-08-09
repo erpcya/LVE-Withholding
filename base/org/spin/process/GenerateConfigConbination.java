@@ -45,6 +45,8 @@ public class GenerateConfigConbination extends SvrProcess {
 	/**	Tax Unit								*/
 	private int 			p_LVE_TaxUnit_ID = 0;
 	
+	private int 			p_LVE_Withholding_ID = 0;
+	
 	/**	Withholding Combination					*/
 	private int 			m_LVE_WH_Combination_ID = 0;
 	
@@ -67,6 +69,8 @@ public class GenerateConfigConbination extends SvrProcess {
 				;
 			else if (name.equals("LVE_TaxUnit_ID"))
 				p_LVE_TaxUnit_ID = para.getParameterAsInt();
+			else if (name.equals("LVE_Withholding_ID"))
+				p_LVE_Withholding_ID = para.getParameterAsInt();
 			else if (name.equals("DateAcct"))
 				m_DateAcct = (Timestamp) para.getParameter();
 		}
@@ -87,6 +91,10 @@ public class GenerateConfigConbination extends SvrProcess {
 			throw new AdempiereException("@LVE_WH_Combination_ID@ Not Found");
 		log.info("LVE_WH_Combination_ID=" + m_LVE_WH_Combination_ID);
 		
+		if(p_LVE_Withholding_ID == 0)
+			throw new AdempiereException("@LVE_Withholding_ID@ Not Found");
+		log.info("LVE_Withholding_ID=" + p_LVE_Withholding_ID);
+		
 		//	Currency Precision
 		m_Precision = MCurrency.getStdPrecision(getCtx(), Env.getContextAsInt(getCtx(), "$C_Currency_ID"));
 		
@@ -101,14 +109,15 @@ public class GenerateConfigConbination extends SvrProcess {
 			m_LVE_TaxUnit = new MLVETaxUnit(getCtx(), p_LVE_TaxUnit_ID, get_TrxName());
 		else
 			m_LVE_TaxUnit = MLVETaxUnit.get(getCtx(), m_DateAcct, get_TrxName());
-		
+		if(m_LVE_TaxUnit == null)
+			throw new AdempiereException("@LVE_TaxUnit_ID@ Not Found");
 		//	Withholding Concept
 		MLVEWHConcept m_LVE_WH_Concept = (MLVEWHConcept) m_LVE_WHCombination.getLVE_WH_Concept();
-		//	Concept Group
-		MLVEWHConceptGroup m_LVE_WH_ConceptGroup;
 		//	Withholding
-		MLVEWithholding m_LVE_Withholding = (MLVEWithholding) m_LVE_WH_ConceptGroup.getLVE_Withholding();
-		
+		MLVEWithholding m_LVE_Withholding = new MLVEWithholding(getCtx(), p_LVE_Withholding_ID, get_TrxName());
+		//	If Mismatched
+		if(m_LVE_WH_Concept.getLVE_WH_ConceptGroup_ID() != m_LVE_Withholding.getLVE_WH_ConceptGroup_ID())
+			throw new AdempiereException("@LVE_WH_ConceptGroup_ID@ <> @LVE_WH_ConceptGroup_ID@");
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
@@ -141,7 +150,11 @@ public class GenerateConfigConbination extends SvrProcess {
 		log.fine("Sustrahend=" + m_Subtrahend);
 		
 		MLVEWHConfig m_Config = MLVEWHConfig
-				.createFrom(getCtx(), m_LVE_WH_Combination_ID, m_LVE_TaxUnit.getLVE_TaxUnit_ID(), get_TrxName());
+				.createFrom(getCtx(), 
+						m_LVE_Withholding.getLVE_Withholding_ID(), 
+						m_LVE_WH_Combination_ID, 
+						m_LVE_TaxUnit.getLVE_TaxUnit_ID(), 
+						get_TrxName());
 		//	Set Values
 		m_Config.setSubtrahend(m_Subtrahend);
 		m_Config.setMinimalAmt(m_MinimalAmt);

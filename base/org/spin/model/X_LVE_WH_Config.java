@@ -43,6 +43,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 			setLVE_TaxUnit_ID (0);
 			setLVE_WH_Combination_ID (0);
 			setLVE_WH_Config_ID (0);
+			setLVE_Withholding_ID (0);
 			setMinimalAmt (Env.ZERO);
 			setSubtrahend (Env.ZERO);
         } */
@@ -141,6 +142,31 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	public int getLVE_WH_Config_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_WH_Config_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException
+    {
+		return (org.spin.model.I_LVE_Withholding)MTable.get(getCtx(), org.spin.model.I_LVE_Withholding.Table_Name)
+			.getPO(getLVE_Withholding_ID(), get_TrxName());	}
+
+	/** Set Withholding.
+		@param LVE_Withholding_ID Withholding	  */
+	public void setLVE_Withholding_ID (int LVE_Withholding_ID)
+	{
+		if (LVE_Withholding_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LVE_Withholding_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LVE_Withholding_ID, Integer.valueOf(LVE_Withholding_ID));
+	}
+
+	/** Get Withholding.
+		@return Withholding	  */
+	public int getLVE_Withholding_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LVE_Withholding_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

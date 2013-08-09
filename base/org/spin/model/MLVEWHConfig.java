@@ -62,24 +62,27 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	 * Combination ID and Tax Unit ID will be Updated
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 07/08/2013, 17:10:02
 	 * @param ctx
+	 * @param LVE_Withholding_ID
 	 * @param LVE_WH_Combination_ID
 	 * @param LVE_TaxUnit_ID
 	 * @param trxName
 	 * @return
 	 * @return MLVEWithholdingConfig
 	 */
-	public static MLVEWHConfig createFrom(Properties ctx, int LVE_WH_Combination_ID, int LVE_TaxUnit_ID, 
+	public static MLVEWHConfig createFrom(Properties ctx, int LVE_Withholding_ID, int LVE_WH_Combination_ID, int LVE_TaxUnit_ID, 
 			String trxName) {
 		//	Load if Exists
 		MLVEWHConfig config = new Query(ctx, Table_Name, 
-				COLUMNNAME_LVE_WH_Combination_ID + "=? " +
+				COLUMNNAME_LVE_Withholding_ID + "=? " +
+				"AND " + COLUMNNAME_LVE_WH_Combination_ID + "=? " +
 				"AND " + COLUMNNAME_LVE_TaxUnit_ID + "=?", trxName)
-			.setParameters(LVE_WH_Combination_ID, LVE_TaxUnit_ID)
+			.setParameters(LVE_Withholding_ID, LVE_WH_Combination_ID, LVE_TaxUnit_ID)
 			.setOnlyActiveRecords(true)
 			.firstOnly();
 		//	Create New
 		if(config == null) {
 			config = new MLVEWHConfig(ctx, 0, trxName);
+			config.setLVE_Withholding_ID(LVE_Withholding_ID);
 			config.setLVE_WH_Combination_ID(LVE_WH_Combination_ID);
 			config.setLVE_TaxUnit_ID(LVE_TaxUnit_ID);
 		}

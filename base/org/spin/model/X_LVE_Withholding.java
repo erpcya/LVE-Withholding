@@ -42,6 +42,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
         {
 			setBeneficiary (0);
 			setC_Charge_ID (0);
+			setClassname (null);
 			setDeclarationDocType_ID (0);
 			setLVE_WH_ConceptGroup_ID (0);
 			setLVE_WH_Type_ID (0);

@@ -1,0 +1,20 @@
+-- Aug 10, 2013 1:58:57 PM VET
+-- LVE Withholding
+ALTER TABLE C_Invoice ADD LVE_WH_Concept_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Aug 10, 2013 2:00:41 PM VET
+-- LVE Withholding
+ALTER TABLE C_InvoiceLine MODIFY DocAffected_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Aug 10, 2013 2:00:57 PM VET
+-- LVE Withholding
+ALTER TABLE C_InvoiceLine ADD LVE_WH_Config_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- Aug 10, 2013 2:01:21 PM VET
+-- LVE Withholding
+ALTER TABLE C_BPartner ADD LVE_PersonType_ID NUMBER(10) DEFAULT NULL 
+;
+

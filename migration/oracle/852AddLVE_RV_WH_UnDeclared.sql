@@ -29,9 +29,25 @@ Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID
 Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID 
 Inner Join LVE_WithHolding WH On WH.WithHoldingDocType_ID = CDT.C_DocType_ID 
 Inner Join LVE_WH_Type WHT On WHT.LVE_WH_Type_ID = WH.LVE_WH_Type_ID
-Where CI.DocStatus IN('CO','CL') And
+Where 
+--WithHolding Completed
+CI.DocStatus IN('CO','CL') 
+
+And
+--Not in Declaration 
 Not Exists (Select 1 From 
-		C_invoice CIS Inner Join 
-		C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
-		Where CILS.DocAffected_ID = CI.C_Invoice_ID And CIS.DocStatus IN('CO','CL')
-		);
+		C_invoice CIS 
+		Inner Join C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
+		Inner Join LVE_Withholding WHS On WHS.DeclarationDocType_ID=CIS.C_DocType_ID
+		Where CILS.DocAffected_ID = CI.C_Invoice_ID And CIS.DocStatus IN('CO','CL','DR')
+		)
+And
+--In WithHolding Document 
+Exists (Select 1 From 
+		C_invoice CIS 
+		Inner Join C_InvoiceLine CILS On CIS.C_Invoice_ID = CILS.C_Invoice_ID
+		Inner Join LVE_Withholding WHS On WHS.WithHoldingDocType_ID=CIS.C_DocType_ID
+		Where CIS.C_Invoice_ID=CI.C_Invoice_ID  And 
+		      CILS.DocAffected_ID Is Not Null And 
+		      CIS.DocStatus IN('CO','CL')
+	);

@@ -99,12 +99,18 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 		this.p_LVE_Withholding_ID = p_LVE_Withholding_ID;
 		this.log = log;
 		this.out = out;
+		//	
 		loadQuery();
 		createWithholding();
-		return 0;
+		return m_Generated;
 	}
 	
-	protected void loadQuery() {
+	/**
+	 * Load Query for get Documents to process
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 10/08/2013, 11:54:58
+	 * @return void
+	 */
+	private void loadQuery() {
 		
 		if(p_C_Invoice_ID != 0)
 			m_parameterWhere.append("AND inv.C_Invoice_ID = " + p_C_Invoice_ID + " ");
@@ -115,61 +121,77 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 		if(p_DateAcct_To != null)
 			m_parameterWhere.append("AND inv.DateAcct <= " + DB.TO_DATE(p_DateAcct_To) + " ");
 		if(p_LVE_Withholding_ID != 0)
-			m_parameterWhere.append("AND rr.CUST_RetentionType_ID = " + p_LVE_Withholding_ID + " ");
+			m_parameterWhere.append("AND rr.LVE_Withholding_ID = " + p_LVE_Withholding_ID + " ");
 		
 		//	
-		sql = new String("SELECT bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, " +
-				"inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
-				"SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) TotalLines, " +
-				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, " +
+		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
+				"cn.LVE_WH_Config_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID, " +
+				"SUM(linv.LineNetAmt) TotalLines, cb.Aliquot, cn.MinimalAmt, cn.Subtrahend, " +
 				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
 				"CASE WHEN charat(dtr.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
-				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " + 
-				"FROM C_Invoice inv " + 
-				"INNER JOIN C_InvoiceLine linv ON(linv.C_Invoice_ID = inv.C_Invoice_ID) " + 
-				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " + 
-				"INNER JOIN CUST_RetentionRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
-				"INNER JOIN CUST_RetentionType rt ON(rt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"INNER JOIN CUST_RetentionConfig cn ON(cn.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"INNER JOIN CUST_CR_PT_Combination cb ON(cb.CUST_RetentionConfig_ID = cn.CUST_RetentionConfig_ID) " +
+				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " +
+				"FROM C_Invoice inv " +
+				"INNER JOIN C_InvoiceLine linv ON(linv.C_Invoice_ID = inv.C_Invoice_ID) " +
+				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " +
+				"INNER JOIN LVE_WH_Relation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
+				"INNER JOIN LVE_Withholding rt ON(rt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
+				"INNER JOIN LVE_WH_ConceptGroup cg ON(cg.LVE_WH_ConceptGroup_ID = rt.LVE_WH_ConceptGroup_ID) " +
+				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_WH_ConceptGroup_ID = cg.LVE_WH_ConceptGroup_ID) " +
+				"INNER JOIN LVE_WH_Combination cb ON(cb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
+				"INNER JOIN LVE_WH_Config cn ON(cn.LVE_WH_Combination_ID = cb.LVE_WH_Combination_ID AND cn.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
 				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " +
-				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.C_DocType_ID) " + 
-				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.CUST_RetentionType_ID FROM CUST_RetentionRelation rrdt) rrdt " +  
-				"ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.CUST_RetentionType_ID = rr.CUST_RetentionType_ID) " + 
-				"WHERE inv.CUST_ConceptRetention_ID = cb.CUST_ConceptRetention_ID " +
-				"AND bp.CUST_PersonType_ID = cb.CUST_PersonType_ID " +
+				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.WithholdingDocType_ID) " +
+				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.LVE_Withholding_ID " +
+				"			FROM LVE_WH_Relation rrdt) rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID " +
+				"	AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
+				"LEFT JOIN LVE_WC_ProductCharge wcp ON(wcp.C_Charge_ID = linv.C_Charge_ID OR wcp.M_Product_ID = linv.M_Product_ID) " +
+				"WHERE (" +
+				"		(whc.LVE_WH_Concept_ID = inv.LVE_WH_Concept_ID AND inv.LVE_WH_Concept_ID IS NOT NULL) " +
+				"		OR " +
+				"		(whc.LVE_WH_Concept_ID = wcp.LVE_WH_Concept_ID AND inv.LVE_WH_Concept_ID IS NULL)" +
+				"		) " +
+				"AND bp.LVE_PersonType_ID = cb.LVE_PersonType_ID " +
 				//	Valid Exists other Retention
-				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret " + 
-				"		LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) WHERE ret.DocStatus IN('CO', 'CL') "+ 
-				"		AND ret.C_DocType_ID = rt.C_DocType_ID AND retl.DocAffected_ID = inv.C_Invoice_ID) " + 
-
+				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret" +
+				" 				LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) " +
+				"				WHERE ret.DocStatus IN('CO', 'CL') 		" +
+				"				AND ret.C_DocType_ID = rt.WithholdingDocType_ID " +
+				"				AND retl.DocAffected_ID = inv.C_Invoice_ID) " +
 				//	Sql Where
 				m_parameterWhere.toString() + 
-				//	Group By
-				"GROUP BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, cb.CUST_CR_PT_Combination_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID, " +
-				"cn.Aliquot, cn.MinimalAmt, cn.Subtrahend, dt.DocBaseType, dtr.DocBaseType " +
-				"HAVING (SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) >= cn.MinimalAmt " +
-				"AND SUM(CASE WHEN linv.IsRetaint = 'Y' THEN linv.LineNetAmt ELSE 0 END) > 0) " + 
-				"ORDER BY bp.C_BPartner_ID, rr.CUST_RetentionType_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
-		
+				//	Group By				
+				"GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID, inv.C_Invoice_ID, " +
+				"rt.C_Charge_ID, rt.WithholdingDocType_ID, cb.Aliquot, cn.MinimalAmt, cn.Subtrahend, dt.DocBaseType, dtr.DocBaseType " +
+				//	Having
+				"HAVING (SUM(linv.LineNetAmt) >= cn.MinimalAmt AND SUM(linv.LineNetAmt) > 0) " +
+				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID");
+
 		System.out.println(sql);
 		
 		log.fine("SQL=" + sql);
 		
 	}
 	
-	protected String createWithholding() throws Exception {
+	/**
+	 * Create the Withholding and allocation
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 10/08/2013, 11:55:17
+	 * @return
+	 * @throws Exception
+	 * @return String
+	 */
+	private String createWithholding() throws Exception {
 		PreparedStatement pstmt = null;
 		pstmt = DB.prepareStatement(sql, trxName);
 		ResultSet rs = pstmt.executeQuery();
 		
 		int m_C_BPartner_ID 			= 0;
-		int m_CUST_RetentionType_ID 	= 0;
-		int m_CUST_CR_PT_Combination_ID = 0;
+		int m_LVE_Withholding_ID 		= 0;
+		int m_LVE_WH_Combination_ID 	= 0;
+		int m_LVE_WH_Config_ID 			= 0;
 		int m_C_Invoice_ID 				= 0;
 		int m_C_Charge_ID 				= 0;
-		int m_C_DocType_ID 				= 0;
+		int m_WithholdingDocType_ID 	= 0;
 		BigDecimal m_TotalLines 		= Env.ZERO;
 		BigDecimal m_Aliquot 			= Env.ZERO;
 		BigDecimal m_MinimalAmt 		= Env.ZERO;
@@ -179,11 +201,12 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 		if(rs != null){
 			while(rs.next()){
 				m_C_BPartner_ID 			= rs.getInt("C_BPartner_ID");
-				m_CUST_RetentionType_ID 	= rs.getInt("CUST_RetentionType_ID");
-				m_CUST_CR_PT_Combination_ID = rs.getInt("CUST_CR_PT_Combination_ID");
+				m_LVE_Withholding_ID 		= rs.getInt("LVE_Withholding_ID");
+				m_LVE_WH_Combination_ID 	= rs.getInt("LVE_WH_Combination_ID");
+				m_LVE_WH_Config_ID 			= rs.getInt("LVE_WH_Config_ID");
 				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
-				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
+				m_WithholdingDocType_ID 	= rs.getInt("WithholdingDocType_ID");
 				m_TotalLines 				= rs.getBigDecimal("TotalLines");
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
 				m_MinimalAmt 				= rs.getBigDecimal("MinimalAmt");
@@ -191,23 +214,23 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Withholding	= rs.getBigDecimal("multiplierRet");
 				
-				log.fine("m_C_BPartner_ID=" + m_C_BPartner_ID 
-						+ " m_CUST_RetentionType_ID=" + m_CUST_RetentionType_ID 
-						+ " m_CUST_CR_PT_Combination_ID=" + m_CUST_CR_PT_Combination_ID
-						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
-						+ " m_C_Charge_ID=" + m_C_Charge_ID
-						+ " m_C_DocType_ID=" + m_C_DocType_ID
-						+ " m_TotalLines=" + m_TotalLines
-						+ " m_Aliquot=" + m_Aliquot
-						+ " m_MinimalAmt=" + m_MinimalAmt
-						+ " m_Subtrahend=" + m_Subtrahend
-						+ " m_Current_Mlp_Invoice=" + m_Current_Mlp_Invoice
-						+ " m_Current_Mlp_Withholding=" + m_Current_Mlp_Withholding);
+				log.fine("C_BPartner_ID=" + m_C_BPartner_ID 
+						+ "\nLVE_Withholding_ID=" + m_LVE_Withholding_ID 
+						+ "\nLVE_WH_Combination_ID=" + m_LVE_WH_Combination_ID
+						+ "\nLVE_WH_Config_ID=" + m_LVE_WH_Config_ID
+						+ "\nC_Invoice_ID=" + m_C_Invoice_ID
+						+ "\nC_Charge_ID=" + m_C_Charge_ID
+						+ "\nC_DocType_ID=" + m_WithholdingDocType_ID
+						+ "\nTotalLines=" + m_TotalLines
+						+ "\nAliquot=" + m_Aliquot
+						+ "\nMinimalAmt=" + m_MinimalAmt
+						+ "\nSubtrahend=" + m_Subtrahend
+						+ "\nCurrent_Mlp_Invoice=" + m_Current_Mlp_Invoice
+						+ "\nCurrent_Mlp_Withholding=" + m_Current_Mlp_Withholding);
 				
 				//	Add Document to Retention
-				
-				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_CUST_RetentionType_ID, m_CUST_CR_PT_Combination_ID, 
-						m_C_Charge_ID, m_C_DocType_ID, m_TotalLines, 
+				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_LVE_Withholding_ID, m_LVE_WH_Config_ID, 
+						m_C_Charge_ID, m_WithholdingDocType_ID, m_TotalLines, 
 						m_Aliquot, m_MinimalAmt, m_Subtrahend);
 				
 			}
@@ -224,8 +247,8 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 11:07:38
 	 * @param p_C_BPartner_ID
 	 * @param p_C_Invoice_ID
-	 * @param p_CUST_RetentionType_ID
-	 * @param p_CUST_CR_PT_Combination_ID
+	 * @param p_LVE_Withholding_ID
+	 * @param p_LVE_WH_Config_ID
 	 * @param p_C_Charge_ID
 	 * @param p_C_DocType_ID
 	 * @param p_TotalLines
@@ -235,7 +258,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 	 * @return void
 	 */
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
-			int p_CUST_RetentionType_ID, int p_CUST_CR_PT_Combination_ID, int p_C_Charge_ID, 
+			int p_LVE_Withholding_ID, int p_LVE_WH_Config_ID, int p_C_Charge_ID, 
 			int p_C_DocType_ID, BigDecimal p_TotalLines, 
 			BigDecimal p_Aliquot, BigDecimal p_MinimalAmt, BigDecimal p_Subtrahend){
 		
@@ -266,13 +289,13 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 			if(prefix == null)
 				prefix = "";
 			//	Set New Document No
-			m_Current_Withholding.setDocumentNo(prefix + String.format("%08d", docNo));
+			m_Current_Withholding.setDocumentNo(prefix + String.format("%1$-" + 8 + "s", docNo).replace(" ", "0"));
 			m_Current_Withholding.saveEx();
 			//		
 		}
 		MInvoiceLine retLine = new MInvoiceLine(m_Current_Withholding);
 		retLine.set_ValueOfColumn("DocAffected_ID", p_C_Invoice_ID);
-		retLine.set_ValueOfColumn("CUST_CR_PT_Combination_ID", p_CUST_CR_PT_Combination_ID);
+		retLine.set_ValueOfColumn("LVE_WH_Config_ID", p_LVE_WH_Config_ID);
 		retLine.setC_Charge_ID(p_C_Charge_ID);
 		retLine.setQty(Env.ONE);
 		retLine.setC_UOM_ID(N_UOM);

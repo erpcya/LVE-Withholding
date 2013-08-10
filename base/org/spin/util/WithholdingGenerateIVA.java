@@ -101,12 +101,18 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		this.p_LVE_Withholding_ID = p_LVE_Withholding_ID;
 		this.log = log;
 		this.out = out;
+		//	
 		loadQuery();
 		createWithholding();
-		return 0;
+		return m_Generated;
 	}
 	
-	protected void loadQuery() {
+	/**
+	 * Load Query for get Documents to process
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 10/08/2013, 11:54:04
+	 * @return void
+	 */
+	private void loadQuery() {
 		
 		if(p_C_Invoice_ID != 0)
 			m_parameterWhere.append("AND inv.C_Invoice_ID = " + p_C_Invoice_ID + " ");
@@ -121,80 +127,67 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 		
 		
 		//	
-		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID, " +
-				"inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, SUM(itax.TaxAmt) TaxAmt, " +
-				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * 	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
-				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * 	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " +
+		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
+				"cn.LVE_WH_Config_ID, inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, " +
+				"SUM(itax.TaxAmt) TaxAmt, " +
+				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
+				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
+				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
+				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " +
 				"FROM C_Invoice inv " +
 				"INNER JOIN C_InvoiceTax itax ON(itax.C_Invoice_ID = inv.C_Invoice_ID) " +
 				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " +
 				"INNER JOIN LVE_WH_Relation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " +
 				"INNER JOIN LVE_Withholding rt ON(rt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
-				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_Withholding_ID = rt.LVE_Withholding_ID)" +
+				"INNER JOIN LVE_WH_ConceptGroup cg ON(cg.LVE_WH_ConceptGroup_ID = rt.LVE_WH_ConceptGroup_ID) " +
+				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_WH_ConceptGroup_ID = cg.LVE_WH_ConceptGroup_ID) " +
 				"INNER JOIN LVE_WH_Combination cb ON(cb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
-				"INNER JOIN LVE_WH_Config cn ON(cn.LVE_WH_Combination_ID = cb.LVE_WH_Combination_ID)  " +
+				"INNER JOIN LVE_WH_Config cn ON(cn.LVE_WH_Combination_ID = cb.LVE_WH_Combination_ID AND cn.LVE_Withholding_ID = rt.LVE_Withholding_ID)  " +
 				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " +
 				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.WithholdingDocType_ID) " +
 				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.LVE_Withholding_ID " +
-				"FROM LVE_WH_Relation rrdt) rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
+				"			FROM LVE_WH_Relation rrdt) rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID " +
+				"	AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
 				"WHERE inv.DocStatus IN('CO') " +
-				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret " +
-				"						LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) " +
-				"						WHERE ret.DocStatus IN('CO', 'CL') " +
-				"						AND ret.C_DocType_ID = rt.WithholdingDocType_ID " +
-				"						AND retl.DocAffected_ID = inv.C_Invoice_ID) " + 
+				"AND NOT EXISTS(SELECT 1 " +
+				"		FROM C_Invoice ret " +
+				"		LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) " +
+				"		WHERE ret.DocStatus IN('CO', 'CL') " +
+				"		AND ret.C_DocType_ID = rt.WithholdingDocType_ID " +
+				"		AND retl.DocAffected_ID = inv.C_Invoice_ID) " +
 				//	Sql Where
 				m_parameterWhere.toString() + 
-				//	Group By
 
-				AND rr.LVE_Withholding_ID = 1000001 
-		GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID,  
-		inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, dt.DocBaseType, dtr.DocBaseType 
-		HAVING (SUM(itax.TaxAmt) > 0) 
-		ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID
+				"GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID, " +
+				"inv.C_Invoice_ID, cb.Aliquot, rt.C_Charge_ID, rt.WithholdingDocType_ID, dt.DocBaseType, dtr.DocBaseType " +
+				//	Having
+				"HAVING (SUM(itax.TaxAmt) > 0) " +
+				//	Order By
+				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID");
 		
-SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
-				"inv.C_Invoice_ID, cn.Aliquot, rt.C_Charge_ID, rt.C_DocType_ID, SUM(itax.TaxAmt) TaxAmt, " + 
-				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
-				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " + 
-				"CASE WHEN charat(dtR.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
-				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierRet " + 
-				"FROM C_Invoice inv " + 
-				"INNER JOIN C_InvoiceTax itax ON(itax.C_Invoice_ID = inv.C_Invoice_ID) " + 
-				"INNER JOIN C_BPartner bp ON(bp.C_BPartner_ID = inv.C_BPartner_ID) " + 
-				"INNER JOIN LVE_WithholdingRelation rr ON(rr.C_BPartner_ID = bp.C_BPartner_ID) " + 
-				"INNER JOIN LVE_Withholding rt ON(rt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " + 
-				"INNER JOIN LVE_WithholdingConfig cn ON(cn.LVE_Withholding_ID = rr.LVE_Withholding_ID) " + 
-				"INNER JOIN LVE_WH_Combination cb ON(cb.LVE_WithholdingConfig_ID = cn.LVE_WithholdingConfig_ID) " + 
-				"INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID) " + 
-				"INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.C_DocType_ID) " + 
-				"INNER JOIN (SELECT rrdt.C_DocType_ID, rrdt.LVE_Withholding_ID FROM LVE_WithholdingRelation rrdt) rrdt " + 
-				"ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " + 
-				"WHERE inv.DocStatus IN('CO') " + 
-				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret " + 
-				"LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) WHERE ret.DocStatus IN('CO', 'CL') " + 
-				"AND ret.C_DocType_ID = rt.C_DocType_ID AND retl.DocAffected = inv.C_Invoice_ID) " + 
-				//	Sql Where
-				m_parameterWhere.toString() + 
-				//	Group By
-				"GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, inv.C_Invoice_ID, cn.Aliquot, " +  
-				"rt.C_Charge_ID, rt.C_DocType_ID, dt.DocBaseType, dtr.DocBaseType " + 
-				"HAVING (SUM(itax.TaxAmt) > 0) " + 
-				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.C_DocType_ID");
+		System.out.println(sql);
 		log.fine("SQL=" + sql);
 	}
 	
-	protected String createWithholding() throws Exception {
+	/**
+	 * Create the Withholding and allocation
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 10/08/2013, 11:53:41
+	 * @return
+	 * @throws Exception
+	 * @return String
+	 */
+	private String createWithholding() throws Exception {
 		PreparedStatement pstmt = null;
 		pstmt = DB.prepareStatement(sql, trxName);
 		ResultSet rs = pstmt.executeQuery();
 		
 		int m_C_BPartner_ID 			= 0;
-		int m_LVE_Withholding_ID 	= 0;
-		int m_LVE_WH_Combination_ID = 0;
+		int m_LVE_Withholding_ID 		= 0;
+		int m_LVE_WH_Combination_ID 	= 0;
+		int m_LVE_WH_Config_ID			= 0;
 		int m_C_Invoice_ID 				= 0;
 		int m_C_Charge_ID 				= 0;
-		int m_C_DocType_ID 				= 0;
+		int m_WithholdingDocType_ID 	= 0;
 		BigDecimal m_TaxAmt 			= Env.ZERO;
 		BigDecimal m_Aliquot 			= Env.ZERO;
 		
@@ -203,28 +196,29 @@ SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 				m_C_BPartner_ID 			= rs.getInt("C_BPartner_ID");
 				m_LVE_Withholding_ID 		= rs.getInt("LVE_Withholding_ID");
 				m_LVE_WH_Combination_ID 	= rs.getInt("LVE_WH_Combination_ID");
+				m_LVE_WH_Config_ID 			= rs.getInt("LVE_WH_Config_ID");
 				m_C_Invoice_ID 				= rs.getInt("C_Invoice_ID");
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
-				m_C_DocType_ID 				= rs.getInt("C_DocType_ID");
+				m_WithholdingDocType_ID 	= rs.getInt("WithholdingDocType_ID");
 				m_TaxAmt 					= rs.getBigDecimal("TaxAmt");
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Withholding		= rs.getBigDecimal("multiplierRet");
 				
-				log.fine("m_C_BPartner_ID=" + m_C_BPartner_ID 
-						+ " m_LVE_Withholding_ID=" + m_LVE_Withholding_ID 
-						+ " m_LVE_WH_Combination_ID=" + m_LVE_WH_Combination_ID
-						+ " m_C_Invoice_ID=" + m_C_Invoice_ID
-						+ " m_C_Charge_ID=" + m_C_Charge_ID
-						+ " m_C_DocType_ID=" + m_C_DocType_ID
-						+ " m_Aliquot=" + m_Aliquot
-						+ " m_Current_Mlp_Invoice=" + m_Current_Mlp_Invoice
-						+ " m_Current_Mlp_Withholding=" + m_Current_Mlp_Withholding);
+				log.fine("C_BPartner_ID=" + m_C_BPartner_ID 
+						+ "\nLVE_Withholding_ID=" + m_LVE_Withholding_ID 
+						+ "\nLVE_WH_Combination_ID=" + m_LVE_WH_Combination_ID
+						+ "\nLVE_WH_Config_ID=" + m_LVE_WH_Config_ID
+						+ "\nC_Invoice_ID=" + m_C_Invoice_ID
+						+ "\nC_Charge_ID=" + m_C_Charge_ID
+						+ "\nC_DocType_ID=" + m_WithholdingDocType_ID
+						+ "\nAliquot=" + m_Aliquot
+						+ "\nCurrent_Mlp_Invoice=" + m_Current_Mlp_Invoice
+						+ "\nCurrent_Mlp_Withholding=" + m_Current_Mlp_Withholding);
 				
 				//	Add Document to Withholding
-				
-				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID,
-						m_C_Charge_ID, m_C_DocType_ID, m_TaxAmt, 
+				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_LVE_Withholding_ID, m_LVE_WH_Config_ID,
+						m_C_Charge_ID, m_WithholdingDocType_ID, m_TaxAmt, 
 						m_Aliquot);
 				
 			}
@@ -243,7 +237,7 @@ SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 	 * @param p_C_BPartner_ID
 	 * @param p_C_Invoice_ID
 	 * @param p_LVE_Withholding_ID
-	 * @param p_LVE_WH_Combination_ID
+	 * @param p_LVE_WH_Config_ID
 	 * @param p_C_Charge_ID
 	 * @param p_C_DocType_ID
 	 * @param p_TaxAmt
@@ -251,7 +245,7 @@ SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 	 * @return void
 	 */
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
-			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID, int p_C_Charge_ID, 
+			int p_LVE_Withholding_ID, int p_LVE_WH_Config_ID, int p_C_Charge_ID, 
 			int p_C_DocType_ID, BigDecimal p_TaxAmt, 
 			BigDecimal p_Aliquot){
 		
@@ -282,13 +276,13 @@ SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 			if(prefix == null)
 				prefix = "";
 			//	Set New Document No
-			m_Current_Withholding.setDocumentNo(prefix + String.format("%08d", docNo));
+			m_Current_Withholding.setDocumentNo(prefix + String.format("%1$-" + 8 + "s", docNo).replace(" ", "0"));
 			m_Current_Withholding.saveEx();
 			//		
 		}
 		MInvoiceLine retLine = new MInvoiceLine(m_Current_Withholding);
 		retLine.set_ValueOfColumn("DocAffected", p_C_Invoice_ID);
-		retLine.set_ValueOfColumn("LVE_WH_Combination_ID", p_LVE_WH_Combination_ID);
+		retLine.set_ValueOfColumn("LVE_WH_Config_ID", p_LVE_WH_Config_ID);
 		retLine.setC_Charge_ID(p_C_Charge_ID);
 		retLine.setQty(Env.ONE);
 		retLine.setC_UOM_ID(N_UOM);

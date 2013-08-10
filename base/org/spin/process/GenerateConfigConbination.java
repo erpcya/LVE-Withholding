@@ -28,10 +28,9 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.spin.model.MLVETaxUnit;
 import org.spin.model.MLVEWHCombination;
-import org.spin.model.MLVEWHConceptGroup;
-import org.spin.model.MLVEWithholding;
 import org.spin.model.MLVEWHConcept;
 import org.spin.model.MLVEWHConfig;
+import org.spin.model.MLVEWithholding;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>

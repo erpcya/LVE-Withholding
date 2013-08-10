@@ -56,10 +56,10 @@ public class WithholdingDeclare extends SvrProcess{
 		 * SQL for Load Data From Browse Declare Retentions
 		 */
 		
-		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal \n "   
+		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal,WH.Beneficiary_ID As C_BPartner_ID \n "   
 				+"From T_Selection TS \n"
 				+"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID \n"
-				+"Inner Join LVE_WithHolding WH On WH.LVE_WH_Type_ID = CI.C_DocType_ID \n" 
+				+"Inner Join LVE_WithHolding WH On WH.WithHoldingDocType_ID = CI.C_DocType_ID \n" 
 				+"Where AD_PInstance_ID = ? \n" 
 				+"Order By WH.LVE_WithHolding_ID";
 
@@ -110,12 +110,11 @@ public class WithholdingDeclare extends SvrProcess{
 	private MInvoice addDocument(ResultSet rs) throws SQLException
 	{
 		MInvoice m_Declare = new MInvoice(getCtx(), 0, trx.getTrxName());
-		m_Declare.setC_DocTypeTarget_ID(rs.getInt("C_DocTypeTarget_ID"));
+		m_Declare.setC_DocTypeTarget_ID(rs.getInt("DeclarationDocType_ID"));
 		m_Declare.setIsSOTrx(false);
-		m_Declare.setC_BPartner_ID(p_C_BPartner_ID);
+		m_Declare.setC_BPartner_ID(rs.getInt("C_BPartner_ID"));
 		m_Declare.setDateInvoiced(p_DateInvoiced);
 		m_Declare.setDateAcct(p_DateInvoiced);
-		m_Declare.setC_BPartner_ID(p_C_BPartner_ID);
 		m_Declare.saveEx();
 		return m_Declare;
 	}
@@ -163,8 +162,6 @@ public class WithholdingDeclare extends SvrProcess{
 	/**	Logger							*/
 	public static CLogger log = CLogger.getCLogger(WithholdingDeclare.class);
 	
-	/**	Business Partner				*/
-	private int			p_C_BPartner_ID			=	0;
 	/**	Invoiced	Date				*/
 	private Timestamp	p_DateInvoiced			=	null;
 	/**	Document Status				*/

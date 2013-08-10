@@ -56,18 +56,12 @@ public class WithholdingDeclare extends SvrProcess{
 		 * SQL for Load Data From Browse Declare Retentions
 		 */
 		
-		sql = "Select Distinct TS.T_Selection_ID,CRT.C_DocTypeTarget_ID,CRT.CUST_RetentionType_ID,CRT.C_Charge_ID,CI.GrandTotal \n " +  
-				"From T_Selection TS \n " +  
-				"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID  \n " + 
-				"Inner Join C_DocType CDT On CDT.C_DocType_ID = CI.C_DocType_ID \n " + 
-				"Inner Join CUST_RetentionType CRT On CRT.C_DocType_ID = CDT.C_DocType_ID \n " +
-				"Inner Join (Select Distinct CIL.C_Invoice_ID,CRC.CUST_RetentionType_ID  \n " +
-				"			 From C_InvoiceLine CIL  \n " +
-				"        	 Inner Join CUST_CR_PT_Combination CCPC On CIL.CUST_CR_PT_Combination_ID=CCPC.CUST_CR_PT_Combination_ID \n " +
-				"        	 Inner Join CUST_RetentionConfig CRC On CCPC.CUST_RetentionConfig_ID=CRC.CUST_RetentionConfig_ID \n " +
-				"			 ) RC On RC.C_Invoice_ID=CI.C_Invoice_ID And RC.CUST_RetentionType_ID=CRT.CUST_RetentionType_ID \n " +
-				"Where AD_PInstance_ID = ? \n " +
-				"Order By CRT.CUST_RetentionType_ID";
+		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal \n "   
+				+"From T_Selection TS \n"
+				+"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID \n"
+				+"Inner Join LVE_WithHolding WH On WH.LVE_WH_Type_ID = CI.C_DocType_ID \n" 
+				+"Where AD_PInstance_ID = ? \n" 
+				+"Order By WH.LVE_WithHolding_ID";
 
 		log.fine("SQL Declare Retentions=" + sql);
 		trx = Trx.get(get_TrxName(), false);
@@ -78,7 +72,7 @@ public class WithholdingDeclare extends SvrProcess{
 		// TODO Auto-generated method stub
 		PreparedStatement ps =null;
 		ResultSet rs = null;
-		int m_CUST_RetentionType_ID=0;
+		int m_LVE_WithHolding_ID=0;
 		MInvoice m_C_Invoice=null;
 		ps = DB.prepareStatement(sql, trx.getTrxName());
 		ps.setInt(1, getAD_PInstance_ID());
@@ -86,12 +80,12 @@ public class WithholdingDeclare extends SvrProcess{
 		
 		while (rs.next())
 		{
-			if (m_CUST_RetentionType_ID!=rs.getInt("CUST_RetentionType_ID"))
+			if (m_LVE_WithHolding_ID!=rs.getInt("LVE_WithHolding_ID"))
 			{
 				if (m_C_Invoice!=null)
 					processDocument(m_C_Invoice);
 				m_C_Invoice=addDocument(rs);
-				m_CUST_RetentionType_ID=rs.getInt("CUST_RetentionType_ID");
+				m_LVE_WithHolding_ID=rs.getInt("LVE_WithHolding_ID");
 			}
 			
 			if (m_C_Invoice!=null)

@@ -103,7 +103,7 @@ public class WithholdingGenerate extends SvrProcess {
 			while(rs.next()){
 				String p_ClassName 			= rs.getString("ClassName");
 				int p_LVE_Withholding_ID 	= rs.getInt("LVE_Withholding_ID");
-				String p_WithholdingName		= rs.getString("Name");
+				String p_WithholdingName	= rs.getString("Name");
 				if(p_ClassName != null 
 						&& p_ClassName.length() != 0){
 					//	Load Class for Withholding
@@ -121,7 +121,7 @@ public class WithholdingGenerate extends SvrProcess {
 							"\nDateDoc=" + p_DateDoc + 
 							"\nLVE_Withholding_ID=" + p_LVE_Withholding_ID);
 					
-					generated = wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
+					generated+= wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
 							p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, log, sb);
 					//	Add Buffer
 					if(sb != null){

@@ -83,10 +83,12 @@ public class WithholdingGenerate extends SvrProcess {
 				"WHERE wh.IsActive = 'Y' ");
 		//	Add Clause
 		if(p_LVE_Withholding_ID != 0)
-			sql += "AND wh.LVE_Withholding_ID=" + p_LVE_Withholding_ID;
+			sql += "AND wh.LVE_Withholding_ID=" + p_LVE_Withholding_ID + " ";
 	
+		sql += "ORDER BY wh.SeqNo ASC";
+		//	Log
 		log.fine("SQL Withholding=" + sql);
-		
+		//	Transaction
 		trx = Trx.get(get_TrxName(), false);
 	}
 
@@ -124,7 +126,8 @@ public class WithholdingGenerate extends SvrProcess {
 					generated+= wh.generate(getCtx(), trx.getTrxName(), getAD_PInstance_ID(), p_C_Invoice_ID, 
 							p_C_BPartner_ID, p_DateAcct, p_DateAcct_To, p_DateDoc, p_LVE_Withholding_ID, log, sb);
 					//	Add Buffer
-					if(sb != null){
+					if(sb != null
+							&& sb.length() != 0){
 						prcLog.append(sb);
 						addLog(p_WithholdingName + " ||:::>>> " + sb.toString());
 					}
@@ -134,7 +137,7 @@ public class WithholdingGenerate extends SvrProcess {
 		}
 		//	Close Connection
 		DB.close(rs, pstmt);
-		return "@Generated@ = " + generated + " \n" + prcLog.toString();
+		return "@Created@ = " + generated + " \n" + prcLog.toString();
 	}
 
 	/**

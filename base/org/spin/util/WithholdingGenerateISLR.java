@@ -166,9 +166,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				//	Having
 				"HAVING (SUM(linv.LineNetAmt) >= cn.MinimalAmt AND SUM(linv.LineNetAmt) > 0) " +
 				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID");
-
-		System.out.println(sql);
-		
+		//	Log
 		log.fine("SQL=" + sql);
 		
 	}

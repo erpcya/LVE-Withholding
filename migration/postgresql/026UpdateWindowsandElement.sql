@@ -513,8 +513,3 @@ UPDATE AD_Process_Para SET ColumnName='DocAffected_ID', Name='Doc Affected', Des
 UPDATE AD_Process_Para SET ColumnName='DocAffected_ID', Name='Doc Affected', Description=NULL, Help=NULL WHERE AD_Element_ID=56067 AND IsCentrallyMaintained='Y'
 ;
 
--- 30/07/2013 04:38:02 PM VET
--- LVE Withholding
-ALTER TABLE C_InvoiceLine ADD COLUMN DocAffected_ID NUMERIC(10) DEFAULT NULL 
-;
-

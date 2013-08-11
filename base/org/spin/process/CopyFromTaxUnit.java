@@ -90,7 +90,8 @@ public class CopyFromTaxUnit extends SvrProcess {
 		
 		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID " +
 				"FROM LVE_Withholding wh " +
-				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_Withholding_ID = wh.LVE_Withholding_ID) " +
+				"INNER JOIN LVE_WH_ConceptGroup wcg ON(whc.LVE_WH_ConceptGroup_ID = wh.LVE_WH_ConceptGroup_ID)" +
+				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_WH_ConceptGroup_ID = wcg.LVE_WH_ConceptGroup_ID) " +
 				"INNER JOIN LVE_WH_Combination whb ON(whb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
 				"INNER JOIN LVE_WH_Config whf ON(whf.LVE_WH_Combination_ID = whb.LVE_WH_Combination_ID) " +
 				"WHERE whf.IsActive = 'Y' " +

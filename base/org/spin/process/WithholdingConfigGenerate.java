@@ -21,38 +21,38 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MCurrency;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.spin.model.MLVETaxUnit;
 import org.spin.model.MLVEWHConfig;
+import org.spin.model.MLVEWithholding;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
- *	<br> Generate a Configuration from Withholding Combination and Tax Unit, 
- *			Copied from other Tax Unit
+ *	<br> Generate a Configuration from Withholding Combination and Tax Unit
  */
-public class CopyFromTaxUnit extends SvrProcess {
+public class WithholdingConfigGenerate extends SvrProcess {
 
 	/**	Logger									*/
-	public static CLogger log = CLogger.getCLogger(CopyFromTaxUnit.class);
+	public static CLogger log = CLogger.getCLogger(WithholdingConfigGenerate.class);
 	
-	/**	Tax Unit From							*/
-	private int 			p_LVE_TaxUnitFrom_ID = 0;
+	/**	Tax Unit								*/
+	private int 			p_LVE_TaxUnit_ID = 0;
 	
-	/**	Withholding Combination					*/
-	private int 			m_LVE_TaxUnit_ID = 0;
+	/**	Withholding								*/
+	private int				m_LVE_Withholding_ID = 0;
 	
 	/**	Precision								*/
 	private int				m_Precision = 0;
 	
 	/**	Created									*/
-	private int				m_Copied = 0;
+	private int				m_Created = 0;
 	
+	/**	Where									*/
+	private StringBuffer	sqlWhere = new StringBuffer();
 	
 	/* (non-Javadoc)
 	 * @see org.compiere.process.SvrProcess#prepare()
@@ -64,10 +64,20 @@ public class CopyFromTaxUnit extends SvrProcess {
 			if (para.getParameter() == null)
 				;
 			else if (name.equals("LVE_TaxUnit_ID"))
-				p_LVE_TaxUnitFrom_ID = para.getParameterAsInt();
+				p_LVE_TaxUnit_ID = para.getParameterAsInt();
+			else if (name.equals("LVE_Withholding_ID"))
+				m_LVE_Withholding_ID = para.getParameterAsInt();
 		}
 		//	get ID from GridTab
-		m_LVE_TaxUnit_ID = getRecord_ID();
+		if(m_LVE_Withholding_ID == 0
+				&& getTable_ID() == MLVEWithholding.Table_ID)
+			m_LVE_Withholding_ID = getRecord_ID();
+		//	Add SQL
+		if(m_LVE_Withholding_ID != 0)
+			sqlWhere.append("AND wh.LVE_Withholding_ID=" + m_LVE_Withholding_ID + " ");
+		//	Add Where
+		if(p_LVE_TaxUnit_ID != 0)
+			sqlWhere.append("AND tu.LVE_TaxUnit_ID=" + p_LVE_TaxUnit_ID + " ");
 	}
 
 	/* (non-Javadoc)
@@ -75,50 +85,45 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 */
 	@Override
 	protected String doIt() throws Exception {
-		if(p_LVE_TaxUnitFrom_ID == 0)
-			throw new AdempiereException("@LVE_TaxUnitFrom_ID@ Not Found");
-		log.info("LVE_TaxUnitFrom_ID=" + p_LVE_TaxUnitFrom_ID);
+		log.info("LVE_Withholding_ID=" + m_LVE_Withholding_ID);
 		
 		//	Currency Precision
 		m_Precision = MCurrency.getStdPrecision(getCtx(), Env.getContextAsInt(getCtx(), "$C_Currency_ID"));
-		
-		//	Tax Unit
-		MLVETaxUnit m_LVE_TaxUnit = new MLVETaxUnit(getCtx(), m_LVE_TaxUnit_ID, get_TrxName());
-		//	Get Amount
-		BigDecimal m_TaxUnitAmt = m_LVE_TaxUnit.getTaxAmt();
-		
-		
-		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID " +
-				"FROM LVE_Withholding wh " +
+		//	Sql
+		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, wh.LVE_Withholding_ID, " +
+				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt " +
+				"FROM LVE_TaxUnit tu " +
+				", LVE_Withholding wh " +
 				"INNER JOIN LVE_WH_ConceptGroup wcg ON(wcg.LVE_WH_ConceptGroup_ID = wh.LVE_WH_ConceptGroup_ID) " +
 				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_WH_ConceptGroup_ID = wcg.LVE_WH_ConceptGroup_ID) " +
 				"INNER JOIN LVE_WH_Combination whb ON(whb.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID) " +
-				"INNER JOIN LVE_WH_Config whf ON(whf.LVE_WH_Combination_ID = whb.LVE_WH_Combination_ID) " +
-				"WHERE whf.IsActive = 'Y' " +
-				"AND whf.LVE_TaxUnit_ID = ? " +
-				"GROUP BY wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID");
-		
+				"WHERE whb.IsActive = 'Y' " +
+				//	Where
+				sqlWhere +
+				//	Group By
+				"GROUP BY wh.TaxUnitRate, whb.Aliquot, wh.LVE_Withholding_ID, " +
+				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt");
+				
 		log.fine("SQL=" + sql);
-		log.fine("LVE_TaxUnitFrom_ID=" + p_LVE_TaxUnitFrom_ID);
 		
 		PreparedStatement pstmt = null;
 		pstmt = DB.prepareStatement(sql, get_TrxName());
-		
-		//	Add Parameters
-		pstmt.setInt(1, p_LVE_TaxUnitFrom_ID);
-		
+		//	
 		ResultSet rs = pstmt.executeQuery();
 		if(rs != null){
 			while(rs.next()){
 				BigDecimal m_TaxUnitRate	= rs.getBigDecimal("TaxUnitRate");
 				BigDecimal m_Aliquot		= rs.getBigDecimal("Aliquot");
+				BigDecimal m_TaxUnitAmt		= rs.getBigDecimal("TaxAmt");
 				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
-				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID);
+				int m_LVE_TaxUnit_ID		= rs.getInt("LVE_TaxUnit_ID");
+				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, 
+						m_LVE_Withholding_ID, m_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID);
 			}
 		}
 				
-		return "@Copied@=" + m_Copied;
+		return "@Created@=" + m_Created;
 	}
 	
 	/**
@@ -129,10 +134,11 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 * @param p_TaxUnitAmt
 	 * @param p_LVE_Withholding_ID
 	 * @param p_LVE_WH_Combination_ID
+	 * @param p_LVE_TaxUnit_ID
 	 * @return void
 	 */
 	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
-			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID){
+			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID, int p_LVE_TaxUnit_ID){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
@@ -146,8 +152,11 @@ public class CopyFromTaxUnit extends SvrProcess {
 			p_TaxUnitAmt = Env.ZERO;
 		//	Log
 		log.fine("Aliquot=" + p_Aliquot
-				+"TaxUnitRate=" + p_TaxUnitRate
-				+"TaxUnit=" + p_TaxUnitAmt);
+				+"\nTaxUnitRate=" + p_TaxUnitRate
+				+"\nTaxUnit=" + p_TaxUnitAmt
+				+"\nLVE_Withholding_ID=" + p_LVE_Withholding_ID
+				+"\nLVE_WH_Combination_ID=" + p_LVE_WH_Combination_ID
+				+"\nLVE_TaxUnit_ID" + p_LVE_TaxUnit_ID);
 		
 		m_MinimalAmt = p_TaxUnitAmt.multiply(p_TaxUnitRate)
 				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
@@ -162,7 +171,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				.createFrom(getCtx(), 
 						p_LVE_Withholding_ID, 
 						p_LVE_WH_Combination_ID, 
-						m_LVE_TaxUnit_ID, 
+						p_LVE_TaxUnit_ID, 
 						get_TrxName());
 		//	Set Values
 		m_Config.setSubtrahend(m_Subtrahend);
@@ -171,7 +180,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 		m_Config.saveEx();
 		//	Created
 		//addLog("@MinimalAmt@=" + m_MinimalAmt + " @Subtrahend@=" + m_Subtrahend);
-		m_Copied++;
+		m_Created++;
 	}
 
 }

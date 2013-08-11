@@ -164,8 +164,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 				"HAVING (SUM(itax.TaxAmt) > 0) " +
 				//	Order By
 				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID");
-		
-		System.out.println(sql);
+		//	Log
 		log.fine("SQL=" + sql);
 	}
 	

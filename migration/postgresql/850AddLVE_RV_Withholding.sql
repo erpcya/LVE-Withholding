@@ -1,28 +1,29 @@
 --DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
-	CI.AD_Client_ID, 
-	CI.AD_Org_ID, 
-	CIL.C_Invoice_ID, 
-	CI.C_Invoice_ID AS DocAffected_ID, 
-	CI.DateInvoiced, 
-	CI.ControlNo, 
-	CDT.Name, 
-	CTAX.Rate, 
-	CTAX.TaxAmt, 
-	CTAX.TaxBaseAmt, 
-	CI.TotalLines, 
-	CI.GrandTotal, 
-	CIL.LinenetAmt, 
-    CIAffected.DocumentNo,
-	CIAffected.Amount, 
-	WHC.Aliquot, 
-	WCC.Subtrahend, 
-	WT.value AS withholdinggroupvalue, 
-	WT.name AS name_retentiongroup, 
-	CIL.line / 10 AS line,
-	WHC.value,
-    WCC.MinimalAmt
+	CI.AD_Client_ID,                    --Companny ID
+	CI.AD_Org_ID,                       --Org ID
+	CIL.C_Invoice_ID,                   --Root Document(Document WithHolding ID)
+	CI.C_Invoice_ID AS DocAffected_ID,  --Document Retain
+	CI.DateInvoiced,                    --Date Documentno
+	CI.ControlNo,                       --Control No
+	CDT.Name,                           --Document Type Name
+	CTAX.Rate,                          --Aliquot Invoice
+	CTAX.TaxAmt,                        --Tax Amt
+	CTAX.TaxBaseAmt,                    --Base Amt
+	CI.TotalLines,                      --Total Lines exclude tax
+	CI.GrandTotal,                      --Total Document
+	CIL.LinenetAmt,                     --Line Net (Retention Amt)
+    CIAffected.DocumentNo,              --DocumentNo Affeected
+	CIAffected.Amount,                  --Amount Affected
+	WHC.Aliquot,                        --Aliquot WithHolding
+	WCC.Subtrahend,                     --Subtrahend
+	WT.value AS withholdinggroupvalue,  --Value WithHolding Group
+	WT.name AS name_retentiongroup,     --Name WithHolding Group
+	CIL.line / 10 AS line,              --Line No
+	WHC.value,                          --WithHolding Combination Code
+    WCC.MinimalAmt,                     --WithHolding Minimal
+    CIW.DocumentNo As WH_DocumentNo     --WithHolding DocumentNo
 FROM 
 -- Invoice DocType
 C_DocType CDT 
@@ -32,7 +33,8 @@ INNER JOIN C_Invoice CI ON CI.C_DocType_ID = CDT.C_DocType_ID
 INNER JOIN C_InvoiceLine CIL ON CI.C_Invoice_ID = CIL.DocAffected_ID 
 -- WithHolding Header
 INNER JOIN (Select  C_Invoice_ID,
-                    C_DocType_ID 
+                    C_DocType_ID,
+                    DocumentNo
             From C_Invoice )CIW ON CIW.C_Invoice_ID = CIL.C_Invoice_ID 
 --WithHolding Config
 INNER JOIN LVE_WH_Config WCC ON WCC.LVE_WH_Config_ID = CIL.LVE_WH_Config_ID 

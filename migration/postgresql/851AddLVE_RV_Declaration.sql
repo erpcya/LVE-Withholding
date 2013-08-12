@@ -1,76 +1,65 @@
 ﻿--DROP VIEW LVE_RV_Declaration 
-CREATE VIEW LVE_RV_Declaration AS 
-SELECT DISTINCT
-	ci.ad_client_id, 
-	ci.ad_org_id, 
-	ci.c_invoice_id, 
-	cil.docaffected_id, 
-	oi.taxid,
-	cdti.doctypedeclare, 
-	cdti.value, 
-	cdti.taxid AS BusinessTaxID, 
-	cdti.documentno, 
-	cdti.controlno, 
-	cdti.c_bpartner_id, 
-	cdti.name, 
-	cdti.dateacct,
-		
-	o.value AS riforg, 
-	ci.dateinvoiced,
-	ifac.totalex,
-	iafect.grandtotal, --Total de la factura Afectada
-	ifac.taxbaseamt, --Total Del Monto base de la factura Afectada
-	il.linenetamt, -- Total de la Linea de la Retencion
-	iafect.documentno AS affecteddocumentno,  -- Documento Afectado de la Linea de la Retencion
-	ir.documentno AS WithholdingNo, -- Numero del documento Afectado
-	ifac.tasaimpuesto AS rate ,
-	ilafect.taxamt, -- Monto del impuesto del documento Afectado
-	iafect.totallines -- Monto del total de linea del documento Afectado
-FROM AD_OrgInfo oi
-JOIN c_invoice ci ON oi.ad_org_id = ci.ad_org_id
-JOIN c_invoiceline cil ON ci.c_invoice_id = cil.c_invoice_id
-JOIN C_Invoice ir ON ir.C_Invoice_ID = cil.C_Invoice_ID
-JOIN C_InvoiceLine il ON ci.C_Invoice_ID = il.C_Invoice_ID
-LEFT JOIN ( 
-	SELECT 
-		ci.c_invoice_id, 
-		ci.Grandtotal,
-		cdt.c_doctype_id, 
-		cdt.doctypedeclare,
-		cbp.value, 
-		cbp.taxid, 
-		ci.documentno, 
-		ci.controlno, 
-		ci.c_bpartner_id,
-		cbp.name, 
-		ci.dateacct
-   FROM c_invoice ci
-   JOIN c_doctype cdt ON ci.c_doctype_id = cdt.c_doctype_id
-   JOIN c_bpartner cbp ON ci.c_bpartner_id = cbp.c_bpartner_id
-   
-   ) cdti ON cdti.c_invoice_id = il.docaffected_id
-JOIN ad_org o ON o.ad_org_id = oi.ad_org_id
-JOIN ( SELECT li.c_invoice_id, 
-    sum(
-        CASE
-            WHEN li.taxamt = 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
-        END) AS totalex, 
-    sum(
-        CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxbaseamt
-            ELSE 0::numeric
-        END) AS totalbi, 
-    sum(
-        CASE
-            WHEN li.taxamt <> 0::numeric THEN li.taxamt
-            ELSE 0::numeric
-        END) AS totalimpuesto, 
-    max(im.rate) AS tasaimpuesto,
-    li.taxbaseamt,
-    im.rate
-   FROM c_invoicetax li
-   JOIN c_tax im ON im.c_tax_id = li.c_tax_id
-  GROUP BY li.c_invoice_id,li.taxbaseamt,im.rate) ifac ON ifac.c_invoice_id = cdti.c_invoice_id
-  JOIN C_Invoice iafect ON iafect.C_Invoice_ID = cdti.C_Invoice_ID
-  JOIN C_InvoiceLine ilafect on ilafect.C_Invoice_ID = iafect.C_Invoice_ID
+Create Or Replace View LVE_RV_Declaration As
+Select distinct 
+	CI.ad_client_id,                     --Company ID
+    CI.ad_org_id,                        --Org ID
+	CI.C_Invoice_ID,                     --Invoice ID Document Declaration
+	CIL.DocAffected_ID,                  --WithHolding Document ID
+	OI.TaxID,                            --Document ID Organization
+	CDTI.DocTypeDeclare,                 --Declared Type
+	CDTI.Value ,                         --Bussines Partner Value
+	CDTI.TaxID AS BCTaxID,               --Bussines Partner TaxID
+	CDTI.DocumentNo,                     --DocumentNo 
+	CDTI.ControlNo,                      --Control No
+	CRR.GrandTotal,                      --Document Total
+	CRR.TaxBaseAmt,                      --Base Amt
+	CRR.LinenetAmt,                      --Retain Amt
+	CRR.DocumentNo As AffectedDocumentNo,--Affected Document No
+    CRR.DocumentNo as WithHoldingNo ,      --Retention No
+	CRR.Rate,                            --Rate
+	CRR.TaxAmt,                          --Tax Amt
+	CRR.TotalLines,                      --Total Lines
+	CRR.Value As WithHoldingCod,           --Retention Cod
+	CRR.Aliquot,                         --Aliquot Retention
+	CDTI.C_BPartner_ID,                  --Bussiness Partner ID
+	CDTI.Name,                           --Bussiness Partner Name
+	CDTI.DateAcct,                       --Date Acct Document Retained
+	--O.value AS RifOrg, --Invalid (No Org RiF)
+	CI.DateInvoiced,                     --Declaration Date
+	CDTI.Exempt                         --Excempt
+From 
+--Org Info
+AD_OrgInfo OI 
+--Declaration Document Header
+Inner Join C_Invoice CI On OI.AD_Org_ID = CI.AD_Org_ID
+--Declaration Document Line
+Inner Join C_InvoiceLine CIL On CI.C_Invoice_ID=CIL.C_Invoice_ID
+--WithHolding Form
+Inner Join LVE_RV_WithHolding CRR On CRR.C_Invoice_ID = CIL.DocAffected_ID
+--Original Document
+Left Join (Select CI.C_Invoice_ID, 
+                  CDT.C_DocType_ID,
+                  CDT.DocTypeDeclare,
+                  CBP.Value,
+                  CBP.TaxID,
+                  CI.DocumentNo,
+                  CI.ControlNo,
+                  CI.C_BPartner_ID,
+                  CBP.Name,
+                  CI.DateAcct,
+                  CIT.Exempt,
+                  CIT.Taxable,
+                  CIT.Tax,
+                  CIT.Rate
+           From C_Invoice CI 
+           Inner Join C_DocType CDT  On  CI.C_DocType_ID = CDT.C_DocType_ID
+           Inner Join C_BPartner CBP On CI.C_BPartner_ID = CBP.C_BPartner_ID
+           Inner Join ( SELECT  LI.C_Invoice_ID, 
+                                Sum(CASE WHEN LI.TaxAmt = 0 THEN LI.TaxbaseAmt ELSE 0 END) AS Exempt, 
+                                Sum(CASE WHEN LI.TaxAmt <> 0 THEN LI.TaxBaseAmt ELSE 0 END) AS Taxable, 
+                                Sum(CASE WHEN LI.taxamt <> 0 THEN LI.taxamt ELSE 0 END) AS Tax, 
+                                Max(T.Rate) AS Rate
+                        FROM C_InvoiceTax LI
+                        Inner Join C_Tax T ON T.C_Tax_ID = LI.C_Tax_ID
+                        GROUP BY LI.C_Invoice_ID) CIT ON CIT.C_Invoice_ID = CI.C_Invoice_ID
+	  ) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID

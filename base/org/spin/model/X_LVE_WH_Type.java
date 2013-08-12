@@ -30,7 +30,7 @@ public class X_LVE_WH_Type extends PO implements I_LVE_WH_Type, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130809L;
+	private static final long serialVersionUID = 20130812L;
 
     /** Standard Constructor */
     public X_LVE_WH_Type (Properties ctx, int LVE_WH_Type_ID, String trxName)

@@ -32,7 +32,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130809L;
+	private static final long serialVersionUID = 20130812L;
 
     /** Standard Constructor */
     public X_LVE_Withholding (Properties ctx, int LVE_Withholding_ID, String trxName)
@@ -40,7 +40,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
       super (ctx, LVE_Withholding_ID, trxName);
       /** if (LVE_Withholding_ID == 0)
         {
-			setBeneficiary (0);
+			setBeneficiary_ID (0);
 			setC_Charge_ID (0);
 			setClassname (null);
 			setDeclarationDocType_ID (0);
@@ -80,26 +80,29 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
       return sb.toString();
     }
 
-	public I_C_BPartner getBenefici() throws RuntimeException
+	public I_C_BPartner getBeneficiary() throws RuntimeException
     {
 		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
-			.getPO(getBeneficiary(), get_TrxName());	}
+			.getPO(getBeneficiary_ID(), get_TrxName());	}
 
 	/** Set Beneficiary.
-		@param Beneficiary 
+		@param Beneficiary_ID 
 		Business Partner to whom payment is made
 	  */
-	public void setBeneficiary (int Beneficiary)
+	public void setBeneficiary_ID (int Beneficiary_ID)
 	{
-		set_ValueNoCheck (COLUMNNAME_Beneficiary, Integer.valueOf(Beneficiary));
+		if (Beneficiary_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_Beneficiary_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_Beneficiary_ID, Integer.valueOf(Beneficiary_ID));
 	}
 
 	/** Get Beneficiary.
 		@return Business Partner to whom payment is made
 	  */
-	public int getBeneficiary () 
+	public int getBeneficiary_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_Beneficiary);
+		Integer ii = (Integer)get_Value(COLUMNNAME_Beneficiary_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -198,7 +201,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	  */
 	public void setIsSOTrx (boolean IsSOTrx)
 	{
-		set_Value (COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
+		set_ValueNoCheck (COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
 	}
 
 	/** Get Sales Transaction.
@@ -226,9 +229,9 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	public void setLVE_WH_ConceptGroup_ID (int LVE_WH_ConceptGroup_ID)
 	{
 		if (LVE_WH_ConceptGroup_ID < 1) 
-			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, null);
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_ConceptGroup_ID, null);
 		else 
-			set_Value (COLUMNNAME_LVE_WH_ConceptGroup_ID, Integer.valueOf(LVE_WH_ConceptGroup_ID));
+			set_ValueNoCheck (COLUMNNAME_LVE_WH_ConceptGroup_ID, Integer.valueOf(LVE_WH_ConceptGroup_ID));
 	}
 
 	/** Get Concept Group.
@@ -301,6 +304,47 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	public String getName () 
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Sequence.
+		@param SeqNo 
+		Method of ordering records; lowest number comes first
+	  */
+	public void setSeqNo (int SeqNo)
+	{
+		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+	}
+
+	/** Get Sequence.
+		@return Method of ordering records; lowest number comes first
+	  */
+	public int getSeqNo () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_SeqNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Tax Unit Rate.

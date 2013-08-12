@@ -63,20 +63,20 @@ public interface I_LVE_Withholding
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name Beneficiary */
-    public static final String COLUMNNAME_Beneficiary = "Beneficiary";
+    /** Column name Beneficiary_ID */
+    public static final String COLUMNNAME_Beneficiary_ID = "Beneficiary_ID";
 
 	/** Set Beneficiary.
 	  * Business Partner to whom payment is made
 	  */
-	public void setBeneficiary (int Beneficiary);
+	public void setBeneficiary_ID (int Beneficiary_ID);
 
 	/** Get Beneficiary.
 	  * Business Partner to whom payment is made
 	  */
-	public int getBeneficiary();
+	public int getBeneficiary_ID();
 
-	public I_C_BPartner getBenefici() throws RuntimeException;
+	public I_C_BPartner getBeneficiary() throws RuntimeException;
 
     /** Column name C_Charge_ID */
     public static final String COLUMNNAME_C_Charge_ID = "C_Charge_ID";
@@ -215,6 +215,30 @@ public interface I_LVE_Withholding
 	  * Alphanumeric identifier of the entity
 	  */
 	public String getName();
+
+    /** Column name Processing */
+    public static final String COLUMNNAME_Processing = "Processing";
+
+	/** Set Process Now	  */
+	public void setProcessing (boolean Processing);
+
+	/** Get Process Now	  */
+	public boolean isProcessing();
+
+    /** Column name SeqNo */
+    public static final String COLUMNNAME_SeqNo = "SeqNo";
+
+	/** Set Sequence.
+	  * Method of ordering records;
+ lowest number comes first
+	  */
+	public void setSeqNo (int SeqNo);
+
+	/** Get Sequence.
+	  * Method of ordering records;
+ lowest number comes first
+	  */
+	public int getSeqNo();
 
     /** Column name TaxUnitRate */
     public static final String COLUMNNAME_TaxUnitRate = "TaxUnitRate";

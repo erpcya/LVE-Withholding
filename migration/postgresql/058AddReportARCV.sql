@@ -1,6 +1,6 @@
 -- Aug 8, 2013 10:29:29 AM VET
 -- LVE Withholding
-INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,JasperReport,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53432,'org.compiere.report.ReportStarter','N',TO_TIMESTAMP('2013-08-08 10:29:27','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','N','N','Y','N','file:/home/dixon/Documentos/ReportARCVAnca2.jrxml','ARCV','Y',0,0,TO_TIMESTAMP('2013-08-08 10:29:27','YYYY-MM-DD HH24:MI:SS'),100,'LVE_ARCV')
+INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,JasperReport,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53432,'org.compiere.report.ReportStarter','N',TO_TIMESTAMP('2013-08-08 10:29:27','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','N','N','Y','N','attachment:ARCV.jrxml','ARCV','Y',0,0,TO_TIMESTAMP('2013-08-08 10:29:27','YYYY-MM-DD HH24:MI:SS'),100,'LVE_ARCV')
 ;
 
 -- Aug 8, 2013 10:29:29 AM VET

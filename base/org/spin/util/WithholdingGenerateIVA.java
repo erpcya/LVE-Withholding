@@ -280,7 +280,7 @@ public class WithholdingGenerateIVA implements I_WithholdingGenerate {
 			//		
 		}
 		MInvoiceLine retLine = new MInvoiceLine(m_Current_Withholding);
-		retLine.set_ValueOfColumn("DocAffected", p_C_Invoice_ID);
+		retLine.set_ValueOfColumn("DocAffected_ID", p_C_Invoice_ID);
 		retLine.set_ValueOfColumn("LVE_WH_Config_ID", p_LVE_WH_Config_ID);
 		retLine.setC_Charge_ID(p_C_Charge_ID);
 		retLine.setQty(Env.ONE);

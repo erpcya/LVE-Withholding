@@ -146,11 +146,12 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				"			FROM LVE_WH_Relation rrdt) rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID " +
 				"	AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) " +
 				"LEFT JOIN LVE_WC_ProductCharge wcp ON(wcp.C_Charge_ID = linv.C_Charge_ID OR wcp.M_Product_ID = linv.M_Product_ID) " +
-				"WHERE (" +
+				"WHERE inv.DocStatus IN('CO') " +
+				"AND (" +
 				"		(whc.LVE_WH_Concept_ID = inv.LVE_WH_Concept_ID AND inv.LVE_WH_Concept_ID IS NOT NULL) " +
 				"		OR " +
 				"		(whc.LVE_WH_Concept_ID = wcp.LVE_WH_Concept_ID AND inv.LVE_WH_Concept_ID IS NULL)" +
-				"		) " +
+				"	 ) " +
 				"AND bp.LVE_PersonType_ID = cb.LVE_PersonType_ID " +
 				//	Valid Exists other Retention
 				"AND NOT EXISTS(SELECT 1 FROM C_Invoice ret" +

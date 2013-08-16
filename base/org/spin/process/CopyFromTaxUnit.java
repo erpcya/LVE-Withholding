@@ -104,7 +104,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				"INNER JOIN LVE_WH_Config whf ON(whf.LVE_WH_Combination_ID = whb.LVE_WH_Combination_ID) " +
 				"WHERE whf.IsActive = 'Y' " +
 				"AND whf.LVE_TaxUnit_ID = ? " +
-				"GROUP BY wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID");
+				"GROUP BY wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID,whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend");
 		
 		log.fine("SQL=" + sql);
 		log.fine("LVE_TaxUnitFrom_ID=" + p_LVE_TaxUnitFrom_ID);

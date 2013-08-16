@@ -163,7 +163,7 @@ public class ConfigCombinationGenerate extends SvrProcess {
 		{
 			m_Config.setSubtrahend(m_Subtrahend);
 			m_Config.setMinValue(m_MinimalAmt);
-			m_Config.setMaxValue(m_MinimalAmt);
+			m_Config.setMaxValue(Env.ZERO);
 		}
 		else
 		{

@@ -197,7 +197,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 			//	Set Values
 			m_Config.setSubtrahend(m_Subtrahend);
 			m_Config.setMinValue(m_MinimalAmt);
-			m_Config.setMaxValue(m_MinimalAmt);
+			m_Config.setMaxValue(Env.ZERO);
 			
 		}
 		else

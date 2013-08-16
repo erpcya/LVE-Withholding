@@ -119,7 +119,7 @@ public class ConfigCombinationGenerate extends SvrProcess {
 			throw new AdempiereException("@LVE_WH_ConceptGroup_ID@ <> @LVE_WH_ConceptGroup_ID@");
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
-		BigDecimal m_MinimalAmt = Env.ZERO;
+		BigDecimal m_MinValue = Env.ZERO;
 		//	Get Values
 		BigDecimal m_Aliquot = m_LVE_WHCombination.getAliquot();
 		BigDecimal m_TaxUnitRate = m_LVE_Withholding.getTaxUnitRate();
@@ -139,13 +139,13 @@ public class ConfigCombinationGenerate extends SvrProcess {
 				+"TaxUnitRate=" + m_TaxUnitRate
 				+"TaxUnit=" + m_TaxUnitAmt);
 		
-		m_MinimalAmt = m_TaxUnitAmt.multiply(m_TaxUnitRate)
+		m_MinValue = m_TaxUnitAmt.multiply(m_TaxUnitRate)
 				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
-		m_Subtrahend = m_Aliquot.multiply(m_MinimalAmt)
+		m_Subtrahend = m_Aliquot.multiply(m_MinValue)
 				.divide(Env.ONEHUNDRED)
 				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);
 		
-		log.fine("MinimalAmt=" + m_MinimalAmt);
+		log.fine("MinValue=" + m_MinValue);
 		log.fine("Sustrahend=" + m_Subtrahend);
 		
 		MLVEWHConfig m_Config = MLVEWHConfig
@@ -162,7 +162,7 @@ public class ConfigCombinationGenerate extends SvrProcess {
 		if (!m_LVE_WHCombination.isManual())
 		{
 			m_Config.setSubtrahend(m_Subtrahend);
-			m_Config.setMinValue(m_MinimalAmt);
+			m_Config.setMinValue(m_MinValue);
 			m_Config.setMaxValue(Env.ZERO);
 		}
 		else
@@ -177,7 +177,7 @@ public class ConfigCombinationGenerate extends SvrProcess {
 		//	Save
 		m_Config.saveEx();
 		
-		return "@MinimalAmt@=" + m_MinimalAmt + " @Subtrahend@=" + m_Subtrahend;
+		return "@MinValue@=" + m_MinValue + " @Subtrahend@=" + m_Subtrahend;
 	}
 
 }

@@ -48,6 +48,9 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 			setLVE_WH_Type_ID (0);
 			setLVE_Withholding_ID (0);
 			setName (null);
+			setSeqNo (0);
+// @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM LVE_Withholding
+			setTaxUnitRate (Env.ZERO);
 			setWithholdingDocType_ID (0);
         } */
     }
@@ -333,7 +336,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	  */
 	public void setSeqNo (int SeqNo)
 	{
-		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+		set_ValueNoCheck (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
 	}
 
 	/** Get Sequence.

@@ -150,13 +150,17 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 * @param p_TaxUnitAmt
 	 * @param p_LVE_Withholding_ID
 	 * @param p_LVE_WH_Combination_ID
+	 * @param p_MinValue
+	 * @param p_MaxValue
+	 * @param p_Subtrahend
 	 * @return void
 	 */
 	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
-			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID,boolean p_IsManual,BigDecimal p_MinValue,BigDecimal p_MaxValue,BigDecimal p_Subtrahend){
+			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID,boolean p_IsManual,
+			BigDecimal p_MinValue, BigDecimal p_MaxValue, BigDecimal p_Subtrahend){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
-		BigDecimal m_MinimalAmt = Env.ZERO;
+		BigDecimal m_MinValue = Env.ZERO;
 		
 		/**
 		 * Carlos Parada 2013-08-15
@@ -185,18 +189,18 @@ public class CopyFromTaxUnit extends SvrProcess {
 					+"TaxUnitRate=" + p_TaxUnitRate
 					+"TaxUnit=" + p_TaxUnitAmt);
 			
-			m_MinimalAmt = p_TaxUnitAmt.multiply(p_TaxUnitRate)
+			m_MinValue = p_TaxUnitAmt.multiply(p_TaxUnitRate)
 					.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
-			m_Subtrahend = p_Aliquot.multiply(m_MinimalAmt)
+			m_Subtrahend = p_Aliquot.multiply(m_MinValue)
 					.divide(Env.ONEHUNDRED)
 					.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);
 			
-			log.fine("MinimalAmt=" + m_MinimalAmt);
+			log.fine("MinValue=" + m_MinValue);
 			log.fine("Sustrahend=" + m_Subtrahend);
 			
 			//	Set Values
 			m_Config.setSubtrahend(m_Subtrahend);
-			m_Config.setMinValue(m_MinimalAmt);
+			m_Config.setMinValue(m_MinValue);
 			m_Config.setMaxValue(Env.ZERO);
 			
 		}

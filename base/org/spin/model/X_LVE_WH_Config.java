@@ -32,7 +32,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130812L;
+	private static final long serialVersionUID = 20130815L;
 
     /** Standard Constructor */
     public X_LVE_WH_Config (Properties ctx, int LVE_WH_Config_ID, String trxName)
@@ -44,7 +44,8 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 			setLVE_WH_Combination_ID (0);
 			setLVE_WH_Config_ID (0);
 			setLVE_Withholding_ID (0);
-			setMinimalAmt (Env.ZERO);
+			setMaxValue (Env.ZERO);
+			setMinValue (Env.ZERO);
 			setSubtrahend (Env.ZERO);
         } */
     }
@@ -172,18 +173,35 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set Minimal Amt.
-		@param MinimalAmt Minimal Amt	  */
-	public void setMinimalAmt (BigDecimal MinimalAmt)
+	/** Set Max Value.
+		@param MaxValue Max Value	  */
+	public void setMaxValue (BigDecimal MaxValue)
 	{
-		set_ValueNoCheck (COLUMNNAME_MinimalAmt, MinimalAmt);
+		set_Value (COLUMNNAME_MaxValue, MaxValue);
 	}
 
-	/** Get Minimal Amt.
-		@return Minimal Amt	  */
-	public BigDecimal getMinimalAmt () 
+	/** Get Max Value.
+		@return Max Value	  */
+	public BigDecimal getMaxValue () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_MinimalAmt);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_MaxValue);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Min Value.
+		@param MinValue Min Value	  */
+	public void setMinValue (BigDecimal MinValue)
+	{
+		set_ValueNoCheck (COLUMNNAME_MinValue, MinValue);
+	}
+
+	/** Get Min Value.
+		@return Min Value	  */
+	public BigDecimal getMinValue () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_MinValue);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;

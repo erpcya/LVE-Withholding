@@ -32,7 +32,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130812L;
+	private static final long serialVersionUID = 20130815L;
 
     /** Standard Constructor */
     public X_LVE_WH_Combination (Properties ctx, int LVE_WH_Combination_ID, String trxName)
@@ -89,6 +89,30 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	/** Set Manual.
+		@param IsManual 
+		This is a manual process
+	  */
+	public void setIsManual (boolean IsManual)
+	{
+		set_Value (COLUMNNAME_IsManual, Boolean.valueOf(IsManual));
+	}
+
+	/** Get Manual.
+		@return This is a manual process
+	  */
+	public boolean isManual () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsManual);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	public org.spin.model.I_LVE_PersonType getLVE_PersonType() throws RuntimeException

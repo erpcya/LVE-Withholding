@@ -89,6 +89,14 @@ public class CopyFromTaxUnit extends SvrProcess {
 		
 		
 		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID " +
+				/**
+				 * Carlos Parada 2013-08-15 
+				 * Implements IsManual WithHolding Combination
+				 */
+				", whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend " +
+				 /**
+				  * End Carlos Parada
+				  */
 				"FROM LVE_Withholding wh " +
 				"INNER JOIN LVE_WH_ConceptGroup wcg ON(wcg.LVE_WH_ConceptGroup_ID = wh.LVE_WH_ConceptGroup_ID) " +
 				"INNER JOIN LVE_WH_Concept whc ON(whc.LVE_WH_ConceptGroup_ID = wcg.LVE_WH_ConceptGroup_ID) " +
@@ -114,7 +122,20 @@ public class CopyFromTaxUnit extends SvrProcess {
 				BigDecimal m_Aliquot		= rs.getBigDecimal("Aliquot");
 				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
-				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID);
+				/**
+				 * Carlos Parada 2013-08-15 
+				 * Changes for support manual WithHolding Combination
+				 */
+				boolean m_IsManual = rs.getString("IsManual").equals("Y");
+				BigDecimal m_MinValue = rs.getBigDecimal("MinValue");
+				BigDecimal m_MaxValue = rs.getBigDecimal("MaxValue");
+				BigDecimal m_Subtrahend = rs.getBigDecimal("Subtrahend");
+				
+				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID,m_IsManual,m_MinValue,m_MaxValue,m_Subtrahend);
+				/**
+				 * End Carlos Parada  
+				 */
+				
 			}
 		}
 				
@@ -132,31 +153,15 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 * @return void
 	 */
 	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
-			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID){
+			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID,boolean p_IsManual,BigDecimal p_MinValue,BigDecimal p_MaxValue,BigDecimal p_Subtrahend){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
-		//	If Null
-		if(p_Aliquot == null)
-			p_Aliquot = Env.ZERO;
-		if(p_TaxUnitRate == null)
-			p_TaxUnitRate = Env.ZERO;
-		//	
-		if(p_TaxUnitAmt == null)
-			p_TaxUnitAmt = Env.ZERO;
-		//	Log
-		log.fine("Aliquot=" + p_Aliquot
-				+"TaxUnitRate=" + p_TaxUnitRate
-				+"TaxUnit=" + p_TaxUnitAmt);
 		
-		m_MinimalAmt = p_TaxUnitAmt.multiply(p_TaxUnitRate)
-				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
-		m_Subtrahend = p_Aliquot.multiply(m_MinimalAmt)
-				.divide(Env.ONEHUNDRED)
-				.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);
-		
-		log.fine("MinimalAmt=" + m_MinimalAmt);
-		log.fine("Sustrahend=" + m_Subtrahend);
+		/**
+		 * Carlos Parada 2013-08-15
+		 * Changes for support manual WithHolding Combination
+		 */
 		
 		MLVEWHConfig m_Config = MLVEWHConfig
 				.createFrom(getCtx(), 
@@ -164,9 +169,49 @@ public class CopyFromTaxUnit extends SvrProcess {
 						p_LVE_WH_Combination_ID, 
 						m_LVE_TaxUnit_ID, 
 						get_TrxName());
-		//	Set Values
-		m_Config.setSubtrahend(m_Subtrahend);
-		m_Config.setMinimalAmt(m_MinimalAmt);
+		
+		if (!p_IsManual)
+		{
+			//	If Null
+			if(p_Aliquot == null)
+				p_Aliquot = Env.ZERO;
+			if(p_TaxUnitRate == null)
+				p_TaxUnitRate = Env.ZERO;
+			//	
+			if(p_TaxUnitAmt == null)
+				p_TaxUnitAmt = Env.ZERO;
+			//	Log
+			log.fine("Aliquot=" + p_Aliquot
+					+"TaxUnitRate=" + p_TaxUnitRate
+					+"TaxUnit=" + p_TaxUnitAmt);
+			
+			m_MinimalAmt = p_TaxUnitAmt.multiply(p_TaxUnitRate)
+					.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);		
+			m_Subtrahend = p_Aliquot.multiply(m_MinimalAmt)
+					.divide(Env.ONEHUNDRED)
+					.setScale(m_Precision, BigDecimal.ROUND_HALF_UP);
+			
+			log.fine("MinimalAmt=" + m_MinimalAmt);
+			log.fine("Sustrahend=" + m_Subtrahend);
+			
+			//	Set Values
+			m_Config.setSubtrahend(m_Subtrahend);
+			m_Config.setMinValue(m_MinimalAmt);
+			m_Config.setMaxValue(m_MinimalAmt);
+			
+		}
+		else
+		{
+			//	Set Values
+			m_Config.setSubtrahend(p_Subtrahend);
+			m_Config.setMinValue(p_MinValue);
+			m_Config.setMaxValue(p_MaxValue);
+		}
+		
+		/**
+		 * End Carlos Parada  
+		 */
+		
 		//	Save
 		m_Config.saveEx();
 		//	Created

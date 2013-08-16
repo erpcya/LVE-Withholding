@@ -126,7 +126,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 		//	
 		sql = new String("SELECT bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, " +
 				"cn.LVE_WH_Config_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID, " +
-				"SUM(linv.LineNetAmt) TotalLines, cb.Aliquot, cn.MinValue, cn.Subtrahend, " +
+				"SUM(linv.LineNetAmt) TotalLines, cb.TaxBaseRate, cb.Aliquot, cn.MinValue, cn.Subtrahend, " +
 				"CASE WHEN charat(dt.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
 				"	CASE WHEN charat(dt.DocBaseType, 2) = 'P' THEN -1 ELSE 1 END multiplierInv, " +
 				"CASE WHEN charat(dtr.DocBaseType, 3) = 'C' THEN -1 ELSE 1 END * " +
@@ -162,7 +162,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				m_parameterWhere.toString() + 
 				//	Group By				
 				"GROUP BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, cb.LVE_WH_Combination_ID, cn.LVE_WH_Config_ID, inv.C_Invoice_ID, " +
-				"rt.C_Charge_ID, rt.WithholdingDocType_ID, cb.Aliquot, cn.MinValue, cn.Subtrahend, dt.DocBaseType, dtr.DocBaseType " +
+				"rt.C_Charge_ID, rt.WithholdingDocType_ID, cb.TaxBaseRate, cb.Aliquot, cn.MinValue, cn.Subtrahend, dt.DocBaseType, dtr.DocBaseType " +
 				//	Having
 				"HAVING (SUM(linv.LineNetAmt) >= cn.MinValue AND SUM(linv.LineNetAmt) > 0) " +
 				"ORDER BY bp.C_BPartner_ID, rr.LVE_Withholding_ID, inv.C_Invoice_ID, rt.C_Charge_ID, rt.WithholdingDocType_ID");
@@ -191,8 +191,9 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 		int m_C_Charge_ID 				= 0;
 		int m_WithholdingDocType_ID 	= 0;
 		BigDecimal m_TotalLines 		= Env.ZERO;
+		BigDecimal m_TaxBaseRate		= Env.ZERO;
 		BigDecimal m_Aliquot 			= Env.ZERO;
-		BigDecimal m_MinValue 		= Env.ZERO;
+		BigDecimal m_MinValue 			= Env.ZERO;
 		BigDecimal m_Subtrahend 		= Env.ZERO;
 		
 		
@@ -206,8 +207,9 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				m_C_Charge_ID 				= rs.getInt("C_Charge_ID");
 				m_WithholdingDocType_ID 	= rs.getInt("WithholdingDocType_ID");
 				m_TotalLines 				= rs.getBigDecimal("TotalLines");
+				m_TaxBaseRate				= rs.getBigDecimal("TaxBaseRate");
 				m_Aliquot 					= rs.getBigDecimal("Aliquot");
-				m_MinValue 				= rs.getBigDecimal("MinValue");
+				m_MinValue 					= rs.getBigDecimal("MinValue");
 				m_Subtrahend 				= rs.getBigDecimal("Subtrahend");
 				m_Current_Mlp_Invoice 		= rs.getBigDecimal("multiplierInv");
 				m_Current_Mlp_Withholding	= rs.getBigDecimal("multiplierRet");
@@ -220,6 +222,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 						+ "\nC_Charge_ID=" + m_C_Charge_ID
 						+ "\nC_DocType_ID=" + m_WithholdingDocType_ID
 						+ "\nTotalLines=" + m_TotalLines
+						+ "\nTaxBaseRate=" + m_TaxBaseRate
 						+ "\nAliquot=" + m_Aliquot
 						+ "\nMinValue=" + m_MinValue
 						+ "\nSubtrahend=" + m_Subtrahend
@@ -229,7 +232,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 				//	Add Document to Retention
 				addDocument(m_C_BPartner_ID, m_C_Invoice_ID, m_LVE_Withholding_ID, m_LVE_WH_Config_ID, 
 						m_C_Charge_ID, m_WithholdingDocType_ID, m_TotalLines, 
-						m_Aliquot, m_MinValue, m_Subtrahend);
+						m_TaxBaseRate, m_Aliquot, m_MinValue, m_Subtrahend);
 				
 			}
 			completeRetention();
@@ -250,6 +253,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 	 * @param p_C_Charge_ID
 	 * @param p_C_DocType_ID
 	 * @param p_TotalLines
+	 * @param p_TaxBaseRate
 	 * @param p_Aliquot
 	 * @param p_MinValue
 	 * @param p_Subtrahend
@@ -258,9 +262,15 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 	private void addDocument(int p_C_BPartner_ID, int p_C_Invoice_ID, 
 			int p_LVE_Withholding_ID, int p_LVE_WH_Config_ID, int p_C_Charge_ID, 
 			int p_C_DocType_ID, BigDecimal p_TotalLines, 
-			BigDecimal p_Aliquot, BigDecimal p_MinValue, BigDecimal p_Subtrahend){
+			BigDecimal p_TaxBaseRate, BigDecimal p_Aliquot, BigDecimal p_MinValue, BigDecimal p_Subtrahend){
 		
 		BigDecimal withholdingAmt = Env.ZERO;
+		
+		if(p_TaxBaseRate != null)
+			p_TaxBaseRate = p_TaxBaseRate.divide(Env.ONEHUNDRED);
+		else
+			p_TaxBaseRate = Env.ZERO;
+		
 		p_Aliquot = p_Aliquot.divide(Env.ONEHUNDRED);
 		withholdingAmt = p_TotalLines.multiply(p_Aliquot);
 		withholdingAmt = withholdingAmt.subtract(p_Subtrahend);

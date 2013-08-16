@@ -101,6 +101,19 @@ public interface I_LVE_WH_Combination
 	  */
 	public boolean isActive();
 
+    /** Column name IsManual */
+    public static final String COLUMNNAME_IsManual = "IsManual";
+
+	/** Set Manual.
+	  * This is a manual process
+	  */
+	public void setIsManual (boolean IsManual);
+
+	/** Get Manual.
+	  * This is a manual process
+	  */
+	public boolean isManual();
+
     /** Column name LVE_PersonType_ID */
     public static final String COLUMNNAME_LVE_PersonType_ID = "LVE_PersonType_ID";
 

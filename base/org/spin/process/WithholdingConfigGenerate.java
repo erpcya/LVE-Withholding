@@ -173,9 +173,27 @@ public class WithholdingConfigGenerate extends SvrProcess {
 						p_LVE_WH_Combination_ID, 
 						p_LVE_TaxUnit_ID, 
 						get_TrxName());
+		
+		/**
+		 * Carlos Parada 2013-08-15
+		 * Changes for support manual WithHolding Combination
+		 */
 		//	Set Values
-		m_Config.setSubtrahend(m_Subtrahend);
-		m_Config.setMinimalAmt(m_MinimalAmt);
+		if(!m_Config.getLVE_WH_Combination().isManual())
+		{
+			m_Config.setSubtrahend(m_Subtrahend);
+			m_Config.setMinValue(m_MinimalAmt);
+			m_Config.setMaxValue(m_MinimalAmt);
+		}
+		else
+		{
+			m_Config.setSubtrahend(Env.ZERO);
+			m_Config.setMinValue(Env.ZERO);
+			m_Config.setMaxValue(Env.ZERO);
+		}
+		/**
+		 * End Carlos Parada
+		 */
 		//	Save
 		m_Config.saveEx();
 		//	Created

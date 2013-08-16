@@ -134,14 +134,23 @@ public interface I_LVE_WH_Config
 
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
 
-    /** Column name MinimalAmt */
-    public static final String COLUMNNAME_MinimalAmt = "MinimalAmt";
+    /** Column name MaxValue */
+    public static final String COLUMNNAME_MaxValue = "MaxValue";
 
-	/** Set Minimal Amt	  */
-	public void setMinimalAmt (BigDecimal MinimalAmt);
+	/** Set Max Value	  */
+	public void setMaxValue (BigDecimal MaxValue);
 
-	/** Get Minimal Amt	  */
-	public BigDecimal getMinimalAmt();
+	/** Get Max Value	  */
+	public BigDecimal getMaxValue();
+
+    /** Column name MinValue */
+    public static final String COLUMNNAME_MinValue = "MinValue";
+
+	/** Set Min Value	  */
+	public void setMinValue (BigDecimal MinValue);
+
+	/** Get Min Value	  */
+	public BigDecimal getMinValue();
 
     /** Column name Subtrahend */
     public static final String COLUMNNAME_Subtrahend = "Subtrahend";

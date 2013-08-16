@@ -155,8 +155,25 @@ public class ConfigCombinationGenerate extends SvrProcess {
 						m_LVE_TaxUnit.getLVE_TaxUnit_ID(), 
 						get_TrxName());
 		//	Set Values
-		m_Config.setSubtrahend(m_Subtrahend);
-		m_Config.setMinimalAmt(m_MinimalAmt);
+		/**
+		 * Carlos Parada 2013-08-15
+		 * Changes for support manual WithHolding Combination
+		 */
+		if (!m_LVE_WHCombination.isManual())
+		{
+			m_Config.setSubtrahend(m_Subtrahend);
+			m_Config.setMinValue(m_MinimalAmt);
+			m_Config.setMaxValue(m_MinimalAmt);
+		}
+		else
+		{
+			m_Config.setSubtrahend(Env.ZERO);
+			m_Config.setMinValue(Env.ZERO);
+			m_Config.setMaxValue(Env.ZERO);
+		}
+		/**
+		 * End Carlos Parada
+		 */
 		//	Save
 		m_Config.saveEx();
 		

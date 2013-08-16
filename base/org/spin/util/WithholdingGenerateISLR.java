@@ -287,7 +287,7 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 			if(prefix == null)
 				prefix = "";
 			//	Set New Document No
-			m_Current_Withholding.setDocumentNo(prefix + String.format("%1$-" + 8 + "s", docNo).replace(" ", "0"));
+			m_Current_Withholding.setDocumentNo(prefix + String.format("%1$" + 8 + "s", docNo).replace(" ", "0"));
 			m_Current_Withholding.saveEx();
 			//		
 		}

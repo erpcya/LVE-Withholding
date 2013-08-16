@@ -63,7 +63,7 @@ public class CalloutBPartner extends CalloutEngine
 			
 			//Dixon Martinez 2013-05-24
 			//Variables to store the information of the name retrieved from the SENIAT
-			int count = l_ValidateSeniat.getM_Name().length() -1;
+			int count = l_ValidateSeniat.getM_Name().length();
 			String name1 = "";
 			String name2 = "";
 			String name = l_ValidateSeniat.getM_Name();

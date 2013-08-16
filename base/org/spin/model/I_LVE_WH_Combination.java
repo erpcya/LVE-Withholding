@@ -154,6 +154,15 @@ public interface I_LVE_WH_Combination
 	/** Get Process Now	  */
 	public boolean isProcessing();
 
+    /** Column name TaxBaseRate */
+    public static final String COLUMNNAME_TaxBaseRate = "TaxBaseRate";
+
+	/** Set Tax Base Rate	  */
+	public void setTaxBaseRate (BigDecimal TaxBaseRate);
+
+	/** Get Tax Base Rate	  */
+	public BigDecimal getTaxBaseRate();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 

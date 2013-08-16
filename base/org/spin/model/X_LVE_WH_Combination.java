@@ -32,7 +32,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130815L;
+	private static final long serialVersionUID = 20130816L;
 
     /** Standard Constructor */
     public X_LVE_WH_Combination (Properties ctx, int LVE_WH_Combination_ID, String trxName)
@@ -97,7 +97,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 	  */
 	public void setIsManual (boolean IsManual)
 	{
-		set_Value (COLUMNNAME_IsManual, Boolean.valueOf(IsManual));
+		set_ValueNoCheck (COLUMNNAME_IsManual, Boolean.valueOf(IsManual));
 	}
 
 	/** Get Manual.
@@ -204,6 +204,23 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Set Tax Base Rate.
+		@param TaxBaseRate Tax Base Rate	  */
+	public void setTaxBaseRate (BigDecimal TaxBaseRate)
+	{
+		set_ValueNoCheck (COLUMNNAME_TaxBaseRate, TaxBaseRate);
+	}
+
+	/** Get Tax Base Rate.
+		@return Tax Base Rate	  */
+	public BigDecimal getTaxBaseRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_TaxBaseRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Search Key.

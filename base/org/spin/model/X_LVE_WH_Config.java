@@ -32,7 +32,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130815L;
+	private static final long serialVersionUID = 20130816L;
 
     /** Standard Constructor */
     public X_LVE_WH_Config (Properties ctx, int LVE_WH_Config_ID, String trxName)
@@ -194,7 +194,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 		@param MinValue Min Value	  */
 	public void setMinValue (BigDecimal MinValue)
 	{
-		set_ValueNoCheck (COLUMNNAME_MinValue, MinValue);
+		set_Value (COLUMNNAME_MinValue, MinValue);
 	}
 
 	/** Get Min Value.
@@ -211,7 +211,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 		@param Subtrahend Subtrahend	  */
 	public void setSubtrahend (BigDecimal Subtrahend)
 	{
-		set_ValueNoCheck (COLUMNNAME_Subtrahend, Subtrahend);
+		set_Value (COLUMNNAME_Subtrahend, Subtrahend);
 	}
 
 	/** Get Subtrahend.

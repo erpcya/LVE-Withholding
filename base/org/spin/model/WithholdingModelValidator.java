@@ -21,8 +21,8 @@ import org.compiere.util.Env;
  * 
  * @author Dixon Martinez
  * @contributor <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
- * 		<l>	Add Control No
- * 		<l>	Change to Withholding Relation
+ * 		<br>	Add Control No
+ * 		<br>	Change to Withholding Relation
  */
 public class WithholdingModelValidator implements org.compiere.model.ModelValidator {
 

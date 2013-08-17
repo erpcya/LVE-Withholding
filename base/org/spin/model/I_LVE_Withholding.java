@@ -63,6 +63,47 @@ public interface I_LVE_Withholding
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name AD_ReportView_ID */
+    public static final String COLUMNNAME_AD_ReportView_ID = "AD_ReportView_ID";
+
+	/** Set Report View.
+	  * View used to generate this report
+	  */
+	public void setAD_ReportView_ID (int AD_ReportView_ID);
+
+	/** Get Report View.
+	  * View used to generate this report
+	  */
+	public int getAD_ReportView_ID();
+
+	public I_AD_ReportView getAD_ReportView() throws RuntimeException;
+
+    /** Column name AD_Rule_ID */
+    public static final String COLUMNNAME_AD_Rule_ID = "AD_Rule_ID";
+
+	/** Set Rule	  */
+	public void setAD_Rule_ID (int AD_Rule_ID);
+
+	/** Get Rule	  */
+	public int getAD_Rule_ID();
+
+	public I_AD_Rule getAD_Rule() throws RuntimeException;
+
+    /** Column name AD_Table_ID */
+    public static final String COLUMNNAME_AD_Table_ID = "AD_Table_ID";
+
+	/** Set Table.
+	  * Database Table information
+	  */
+	public void setAD_Table_ID (int AD_Table_ID);
+
+	/** Get Table.
+	  * Database Table information
+	  */
+	public int getAD_Table_ID();
+
+	public I_AD_Table getAD_Table() throws RuntimeException;
+
     /** Column name Beneficiary_ID */
     public static final String COLUMNNAME_Beneficiary_ID = "Beneficiary_ID";
 
@@ -92,19 +133,6 @@ public interface I_LVE_Withholding
 	public int getC_Charge_ID();
 
 	public I_C_Charge getC_Charge() throws RuntimeException;
-
-    /** Column name Classname */
-    public static final String COLUMNNAME_Classname = "Classname";
-
-	/** Set Classname.
-	  * Java Classname
-	  */
-	public void setClassname (String Classname);
-
-	/** Get Classname.
-	  * Java Classname
-	  */
-	public String getClassname();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

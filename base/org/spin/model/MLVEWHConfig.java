@@ -19,7 +19,9 @@ package org.spin.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
@@ -89,4 +91,16 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 		return config;
 	}
 	
+	@Override
+	protected boolean beforeSave(boolean newRecord) {
+		super.beforeSave(newRecord);
+		if(!newRecord){
+			int m_C_Invoice_ID = DB.getSQLValue(get_TrxName(), "SELECT MAX(il.C_Invoice_ID) " +
+					"FROM C_InvoiceLine il " +
+					"WHERE il.LVE_WH_Config_ID=?", getLVE_WH_Config_ID());
+			if(m_C_Invoice_ID != 0)
+				throw new AdempiereException("@SQLErrorReferenced@");
+		}
+		return true;
+	}
 }

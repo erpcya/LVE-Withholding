@@ -17,7 +17,10 @@
 package org.spin.model;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
+
+import org.compiere.model.Query;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
@@ -40,7 +43,6 @@ public class MLVEWithholding extends X_LVE_Withholding {
 	public MLVEWithholding(Properties ctx, int LVE_Withholding_ID,
 			String trxName) {
 		super(ctx, LVE_Withholding_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -52,7 +54,35 @@ public class MLVEWithholding extends X_LVE_Withholding {
 	 */
 	public MLVEWithholding(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * Get Withholding from SQL Where
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 17/08/2013, 11:33:02
+	 * @param ctx
+	 * @param where
+	 * @param trxName
+	 * @return
+	 * @return List<MLVEWithholding>
+	 */
+	public static List<MLVEWithholding> get(Properties ctx, int p_LVE_WH_Type_ID, int p_LVE_Withholding_ID, String trxName){
+		//	Get Withholding
+		StringBuffer where =  new StringBuffer();
+		//	Criteria
+		if(p_LVE_WH_Type_ID != 0)
+			where.append(COLUMNNAME_LVE_WH_Type_ID)
+			.append("=")
+			.append(p_LVE_WH_Type_ID);
+		if(p_LVE_Withholding_ID != 0)
+			where.append(COLUMNNAME_LVE_Withholding_ID)
+			.append("=")
+			.append(p_LVE_Withholding_ID);
+		//	
+		List<MLVEWithholding> m_WithholdingList = new Query(ctx, Table_Name, 
+				where.toString(), trxName)
+			.setOnlyActiveRecords(true)
+			.setOrderBy(COLUMNNAME_SeqNo + " ASC")
+			.<MLVEWithholding>list();
+		return m_WithholdingList;
+	}
 }

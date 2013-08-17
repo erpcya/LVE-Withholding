@@ -51,6 +51,19 @@ import org.spin.model.MLVEWithholding;
  */
 public class WithholdingGenerate extends SvrProcess {
 
+	/**
+	 * Mandatory Columns inside Table from Withholding
+	 * 
+	 * Business Partner 			"C_BPartner_ID"
+	 * Invoice						"C_Invoice_ID"
+	 * Withholding Configuration 	"LVE_WH_Config_ID"
+	 * Amount to Withhold			"WHAmt"
+	 * Tax Base Rate				"TaxBaseRate"
+	 * Aliquot						"Aliquot"
+	 * 
+	 */
+	
+	
 	/**	Logger							*/
 	public static CLogger log = CLogger.getCLogger(WithholdingGenerate.class);
 	
@@ -72,17 +85,18 @@ public class WithholdingGenerate extends SvrProcess {
 	private int 			m_Created 				= 0;
 	/**	Rule Engine						*/
 	private int 			m_AD_Rule_ID			= 0;
-	/**	Current Withholding				*/
+	/**	Current Withholding					*/
 	private MInvoice 			m_Current_Withholding 	= null;
-	/**	Current Allocation				*/
+	/**	Current Allocation					*/
 	private MAllocationHdr 		m_Current_Alloc			= null;
-	/**	Current Business Partner		*/
+	/**	Current Business Partner			*/
 	private int 				m_Current_C_BPartner_ID 	= 0;
-	/**	Current Multiplier Invoice Doc	*/
+	/**	Current Multiplier Invoice Doc		*/
 	private BigDecimal			m_Current_Mlp_Invoice		= Env.ZERO;
-	/**	Current Multiplier Withholding Doc*/
+	/**	Current Multiplier Withholding Doc	*/
 	private BigDecimal			m_Current_Mlp_Withholding	= Env.ZERO;
-	
+	/**	Current Withholding					*/
+	private MLVEWithholding 	m_Currrent_Withholding		= null;
 	private final int 		N_UOM 	= 100;
 	
 	
@@ -171,6 +185,7 @@ public class WithholdingGenerate extends SvrProcess {
 				.get(getCtx(), p_LVE_WH_Type_ID, p_LVE_Withholding_ID, get_TrxName());
 		//	
 		for (MLVEWithholding m_Withholding: m_WithholdingList) {
+			m_Currrent_Withholding = m_Withholding;
 			//	Rule Engine
 			m_AD_Rule_ID = m_Withholding.getAD_Rule_ID();
 			//	Add Withholding Restriction
@@ -265,22 +280,16 @@ public class WithholdingGenerate extends SvrProcess {
 	 */
 	private void addDocument(PO p_Document, BigDecimal withholdingAmt){
 		int m_C_BPartner_ID 			= p_Document.get_ValueAsInt("C_BPartner_ID");
-		//int m_LVE_Withholding_ID 		= p_Document.get_ValueAsInt("LVE_Withholding_ID");
-		//int m_LVE_WH_Combination_ID 	= p_Document.get_ValueAsInt("LVE_WH_Combination_ID");
-		int m_LVE_WH_Config_ID 			= p_Document.get_ValueAsInt("LVE_WH_Config_ID");
 		int m_C_Invoice_ID 				= p_Document.get_ValueAsInt("C_Invoice_ID");
-		int m_C_Charge_ID 				= p_Document.get_ValueAsInt("C_Charge_ID");
-		int m_WithholdingDocType_ID 	= p_Document.get_ValueAsInt("WithholdingDocType_ID");
-		BigDecimal m_TotalLines 		= Env.ZERO;
+		int m_LVE_WH_Config_ID 			= p_Document.get_ValueAsInt("LVE_WH_Config_ID");
+		BigDecimal m_WHAmt 		= Env.ZERO;
 		BigDecimal m_TaxBaseRate		= Env.ZERO;
 		BigDecimal m_Aliquot 			= Env.ZERO;
-		//BigDecimal m_MinValue 			= Env.ZERO;
-		//BigDecimal m_MaxValue 			= Env.ZERO;
 		BigDecimal m_Subtrahend 		= Env.ZERO;
 		
-		Object value = p_Document.get_Value("TotalLines");
+		Object value = p_Document.get_Value("WHAmt");
 		if(value != null)
-			m_TotalLines = (BigDecimal) value; 
+			m_WHAmt = (BigDecimal) value; 
 		
 		value = p_Document.get_Value("TaxBaseRate");
 		if(value != null)
@@ -289,14 +298,6 @@ public class WithholdingGenerate extends SvrProcess {
 		value = p_Document.get_Value("Aliquot");
 		if(value != null)
 			m_Aliquot = (BigDecimal) value;
-		
-		/*value = p_Document.get_Value("MinValue");
-		if(value != null)
-			m_MinValue = (BigDecimal) value;
-		
-		value = p_Document.get_Value("MaxValue");
-		if(value != null)
-			m_MaxValue = (BigDecimal) value;*/
 		
 		value = p_Document.get_Value("Subtrahend");
 		if(value != null)
@@ -315,12 +316,12 @@ public class WithholdingGenerate extends SvrProcess {
 		else
 			m_TaxBaseRate = Env.ZERO;
 		
-		m_Aliquot = m_Aliquot.divide(Env.ONEHUNDRED);
-		withholdingAmt = m_TotalLines
+		/*m_Aliquot = m_Aliquot.divide(Env.ONEHUNDRED);
+		withholdingAmt = m_WHAmt
 				.multiply(m_TaxBaseRate)
 				.multiply(m_Aliquot);
 		withholdingAmt = withholdingAmt.subtract(m_Subtrahend);
-		withholdingAmt = (withholdingAmt.compareTo(Env.ZERO) < 0? Env.ZERO: withholdingAmt);
+		withholdingAmt = (withholdingAmt.compareTo(Env.ZERO) < 0? Env.ZERO: withholdingAmt);*/
 		log.fine("withholdingAmt=" + withholdingAmt);
 		//	
 		if(m_Current_C_BPartner_ID != m_C_BPartner_ID){
@@ -328,7 +329,7 @@ public class WithholdingGenerate extends SvrProcess {
 			completeAlloc();
 			//
 			m_Current_Withholding = new MInvoice(getCtx(), 0, get_TrxName());
-			m_Current_Withholding.setC_DocTypeTarget_ID(m_WithholdingDocType_ID);
+			m_Current_Withholding.setC_DocTypeTarget_ID(m_Currrent_Withholding.getWithholdingDocType_ID());
 			m_Current_Withholding.setIsSOTrx(false);
 			m_Current_Withholding.setC_BPartner_ID(m_C_BPartner_ID);
 			m_Current_Withholding.setDateInvoiced(p_DateDoc);
@@ -350,7 +351,7 @@ public class WithholdingGenerate extends SvrProcess {
 		MInvoiceLine retLine = new MInvoiceLine(m_Current_Withholding);
 		retLine.set_ValueOfColumn("DocAffected_ID", m_C_Invoice_ID);
 		retLine.set_ValueOfColumn("LVE_WH_Config_ID", m_LVE_WH_Config_ID);
-		retLine.setC_Charge_ID(m_C_Charge_ID);
+		retLine.setC_Charge_ID(m_Currrent_Withholding.getC_Charge_ID());
 		retLine.setQty(Env.ONE);
 		retLine.setC_UOM_ID(N_UOM);
 		retLine.setPrice(withholdingAmt);

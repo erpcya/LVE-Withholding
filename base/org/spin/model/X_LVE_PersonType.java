@@ -30,7 +30,7 @@ public class X_LVE_PersonType extends PO implements I_LVE_PersonType, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130816L;
+	private static final long serialVersionUID = 20130817L;
 
     /** Standard Constructor */
     public X_LVE_PersonType (Properties ctx, int LVE_PersonType_ID, String trxName)

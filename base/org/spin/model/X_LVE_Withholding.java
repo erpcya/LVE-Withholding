@@ -32,7 +32,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130816L;
+	private static final long serialVersionUID = 20130817L;
 
     /** Standard Constructor */
     public X_LVE_Withholding (Properties ctx, int LVE_Withholding_ID, String trxName)
@@ -40,17 +40,14 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
       super (ctx, LVE_Withholding_ID, trxName);
       /** if (LVE_Withholding_ID == 0)
         {
+			setAD_Table_ID (0);
 			setBeneficiary_ID (0);
 			setC_Charge_ID (0);
-			setClassname (null);
 			setDeclarationDocType_ID (0);
 			setLVE_WH_ConceptGroup_ID (0);
 			setLVE_WH_Type_ID (0);
 			setLVE_Withholding_ID (0);
 			setName (null);
-			setSeqNo (0);
-// @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM LVE_Withholding
-			setTaxUnitRate (Env.ZERO);
 			setWithholdingDocType_ID (0);
         } */
     }
@@ -82,6 +79,87 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public I_AD_ReportView getAD_ReportView() throws RuntimeException
+    {
+		return (I_AD_ReportView)MTable.get(getCtx(), I_AD_ReportView.Table_Name)
+			.getPO(getAD_ReportView_ID(), get_TrxName());	}
+
+	/** Set Report View.
+		@param AD_ReportView_ID 
+		View used to generate this report
+	  */
+	public void setAD_ReportView_ID (int AD_ReportView_ID)
+	{
+		if (AD_ReportView_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_AD_ReportView_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_AD_ReportView_ID, Integer.valueOf(AD_ReportView_ID));
+	}
+
+	/** Get Report View.
+		@return View used to generate this report
+	  */
+	public int getAD_ReportView_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_ReportView_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_AD_Rule getAD_Rule() throws RuntimeException
+    {
+		return (I_AD_Rule)MTable.get(getCtx(), I_AD_Rule.Table_Name)
+			.getPO(getAD_Rule_ID(), get_TrxName());	}
+
+	/** Set Rule.
+		@param AD_Rule_ID Rule	  */
+	public void setAD_Rule_ID (int AD_Rule_ID)
+	{
+		if (AD_Rule_ID < 1) 
+			set_Value (COLUMNNAME_AD_Rule_ID, null);
+		else 
+			set_Value (COLUMNNAME_AD_Rule_ID, Integer.valueOf(AD_Rule_ID));
+	}
+
+	/** Get Rule.
+		@return Rule	  */
+	public int getAD_Rule_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Rule_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_AD_Table getAD_Table() throws RuntimeException
+    {
+		return (I_AD_Table)MTable.get(getCtx(), I_AD_Table.Table_Name)
+			.getPO(getAD_Table_ID(), get_TrxName());	}
+
+	/** Set Table.
+		@param AD_Table_ID 
+		Database Table information
+	  */
+	public void setAD_Table_ID (int AD_Table_ID)
+	{
+		if (AD_Table_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_AD_Table_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_AD_Table_ID, Integer.valueOf(AD_Table_ID));
+	}
+
+	/** Get Table.
+		@return Database Table information
+	  */
+	public int getAD_Table_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Table_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	public I_C_BPartner getBeneficiary() throws RuntimeException
     {
@@ -137,23 +215,6 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set Classname.
-		@param Classname 
-		Java Classname
-	  */
-	public void setClassname (String Classname)
-	{
-		set_Value (COLUMNNAME_Classname, Classname);
-	}
-
-	/** Get Classname.
-		@return Java Classname
-	  */
-	public String getClassname () 
-	{
-		return (String)get_Value(COLUMNNAME_Classname);
 	}
 
 	public I_C_DocType getDeclarationDocType() throws RuntimeException
@@ -336,7 +397,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	  */
 	public void setSeqNo (int SeqNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
 	}
 
 	/** Get Sequence.

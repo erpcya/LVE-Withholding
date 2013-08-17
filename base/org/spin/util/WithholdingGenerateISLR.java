@@ -273,7 +273,9 @@ public class WithholdingGenerateISLR implements I_WithholdingGenerate {
 			p_TaxBaseRate = Env.ZERO;
 		
 		p_Aliquot = p_Aliquot.divide(Env.ONEHUNDRED);
-		withholdingAmt = p_TotalLines.multiply(p_Aliquot);
+		withholdingAmt = p_TotalLines
+				.multiply(p_TaxBaseRate)
+				.multiply(p_Aliquot);
 		withholdingAmt = withholdingAmt.subtract(p_Subtrahend);
 		withholdingAmt = (withholdingAmt.compareTo(Env.ZERO) < 0? Env.ZERO: withholdingAmt);
 		log.fine("withholdingAmt=" + withholdingAmt);

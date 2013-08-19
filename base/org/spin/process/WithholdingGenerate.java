@@ -57,6 +57,7 @@ public class WithholdingGenerate extends SvrProcess {
 	 * Business Partner 			"C_BPartner_ID"
 	 * Invoice						"C_Invoice_ID"
 	 * Withholding Configuration 	"LVE_WH_Config_ID"
+	 * Withholding					"LVE_Withholding_ID"
 	 * 
 	 */
 	

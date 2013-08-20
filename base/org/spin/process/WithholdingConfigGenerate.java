@@ -91,7 +91,7 @@ public class WithholdingConfigGenerate extends SvrProcess {
 		m_Precision = MCurrency.getStdPrecision(getCtx(), Env.getContextAsInt(getCtx(), "$C_Currency_ID"));
 		//	Sql
 		String sql = new String("SELECT wh.TaxUnitRate, whb.Aliquot, wh.LVE_Withholding_ID, " +
-				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt " +
+				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt, wh.AD_Rule_ID " +
 				"FROM LVE_TaxUnit tu " +
 				", LVE_Withholding wh " +
 				"INNER JOIN LVE_WH_ConceptGroup wcg ON(wcg.LVE_WH_ConceptGroup_ID = wh.LVE_WH_ConceptGroup_ID) " +
@@ -102,7 +102,7 @@ public class WithholdingConfigGenerate extends SvrProcess {
 				sqlWhere +
 				//	Group By
 				"GROUP BY wh.TaxUnitRate, whb.Aliquot, wh.LVE_Withholding_ID, " +
-				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt");
+				"whb.LVE_WH_Combination_ID, tu.LVE_TaxUnit_ID, tu.TaxAmt, wh.AD_Rule_ID ");
 				
 		log.fine("SQL=" + sql);
 		
@@ -118,8 +118,9 @@ public class WithholdingConfigGenerate extends SvrProcess {
 				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
 				int m_LVE_TaxUnit_ID		= rs.getInt("LVE_TaxUnit_ID");
+				int m_AD_Rule_ID			= rs.getInt("LVE_TaxUnit_ID");
 				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, 
-						m_LVE_Withholding_ID, m_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID);
+						m_LVE_Withholding_ID, m_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID,m_AD_Rule_ID);
 			}
 		}
 				
@@ -138,7 +139,7 @@ public class WithholdingConfigGenerate extends SvrProcess {
 	 * @return void
 	 */
 	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
-			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID, int p_LVE_TaxUnit_ID){
+			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID, int p_LVE_TaxUnit_ID,int p_AD_Rule_ID){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinimalAmt = Env.ZERO;
@@ -174,6 +175,8 @@ public class WithholdingConfigGenerate extends SvrProcess {
 						p_LVE_TaxUnit_ID, 
 						get_TrxName());
 		
+		//Set Rule 
+		m_Config.setAD_Rule_ID(p_AD_Rule_ID);
 		/**
 		 * Carlos Parada 2013-08-15
 		 * Changes for support manual WithHolding Combination

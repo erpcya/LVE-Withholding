@@ -5,7 +5,8 @@ SELECT 	inv.AD_Client_ID,
 	cn.LVE_WH_Config_ID, 
 	bp.C_BPartner_ID, 
 	rr.LVE_Withholding_ID, 
-	SUM(linv.LineNetAmt) WithholdingAmt
+	SUM(linv.LineNetAmt) WithholdingAmt,
+	inv.DateAcct
 FROM 
 --Invoice
 C_Invoice inv
@@ -57,7 +58,8 @@ GROUP BY inv.AD_Client_ID,
 	bp.C_BPartner_ID,
 	rt.C_Charge_ID,  
 	rr.LVE_Withholding_ID,
-	rt.WithholdingDocType_ID
+	rt.WithholdingDocType_ID,
+	inv.DateAcct
 --Having
 HAVING (SUM(linv.LineNetAmt) >= cn.MinValue AND SUM(linv.LineNetAmt) > 0)
 ORDER BY bp.C_BPartner_ID, 
@@ -74,7 +76,8 @@ SELECT
 	cn.LVE_WH_Config_ID, 
 	bp.C_BPartner_ID, 
 	rr.LVE_Withholding_ID, 
-	SUM(itax.TaxAmt) WithholdingAmt
+	SUM(itax.TaxAmt) WithholdingAmt,
+	inv.DateAcct
 	
 FROM 
 --Invoice
@@ -118,7 +121,8 @@ GROUP BY inv.AD_Client_ID,
 	 bp.C_BPartner_ID, 
 	 rr.LVE_Withholding_ID,
 	 rt.C_Charge_ID, 
-	 rt.WithholdingDocType_ID
+	 rt.WithholdingDocType_ID,
+	 inv.DateAcct
 --Having
 HAVING (SUM(itax.TaxAmt) > 0) 
 --Order By

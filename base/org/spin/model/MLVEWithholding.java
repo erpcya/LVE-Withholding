@@ -74,7 +74,7 @@ public class MLVEWithholding extends X_LVE_Withholding {
 			.append("=")
 			.append(p_LVE_WH_Type_ID);
 		if(p_LVE_Withholding_ID != 0)
-			where.append(" AND ").append(COLUMNNAME_LVE_Withholding_ID)
+			where.append((where.length() != 0? " AND ": "")).append(COLUMNNAME_LVE_Withholding_ID)
 			.append("=")
 			.append(p_LVE_Withholding_ID);
 		//	

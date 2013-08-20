@@ -28,6 +28,7 @@ import java.util.List;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MRule;
@@ -43,25 +44,25 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
-import org.spin.model.MLVEWHType;
+import org.spin.model.MLVEWHCombination;
+import org.spin.model.MLVEWHConcept;
+import org.spin.model.MLVEWHConfig;
 import org.spin.model.MLVEWithholding;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
- *
+ *	<br><b> Mandatory Columns inside Table from Withholding</b>
+ * 	<li>Business Partner<b><q>C_BPartner_ID</b>
+ * 	<li>Invoice <b><q>C_Invoice_ID</b>
+ * 	<li>Withholding Configuration <b><q>LVE_WH_Config_ID</b>
+ * 	<li>Withholding <b><q>LVE_Withholding_ID</b>
+ * 	<li>Date Account <b><q>DateAcct</b>
+ * <br><b> Context Prefix</b>
+ * 	<li>Object from PO<b><q>O_</b>
+ * 	<li>Columns From ResultSet<b><q>R_</b>
+ * 	<li>Another<b><q>A_</b>
  */
 public class WithholdingGenerate extends SvrProcess {
-
-	/**
-	 * Mandatory Columns inside Table from Withholding
-	 * 
-	 * Business Partner 			"C_BPartner_ID"
-	 * Invoice						"C_Invoice_ID"
-	 * Withholding Configuration 	"LVE_WH_Config_ID"
-	 * Withholding					"LVE_Withholding_ID"
-	 * 
-	 */
-	
 	
 	/**	Logger							*/
 	public static CLogger log = CLogger.getCLogger(WithholdingGenerate.class);
@@ -91,17 +92,17 @@ public class WithholdingGenerate extends SvrProcess {
 	/**	Current Business Partner			*/
 	private int 				m_Current_C_BPartner_ID 	= 0;
 	/**	Current Multiplier Invoice Doc		*/
-	private BigDecimal			m_Current_Mlp_Invoice		= Env.ZERO;
+	private BigDecimal			invoice_Mlp		= Env.ZERO;
 	/**	Current Multiplier Withholding Doc	*/
-	private BigDecimal			m_Current_Mlp_Withholding	= Env.ZERO;
+	private BigDecimal			withholding_Mlp	= Env.ZERO;
 	/**	Current Withholding					*/
 	private MLVEWithholding 	m_Currrent_Withholding		= null;
-	private final int 		N_UOM 	= 100;
+	private final int 			N_UOM 	= 100;
 	
 	
 	
 	
-	private StringBuffer 	where 					= new StringBuffer();
+	private StringBuffer 	whereParam 				= new StringBuffer();
 	/**	Parameters						*/
 	private List<Object>	parameters				= null;
 	
@@ -146,19 +147,19 @@ public class WithholdingGenerate extends SvrProcess {
 		parameters = new ArrayList<Object>();
 		
 		if(p_C_Invoice_ID != 0){
-			where.append("C_Invoice_ID=? ");
+			whereParam.append("C_Invoice_ID=? ");
 			parameters.add(p_C_Invoice_ID);
 		}
 		if(p_C_BPartner_ID != 0){
-			where.append((where.length()!=0?"AND":"")+" C_BPartner_ID=? ");
+			whereParam.append((whereParam.length()!=0?"AND":"")+" C_BPartner_ID=? ");
 			parameters.add(p_C_BPartner_ID);
 		}
 		if(p_DateAcct != null) {
-			where.append((where.length()!=0?"AND":"")+" DateAcct>=? ");
+			whereParam.append((whereParam.length()!=0?"AND":"")+" DateAcct>=? ");
 			parameters.add(p_DateAcct);
 		}
 		if(p_DateAcct_To != null){
-			where.append((where.length()!=0?"AND":"")+" DateAcct<=? ");
+			whereParam.append((whereParam.length()!=0?"AND":"")+" DateAcct<=? ");
 			parameters.add(p_DateAcct_To);
 		}
 		
@@ -182,31 +183,40 @@ public class WithholdingGenerate extends SvrProcess {
 		
 		List<MLVEWithholding> m_WithholdingList = MLVEWithholding
 				.get(getCtx(), p_LVE_WH_Type_ID, p_LVE_Withholding_ID, get_TrxName());
-		//	
+		//	Read Withholding
 		for (MLVEWithholding m_Withholding: m_WithholdingList) {
 			m_Currrent_Withholding = m_Withholding;
+			
+			MDocType docType = (MDocType) m_Withholding.getWithholdingDocType();
+			String docBaseType = docType.getDocBaseType();
+			//	Create Multiplier
+			withholding_Mlp = (docBaseType.substring(2).equals("C")? Env.ONE.negate(): Env.ONE)
+					.multiply((docBaseType.substring(1,2).equals("P")? Env.ONE.negate(): Env.ONE));
 			//	Rule Engine
 			m_AD_Rule_ID = m_Withholding.getAD_Rule_ID();
 			//	Add Withholding Restriction
-			where.append("LVE_Withholding_ID=" + p_LVE_Withholding_ID);
+			String where = "LVE_Withholding_ID=" + m_Withholding.getLVE_Withholding_ID();
 			//	Add Report View Restriction
 			X_AD_ReportView  m_ReportView = (X_AD_ReportView) m_Withholding.getAD_ReportView();
 			//	
 			if(m_ReportView != null
 					&& m_ReportView.getWhereClause() != null
 					&& m_ReportView.getWhereClause().length() != 0) {
-				where.append(" " + m_ReportView.getWhereClause());
-			}
+				where += " " + m_ReportView.getWhereClause();
+			}			
 			//	
 			List<PO> documents = new Query(getCtx(), m_Withholding.getAD_Table().getTableName(), 
-					where.toString(), get_TrxName())
+					(whereParam != null && whereParam.length() != 0? whereParam.toString() + " AND ": "") 
+					+ where, get_TrxName())
 				.setParameters(parameters)
 				.list();
 			//	Process Invoice
 			for (PO document : documents){
-				System.out.println(document);
 				processDocument(document);
 			}
+			//	Complete Documents
+			completeWithholding();
+			completeAlloc();
 		}		
 		return "@Created@ = " + m_Created;
 	}
@@ -218,14 +228,30 @@ public class WithholdingGenerate extends SvrProcess {
 	 * @return void
 	 */
 	private void processDocument(PO p_Document){
-		m_scriptCtx.clear();
 		int m_Concept_AD_Rule_ID = p_Document.get_ValueAsInt("AD_Rule_ID");
 		if(m_Concept_AD_Rule_ID == 0)
 			m_Concept_AD_Rule_ID = m_AD_Rule_ID;
+		//	Clear Context
+		m_scriptCtx.clear();
+		m_scriptCtx.put("A_ZERO", Env.ZERO);
+		m_scriptCtx.put("A_ONEHUNDRED", Env.ONEHUNDRED);
+		
 		//	Add Values to Context
 		for(int i = 0; i < p_Document.get_ColumnCount(); i++){
-			m_scriptCtx.put("_" + p_Document.get_ColumnName(i), p_Document.get_Value(i));
+			m_scriptCtx.put("R_" + p_Document.get_ColumnName(i), p_Document.get_Value(i));
 		}
+		
+		int m_LVE_WH_Config_ID 				= p_Document.get_ValueAsInt("LVE_WH_Config_ID");
+		//	Get Models	
+		MLVEWHConfig wh_Config 				= new MLVEWHConfig(getCtx(), m_LVE_WH_Config_ID, get_TrxName());
+		MLVEWHCombination wh_Combination 	= (MLVEWHCombination) wh_Config.getLVE_WH_Combination();
+		MLVEWHConcept wh_Concept 			= (MLVEWHConcept) wh_Combination.getLVE_WH_Concept();
+		
+		m_scriptCtx.put("O_LVE_Withholding", m_Currrent_Withholding);
+		m_scriptCtx.put("O_LVE_WH_Concept", wh_Concept);
+		m_scriptCtx.put("O_LVE_WH_Combination", wh_Combination);
+		m_scriptCtx.put("O_LVE_WH_Config", wh_Config);
+		
 		//	Execute Rule Script
 		BigDecimal withholdingAmt = executeScript(m_Concept_AD_Rule_ID);
 		//	Add Document
@@ -247,8 +273,7 @@ public class WithholdingGenerate extends SvrProcess {
 			String text = "";
 			if (rule.getScript() != null)
 			{
-				text = rule.getScript().trim().replaceAll("\\bget", "process.get")
-				.replace(".process.get", ".get");
+				text = rule.getScript().trim();
 			}
 			String resultType = "BigDecimal";
 			final String script =
@@ -279,49 +304,18 @@ public class WithholdingGenerate extends SvrProcess {
 	 * @return void
 	 */
 	private void addDocument(PO p_Document, BigDecimal withholdingAmt){
-		int m_C_BPartner_ID 			= p_Document.get_ValueAsInt("C_BPartner_ID");
-		int m_C_Invoice_ID 				= p_Document.get_ValueAsInt("C_Invoice_ID");
-		int m_LVE_WH_Config_ID 			= p_Document.get_ValueAsInt("LVE_WH_Config_ID");
-		BigDecimal m_WHAmt 		= Env.ZERO;
-		BigDecimal m_TaxBaseRate		= Env.ZERO;
-		BigDecimal m_Aliquot 			= Env.ZERO;
-		BigDecimal m_Subtrahend 		= Env.ZERO;
+		int m_C_BPartner_ID 	= p_Document.get_ValueAsInt("C_BPartner_ID");
+		int m_C_Invoice_ID 		= p_Document.get_ValueAsInt("C_Invoice_ID");
+		int m_LVE_WH_Config_ID 	= p_Document.get_ValueAsInt("LVE_WH_Config_ID");
 		
-		Object value = p_Document.get_Value("WithholdingAmt");
-		if(value != null)
-			m_WHAmt = (BigDecimal) value; 
+		MInvoice invoice 		= new MInvoice(getCtx(), m_C_Invoice_ID, get_TrxName());
+		MDocType docType 		= (MDocType) invoice.getC_DocType();
+		String docBaseType 		= docType.getDocBaseType();
 		
-		value = p_Document.get_Value("TaxBaseRate");
-		if(value != null)
-			m_TaxBaseRate = (BigDecimal) value;
+		//	Invoice Multiplier
+		invoice_Mlp = (docBaseType.substring(2).equals("C")? Env.ONE.negate(): Env.ONE)
+				.multiply((docBaseType.substring(1,2).equals("P")? Env.ONE.negate(): Env.ONE));
 		
-		value = p_Document.get_Value("Aliquot");
-		if(value != null)
-			m_Aliquot = (BigDecimal) value;
-		
-		value = p_Document.get_Value("Subtrahend");
-		if(value != null)
-			m_Subtrahend = (BigDecimal) value;
-		
-		value = p_Document.get_Value("multiplierInv");
-		if(value != null)
-			m_Current_Mlp_Invoice = (BigDecimal) value;
-		
-		value = p_Document.get_Value("multiplierRet");
-		if(value != null)
-			m_Current_Mlp_Withholding = (BigDecimal) value;
-		
-		if(m_TaxBaseRate != null)
-			m_TaxBaseRate = m_TaxBaseRate.divide(Env.ONEHUNDRED);
-		else
-			m_TaxBaseRate = Env.ZERO;
-		
-		/*m_Aliquot = m_Aliquot.divide(Env.ONEHUNDRED);
-		withholdingAmt = m_WHAmt
-				.multiply(m_TaxBaseRate)
-				.multiply(m_Aliquot);
-		withholdingAmt = withholdingAmt.subtract(m_Subtrahend);
-		withholdingAmt = (withholdingAmt.compareTo(Env.ZERO) < 0? Env.ZERO: withholdingAmt);*/
 		log.fine("withholdingAmt=" + withholdingAmt);
 		//	
 		if(m_Current_C_BPartner_ID != m_C_BPartner_ID){
@@ -364,26 +358,6 @@ public class WithholdingGenerate extends SvrProcess {
 		//	Set Current Business Partner
 		m_Current_C_BPartner_ID = m_C_BPartner_ID;
 	}
-	/**
-	 * Complete Document
-	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 15:59:13
-	 * @return void
-	 */
-	private void completeWithholding(){
-		if(m_Current_Withholding != null){
-			if(m_Current_Withholding.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
-				m_Current_Withholding.setDocAction(DocumentEngine.ACTION_Complete);
-				m_Current_Withholding.processIt(DocumentEngine.ACTION_Complete);
-				m_Current_Withholding.saveEx();
-				addLog(m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getUpdated(), null,
-						m_Current_Withholding.getDocumentNo() + 
-						(m_Current_Withholding.getProcessMsg() != null && m_Current_Withholding.getProcessMsg().length() !=0
-								? ": Error " + m_Current_Withholding.getProcessMsg()
-								:" --> " + Msg.translate(get_TrxName(), "OK")));
-				m_Created ++;
-			}
-		}
-	}
 	
 	/**
 	 * Create Allocation
@@ -414,11 +388,11 @@ public class WithholdingGenerate extends SvrProcess {
 		}
 		
 		BigDecimal amt = p_RetentionLine.getLineNetAmt();
-		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(m_Current_Mlp_Withholding));
+		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(withholding_Mlp));
 		log.fine("Current Invoice Allocation Amt=" + amt);
 		log.fine("newOpenAmt=" + newOpenAmt);
 		
-		if(newOpenAmt.multiply(m_Current_Mlp_Withholding).compareTo(Env.ZERO) < 0){
+		if(newOpenAmt.multiply(withholding_Mlp).compareTo(Env.ZERO) < 0){
 			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
 			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
 					+ " @OpenAmt@=" + openAmt 
@@ -427,8 +401,8 @@ public class WithholdingGenerate extends SvrProcess {
 		}
 		
 		//	
-		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, amt.multiply(m_Current_Mlp_Invoice), 
-				Env.ZERO, Env.ZERO, newOpenAmt.multiply(m_Current_Mlp_Invoice));
+		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, amt.multiply(invoice_Mlp), 
+				Env.ZERO, Env.ZERO, newOpenAmt.multiply(invoice_Mlp));
 		aLine.setDocInfo(p_C_BPartner_ID, 0, p_C_Invoice_ID);
 		aLine.saveEx();
 		
@@ -443,19 +417,42 @@ public class WithholdingGenerate extends SvrProcess {
 	 */
 	private void completeAlloc(){
 		if(m_Current_Alloc != null){
-			log.fine("Amt Total Allocation=" + m_Current_Withholding.getGrandTotal().multiply(m_Current_Mlp_Withholding));
-			//	
-			MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, m_Current_Withholding.getGrandTotal().multiply(m_Current_Mlp_Withholding), 
-					Env.ZERO, Env.ZERO, Env.ZERO);
-			aLine.setDocInfo(m_Current_C_BPartner_ID, 0, m_Current_Withholding.getC_Invoice_ID());
-			aLine.saveEx();
-			//	
 			if(m_Current_Alloc.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
-				log.fine("Current Allocation = " + m_Current_Alloc.getDocumentNo());
+				log.fine("Amt Total Allocation=" + m_Current_Withholding.getGrandTotal().multiply(withholding_Mlp));
 				//	
-				m_Current_Alloc.setDocAction(DocumentEngine.ACTION_Complete);
-				m_Current_Alloc.processIt(DocumentEngine.ACTION_Complete);
-				m_Current_Alloc.saveEx();			
+				MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, m_Current_Withholding.getGrandTotal().multiply(withholding_Mlp), 
+						Env.ZERO, Env.ZERO, Env.ZERO);
+				aLine.setDocInfo(m_Current_C_BPartner_ID, 0, m_Current_Withholding.getC_Invoice_ID());
+				aLine.saveEx();
+				//	
+				if(m_Current_Alloc.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
+					log.fine("Current Allocation = " + m_Current_Alloc.getDocumentNo());
+					//	
+					m_Current_Alloc.setDocAction(DocumentEngine.ACTION_Complete);
+					m_Current_Alloc.processIt(DocumentEngine.ACTION_Complete);
+					m_Current_Alloc.saveEx();			
+				}	
+			}
+		}
+	}
+	
+	/**
+	 * Complete Document
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 15:59:13
+	 * @return void
+	 */
+	private void completeWithholding(){
+		if(m_Current_Withholding != null){
+			if(m_Current_Withholding.getDocStatus().equals(DocumentEngine.STATUS_Drafted)){
+				m_Current_Withholding.setDocAction(DocumentEngine.ACTION_Complete);
+				m_Current_Withholding.processIt(DocumentEngine.ACTION_Complete);
+				m_Current_Withholding.saveEx();
+				addLog(m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getUpdated(), null,
+						m_Current_Withholding.getDocumentNo() + 
+						(m_Current_Withholding.getProcessMsg() != null && m_Current_Withholding.getProcessMsg().length() !=0
+								? ": Error " + m_Current_Withholding.getProcessMsg()
+								:" --> " + Msg.translate(get_TrxName(), "OK")));
+				m_Created ++;
 			}
 		}
 	}

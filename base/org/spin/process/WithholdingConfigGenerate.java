@@ -118,7 +118,7 @@ public class WithholdingConfigGenerate extends SvrProcess {
 				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
 				int m_LVE_TaxUnit_ID		= rs.getInt("LVE_TaxUnit_ID");
-				int m_AD_Rule_ID			= rs.getInt("LVE_TaxUnit_ID");
+				int m_AD_Rule_ID			= rs.getInt("AD_Rule_ID");
 				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, 
 						m_LVE_Withholding_ID, m_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID,m_AD_Rule_ID);
 			}

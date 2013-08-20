@@ -187,14 +187,14 @@ public class WithholdingGenerate extends SvrProcess {
 			//	Rule Engine
 			m_AD_Rule_ID = m_Withholding.getAD_Rule_ID();
 			//	Add Withholding Restriction
-			where.append("AND LVE_Withholding_ID=" + p_LVE_Withholding_ID);
+			where.append("LVE_Withholding_ID=" + p_LVE_Withholding_ID);
 			//	Add Report View Restriction
 			X_AD_ReportView  m_ReportView = (X_AD_ReportView) m_Withholding.getAD_ReportView();
 			//	
 			if(m_ReportView != null
 					&& m_ReportView.getWhereClause() != null
 					&& m_ReportView.getWhereClause().length() != 0) {
-				where.append(m_ReportView.getWhereClause());
+				where.append(" " + m_ReportView.getWhereClause());
 			}
 			//	
 			List<PO> documents = new Query(getCtx(), m_Withholding.getAD_Table().getTableName(), 
@@ -203,6 +203,7 @@ public class WithholdingGenerate extends SvrProcess {
 				.list();
 			//	Process Invoice
 			for (PO document : documents){
+				System.out.println(document);
 				processDocument(document);
 			}
 		}		

@@ -154,6 +154,8 @@ public class ConfigCombinationGenerate extends SvrProcess {
 						m_LVE_WH_Combination_ID, 
 						m_LVE_TaxUnit.getLVE_TaxUnit_ID(), 
 						get_TrxName());
+		//Set Rule 
+		m_Config.setAD_Rule_ID(m_LVE_Withholding.getAD_Rule_ID());
 		//	Set Values
 		/**
 		 * Carlos Parada 2013-08-15

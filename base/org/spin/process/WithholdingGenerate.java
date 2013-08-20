@@ -43,6 +43,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.spin.model.MLVEWHType;
 import org.spin.model.MLVEWithholding;
 
 /**
@@ -145,19 +146,19 @@ public class WithholdingGenerate extends SvrProcess {
 		parameters = new ArrayList<Object>();
 		
 		if(p_C_Invoice_ID != 0){
-			where.append("AND C_Invoice_ID=? ");
+			where.append("C_Invoice_ID=? ");
 			parameters.add(p_C_Invoice_ID);
 		}
 		if(p_C_BPartner_ID != 0){
-			where.append("AND C_BPartner_ID=? ");
+			where.append((where.length()!=0?"AND":"")+" C_BPartner_ID=? ");
 			parameters.add(p_C_BPartner_ID);
 		}
 		if(p_DateAcct != null) {
-			where.append("AND DateAcct>=? ");
+			where.append((where.length()!=0?"AND":"")+" DateAcct>=? ");
 			parameters.add(p_DateAcct);
 		}
 		if(p_DateAcct_To != null){
-			where.append("AND DateAcct<=? ");
+			where.append((where.length()!=0?"AND":"")+" DateAcct<=? ");
 			parameters.add(p_DateAcct_To);
 		}
 		
@@ -285,7 +286,7 @@ public class WithholdingGenerate extends SvrProcess {
 		BigDecimal m_Aliquot 			= Env.ZERO;
 		BigDecimal m_Subtrahend 		= Env.ZERO;
 		
-		Object value = p_Document.get_Value("WHAmt");
+		Object value = p_Document.get_Value("WithholdingAmt");
 		if(value != null)
 			m_WHAmt = (BigDecimal) value; 
 		

@@ -93,7 +93,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				 * Carlos Parada 2013-08-15 
 				 * Implements IsManual WithHolding Combination
 				 */
-				", whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend " +
+				", whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend, wh.AD_Rule_ID " +
 				 /**
 				  * End Carlos Parada
 				  */
@@ -104,7 +104,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				"INNER JOIN LVE_WH_Config whf ON(whf.LVE_WH_Combination_ID = whb.LVE_WH_Combination_ID) " +
 				"WHERE whf.IsActive = 'Y' " +
 				"AND whf.LVE_TaxUnit_ID = ? " +
-				"GROUP BY wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID,whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend");
+				"GROUP BY wh.TaxUnitRate, whb.Aliquot, whf.LVE_Withholding_ID, whb.LVE_WH_Combination_ID,whb.IsManual, whf.MinValue, whf.MaxValue, whf.Subtrahend, wh.AD_Rule_ID ");
 		
 		log.fine("SQL=" + sql);
 		log.fine("LVE_TaxUnitFrom_ID=" + p_LVE_TaxUnitFrom_ID);
@@ -122,6 +122,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				BigDecimal m_Aliquot		= rs.getBigDecimal("Aliquot");
 				int m_LVE_Withholding_ID	= rs.getInt("LVE_Withholding_ID");
 				int m_LVE_WH_Combination_ID = rs.getInt("LVE_WH_Combination_ID");
+				int m_AD_Rule_ID = rs.getInt("AD_Rule_ID");
 				/**
 				 * Carlos Parada 2013-08-15 
 				 * Changes for support manual WithHolding Combination
@@ -131,7 +132,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 				BigDecimal m_MaxValue = rs.getBigDecimal("MaxValue");
 				BigDecimal m_Subtrahend = rs.getBigDecimal("Subtrahend");
 				
-				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID,m_IsManual,m_MinValue,m_MaxValue,m_Subtrahend);
+				addConfig(m_Aliquot, m_TaxUnitRate, m_TaxUnitAmt, m_LVE_Withholding_ID, m_LVE_WH_Combination_ID,m_IsManual,m_MinValue,m_MaxValue,m_Subtrahend,m_AD_Rule_ID);
 				/**
 				 * End Carlos Parada  
 				 */
@@ -157,7 +158,7 @@ public class CopyFromTaxUnit extends SvrProcess {
 	 */
 	private void addConfig(BigDecimal p_Aliquot, BigDecimal p_TaxUnitRate, BigDecimal p_TaxUnitAmt, 
 			int p_LVE_Withholding_ID, int p_LVE_WH_Combination_ID,boolean p_IsManual,
-			BigDecimal p_MinValue, BigDecimal p_MaxValue, BigDecimal p_Subtrahend){
+			BigDecimal p_MinValue, BigDecimal p_MaxValue, BigDecimal p_Subtrahend,int p_AD_Rule_ID){
 		//	
 		BigDecimal m_Subtrahend = Env.ZERO;
 		BigDecimal m_MinValue = Env.ZERO;
@@ -173,6 +174,8 @@ public class CopyFromTaxUnit extends SvrProcess {
 						p_LVE_WH_Combination_ID, 
 						m_LVE_TaxUnit_ID, 
 						get_TrxName());
+		//Set Rule
+		m_Config.setAD_Rule_ID(p_AD_Rule_ID);
 		
 		if (!p_IsManual)
 		{

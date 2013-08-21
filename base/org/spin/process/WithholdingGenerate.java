@@ -42,7 +42,6 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.spin.model.MLVEWHCombination;
 import org.spin.model.MLVEWHConcept;
@@ -98,9 +97,6 @@ public class WithholdingGenerate extends SvrProcess {
 	/**	Current Withholding					*/
 	private MLVEWithholding 	m_Currrent_Withholding		= null;
 	private final int 			N_UOM 	= 100;
-	
-	
-	
 	
 	private StringBuffer 	whereParam 				= new StringBuffer();
 	/**	Parameters						*/
@@ -187,6 +183,9 @@ public class WithholdingGenerate extends SvrProcess {
 		for (MLVEWithholding m_Withholding: m_WithholdingList) {
 			m_Currrent_Withholding = m_Withholding;
 			
+			//	Set m_Current_C_BPartner_ID to 0
+			m_Current_C_BPartner_ID = 0;
+			
 			MDocType docType = (MDocType) m_Withholding.getWithholdingDocType();
 			String docBaseType = docType.getDocBaseType();
 			//	Create Multiplier
@@ -209,6 +208,7 @@ public class WithholdingGenerate extends SvrProcess {
 					(whereParam != null && whereParam.length() != 0? whereParam.toString() + " AND ": "") 
 					+ where, get_TrxName())
 				.setParameters(parameters)
+				.setOrderBy("LVE_Withholding_ID")
 				.list();
 			//	Process Invoice
 			for (PO document : documents){
@@ -451,7 +451,7 @@ public class WithholdingGenerate extends SvrProcess {
 						m_Current_Withholding.getDocumentNo() + 
 						(m_Current_Withholding.getProcessMsg() != null && m_Current_Withholding.getProcessMsg().length() !=0
 								? ": Error " + m_Current_Withholding.getProcessMsg()
-								:" --> " + Msg.translate(get_TrxName(), "OK")));
+								:" --> @OK@"));
 				m_Created ++;
 			}
 		}

@@ -61,18 +61,20 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	
 	/**
 	 * Create Configuration From Combination, if exists a Configuration with the same 
-	 * Combination ID and Tax Unit ID will be Updated
+	 * Combination ID, Withholding_ID and Tax Unit ID will be Updated
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 07/08/2013, 17:10:02
 	 * @param ctx
 	 * @param LVE_Withholding_ID
 	 * @param LVE_WH_Combination_ID
 	 * @param LVE_TaxUnit_ID
 	 * @param trxName
+	 * @param validReference
 	 * @return
 	 * @return MLVEWithholdingConfig
 	 */
 	public static MLVEWHConfig createFrom(Properties ctx, int LVE_Withholding_ID, int LVE_WH_Combination_ID, int LVE_TaxUnit_ID, 
-			String trxName) {
+			String trxName, boolean validReference) {
+		
 		//	Load if Exists
 		MLVEWHConfig config = new Query(ctx, Table_Name, 
 				COLUMNNAME_LVE_Withholding_ID + "=? " +
@@ -87,7 +89,8 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 			config.setLVE_Withholding_ID(LVE_Withholding_ID);
 			config.setLVE_WH_Combination_ID(LVE_WH_Combination_ID);
 			config.setLVE_TaxUnit_ID(LVE_TaxUnit_ID);
-		}
+		} else if(config.validReference() != 0)
+			config = null;
 		return config;
 	}
 	
@@ -95,12 +98,22 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	protected boolean beforeSave(boolean newRecord) {
 		super.beforeSave(newRecord);
 		if(!newRecord){
-			int m_C_Invoice_ID = DB.getSQLValue(get_TrxName(), "SELECT MAX(il.C_Invoice_ID) " +
-					"FROM C_InvoiceLine il " +
-					"WHERE il.LVE_WH_Config_ID=?", getLVE_WH_Config_ID());
-			if(m_C_Invoice_ID != 0)
+			if(validReference() != 0)
 				throw new AdempiereException("@SQLErrorReferenced@");
 		}
 		return true;
+	}
+	
+	/**
+	 * Valid Reference from other record
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 21/08/2013, 11:45:11
+	 * @return
+	 * @return int
+	 */
+	private int validReference(){
+		int m_C_Invoice_ID = DB.getSQLValue(get_TrxName(), "SELECT MAX(il.C_Invoice_ID) " +
+				"FROM C_InvoiceLine il " +
+				"WHERE il.LVE_WH_Config_ID=?", getLVE_WH_Config_ID());
+		return m_C_Invoice_ID;
 	}
 }

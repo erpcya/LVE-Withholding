@@ -1,0 +1,5 @@
+-- Aug 21, 2013 11:19:57 AM VET
+-- LVE Withholding
+UPDATE LVE_Withholding SET AD_Rule_ID=50017,Updated=TO_DATE('2013-08-21 11:19:57','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000000
+;
+

@@ -27,6 +27,7 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.spin.model.MLVEWHCombination;
 import org.spin.model.MLVEWHConfig;
 import org.spin.model.MLVEWithholding;
 
@@ -72,6 +73,8 @@ public class WithholdingConfigGenerate extends SvrProcess {
 		if(m_LVE_Withholding_ID == 0
 				&& getTable_ID() == MLVEWithholding.Table_ID)
 			m_LVE_Withholding_ID = getRecord_ID();
+		else if(getTable_ID() == MLVEWHCombination.Table_ID)
+			sqlWhere.append("AND whb.LVE_WH_Combination_ID=" + getRecord_ID() + " ");
 		//	Add SQL
 		if(m_LVE_Withholding_ID != 0)
 			sqlWhere.append("AND wh.LVE_Withholding_ID=" + m_LVE_Withholding_ID + " ");
@@ -173,7 +176,11 @@ public class WithholdingConfigGenerate extends SvrProcess {
 						p_LVE_Withholding_ID, 
 						p_LVE_WH_Combination_ID, 
 						p_LVE_TaxUnit_ID, 
-						get_TrxName());
+						get_TrxName(), true);
+		
+		//	Exists in such Withholding 
+		if(m_Config == null)
+			return;
 		
 		//Set Rule 
 		m_Config.setAD_Rule_ID(p_AD_Rule_ID);

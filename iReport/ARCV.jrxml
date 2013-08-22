@@ -50,7 +50,7 @@
 	Rate,
 	ConceptoRetencion,
 	Aliquot,
-	MinimalAmt,
+	MinValue,
 	SubTrahend,
 	MuestAnulado,
 	DocRelacionado,
@@ -150,7 +150,7 @@ SELECT
 	wc.name AS conceptoretencion,
 	whc.aliquot,
 	whc.value AS WithholdingCombination,
-	wcf.MinimalAmt,
+	wcf.MinValue,
 	wcf.Subtrahend,
         CASE
             WHEN i.docstatus = 'RE'::bpchar THEN 'Anulado'::text
@@ -260,7 +260,7 @@ WHERE
 	i.c_bpartner_id,i.c_invoice_id, i.ad_client_id, i.ad_org_id, i.c_bpartner_id, i.dateacct, i.dateinvoiced, i.grandtotal, i.issotrx, i.totallines,
 	i.LVE_WH_Concept_ID, bp.Value, i.documentno, i.docstatus, ifac.totalex, ifac.totalbi, ifac.totalimpuesto, bp.name, iaffected.documentno, dt.issotrx,
 	i.c_invoice_id, dt.docbasetype, ifac.Rate,
-	wc.name, whc.aliquot,whc.value,	wcf.Subtrahend,  i.c_doctype_id,wcf.MinimalAmt,
+	wc.name, whc.aliquot,whc.value,	wcf.Subtrahend,  i.c_doctype_id,wcf.MinValue,
 	bp.ad_client_id, bp.ad_org_id,
 	bp.c_bpartner_id,
 	bp.name,tp.Value,bpl.c_location_id,il.C_Charge_ID,il.linenetamt,Location,tp.Name
@@ -302,7 +302,7 @@ Group By
 	Rate,
 	ConceptoRetencion,
 	Aliquot,
-	MinimalAmt,
+	MinValue,
 	SubTrahend,
 	MuestAnulado,
 	DocRelacionado,
@@ -352,7 +352,7 @@ ORDER BY
 	<field name="rate" class="java.math.BigDecimal"/>
 	<field name="conceptoretencion" class="java.lang.String"/>
 	<field name="aliquot" class="java.math.BigDecimal"/>
-	<field name="minimalamt" class="java.math.BigDecimal"/>
+	<field name="MinValue" class="java.math.BigDecimal"/>
 	<field name="subtrahend" class="java.math.BigDecimal"/>
 	<field name="muestanulado" class="java.lang.String"/>
 	<field name="docrelacionado" class="java.lang.String"/>

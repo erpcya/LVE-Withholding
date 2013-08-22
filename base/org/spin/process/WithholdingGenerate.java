@@ -185,6 +185,8 @@ public class WithholdingGenerate extends SvrProcess {
 			
 			//	Set m_Current_C_BPartner_ID to 0
 			m_Current_C_BPartner_ID = 0;
+			//	Show Withholding Name
+			addLog(m_Withholding.getName());
 			
 			MDocType docType = (MDocType) m_Withholding.getWithholdingDocType();
 			String docBaseType = docType.getDocBaseType();
@@ -447,7 +449,7 @@ public class WithholdingGenerate extends SvrProcess {
 				m_Current_Withholding.setDocAction(DocumentEngine.ACTION_Complete);
 				m_Current_Withholding.processIt(DocumentEngine.ACTION_Complete);
 				m_Current_Withholding.saveEx();
-				addLog(m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getUpdated(), null,
+				addLog(m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getDateAcct(), null,
 						m_Current_Withholding.getDocumentNo() + 
 						(m_Current_Withholding.getProcessMsg() != null && m_Current_Withholding.getProcessMsg().length() !=0
 								? ": Error " + m_Current_Withholding.getProcessMsg()

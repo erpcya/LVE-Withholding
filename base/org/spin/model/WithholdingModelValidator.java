@@ -1,19 +1,25 @@
 package org.spin.model;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MCash;
+import org.compiere.model.MCashLine;
 import org.compiere.model.MClient;
+import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MSequence;
+import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
 
 
 /**
@@ -58,7 +64,9 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 		// We want to be informed when C_BPartner is created/changed
 		engine.addModelChange(MBPartner.Table_Name, this);
 		//	Add Timing change in C_Invoice
-		engine.addDocValidate(MInvoice.Table_Name, this);
+		engine.addDocValidate(MInvoice.Table_Name, this);		
+		
+		engine.addModelChange(MCashLine.Table_Name, this);
 
 	}
 
@@ -112,6 +120,49 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				}
 			}
 			log.info(po.toString());
+		}else if(po.get_TableName().equals(MCashLine.Table_Name) && type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW)
+		{
+			log.fine(MCashLine.Table_Name + "-- TYPE_BEFORE_NEW || TYPE_BEFORE_CHANGE");
+			
+			//	Get Cash Line from PO
+			MCashLine m_CashLine = (MCashLine) po;
+			
+			//	Verify if the (Base Amount + Tax Amount) > Amount
+			if(m_CashLine != null)
+			{
+				BigDecimal amt = m_CashLine.getAmount();
+				amt = amt.abs();
+				
+				if(amt.equals(Env.ZERO))
+					m_CashLine.set_ValueOfColumn("A_Base_Amount", Env.ZERO);
+				
+				String str_Base_Amount = m_CashLine.get_ValueAsString("A_Base_Amount");
+				BigDecimal base_Amt = new BigDecimal((str_Base_Amount != null && str_Base_Amount.length() > 0 ? str_Base_Amount : "0"));
+				
+				//	Calculate the tax amount and the exempt amount
+				MTax m_Tax = new MTax(Env.getCtx(), m_CashLine.get_ValueAsInt("C_Tax_ID"), null);
+				MCurrency m_Currency = new MCurrency(Env.getCtx(), Env.getContextAsInt(Env.getCtx(), "@#C_Currency_ID@"), null);
+				BigDecimal taxAmt = m_Tax.calculateTax(base_Amt, false, m_Currency.getStdPrecision());
+				
+				BigDecimal exAmt = amt.subtract(base_Amt.abs().subtract(taxAmt.abs()));
+				
+				//	Error
+				if((base_Amt.abs().add(taxAmt.abs()).add(exAmt.abs()).compareTo(amt.abs())> 0))
+				{
+					return "("
+							+ Msg.translate(m_CashLine.getCtx(), "A_Base_Amount") 
+							+ "+" 
+							+ Msg.translate(m_CashLine.getCtx(), "TaxAmt")
+							+ "+"
+							+ Msg.translate(m_CashLine.getCtx(), "Exempt")
+							+ ") > "
+							+ Msg.translate(m_CashLine.getCtx(), "Amount");
+					
+					
+				}
+				log.fine(po.toString());
+			}
+			
 		}
 		return null;
 	} // modelChange

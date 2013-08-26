@@ -8,11 +8,13 @@ import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MCash;
 import org.compiere.model.MCashLine;
+import org.compiere.model.MCashTax;
 import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MSequence;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
@@ -218,6 +220,19 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				if(declarationDocNo != null)
 					return "Error Referenced in " + declarationDocNo;
 				
+			}
+		} else if (timing==TIMING_BEFORE_PREPARE)
+		{	//	Carlos Parada Add Tax in Cash
+				  
+			if(po.get_TableName().equals(MCash.Table_Name))
+			{
+				log.fine(MCash.Table_Name + " -- TIMING_BEFORE_PREPARE");
+				if (MSysConfig.getBooleanValue("TAX_ACCT_CASH", false))
+				{
+					MCash cash = (MCash) po;
+					if (!MCashTax.calculateTaxTotal(cash)) // setTotals
+						return Msg.translate(Env.getLanguage(Env.getCtx()), "TaxCalculatingError");
+				}
 			}
 		}
 		return null;

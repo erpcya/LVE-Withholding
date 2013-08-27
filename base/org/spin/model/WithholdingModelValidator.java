@@ -121,7 +121,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				}
 			}
 			log.info(po.toString());
-		}/*else if(po.get_TableName().equals(MCashLine.Table_Name) && type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW)
+		}else if(po.get_TableName().equals(MCashLine.Table_Name) && (type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW))
 		{
 			log.fine(MCashLine.Table_Name + "-- TYPE_BEFORE_NEW || TYPE_BEFORE_CHANGE");
 			
@@ -164,7 +164,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				log.fine(po.toString());
 			}
 			
-		}*/
+		}
 		return null;
 	} // modelChange
 

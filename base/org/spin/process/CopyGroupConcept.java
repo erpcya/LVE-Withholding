@@ -22,12 +22,15 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.compiere.model.MColumn;
 import org.compiere.model.MDocType;
+import org.compiere.model.MTable;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ReportView;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.AdempiereSystemError;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -98,12 +101,18 @@ public class CopyGroupConcept extends SvrProcess
 		if(p_LVE_WH_ConceptGroup_From_ID == 0)
 			throw new AdempiereException("@p_LVE_WH_ConceptGroup_From_ID@ Not Found");
 		log.info("LVE_TaxUnitFrom_ID=" + p_LVE_WH_ConceptGroup_From_ID);
+		
+		List<MLVEWHConcept> m_LVE_WH_ConceptList = MLVEWHConcept.get(getCtx(), p_LVE_WH_ConceptGroup_From_ID, get_TrxName());
 
 		
-	//	List<MLVEWHConcept> m_LVE_WH_ConceptList = MLVEWHConcept.get(getCtx(), p_LVE_WH_ConceptGroup_From_ID, get_TrxName());
-
+		int m_LVE_WH_Concept = DB.getSQLValue(get_TrxName(), "SELECT MAX(c.LVE_WH_Concept_ID) " +
+				"FROM LVE_WH_Concept c " +
+				"WHERE c.LVE_WH_ConceptGroup_ID=?", p_LVE_WH_Concept_Target_ID);
+		if (m_LVE_WH_Concept > 0)
+			throw new AdempiereSystemError("Target Group Concept must not have concept");
+		
 		//	Read Concept
-	/*	for (MLVEWHConcept m_Concept : m_LVE_WH_ConceptList)
+		for (MLVEWHConcept m_Concept : m_LVE_WH_ConceptList)
 		{
 			MLVEWHConcept m_LVEConcept = new MLVEWHConcept(getCtx(), 0, get_TrxName());
 			m_LVEConcept.setLVE_WH_ConceptGroup_ID(p_LVE_WH_Concept_Target_ID);
@@ -112,9 +121,8 @@ public class CopyGroupConcept extends SvrProcess
 			m_LVEConcept.save();
 			m_Created++;
 		}
-*/
+
 		return "@Created@ = " + m_Created;
 
 	}
-
 }

@@ -17,14 +17,18 @@
 package org.spin.model;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
+
+import org.compiere.model.Query;
+import org.compiere.util.DB;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
  */
 public class MLVEWHConcept extends X_LVE_WH_Concept {
-
+	
 	/**
 	 * 
 	 */
@@ -54,5 +58,22 @@ public class MLVEWHConcept extends X_LVE_WH_Concept {
 		super(ctx, rs, trxName);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public static List<MLVEWHConcept> get(Properties ctx, int p_LVE_WH_ConceptGroup_From_ID, String trxName){
+		//	Get Withholding
+		StringBuffer where =  new StringBuffer();
+		//	Criteria
+		if(p_LVE_WH_ConceptGroup_From_ID != 0)
+			where.append(COLUMNNAME_LVE_WH_ConceptGroup_ID)
+			.append("=")
+			.append(p_LVE_WH_ConceptGroup_From_ID);
+		//	
+		List<MLVEWHConcept> m_ConceptpList = new Query(ctx, Table_Name, 
+				where.toString(), trxName)
+			.setOnlyActiveRecords(true)
+			.setOrderBy(COLUMNNAME_Name + " ASC")
+			.<MLVEWHConcept>list();
+		return m_ConceptpList;
+	}
+	
 }

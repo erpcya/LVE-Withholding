@@ -8,7 +8,6 @@ import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MCash;
 import org.compiere.model.MCashLine;
-import org.compiere.model.MCashTax;
 import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
@@ -27,7 +26,7 @@ import org.compiere.util.Msg;
 /**
  * Model Validator
  * 
- * @author Dixon Martinez
+ * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
  * @contributor <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  * 		<li>	Add Control No
  * 		<li>	Change to Withholding Relation
@@ -122,7 +121,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				}
 			}
 			log.info(po.toString());
-		}else if(po.get_TableName().equals(MCashLine.Table_Name) && type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW)
+		}/*else if(po.get_TableName().equals(MCashLine.Table_Name) && type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW)
 		{
 			log.fine(MCashLine.Table_Name + "-- TYPE_BEFORE_NEW || TYPE_BEFORE_CHANGE");
 			
@@ -165,7 +164,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				log.fine(po.toString());
 			}
 			
-		}
+		}*/
 		return null;
 	} // modelChange
 
@@ -230,7 +229,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				if (MSysConfig.getBooleanValue("TAX_ACCT_CASH", false))
 				{
 					MCash cash = (MCash) po;
-					if (!MCashTax.calculateTaxTotal(cash)) // setTotals
+					if (!MLVECashTax.calculateTaxTotal(cash)) // setTotals
 						return Msg.translate(Env.getLanguage(Env.getCtx()), "TaxCalculatingError");
 				}
 			}

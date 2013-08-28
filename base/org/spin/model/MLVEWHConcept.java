@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.Query;
-import org.compiere.util.DB;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>

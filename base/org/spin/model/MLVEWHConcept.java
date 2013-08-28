@@ -59,6 +59,15 @@ public class MLVEWHConcept extends X_LVE_WH_Concept {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Get List with all Concept from Concept Group
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 28/08/2013, 08:35:04
+	 * @param ctx
+	 * @param p_LVE_WH_ConceptGroup_From_ID
+	 * @param trxName
+	 * @return
+	 * @return List<MLVEWHConcept>
+	 */
 	public static List<MLVEWHConcept> get(Properties ctx, int p_LVE_WH_ConceptGroup_From_ID, String trxName){
 		//	Get Withholding
 		StringBuffer where =  new StringBuffer();

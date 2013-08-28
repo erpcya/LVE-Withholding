@@ -66,7 +66,7 @@ public class CopyFromConceptGroup extends SvrProcess
 			else if (name.equals("LVE_WH_ConceptGroup_ID"))
 				p_LVE_WH_ConceptGroup_From_ID = para.getParameterAsInt();
 			else if (name.equals("CopyCombination"))
-				p_CopyCombination = para.getParameter_ToAsBoolean();
+				p_CopyCombination = para.getParameterAsBoolean();
 		}
 		//	get ID from GridTab
 		p_LVE_WH_Concept_Target_ID = getRecord_ID();
@@ -80,7 +80,11 @@ public class CopyFromConceptGroup extends SvrProcess
 	protected String doIt() throws Exception
 	{
 		if(p_LVE_WH_ConceptGroup_From_ID == 0)
-			throw new AdempiereException("@p_LVE_WH_ConceptGroup_From_ID@ Not Found");
+			throw new AdempiereException("@LVE_WH_ConceptGroup_ID@ Not Found");
+		else if(p_LVE_WH_Concept_Target_ID == p_LVE_WH_ConceptGroup_From_ID)
+			throw new AdempiereException("@LVE_WH_ConceptGroup_ID@ = @Record_ID@");
+		
+		
 		log.info("LVE_TaxUnitFrom_ID=" + p_LVE_WH_ConceptGroup_From_ID);
 		
 		//	Yamel Senih
@@ -101,14 +105,19 @@ public class CopyFromConceptGroup extends SvrProcess
 			//	More elegant
 			MLVEWHConcept m_TargetConcept = new MLVEWHConcept(getCtx(), 0, get_TrxName());
 			PO.copyValues(m_FromConcept, m_TargetConcept);
+			//	Set Concept Group ID
+			m_TargetConcept.setLVE_WH_ConceptGroup_ID(p_LVE_WH_Concept_Target_ID);
 			m_TargetConcept.save();
-			
 			//	Copy Combination
 			if(p_CopyCombination){
-				List<MLVEWHCombination> m_LVE_WH_CombinationList = MLVEWHCombination.get(getCtx(), m_TargetConcept.getLVE_WH_Concept_ID(), getName());
+				List<MLVEWHCombination> m_LVE_WH_CombinationList = MLVEWHCombination.get(getCtx(), 
+						m_FromConcept.getLVE_WH_Concept_ID(), getName());
+				//	Loop
 				for(MLVEWHCombination m_FromCombination : m_LVE_WH_CombinationList){
 					MLVEWHCombination m_TargetCombination = new MLVEWHCombination(getCtx(), 0, get_TrxName());
 					PO.copyValues(m_FromCombination, m_TargetCombination);
+					//	Set Concept ID
+					m_TargetCombination.setLVE_WH_Concept_ID(m_TargetConcept.getLVE_WH_Concept_ID());
 					m_TargetCombination.save();
 				}
 				

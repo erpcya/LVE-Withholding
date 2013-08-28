@@ -20,29 +20,25 @@ package org.spin.model;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.MTable;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 import org.compiere.util.Env;
 
-/** Generated Model for C_CashTax
+/** Generated Model for LVE_CashTax
  *  @author Adempiere (generated) 
- *  @version Release 3.7.0LTS - $Id$ */
+ *  @version Release 3.6.0LTS - $Id$ */
 public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130617L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
-    public X_LVE_CashTax (Properties ctx, int C_CashTax_ID, String trxName)
+    public X_LVE_CashTax (Properties ctx, int LVE_CashTax_ID, String trxName)
     {
-      super (ctx, C_CashTax_ID, trxName);
-      /** if (C_CashTax_ID == 0)
+      super (ctx, LVE_CashTax_ID, trxName);
+      /** if (LVE_CashTax_ID == 0)
         {
 			setC_Cash_ID (0);
 			setC_Tax_ID (0);
@@ -81,9 +77,9 @@ public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent
       return sb.toString();
     }
 
-	public org.compiere.model.I_C_Cash getC_Cash() throws RuntimeException
+	public I_C_Cash getC_Cash() throws RuntimeException
     {
-		return (org.compiere.model.I_C_Cash)MTable.get(getCtx(), org.compiere.model.I_C_Cash.Table_Name)
+		return (I_C_Cash)MTable.get(getCtx(), I_C_Cash.Table_Name)
 			.getPO(getC_Cash_ID(), get_TrxName());	}
 
 	/** Set Cash Journal.
@@ -93,9 +89,9 @@ public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent
 	public void setC_Cash_ID (int C_Cash_ID)
 	{
 		if (C_Cash_ID < 1) 
-			set_Value (COLUMNNAME_C_Cash_ID, null);
+			set_ValueNoCheck (COLUMNNAME_C_Cash_ID, null);
 		else 
-			set_Value (COLUMNNAME_C_Cash_ID, Integer.valueOf(C_Cash_ID));
+			set_ValueNoCheck (COLUMNNAME_C_Cash_ID, Integer.valueOf(C_Cash_ID));
 	}
 
 	/** Get Cash Journal.
@@ -109,9 +105,9 @@ public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException
+	public I_C_Tax getC_Tax() throws RuntimeException
     {
-		return (org.compiere.model.I_C_Tax)MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
+		return (I_C_Tax)MTable.get(getCtx(), I_C_Tax.Table_Name)
 			.getPO(getC_Tax_ID(), get_TrxName());	}
 
 	/** Set Tax.
@@ -121,9 +117,9 @@ public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent
 	public void setC_Tax_ID (int C_Tax_ID)
 	{
 		if (C_Tax_ID < 1) 
-			set_Value (COLUMNNAME_C_Tax_ID, null);
+			set_ValueNoCheck (COLUMNNAME_C_Tax_ID, null);
 		else 
-			set_Value (COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+			set_ValueNoCheck (COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
 	}
 
 	/** Get Tax.
@@ -224,5 +220,4 @@ public class X_LVE_CashTax extends PO implements I_LVE_CashTax, I_Persistent
 			 return Env.ZERO;
 		return bd;
 	}
-
 }

@@ -68,6 +68,8 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 		engine.addDocValidate(MInvoice.Table_Name, this);		
 		
 		engine.addModelChange(MCashLine.Table_Name, this);
+		
+		engine.addDocValidate(MCash.Table_Name, this);
 
 	}
 
@@ -222,7 +224,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				
 			}
 		} else if (timing==TIMING_BEFORE_PREPARE)
-		{	//	Carlos Parada Add Tax in Cash
+		{	//	Dixon Martinez Add Tax in Cash
 				  
 			if(po.get_TableName().equals(MCash.Table_Name))
 			{

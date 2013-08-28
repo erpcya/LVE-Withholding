@@ -157,6 +157,19 @@ public interface I_LVE_WH_Relation
 
 	public org.spin.model.I_LVE_Withholding getLVE_Withholding() throws RuntimeException;
 
+    /** Column name ReferenceNo */
+    public static final String COLUMNNAME_ReferenceNo = "ReferenceNo";
+
+	/** Set Reference No.
+	  * Your customer or vendor number at the Business Partner's site
+	  */
+	public void setReferenceNo (String ReferenceNo);
+
+	/** Get Reference No.
+	  * Your customer or vendor number at the Business Partner's site
+	  */
+	public String getReferenceNo();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 

@@ -32,7 +32,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130817L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
     public X_LVE_WH_Config (Properties ctx, int LVE_WH_Config_ID, String trxName)
@@ -40,7 +40,6 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
       super (ctx, LVE_WH_Config_ID, trxName);
       /** if (LVE_WH_Config_ID == 0)
         {
-			setAD_Rule_ID (0);
 			setLVE_TaxUnit_ID (0);
 			setLVE_WH_Combination_ID (0);
 			setLVE_WH_Config_ID (0);
@@ -89,9 +88,9 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	public void setAD_Rule_ID (int AD_Rule_ID)
 	{
 		if (AD_Rule_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_AD_Rule_ID, null);
+			set_Value (COLUMNNAME_AD_Rule_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_AD_Rule_ID, Integer.valueOf(AD_Rule_ID));
+			set_Value (COLUMNNAME_AD_Rule_ID, Integer.valueOf(AD_Rule_ID));
 	}
 
 	/** Get Rule.

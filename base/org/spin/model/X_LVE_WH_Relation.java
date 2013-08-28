@@ -31,7 +31,7 @@ public class X_LVE_WH_Relation extends PO implements I_LVE_WH_Relation, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130817L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
     public X_LVE_WH_Relation (Properties ctx, int LVE_WH_Relation_ID, String trxName)
@@ -208,4 +208,21 @@ public class X_LVE_WH_Relation extends PO implements I_LVE_WH_Relation, I_Persis
     {
         return new KeyNamePair(get_ID(), String.valueOf(getLVE_Withholding_ID()));
     }
+
+	/** Set Reference No.
+		@param ReferenceNo 
+		Your customer or vendor number at the Business Partner's site
+	  */
+	public void setReferenceNo (String ReferenceNo)
+	{
+		set_Value (COLUMNNAME_ReferenceNo, ReferenceNo);
+	}
+
+	/** Get Reference No.
+		@return Your customer or vendor number at the Business Partner's site
+	  */
+	public String getReferenceNo () 
+	{
+		return (String)get_Value(COLUMNNAME_ReferenceNo);
+	}
 }

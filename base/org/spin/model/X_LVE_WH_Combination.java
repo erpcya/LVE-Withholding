@@ -32,7 +32,7 @@ public class X_LVE_WH_Combination extends PO implements I_LVE_WH_Combination, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130817L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
     public X_LVE_WH_Combination (Properties ctx, int LVE_WH_Combination_ID, String trxName)

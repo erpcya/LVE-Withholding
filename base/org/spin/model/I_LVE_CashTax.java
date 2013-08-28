@@ -18,21 +18,20 @@ package org.spin.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for C_CashTax
+/** Generated Interface for LVE_CashTax
  *  @author Adempiere (generated) 
- *  @version Release 3.7.0LTS
+ *  @version Release 3.6.0LTS
  */
 public interface I_LVE_CashTax 
 {
 
-    /** TableName=C_CashTax */
-    public static final String Table_Name = "C_CashTax";
+    /** TableName=LVE_CashTax */
+    public static final String Table_Name = "LVE_CashTax";
 
-    /** AD_Table_ID=3000222 */
+    /** AD_Table_ID=53563 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -77,7 +76,7 @@ public interface I_LVE_CashTax
 	  */
 	public int getC_Cash_ID();
 
-	public org.compiere.model.I_C_Cash getC_Cash() throws RuntimeException;
+	public I_C_Cash getC_Cash() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -108,7 +107,7 @@ public interface I_LVE_CashTax
 	  */
 	public int getC_Tax_ID();
 
-	public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException;
+	public I_C_Tax getC_Tax() throws RuntimeException;
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";

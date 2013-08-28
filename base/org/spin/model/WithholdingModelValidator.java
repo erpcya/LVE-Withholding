@@ -144,8 +144,9 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				MTax m_Tax = new MTax(Env.getCtx(), m_CashLine.get_ValueAsInt("C_Tax_ID"), null);
 				MCurrency m_Currency = new MCurrency(Env.getCtx(), Env.getContextAsInt(Env.getCtx(), "@#C_Currency_ID@"), null);
 				BigDecimal taxAmt = m_Tax.calculateTax(base_Amt, false, m_Currency.getStdPrecision());
-				
-				BigDecimal exAmt = amt.subtract(base_Amt.abs().subtract(taxAmt.abs()));
+			//	(C_CashLine.Amount - (C_CashLine.A_Base_Amount + Case When C_CashLine.C_Tax_ID Is Null Then 0 Else (Select C_CashLine.A_Base_Amount * (C_Tax.Rate / 100)  From C_Tax Where C_Tax.C_Tax_ID=C_CashLine.C_Tax_ID) End))
+				//BigDecimal exAmt = amt.subtract(base_Amt.abs().subtract(taxAmt.abs()));
+				BigDecimal exAmt = amt.subtract(base_Amt.abs().add(taxAmt.abs()));
 				
 				//	Error
 				if((base_Amt.abs().add(taxAmt.abs()).add(exAmt.abs()).compareTo(amt.abs())> 0))

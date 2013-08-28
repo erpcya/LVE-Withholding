@@ -30,7 +30,7 @@ public class X_LVE_WH_ConceptGroup extends PO implements I_LVE_WH_ConceptGroup, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130817L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
     public X_LVE_WH_ConceptGroup (Properties ctx, int LVE_WH_ConceptGroup_ID, String trxName)
@@ -71,6 +71,23 @@ public class X_LVE_WH_ConceptGroup extends PO implements I_LVE_WH_ConceptGroup, 
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** Set Copy From.
+		@param CopyFrom 
+		Copy From Record
+	  */
+	public void setCopyFrom (String CopyFrom)
+	{
+		set_Value (COLUMNNAME_CopyFrom, CopyFrom);
+	}
+
+	/** Get Copy From.
+		@return Copy From Record
+	  */
+	public String getCopyFrom () 
+	{
+		return (String)get_Value(COLUMNNAME_CopyFrom);
+	}
 
 	/** Set Description.
 		@param Description 

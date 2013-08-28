@@ -30,7 +30,7 @@ public class X_LVE_WH_Type extends PO implements I_LVE_WH_Type, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130817L;
+	private static final long serialVersionUID = 20130828L;
 
     /** Standard Constructor */
     public X_LVE_WH_Type (Properties ctx, int LVE_WH_Type_ID, String trxName)
@@ -70,6 +70,31 @@ public class X_LVE_WH_Type extends PO implements I_LVE_WH_Type, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public I_C_BPartner getAuthorizedOfficer() throws RuntimeException
+    {
+		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
+			.getPO(getAuthorizedOfficer_ID(), get_TrxName());	}
+
+	/** Set Authorized Officer.
+		@param AuthorizedOfficer_ID Authorized Officer	  */
+	public void setAuthorizedOfficer_ID (int AuthorizedOfficer_ID)
+	{
+		if (AuthorizedOfficer_ID < 1) 
+			set_Value (COLUMNNAME_AuthorizedOfficer_ID, null);
+		else 
+			set_Value (COLUMNNAME_AuthorizedOfficer_ID, Integer.valueOf(AuthorizedOfficer_ID));
+	}
+
+	/** Get Authorized Officer.
+		@return Authorized Officer	  */
+	public int getAuthorizedOfficer_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AuthorizedOfficer_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	/** Set Description.
 		@param Description 

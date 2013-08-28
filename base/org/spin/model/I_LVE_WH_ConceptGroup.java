@@ -63,6 +63,19 @@ public interface I_LVE_WH_ConceptGroup
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name CopyFrom */
+    public static final String COLUMNNAME_CopyFrom = "CopyFrom";
+
+	/** Set Copy From.
+	  * Copy From Record
+	  */
+	public void setCopyFrom (String CopyFrom);
+
+	/** Get Copy From.
+	  * Copy From Record
+	  */
+	public String getCopyFrom();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 

@@ -1,0 +1,35 @@
+-- 22/08/2013 11:17:34 AM VET
+-- LVE Withholding
+ALTER TABLE C_Invoice ADD ControlNo NVARCHAR2(60) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:17:46 AM VET
+-- LVE Withholding
+ALTER TABLE C_Invoice ADD LVE_WH_Concept_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:18:27 AM VET
+-- LVE Withholding
+ALTER TABLE C_InvoiceLine ADD DocAffected_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:18:33 AM VET
+-- LVE Withholding
+ALTER TABLE C_InvoiceLine ADD LVE_WH_Config_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:19:13 AM VET
+-- LVE Withholding
+ALTER TABLE C_BPartner ADD LVE_PersonType_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:19:19 AM VET
+-- LVE Withholding
+ALTER TABLE C_BPartner ADD Nationality CHAR(1) DEFAULT NULL 
+;
+
+-- 22/08/2013 11:19:52 AM VET
+-- LVE Withholding
+ALTER TABLE C_DocType ADD DocTypeDeclare NVARCHAR2(2) DEFAULT NULL 
+;
+

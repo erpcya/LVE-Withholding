@@ -63,6 +63,17 @@ public interface I_LVE_WH_Type
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name AuthorizedOfficer_ID */
+    public static final String COLUMNNAME_AuthorizedOfficer_ID = "AuthorizedOfficer_ID";
+
+	/** Set Authorized Officer	  */
+	public void setAuthorizedOfficer_ID (int AuthorizedOfficer_ID);
+
+	/** Get Authorized Officer	  */
+	public int getAuthorizedOfficer_ID();
+
+	public I_C_BPartner getAuthorizedOfficer() throws RuntimeException;
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 

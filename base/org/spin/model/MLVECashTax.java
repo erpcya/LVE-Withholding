@@ -72,7 +72,7 @@ public class MLVECashTax extends X_LVE_CashTax
 			return null;
 		}
 		
-		String sql = "SELECT * FROM C_CashTax WHERE C_Cash_ID=? AND C_Tax_ID=?";
+		String sql = "SELECT * FROM LVE_CashTax WHERE C_Cash_ID=? AND C_Tax_ID=?";
 		PreparedStatement pstmt = null;
 		try
 		{
@@ -309,7 +309,7 @@ public class MLVECashTax extends X_LVE_CashTax
 	public static MLVECashTax[] getTaxes(boolean requery,MCash cash) {
 		if (m_taxes != null && !requery)
 			return m_taxes;
-		String sql = "SELECT * FROM C_CashTax WHERE C_Cash_ID=?";
+		String sql = "SELECT * FROM LVE_CashTax WHERE C_Cash_ID=?";
 		ArrayList<MLVECashTax> list = new ArrayList<MLVECashTax>();
 		PreparedStatement pstmt = null;
 		try {
@@ -345,7 +345,7 @@ public class MLVECashTax extends X_LVE_CashTax
 	public static boolean calculateTaxTotal(MCash cash) {
 		s_log.fine("");
 		// Delete Taxes
-		DB.executeUpdate("DELETE FROM C_CashTax WHERE C_Cash_ID="
+		DB.executeUpdate("DELETE FROM LVE_CashTax WHERE C_Cash_ID="
 				+ cash.getC_Cash_ID(), cash.get_TrxName());
 		m_taxes = null;
 

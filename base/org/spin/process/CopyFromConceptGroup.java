@@ -16,60 +16,41 @@
  *****************************************************************************/
 package org.spin.process;
 
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.compiere.model.MColumn;
-import org.compiere.model.MDocType;
-import org.compiere.model.MTable;
 import org.compiere.model.PO;
-import org.compiere.model.Query;
-import org.compiere.model.X_AD_ReportView;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.AdempiereSystemError;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
-import org.compiere.util.Env;
+import org.spin.model.MLVEWHCombination;
 import org.spin.model.MLVEWHConcept;
-import org.spin.model.MLVEWHConceptGroup;
-import org.spin.model.MLVEWHConfig;
-import org.spin.model.MLVEWithholding;
 
 /**
  * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
- *
+ * @contributor <a href="yamelsenih@gmail.com">Yamel Senih</a>
+ * 	<li> Fixed Error with copy
+ * 	<li> Add Missing Translations
  */
-public class CopyGroupConcept extends SvrProcess
+public class CopyFromConceptGroup extends SvrProcess
 {
 
 
 	/**	Logger									*/
-	public static CLogger log = CLogger.getCLogger(CopyGroupConcept.class);
+	public static CLogger log = CLogger.getCLogger(CopyFromConceptGroup.class);
 	
-	/**	Group Concept From							*/
+	/**	Group Concept From						*/
 	private int 			p_LVE_WH_ConceptGroup_From_ID 	= 0;
 	
-	/**	Group Concept From							*/
-	private int 			p_LVE_WH_Concept_Target_ID 	= 0;
+	/**	Group Concept From						*/
+	private int 			p_LVE_WH_Concept_Target_ID		= 0;
 	
-	/** Copy Combination							*/
+	/** Copy Combination						*/
 	private boolean p_CopyCombination						= false;
 	
-	/**	Copied										*/
-	private int m_Created									= 0;
-	
-	/**
-	 * *** Constructor ***
-	 * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a> 27/08/2013, 14:22:09
-	 */
-	public CopyGroupConcept()
-	{
-		// TODO Auto-generated constructor stub
-	}
+	/**	Copied									*/
+	private int m_Copied									= 0;
 
 	/* (non-Javadoc)
 	 * @see org.compiere.process.SvrProcess#prepare()
@@ -102,27 +83,40 @@ public class CopyGroupConcept extends SvrProcess
 			throw new AdempiereException("@p_LVE_WH_ConceptGroup_From_ID@ Not Found");
 		log.info("LVE_TaxUnitFrom_ID=" + p_LVE_WH_ConceptGroup_From_ID);
 		
-		List<MLVEWHConcept> m_LVE_WH_ConceptList = MLVEWHConcept.get(getCtx(), p_LVE_WH_ConceptGroup_From_ID, get_TrxName());
-
-		
-		int m_LVE_WH_Concept = DB.getSQLValue(get_TrxName(), "SELECT MAX(c.LVE_WH_Concept_ID) " +
+		//	Yamel Senih
+		//	Add Translation
+		int m_LVE_WH_Concept_ID = DB.getSQLValue(get_TrxName(), "SELECT MAX(c.LVE_WH_Concept_ID) " +
 				"FROM LVE_WH_Concept c " +
 				"WHERE c.LVE_WH_ConceptGroup_ID=?", p_LVE_WH_Concept_Target_ID);
-		if (m_LVE_WH_Concept > 0)
-			throw new AdempiereSystemError("Target Group Concept must not have concept");
+		if (m_LVE_WH_Concept_ID > 0)
+			throw new AdempiereException("@CopyError@ @LVE_WH_Concept_ID@ @AlreadyExists@");
+		
+		//	Get Concepts
+		List<MLVEWHConcept> m_LVE_WH_ConceptList = MLVEWHConcept.get(getCtx(), p_LVE_WH_ConceptGroup_From_ID, get_TrxName());
 		
 		//	Read Concept
-		for (MLVEWHConcept m_Concept : m_LVE_WH_ConceptList)
+		for (MLVEWHConcept m_FromConcept : m_LVE_WH_ConceptList)
 		{
-			MLVEWHConcept m_LVEConcept = new MLVEWHConcept(getCtx(), 0, get_TrxName());
-			m_LVEConcept.setLVE_WH_ConceptGroup_ID(p_LVE_WH_Concept_Target_ID);
-			m_LVEConcept.setName(m_Concept.getName());
-			m_LVEConcept.setDescription(m_Concept.getDescription());
-			m_LVEConcept.save();
-			m_Created++;
+			//	Yamel Senih
+			//	More elegant
+			MLVEWHConcept m_TargetConcept = new MLVEWHConcept(getCtx(), 0, get_TrxName());
+			PO.copyValues(m_FromConcept, m_TargetConcept);
+			m_TargetConcept.save();
+			
+			//	Copy Combination
+			if(p_CopyCombination){
+				List<MLVEWHCombination> m_LVE_WH_CombinationList = MLVEWHCombination.get(getCtx(), m_TargetConcept.getLVE_WH_Concept_ID(), getName());
+				for(MLVEWHCombination m_FromCombination : m_LVE_WH_CombinationList){
+					MLVEWHCombination m_TargetCombination = new MLVEWHCombination(getCtx(), 0, get_TrxName());
+					PO.copyValues(m_FromCombination, m_TargetCombination);
+					m_TargetCombination.save();
+				}
+				
+			}
+			m_Copied++;
 		}
 
-		return "@Created@ = " + m_Created;
+		return "@Copied@ = " + m_Copied;
 
 	}
 }

@@ -103,8 +103,4 @@ INSERT INTO AD_Column_Trl (AD_Language,AD_Column_ID, Name, IsTranslated,AD_Clien
 UPDATE AD_Column SET AD_Reference_ID=15,Updated=TO_TIMESTAMP('2013-08-27 16:49:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=67094
 ;
 
--- Aug 27, 2013 4:56:13 PM VET
--- LVE Withholding
-UPDATE LVE_Withholding SET AD_Table_ID=53570,Updated=TO_TIMESTAMP('2013-08-27 16:56:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000000
-;
 

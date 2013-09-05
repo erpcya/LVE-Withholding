@@ -19,12 +19,6 @@ INSERT INTO C_Charge_Trl (AD_Language,C_Charge_ID, Description,Name, IsTranslate
 INSERT INTO C_Charge_Acct (C_Charge_ID, C_AcctSchema_ID, AD_Client_ID,AD_Org_ID,IsActive, Created,CreatedBy,Updated,UpdatedBy ,Ch_Expense_Acct,Ch_Revenue_Acct) SELECT 1000003, p.C_AcctSchema_ID, p.AD_Client_ID,0,'Y', CURRENT_TIMESTAMP,100,CURRENT_TIMESTAMP,100,p.Ch_Expense_Acct,p.Ch_Revenue_Acct FROM C_AcctSchema_Default p WHERE p.AD_Client_ID=11 AND NOT EXISTS (SELECT * FROM C_Charge_Acct e WHERE e.C_AcctSchema_ID=p.C_AcctSchema_ID AND e.C_Charge_ID=1000003)
 ;
 
-
--- 28/08/2013 10:58:06 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE LVE_WH_ConceptGroup ADD COLUMN CopyFrom CHAR(1) DEFAULT NULL 
-;
-
 -- 28/08/2013 11:04:24 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 INSERT INTO LVE_WH_ConceptGroup (AD_Client_ID,AD_Org_ID,Created,CreatedBy,Description,IsActive,LVE_WH_ConceptGroup_ID,Name,Updated,UpdatedBy,Value) VALUES (11,0,TO_TIMESTAMP('2013-08-28 11:04:24','YYYY-MM-DD HH24:MI:SS'),100,'GRUPO DE RETENCION IMPUESTO MUNICIPAL 50%
@@ -456,13 +450,6 @@ INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy
 -- 28/08/2013 11:08:21 AM VET
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,AD_Rule_ID,AD_Table_ID,Beneficiary_ID,C_Charge_ID,Created,CreatedBy,DeclarationDocType_ID,IsActive,IsSOTrx,LVE_WH_ConceptGroup_ID,LVE_WH_Type_ID,LVE_Withholding_ID,Name,Processing,SeqNo,TaxUnitRate,Updated,UpdatedBy,WithholdingDocType_ID) VALUES (11,0,50017,53570,121,1000003,TO_TIMESTAMP('2013-08-28 11:08:21','YYYY-MM-DD HH24:MI:SS'),100,1000005,'Y','N',1000008,1000004,1000005,'RETENCION DE IMPUESTO MUNICIPAL 50%','N',10,0,TO_TIMESTAMP('2013-08-28 11:08:21','YYYY-MM-DD HH24:MI:SS'),100,1000004)
-;
-
-
-
--- 28/08/2013 11:16:00 AM VET
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
-ALTER TABLE LVE_WH_Relation ADD COLUMN ReferenceNo VARCHAR(60) DEFAULT NULL 
 ;
 
 -- 28/08/2013 11:16:55 AM VET

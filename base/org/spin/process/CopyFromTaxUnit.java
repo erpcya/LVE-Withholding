@@ -139,7 +139,8 @@ public class CopyFromTaxUnit extends SvrProcess {
 				
 			}
 		}
-				
+		//	Close DB
+		DB.close(rs, pstmt);
 		return "@Copied@=" + m_Copied;
 	}
 	

@@ -12,5 +12,6 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <javaElement handleIdentifier="=LVE-Withholding/base"/>
+        <javaElement handleIdentifier="=LVE-Withholding/patches"/>
     </selectedElements>
 </jardesc>

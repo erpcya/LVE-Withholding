@@ -126,7 +126,8 @@ public class WithholdingConfigGenerate extends SvrProcess {
 						m_LVE_Withholding_ID, m_LVE_WH_Combination_ID, m_LVE_TaxUnit_ID,m_AD_Rule_ID);
 			}
 		}
-				
+		//	Close DB
+		DB.close(rs, pstmt);
 		return "@Created@=" + m_Created;
 	}
 	

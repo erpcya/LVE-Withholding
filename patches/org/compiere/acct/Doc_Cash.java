@@ -333,7 +333,7 @@ public class Doc_Cash extends Doc
 				+ " INNER JOIN C_Cash c ON ct.C_Cash_ID = c.C_Cash_ID"
 				+ " WHERE "
 				+ "		ct.C_Cash_ID = ?"
-				+ "		AND ct.DocStatus IN ('DR','CO','CL')";
+				+ "		AND c.DocStatus IN ('DR','CO','CL')";
 		try
 		{
 			PreparedStatement pstmt = DB.prepareStatement(sql, getTrxName());

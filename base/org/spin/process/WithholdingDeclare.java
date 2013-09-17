@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.process.DocumentEngine;
@@ -112,7 +113,9 @@ public class WithholdingDeclare extends SvrProcess{
 		MInvoice m_Declare = new MInvoice(getCtx(), 0, trx.getTrxName());
 		m_Declare.setC_DocTypeTarget_ID(rs.getInt("DeclarationDocType_ID"));
 		m_Declare.setIsSOTrx(false);
-		m_Declare.setC_BPartner_ID(rs.getInt("C_BPartner_ID"));
+		MBPartner m_BPartner = MBPartner.get(getCtx(), rs.getInt("C_BPartner_ID"));
+		//m_Declare.setC_BPartner_ID(rs.getInt("C_BPartner_ID"));
+		m_Declare.setBPartner(m_BPartner);
 		m_Declare.setDateInvoiced(p_DateInvoiced);
 		m_Declare.setDateAcct(p_DateInvoiced);
 		m_Declare.saveEx();

@@ -1,4 +1,4 @@
-
+﻿
 CREATE OR REPLACE VIEW LVE_RV_Books AS 
 SELECT
 	i.AD_Client_ID,
@@ -110,6 +110,7 @@ FROM
 		ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE
 	dt.AffectsBook = 'Y'::bpchar 
+	AND  (i.docstatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])) 
 UNION
 	ALL 
 SELECT

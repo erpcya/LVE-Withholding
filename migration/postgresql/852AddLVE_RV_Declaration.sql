@@ -15,7 +15,7 @@ Select distinct
 	CRR.TaxBaseAmt,                      --Base Amt
 	CRR.LinenetAmt,                      --Retain Amt
 	CRR.DocumentNo As AffectedDocumentNo,--Affected Document No
-    CRR.DocumentNo as WithHoldingNo ,      --Retention No
+    CRR.WH_DocumentNo as WithHoldingNo ,      --Retention No
 	CRR.Rate,                            --Rate
 	CRR.TaxAmt,                          --Tax Amt
 	CRR.TotalLines,                      --Total Lines
@@ -63,3 +63,4 @@ Left Join (Select CI.C_Invoice_ID,
                         Inner Join C_Tax T ON T.C_Tax_ID = LI.C_Tax_ID
                         GROUP BY LI.C_Invoice_ID) CIT ON CIT.C_Invoice_ID = CI.C_Invoice_ID
 	  ) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID
+WHERE CI.DocStatus IN ('CO','CL');

@@ -1,4 +1,4 @@
---DROP VIEW LVE_RV_Withholding
+﻿--DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
 	CI.AD_Client_ID,                    --Companny ID
@@ -14,7 +14,7 @@ SELECT DISTINCT
 	CI.TotalLines,                      --Total Lines exclude tax
 	CI.GrandTotal,                      --Total Document
 	CIL.LinenetAmt,                     --Line Net (Retention Amt)
-    CIAffected.DocumentNo,              --DocumentNo Affeected
+	CIAffected.DocumentNo,              --DocumentNo Affeected
 	CIAffected.Amount,                  --Amount Affected
 	WHC.Aliquot,                        --Aliquot WithHolding
 	WCC.Subtrahend,                     --Subtrahend
@@ -22,8 +22,8 @@ SELECT DISTINCT
 	WT.name AS name_retentiongroup,     --Name WithHolding Group
 	CIL.line / 10 AS line,              --Line No
 	WHC.value,                          --WithHolding Combination Code
-    WCC.MinValue,                       --WithHolding Minimal
-    CIW.DocumentNo As WH_DocumentNo     --WithHolding DocumentNo
+	WCC.MinValue,                       --WithHolding Minimal
+	CIW.DocumentNo As WH_DocumentNo     --WithHolding DocumentNo
 FROM 
 -- Invoice DocType
 C_DocType CDT 

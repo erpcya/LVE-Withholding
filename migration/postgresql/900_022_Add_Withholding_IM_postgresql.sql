@@ -457,3 +457,13 @@ INSERT INTO LVE_Withholding (AD_Client_ID,AD_Org_ID,AD_Rule_ID,AD_Table_ID,Benef
 INSERT INTO LVE_WH_Relation (AD_Client_ID,AD_Org_ID,C_DocType_ID,Created,CreatedBy,IsActive,LVE_WH_Relation_ID,LVE_Withholding_ID,Updated,UpdatedBy) VALUES (11,0,123,TO_TIMESTAMP('2013-08-28 11:16:55','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000010,1000005,TO_TIMESTAMP('2013-08-28 11:16:55','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
+-- 22/09/2013 10:42:17 PM VET
+-- LVE Withholding
+UPDATE LVE_Withholding SET DeclarationDocType_ID=1000003,Updated=TO_TIMESTAMP('2013-09-22 22:42:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000002
+;
+
+-- 22/09/2013 10:43:55 PM VET
+-- LVE Withholding
+UPDATE LVE_Withholding SET DeclarationDocType_ID=1000003,Updated=TO_TIMESTAMP('2013-09-22 22:43:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000003
+;
+

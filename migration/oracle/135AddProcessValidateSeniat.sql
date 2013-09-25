@@ -1,6 +1,6 @@
 -- 24/09/2013 10:35:29 AM VET
 -- SFAndroid Contribution
-INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,AD_ReportView_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53465,1500000,'org.spin.process.ValidateSeniat','N',TO_DATE('2013-09-24 10:35:26','YYYY-MM-DD HH24:MI:SS'),100,'Validate Seniat','ECA02','Y','N','N','N','N','Validate Seniat','Y',0,0,TO_DATE('2013-09-24 10:35:26','YYYY-MM-DD HH24:MI:SS'),100,'LVE_BPartner ValidateSeniat')
+INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,Description,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,53465,'org.spin.process.ValidateSeniat','N',TO_DATE('2013-09-24 10:35:26','YYYY-MM-DD HH24:MI:SS'),100,'Validate Seniat','ECA02','Y','N','N','N','N','Validate Seniat','Y',0,0,TO_DATE('2013-09-24 10:35:26','YYYY-MM-DD HH24:MI:SS'),100,'LVE_BPartner ValidateSeniat')
 ;
 
 -- 24/09/2013 10:35:29 AM VET

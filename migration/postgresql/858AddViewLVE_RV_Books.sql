@@ -1,6 +1,6 @@
-﻿
+--DROP VIEW LVE_RV_Books
 CREATE OR REPLACE VIEW LVE_RV_Books AS 
-SELECT
+/*SELECT
 	i.AD_Client_ID,
 	i.AD_Org_ID,
 	i.C_Invoice_ID,
@@ -109,8 +109,70 @@ FROM
 		wit 
 		ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE
+	dt.AffectsBook = 'Y'::bpchar */
+
+	SELECT DISTINCT
+	i.AD_Client_ID,
+	i.AD_Org_ID,
+	i.C_Invoice_ID,
+	dt.C_DocType_ID,
+	dt.DocTypeDeclare,
+	i.DateInvoiced,
+	i.DateAcct,
+	i.ControlNo,
+	i.DocumentNo,
+	bp.NAME,
+	bp.VALUE,
+	bp.TaxID,
+	i.GrandTotal,
+	itax.Exempt,
+	itax.TaxBaseAmt,
+	itax.Rate,
+	itax.TaxAmt,
+	wit.DocAffected_ID,
+	wit.DocumentNo  AS RetDocumentNo,
+	wit.LineNetAmt,
+	i.DocStatus,
+	i.DocAction,
+	i.IsSoTrx,
+	itax.TaxBaseAmt AS A_Base_Amount,
+	wit.Value AS WitValue
+FROM C_DocType dt 
+INNER JOIN C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
+INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID 
+INNER JOIN (	
+		SELECT 
+			it.C_Invoice_ID, 
+			MAX(t.Rate) AS Rate, 
+			SUM(it.TaxAmt) AS TaxAmt, 
+			SUM(CASE t.Rate WHEN 0 THEN 0 ELSE it.TaxBaseAmt END ) AS TaxBaseAmt,
+			SUM(CASE t.Rate WHEN 0 THEN it.TaxBaseAmt ELSE 0 END) AS Exempt 
+		FROM C_InvoiceTax it 
+		INNER JOIN C_Tax t ON t.C_Tax_ID = it.C_Tax_ID 
+		GROUP BY
+			it.C_Invoice_ID 
+	)itax  ON itax.C_Invoice_ID = i.C_Invoice_ID 
+	
+LEFT JOIN (	
+		SELECT DISTINCT 
+			ilw.DocAffected_ID,
+			iw.DocumentNo,
+			ilw.LineNetAmt,
+			wt.Value 
+		FROM C_Invoice iw 
+		INNER JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID) 
+		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID 
+		INNER JOIN LVE_WH_Type wt ON (w.LVE_WH_Type_ID = wt.LVE_WH_Type_ID) 
+		WHERE	
+			iw.DocStatus = ANY (ARRAY['CL'::BPCHAR,'CO'::BPCHAR ])
+			AND wt.VALUE = 'RIVA' 
+	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID)
+
+
+WHERE	
 	dt.AffectsBook = 'Y'::bpchar 
 	AND  (i.docstatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])) 
+	--AND wit.Value ='RIVA'
 UNION
 	ALL 
 SELECT
@@ -163,7 +225,8 @@ SELECT
 	cbj.docstatus,
 	cbj.docaction,
 	'N'::bpchar                              AS issotrx,
-	cbj.a_base_amount 
+	cbj.a_base_amount,
+	NULL AS WitValue
 FROM
 	LVE_RV_CashBookJournal cbj 
 		JOIN c_bpartner bp 

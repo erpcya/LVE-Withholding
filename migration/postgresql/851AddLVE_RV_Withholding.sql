@@ -7,7 +7,7 @@ SELECT DISTINCT
 	CI.C_Invoice_ID AS DocAffected_ID,  --Document Retain
 	CI.DateInvoiced,                    --Date Documentno
 	CI.ControlNo,                       --Control No
-	CDT.Name,                           --Document Type Name
+	CDTT.Name,                           --Document Type Name
 	CTAX.Rate,                          --Aliquot Invoice
 	CTAX.TaxAmt,                        --Tax Amt
 	CTAX.TaxBaseAmt,                    --Base Amt
@@ -15,7 +15,7 @@ SELECT DISTINCT
 	CI.GrandTotal,                      --Total Document
 	CIL.LinenetAmt,                     --Line Net (Retention Amt)
 	CIAffected.DocumentNo,              --DocumentNo Affeected
-	CIAffected.Amount,                  --Amount Affected
+	CIAffected.Amount * -1 AS Amount,                  --Amount Affected
 	WHC.Aliquot,                        --Aliquot WithHolding
 	WCC.Subtrahend,                     --Subtrahend
 	WT.value AS withholdinggroupvalue,  --Value WithHolding Group
@@ -23,10 +23,15 @@ SELECT DISTINCT
 	CIL.line / 10 AS line,              --Line No
 	WHC.value,                          --WithHolding Combination Code
 	WCC.MinValue,                       --WithHolding Minimal
-	CIW.DocumentNo As WH_DocumentNo     --WithHolding DocumentNo
+	CIW.DocumentNo As WH_DocumentNo,     --WithHolding DocumentNo
+	CTAX.Exempt,
+	CASE WHEN DATE_PART('MONTH',CI.DateAcct) < 10 THEN '0' ELSE '' END || DATE_PART('MONTH',CI.DateAcct) AS MONTH,
+	DATE_PART('YEAR',CI.DateAcct) AS Year
 FROM 
 -- Invoice DocType
 C_DocType CDT 
+-- Translate DocType
+LEFT JOIN C_DocType_Trl CDTT ON (CDTT.C_DocType_ID = CDT.C_DocType_ID)
 -- Invoice
 INNER JOIN C_Invoice CI ON CI.C_DocType_ID = CDT.C_DocType_ID 
 -- WithHolding Line
@@ -52,20 +57,26 @@ INNER JOIN LVE_WH_Type WT ON WT.LVE_WH_Type_ID = W.LVE_WH_Type_ID
 INNER JOIN (Select  CITAX.C_Invoice_ID,
                     max(CTAX.Rate) AS rate, 
                     sum(CITAX.TaxAmt) AS taxamt, 
-                    sum(CASE CTAX.Rate WHEN 0 THEN 0 ELSE CITAX.TaxBaseAmt END) AS TaxBaseAmt
+                    sum(CASE CTAX.Rate WHEN 0 THEN 0 ELSE CITAX.TaxBaseAmt END) AS TaxBaseAmt,
+                    SUM(CASE CTAX.Rate WHEN 0 THEN CITAX.TaxBaseAmt ELSE 0 END) AS Exempt 
             FROM C_InvoiceTax CITAX
             INNER JOIN C_Tax CTAX ON CITAX.C_Tax_ID = ctax.C_Tax_ID
             GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID -- Tax Invoice
 -- Allocation Invoice
-LEFT JOIN (Select   CAL.C_Invoice_ID AS WH_Document_id, 
-                    CALREL.c_invoice_id, 
-                    CI.DocumentNo, 
-                    CALREL.amount
-            FROM C_AllocationHDR CAH
-            INNER JOIN C_AllocationLine CAL ON CAH.C_AllocationHDR_ID = CAL.C_AllocationHDR_ID
-            INNER JOIN C_allocationLine CALREL ON CAH.C_AllocationHDR_ID = CALREL.C_AllocationHDR_ID
-            INNER JOIN C_Invoice CI ON CI.C_Invoice_ID = CALREL.C_Invoice_ID
-            WHERE NOT EXISTS(SELECT 1
+LEFT JOIN (
+		SELECT
+			CAL.C_Invoice_ID AS WH_Document_id, 
+			CALREL.c_invoice_id, 
+			CI.DocumentNo, 
+			CALREL.amount
+		FROM C_AllocationHDR CAH
+		INNER JOIN C_AllocationLine CAL ON CAH.C_AllocationHDR_ID = CAL.C_AllocationHDR_ID
+		INNER JOIN C_allocationLine CALREL ON CAH.C_AllocationHDR_ID = CALREL.C_AllocationHDR_ID
+		INNER JOIN C_Invoice CI ON CI.C_Invoice_ID = CALREL.C_Invoice_ID
+		WHERE NOT EXISTS(SELECT 1
                              FROM LVE_Withholding
                              WHERE LVE_Withholding.WithholdingDocType_ID = CI.c_doctype_id
-                            )) CIAffected ON CIAffected.WH_Document_id = CI.C_Invoice_ID AND CIAffected.C_Invoice_ID <> CI.C_Invoice_ID;
+                            )) CIAffected ON ((CIAffected.WH_Document_id = CIW.C_Invoice_ID) AND (CIAffected.C_Invoice_ID <> CIW.C_Invoice_ID))
+
+--WHERE  CIW.C_Invoice_ID=1060558
+;

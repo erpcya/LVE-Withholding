@@ -148,16 +148,6 @@ UPDATE AD_PrintFormat SET AD_PrintFont_ID=163, AD_PrintPaper_ID=101,Updated=TO_T
 UPDATE AD_PrintFormatItem SET ImageIsAttached='Y', IsGroupBy='N', IsPageBreak='N', SortNo=0, XPosition=0, YPosition=0,Updated=TO_TIMESTAMP('2013-10-01 09:03:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_PrintFormatItem_ID=53926
 ;
 
--- 1/10/2013 09:03:16 AM VET
--- LVE Withholding
-INSERT INTO AD_Attachment (AD_Attachment_ID,AD_Client_ID,AD_Org_ID,AD_Table_ID,Created,CreatedBy,IsActive,Record_ID,TextMsg,Title,Updated,UpdatedBy) VALUES (1500008,0,0,489,TO_TIMESTAMP('2013-10-01 09:03:05','YYYY-MM-DD HH24:MI:SS'),100,'Y',53926,NULL,'zip',TO_TIMESTAMP('2013-10-01 09:03:05','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
--- 1/10/2013 09:03:29 AM VET
--- LVE Withholding
-INSERT INTO AD_Attachment (AD_Attachment_ID,AD_Client_ID,AD_Org_ID,AD_Table_ID,Created,CreatedBy,IsActive,Record_ID,TextMsg,Title,Updated,UpdatedBy) VALUES (1500009,0,0,489,TO_TIMESTAMP('2013-10-01 09:03:19','YYYY-MM-DD HH24:MI:SS'),100,'Y',53926,NULL,'zip',TO_TIMESTAMP('2013-10-01 09:03:19','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
 -- 1/10/2013 09:04:12 AM VET
 -- LVE Withholding
 UPDATE AD_PrintFormatItem SET IsGroupBy='N', IsPageBreak='N', IsPrinted='Y', SeqNo=20, SortNo=0, XPosition=0, YPosition=0,Updated=TO_TIMESTAMP('2013-10-01 09:04:12','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_PrintFormatItem_ID=53912

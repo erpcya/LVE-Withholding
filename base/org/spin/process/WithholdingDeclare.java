@@ -60,10 +60,24 @@ public class WithholdingDeclare extends SvrProcess{
 		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal,WH.Beneficiary_ID As C_BPartner_ID \n "   
 				+"From T_Selection TS \n"
 				+"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID \n"
-				+"Inner Join LVE_WithHolding WH On WH.WithHoldingDocType_ID = CI.C_DocType_ID \n" 
+				+"Inner Join LVE_WithHolding WH On WH.DeclarationDocType_ID = CI.C_DocType_ID \n" 
 				+"Where AD_PInstance_ID = ? \n" 
 				+"Order By WH.LVE_WithHolding_ID";
-
+		
+		/*sql = "Select Distinct TS.T_Selection_ID,CRT.DeclarationDocType_ID,CRT.LVE_Withholding_ID,CRT.C_Charge_ID,CI.GrandTotal, CRT.Beneficiary_ID As C_BPartner_ID "
+				+ " From T_Selection TS Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID"
+				+ " Inner Join C_DocType CDT On CDT.C_DocType_ID = CI.C_DocType_ID"
+				+ " Inner Join LVE_Withholding CRT On CRT.WithholdingDocType_ID = CDT.C_DocType_ID"
+				+ " Inner Join ("
+				+ "		Select Distinct"
+				+ "		CIL.C_Invoice_ID,"
+				+ "		c.LVE_Withholding_ID"
+				+ "		From C_InvoiceLine CIL"
+				+ " INNER JOIN LVE_WH_Config c ON c.LVE_WH_Config_ID = CIL.LVE_WH_Config_ID"
+				+ " ) RC On RC.C_Invoice_ID=CI.C_Invoice_ID And RC.LVE_Withholding_ID=CRT.LVE_Withholding_ID"
+				+ " Where AD_PInstance_ID = ?"
+				+ " Order By CRT.LVE_Withholding_ID";
+		*/
 		log.fine("SQL Declare Retentions=" + sql);
 		trx = Trx.get(get_TrxName(), false);
 	}

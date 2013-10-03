@@ -64,6 +64,7 @@ INNER JOIN (Select  CITAX.C_Invoice_ID,
             GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID -- Tax Invoice
 -- Allocation Invoice
 LEFT JOIN (
+
 		SELECT
 			CAL.C_Invoice_ID AS WH_Document_id, 
 			CALREL.c_invoice_id, 
@@ -73,10 +74,20 @@ LEFT JOIN (
 		INNER JOIN C_AllocationLine CAL ON CAH.C_AllocationHDR_ID = CAL.C_AllocationHDR_ID
 		INNER JOIN C_allocationLine CALREL ON CAH.C_AllocationHDR_ID = CALREL.C_AllocationHDR_ID
 		INNER JOIN C_Invoice CI ON CI.C_Invoice_ID = CALREL.C_Invoice_ID
-		WHERE NOT EXISTS(SELECT 1
-                             FROM LVE_Withholding
-                             WHERE LVE_Withholding.WithholdingDocType_ID = CI.c_doctype_id
-                            )) CIAffected ON ((CIAffected.WH_Document_id = CIW.C_Invoice_ID) AND (CIAffected.C_Invoice_ID <> CIW.C_Invoice_ID))
+		INNER JOIN C_Invoice CIT ON CIT.C_Invoice_ID = CAL.C_Invoice_ID
+		INNER JOIN C_DocType dt ON (CIT.C_DocType_ID = dt.C_DocType_ID)
+		WHERE NOT (
+				EXISTS(SELECT 1
+					FROM LVE_Withholding
+					WHERE LVE_Withholding.WithholdingDocType_ID = CI.C_DocType_ID OR LVE_Withholding.WithholdingDocType_ID = DT.C_DocType_ID
+					)
+                            ) 
 
---WHERE  CIW.C_Invoice_ID=1060558
+) CIAffected ON (
+						(CIAffected.WH_Document_id = CIW.C_Invoice_ID) 
+						AND (CIAffected.C_Invoice_ID <> CIW.C_Invoice_ID)
+					)
+					 
+
+WHERE  CIW.C_Invoice_ID = 1060613 --IN (1060612,10606111060611)
 ;

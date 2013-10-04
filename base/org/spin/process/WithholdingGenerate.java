@@ -396,10 +396,15 @@ public class WithholdingGenerate extends SvrProcess {
 		
 		if(newOpenAmt.multiply(withholding_Mlp).compareTo(Env.ZERO) < 0){
 			MInvoice inv = new MInvoice(getCtx(), p_C_Invoice_ID, get_TrxName());
-			throw new AdempiereException("@ExcededOpenInvoiceAmt@ @DocumentNo@=" + inv.getDocumentNo() 
+			addLog(m_Current_Withholding.getC_Invoice_ID(), m_Current_Withholding.getDateAcct(), null,
+					m_Current_Withholding.getDocumentNo() + 
+					": Error @ExcededOpenInvoiceAmt@" 
+					+ " @C_Invoice_ID@=" 
+					+ inv.getDocumentNo() 
 					+ " @OpenAmt@=" + openAmt 
 					+ " @AllocatedAmt@=" + amt 
 					+ " @DifferenceAmt@=" + newOpenAmt);
+			return;
 		}
 		
 		//	

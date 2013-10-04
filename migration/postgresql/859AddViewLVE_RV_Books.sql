@@ -1,5 +1,5 @@
-DROP VIEW LVE_RV_Books;
-﻿CREATE OR REPLACE VIEW LVE_RV_Books AS 
+﻿--DROP VIEW LVE_RV_Books;
+CREATE OR REPLACE VIEW LVE_RV_Books AS 
 SELECT
 	i.AD_Client_ID,
 	i.AD_Org_ID,
@@ -24,87 +24,62 @@ SELECT
 	i.DocStatus,
 	i.DocAction,
 	i.IsSoTrx,
-	itax.TaxBaseAmt AS A_Base_Amount 
+	itax.TaxBaseAmt AS A_Base_Amount
 FROM C_DocType dt 
 INNER JOIN C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
 INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID 
-INNER JOIN (	SELECT it.C_Invoice_ID,MAX(t.Rate)    AS Rate,
-					SUM(it.TaxAmt) AS TaxAmt,
-					SUM(
-					CASE	 t.Rate 
-						WHEN 0 
-						THEN 0 
-						ELSE it.TaxBaseAmt 
-					END )  AS TaxBaseAmt,
-					SUM(
-					CASE	 t.Rate 
-						WHEN 0 
-						THEN it.TaxBaseAmt 
-						ELSE 0 
-					END)   AS Exempt 
-				FROM
-					C_InvoiceTax it 
-					INNER JOIN C_Tax t 
-					ON t.C_Tax_ID = it.C_Tax_ID 
-					GROUP BY
-						it.C_Invoice_ID 
-		)
-		itax 
-		ON itax.C_Invoice_ID = i.C_Invoice_ID 
-		LEFT JOIN (	SELECT
-					DISTINCT al.C_Invoice_ID,
-					alrel.C_Invoice_ID AS DocAffected_ID,
-					i.DocumentNo,
-					alrel.Amount 
-				FROM
-					C_AllocationHdr ah 
-					INNER JOIN C_AllocationLine al 
-					ON al.C_AllocationHdr_ID = ah.
-					C_AllocationHdr_ID 
-					INNER JOIN C_AllocationLine alrel 
-					ON alrel.C_AllocationHdr_ID = ah.
-					C_AllocationHdr_ID 
-					INNER JOIN C_Invoice i 
-					ON i.C_Invoice_ID = alrel.C_Invoice_ID 
-				WHERE
-					NOT ( EXISTS (	SELECT
-								1 
-							FROM
-								LVE_Withholding 
-								w 
-							WHERE
-								w.
-								WithholdingDocType_ID 
-								= i.C_DocType_ID 
+INNER JOIN (	
+		SELECT 
+			it.C_Invoice_ID,
+			MAX(t.Rate) AS Rate,
+			SUM(it.TaxAmt) AS TaxAmt,
+			SUM(CASE t.Rate WHEN 0 THEN 0 ELSE it.TaxBaseAmt END )  AS TaxBaseAmt,
+			SUM(CASE t.Rate WHEN 0 THEN it.TaxBaseAmt ELSE 0 END)   AS Exempt 
+		FROM C_InvoiceTax it 
+		INNER JOIN C_Tax t ON t.C_Tax_ID = it.C_Tax_ID 
+		GROUP BY
+			it.C_Invoice_ID 
+		) itax ON itax.C_Invoice_ID = i.C_Invoice_ID 
+LEFT JOIN (	
+		SELECT DISTINCT
+			al.C_Invoice_ID,
+			alrel.C_Invoice_ID AS DocAffected_ID,
+			i.DocumentNo,
+			alrel.Amount 
+		FROM C_AllocationHdr ah 
+		INNER JOIN C_AllocationLine al ON al.C_AllocationHdr_ID = ah.C_AllocationHdr_ID 
+		INNER JOIN C_AllocationLine alrel ON alrel.C_AllocationHdr_ID = ah.C_AllocationHdr_ID 
+		INNER JOIN C_Invoice i ON i.C_Invoice_ID = alrel.C_Invoice_ID 
+		WHERE NOT ( 
+				EXISTS (	
+					SELECT 1 
+					FROM LVE_Withholding w 
+					WHERE
+						w.WithholdingDocType_ID = i.C_DocType_ID 
 					)
-					) 
-		)
-		iaffected 
-		ON (iaffected.C_Invoice_ID = i.C_Invoice_ID) AND
-		iaffected.DocAffected_ID <> i.C_Invoice_ID 
-		LEFT JOIN (	SELECT
-					DISTINCT ilw.DocAffected_ID,
-					iw.DocumentNo,
-					ilw.LineNetAmt 
-				FROM
-					C_Invoice iw 
-					INNER JOIN C_InvoiceLine ilw 
-					ON (iw.C_Invoice_ID = ilw.C_Invoice_ID) 
-					INNER JOIN LVE_Withholding w 
-					ON w.WithholdingDocType_ID = iw.
-					C_DocType_ID 
-					INNER JOIN LVE_WH_Type wt 
-					ON (wt.LVE_WH_Type_ID = wt.
-					LVE_WH_Type_ID) 
-				WHERE
-					(iw.DocStatus = ANY (ARRAY
-					['CL'::BPCHAR,'CO'::BPCHAR ])) AND
-					wt.VALUE = 'RIVA' 
-		)
-		wit 
-		ON (wit.DocAffected_ID = i.C_Invoice_ID) 
-WHERE
+			) 
+	)iaffected ON (iaffected.C_Invoice_ID = i.C_Invoice_ID) AND iaffected.DocAffected_ID <> i.C_Invoice_ID 
+LEFT JOIN (	
+		SELECT DISTINCT 
+				ilw.DocAffected_ID,
+				iw.DocumentNo,
+				ilw.LineNetAmt,
+				wt.Value 
+		FROM C_Invoice iw 
+		INNER JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID) 
+		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID 
+		INNER JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID) 
+		WHERE 
+			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR ])) 
+			AND wt.VALUE = 'RIVA' 
+	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID) 
+WHERE 
 	dt.AffectsBook = 'Y'::bpchar 
+	--AND i.C_Invoice_ID = 1060610
+	--AND i.IsSOTrx = 'N'
+	--AND wit.VALUE = 'RIVA' 
+	
+	
 UNION
 	ALL 
 SELECT

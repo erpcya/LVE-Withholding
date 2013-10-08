@@ -75,6 +75,7 @@ LEFT JOIN (
 	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE 
 	dt.AffectsBook = 'Y'::bpchar 
+	AND i.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR ])
 	--AND i.C_Invoice_ID = 1060610
 	--AND i.IsSOTrx = 'N'
 	--AND wit.VALUE = 'RIVA' 

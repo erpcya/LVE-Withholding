@@ -75,7 +75,7 @@ LEFT JOIN (
 	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE 
 	dt.AffectsBook = 'Y'::bpchar 
-	AND i.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR ])
+	AND i.DocStatus IN ('CL','CO')
 	--AND i.C_Invoice_ID = 1060610
 	--AND i.IsSOTrx = 'N'
 	--AND wit.VALUE = 'RIVA' 
@@ -143,7 +143,7 @@ FROM
 WHERE
 	cbj.affectsbook = 'Y'::bpchar AND
 	cbj.cashtype = 'C'::bpchar AND
-	(cbj.docstatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])) 
+	cbj.docstatus IN ('CO','CL') 
 GROUP BY
 	cbj.ad_client_id,
 	cbj.ad_org_id,

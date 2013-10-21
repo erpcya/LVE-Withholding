@@ -1,4 +1,4 @@
-﻿--DROP VIEW LVE_RV_Withholding
+--DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
 	CI.AD_Client_ID,                    --Companny ID
@@ -15,7 +15,7 @@ SELECT DISTINCT
 	CI.GrandTotal,                      --Total Document
 	CIL.LinenetAmt,                     --Line Net (Retention Amt)
 	CIAffected.DocumentNo,              --DocumentNo Affeected
-	CIAffected.Amount * -1 AS Amount,                  --Amount Affected
+	CIAffected.Amount,                  --Amount Affected
 	WHC.Aliquot,                        --Aliquot WithHolding
 	WCC.Subtrahend,                     --Subtrahend
 	WT.value AS withholdinggroupvalue,  --Value WithHolding Group
@@ -25,8 +25,8 @@ SELECT DISTINCT
 	WCC.MinValue,                       --WithHolding Minimal
 	CIW.DocumentNo As WH_DocumentNo,     --WithHolding DocumentNo
 	CTAX.Exempt,
-	CASE WHEN DATE_PART('MONTH',CI.DateAcct) < 10 THEN '0' ELSE '' END || DATE_PART('MONTH',CI.DateAcct) AS MONTH,
-	DATE_PART('YEAR',CI.DateAcct) AS Year
+	TO_CHAR(CI.DateAcct,'MM') AS MONTH,
+	TO_CHAR(CI.DateAcct,'YYYY') AS Year
 FROM 
 -- Invoice DocType
 C_DocType CDT 
@@ -74,20 +74,21 @@ LEFT JOIN (
 		INNER JOIN C_AllocationLine CAL ON CAH.C_AllocationHDR_ID = CAL.C_AllocationHDR_ID
 		INNER JOIN C_allocationLine CALREL ON CAH.C_AllocationHDR_ID = CALREL.C_AllocationHDR_ID
 		INNER JOIN C_Invoice CI ON CI.C_Invoice_ID = CALREL.C_Invoice_ID
-		INNER JOIN C_Invoice CIT ON CIT.C_Invoice_ID = CAL.C_Invoice_ID
-		INNER JOIN C_DocType dt ON (CIT.C_DocType_ID = dt.C_DocType_ID)
+		--INNER JOIN C_Invoice CIT ON CIT.C_Invoice_ID = CAL.C_Invoice_ID
+		INNER JOIN C_DocType dt ON (CI.C_DocType_ID = dt.C_DocType_ID)
 		WHERE NOT (
 				EXISTS(SELECT 1
 					FROM LVE_Withholding
-					WHERE LVE_Withholding.WithholdingDocType_ID = CI.C_DocType_ID OR LVE_Withholding.WithholdingDocType_ID = DT.C_DocType_ID
+					WHERE LVE_Withholding.WithholdingDocType_ID = CI.C_DocType_ID --OR LVE_Withholding.WithholdingDocType_ID = DT.C_DocType_ID
 					)
                             ) 
+                            AND dt.DocTypeDeclare = '01'
 
 ) CIAffected ON (
-						(CIAffected.WH_Document_id = CIW.C_Invoice_ID) 
-						AND (CIAffected.C_Invoice_ID <> CIW.C_Invoice_ID)
+						(CIAffected.WH_Document_id = CI.C_Invoice_ID) 
+						AND (CIAffected.C_Invoice_ID <> CI.C_Invoice_ID)
 					)
 					 
 
-WHERE  CIW.C_Invoice_ID = 1060613 --IN (1060612,10606111060611)
+--WHERE CIW.C_Invoice_ID = 1060662 --IN (1060612,10606111060611)
 ;

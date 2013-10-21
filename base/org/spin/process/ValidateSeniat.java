@@ -112,11 +112,14 @@ public class ValidateSeniat extends SvrProcess
 				mPartner.setName2(newName2);
 				mPartner.saveEx();
 			}
-
-			return "@Value@ :" +validate.getM_Rif()+" "+
-						 "@Name@: "+validate.getM_Name()+" "+
-						 "@RetentionAgent@ :" +validate.getM_Agent()+"  "+
-						 "@IVATaxpayer@ :" + validate.getM_Contributor();
+			//	Set Message
+			String msg = "@Value@ :" +validate.getM_Rif()+" "+
+					 "@Name@: "+validate.getM_Name()+" "+
+					 "@RetentionAgent@ :" +validate.getM_Agent()+"  "+
+					 "@IVATaxpayer@ :" + validate.getM_Contributor();
+			
+			addLog(msg);
+			return msg;
 		}else
 		{
 			throw new AdempiereException(validate.getM_error());

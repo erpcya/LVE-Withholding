@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE VIEW LVE_RV_WH_List AS 
+CREATE OR REPLACE VIEW LVE_RV_WH_List AS 
  SELECT 
 	whconf.AD_Client_ID,  
 	whconf.AD_Org_ID,
@@ -36,9 +36,9 @@
 	w.IsSOTrx,
 	w.name
 FROM  LVE_WH_Concept whconc 
-INNER JOIN LVE_WH_Combination whcomb ON (whcomb.LVE_WH_Concept_ID = whconc.LVE_WH_Concept_ID)
-INNER JOIN LVE_WH_Config whconf ON (whconf.LVE_WH_Combination_ID = whcomb.LVE_WH_Combination_ID)
-INNER JOIN LVE_TaxUnit tu ON (tu.LVE_TaxUnit_ID = whconf.LVE_TaxUnit_ID)
-INNER JOIN LVE_Withholding w ON (w.LVE_Withholding_ID = whconf.LVE_Withholding_ID)
-INNER JOIN LVE_WH_Type t ON (w.LVE_WH_Type_ID = t.LVE_WH_Type_ID)
+LEFT JOIN LVE_WH_Combination whcomb ON (whcomb.LVE_WH_Concept_ID = whconc.LVE_WH_Concept_ID)
+LEFT JOIN LVE_WH_Config whconf ON (whconf.LVE_WH_Combination_ID = whcomb.LVE_WH_Combination_ID)
+LEFT JOIN LVE_TaxUnit tu ON (tu.LVE_TaxUnit_ID = whconf.LVE_TaxUnit_ID)
+LEFT JOIN LVE_Withholding w ON (w.LVE_Withholding_ID = whconf.LVE_Withholding_ID)
+LEFT JOIN LVE_WH_Type t ON (w.LVE_WH_Type_ID = t.LVE_WH_Type_ID)
 LEFT JOIN LVE_PersonType pt ON (pt.LVE_PersonType_ID = whcomb.LVE_PersonType_ID);

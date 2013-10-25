@@ -1,3 +1,55 @@
+--Referenced Documents
+Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+RETURNS RECORD AS 
+$$
+Declare
+result Record;
+AllocLine Record;
+v_DocumentNo Varchar;
+v_Amt Numeric;
+v_ID Numeric;
+Begin
+For AllocLine In Select cal.C_AllocationHdr_ID 
+		From 
+		C_AllocationLine cal 
+		Inner Join C_AllocationHdr cah On cal.C_AllocationHdr_ID=cah.C_AllocationHdr_ID
+		Where cal.C_Invoice_ID=p_C_Invoice_ID And cah.DocStatus In('CO','CL')
+Loop
+	--Not Allocation invoice
+	If Not Exists(Select 1 
+			From C_AllocationLine cal 
+			Inner Join C_Invoice ci On cal.C_Invoice_ID=ci.C_Invoice_ID
+			Inner Join C_DocType dt On dt.C_DocType_ID=ci.C_DocType_ID
+			Where cal.C_AllocationHdr_ID=AllocLine.C_AllocationHdr_ID 
+			And Exists(Select 1 From LVE_Withholding WH Where WH.WithholdingDocType_ID=ci.C_DocTypeTarget_ID) --Don't WithHolding Dcuments
+			) Then 
+
+		v_Amt:=null;
+		v_DocumentNo:=null;
+		Select Abs(cal.Amount),ci.DocumentNo,ci.C_Invoice_ID into v_Amt,v_DocumentNo,v_ID From 
+		C_AllocationLine cal 
+		Inner Join C_invoice ci On cal.C_Invoice_ID = ci.C_Invoice_ID
+		Inner Join C_DocType dt On dt.C_DocType_ID=ci.C_DocType_ID
+		Where cal.C_AllocationHdr_ID= AllocLine.C_AllocationHdr_ID And --Equals to Allocation
+		cal.C_Invoice_ID<>p_C_Invoice_ID And --Documents <> WithHolding
+		dt.DocTypeDeclare ='01' And --Only Document Invoice
+		Not Exists(Select 1 From LVE_Withholding WH Where WH.WithholdingDocType_ID=ci.C_DocTypeTarget_ID) --Don't WithHolding Dcuments
+		Limit 1;
+		if (v_Amt Is Not Null And v_DocumentNo Is Not Null) Then
+			result := (Cast(v_Amt AS Numeric),Cast(v_DocumentNo AS Varchar(30)),Cast(v_ID As Numeric));
+			Raise Notice 'DocumentNo % - Amt %', v_DocumentNo,v_Amt ;
+		End If;
+		
+	End If;
+End Loop;
+
+Return result;
+End;
+$$
+Language PLPGSQL;
+
+
+
 --DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
@@ -14,8 +66,10 @@ SELECT DISTINCT
 	CI.TotalLines,                      --Total Lines exclude tax
 	CI.GrandTotal,                      --Total Document
 	CIL.LinenetAmt,                     --Line Net (Retention Amt)
-	CIAffected.DocumentNo,              --DocumentNo Affeected
-	CIAffected.Amount,                  --Amount Affected
+	--CIAffected.DocumentNo,              --DocumentNo Affeected
+	--CIAffected.Amount,                  --Amount Affected
+	(Select DocumentNo From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric)) DocumentNo, --DocumentNo Affeected
+	(Select Amount From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric)) Amount, --Amount Affected
 	WHC.Aliquot,                        --Aliquot WithHolding
 	WCC.Subtrahend,                     --Subtrahend
 	WT.value AS withholdinggroupvalue,  --Value WithHolding Group
@@ -63,7 +117,7 @@ INNER JOIN (Select  CITAX.C_Invoice_ID,
             INNER JOIN C_Tax CTAX ON CITAX.C_Tax_ID = ctax.C_Tax_ID
             GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID -- Tax Invoice
 -- Allocation Invoice
-LEFT JOIN (
+/*LEFT JOIN (
 
 		SELECT
 			CAL.C_Invoice_ID AS WH_Document_id, 
@@ -87,8 +141,7 @@ LEFT JOIN (
 ) CIAffected ON (
 						(CIAffected.WH_Document_id = CI.C_Invoice_ID) 
 						AND (CIAffected.C_Invoice_ID <> CI.C_Invoice_ID)
-					)
+					)*/
 					 
-
---WHERE CIW.C_Invoice_ID = 1060662 --IN (1060612,10606111060611)
 ;
+

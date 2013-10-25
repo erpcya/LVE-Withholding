@@ -18,13 +18,15 @@ SELECT
 	itax.TaxBaseAmt,
 	itax.Rate,
 	itax.TaxAmt,
-	iaffected.DocAffected_ID,
+	--iaffected.DocAffected_ID,
+	(Select DocAffected_ID From LVE_ReferencedDocuments(I.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),DocAffected_ID Numeric)) DocAffected_ID,
 	wit.DocumentNo  AS RetDocumentNo,
 	wit.LineNetAmt,
 	i.DocStatus,
 	i.DocAction,
 	i.IsSoTrx,
-	itax.TaxBaseAmt AS A_Base_Amount
+	itax.TaxBaseAmt AS A_Base_Amount,
+	i.C_BPartner_ID 
 FROM C_DocType dt 
 INNER JOIN C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
 INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID 
@@ -40,7 +42,7 @@ INNER JOIN (
 		GROUP BY
 			it.C_Invoice_ID 
 		) itax ON itax.C_Invoice_ID = i.C_Invoice_ID 
-LEFT JOIN (	
+/*LEFT JOIN (	
 		SELECT DISTINCT
 			al.C_Invoice_ID,
 			alrel.C_Invoice_ID AS DocAffected_ID,
@@ -58,7 +60,7 @@ LEFT JOIN (
 						w.WithholdingDocType_ID = i.C_DocType_ID 
 					)
 			) 
-	)iaffected ON (iaffected.C_Invoice_ID = i.C_Invoice_ID) AND iaffected.DocAffected_ID <> i.C_Invoice_ID 
+	)iaffected ON (iaffected.C_Invoice_ID = i.C_Invoice_ID) AND iaffected.DocAffected_ID <> i.C_Invoice_ID */
 LEFT JOIN (	
 		SELECT DISTINCT 
 				ilw.DocAffected_ID,
@@ -133,7 +135,8 @@ SELECT
 	cbj.docstatus,
 	cbj.docaction,
 	'N'::bpchar                              AS issotrx,
-	cbj.a_base_amount 
+	cbj.a_base_amount,
+	cbj.C_BPartner_ID
 FROM
 	LVE_RV_CashBookJournal cbj 
 		JOIN c_bpartner bp 
@@ -163,7 +166,9 @@ GROUP BY
 	cbj.docaction,
 	cbj.taxbaseamt,
 	cbj.rate,
-	tdoc.doctypedeclare 
-ORDER BY
-	6 DESC;
+	tdoc.doctypedeclare,
+	cbj.C_BPartner_ID
+	--ORDER BY
+	--6 DESC
+	;
 

@@ -1,0 +1,1 @@
+Create Unique Index UK_LVE_Withholding  On LVE_Withholding(LVE_WH_Type_ID,WithHoldingDocType_ID);

@@ -1,12 +1,12 @@
 CREATE OR REPLACE VIEW LVE_RV_WH_List AS 
  SELECT 
-	whconf.AD_Client_ID,  
-	whconf.AD_Org_ID,
-	whconf.Created,  
-	whconf.CreatedBy, 
-	whconf.IsActive,  
-	whconf.Updated,  
-	whconf.UpdatedBy,
+	whconc.AD_Client_ID,  
+	whconc.AD_Org_ID,
+	whconc.Created,  
+	whconc.CreatedBy, 
+	whconc.IsActive,  
+	whconc.Updated,  
+	whconc.UpdatedBy,
 	whconf.LVE_TaxUnit_ID,
 	whconf.LVE_Withholding_ID,	
 	whconf.MaxValue,  
@@ -41,4 +41,4 @@ LEFT JOIN LVE_WH_Config whconf ON (whconf.LVE_WH_Combination_ID = whcomb.LVE_WH_
 LEFT JOIN LVE_TaxUnit tu ON (tu.LVE_TaxUnit_ID = whconf.LVE_TaxUnit_ID)
 LEFT JOIN LVE_Withholding w ON (w.LVE_Withholding_ID = whconf.LVE_Withholding_ID)
 LEFT JOIN LVE_WH_Type t ON (w.LVE_WH_Type_ID = t.LVE_WH_Type_ID)
-LEFT JOIN LVE_PersonType pt ON (pt.LVE_PersonType_ID = whcomb.LVE_PersonType_ID);
+LEFT JOIN LVE_PersonType pt ON (pt.LVE_PersonType_ID = whcomb.LVE_PersonType_ID)

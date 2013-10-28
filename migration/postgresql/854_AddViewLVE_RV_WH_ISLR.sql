@@ -61,7 +61,7 @@ GROUP BY inv.AD_Client_ID,
 	rt.WithholdingDocType_ID,
 	inv.DateAcct
 --Having
-HAVING (SUM(linv.LineNetAmt) >= cn.MinValue AND SUM(linv.LineNetAmt) > 0)
+HAVING (SUM(linv.LineNetAmt) > cn.MinValue AND SUM(linv.LineNetAmt) > 0)
 ORDER BY bp.C_BPartner_ID, 
 	 rr.LVE_Withholding_ID, 
 	 inv.C_Invoice_ID, 

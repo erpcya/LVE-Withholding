@@ -60,7 +60,7 @@ public class WithholdingDeclare extends SvrProcess{
 		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal,WH.Beneficiary_ID As C_BPartner_ID \n "   
 				+"From T_Selection TS \n"
 				+"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID \n"
-				+"Inner Join LVE_WithHolding WH On WH.DeclarationDocType_ID = CI.C_DocType_ID \n" 
+				+"Inner Join LVE_WithHolding WH On WH.WithholdingDocType_ID = CI.C_DocType_ID \n" 
 				+"Where AD_PInstance_ID = ? \n" 
 				+"Order By WH.LVE_WithHolding_ID";
 		
@@ -126,7 +126,7 @@ public class WithholdingDeclare extends SvrProcess{
 	{
 		MInvoice m_Declare = new MInvoice(getCtx(), 0, trx.getTrxName());
 		m_Declare.setC_DocTypeTarget_ID(rs.getInt("DeclarationDocType_ID"));
-		m_Declare.setIsSOTrx(false);
+		m_Declare.setIsSOTrx(m_Declare.getC_DocType().isSOTrx());
 		MBPartner m_BPartner = MBPartner.get(getCtx(), rs.getInt("C_BPartner_ID"));
 		//m_Declare.setC_BPartner_ID(rs.getInt("C_BPartner_ID"));
 		m_Declare.setBPartner(m_BPartner);

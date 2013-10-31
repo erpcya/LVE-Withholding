@@ -257,9 +257,3 @@ INSERT INTO LVE_WH_Config (AD_Client_ID,AD_Org_ID,AD_Rule_ID,Created,CreatedBy,I
 -- LVE Withholding
 INSERT INTO LVE_WH_Config (AD_Client_ID,AD_Org_ID,AD_Rule_ID,Created,CreatedBy,IsActive,LVE_TaxUnit_ID,LVE_WH_Combination_ID,LVE_WH_Config_ID,LVE_Withholding_ID,MaxValue,MinValue,Subtrahend,Updated,UpdatedBy) VALUES (11,50001,50018,TO_TIMESTAMP('2013-08-21 12:18:28','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,1000055,1000051,1000002,0,0,0,TO_TIMESTAMP('2013-08-21 12:18:28','YYYY-MM-DD HH24:MI:SS'),100)
 ;
-
--- Aug 21, 2013 12:18:33 PM VET
--- LVE Withholding
-INSERT INTO LVE_WH_Config (AD_Client_ID,AD_Org_ID,AD_Rule_ID,Created,CreatedBy,IsActive,LVE_TaxUnit_ID,LVE_WH_Combination_ID,LVE_WH_Config_ID,LVE_Withholding_ID,MaxValue,MinValue,Subtrahend,Updated,UpdatedBy) VALUES (11,50001,50018,TO_TIMESTAMP('2013-08-21 12:18:33','YYYY-MM-DD HH24:MI:SS'),100,'Y',1000001,1000054,1000052,1000003,0,0,0,TO_TIMESTAMP('2013-08-21 12:18:33','YYYY-MM-DD HH24:MI:SS'),100)
-;
-

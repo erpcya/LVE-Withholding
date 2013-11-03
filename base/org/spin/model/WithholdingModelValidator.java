@@ -178,7 +178,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				MInvoice inv = (MInvoice) po;
 				if(inv.isSOTrx()){
 					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
-					int m_ControlNo_Seq = doc.get_ValueAsInt("ControlNo_Seq");
+					int m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");
 					if(m_ControlNo_Seq != 0){
 						MSequence seq_ControlNo = new MSequence(Env.getCtx(), m_ControlNo_Seq, inv.get_TrxName());
 						String prefix = seq_ControlNo.getPrefix();

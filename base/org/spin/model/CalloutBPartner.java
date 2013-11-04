@@ -30,8 +30,7 @@ import org.compiere.model.GridTab;
 public class CalloutBPartner extends CalloutEngine
 {
 	/**
-	 * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a> 15/10/2013, 09:48:38
-	 * 
+	 * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a> 15/10/2013, 09:48:38 
 	 * @param ctx
 	 * @param WindowNo
 	 * @param mTab

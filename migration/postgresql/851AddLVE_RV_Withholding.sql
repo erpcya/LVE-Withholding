@@ -1,4 +1,4 @@
---Referenced Documents
+﻿--Referenced Documents
 Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
@@ -78,15 +78,7 @@ SELECT DISTINCT
 	CIW.DocumentNo As WH_DocumentNo,     --WithHolding DocumentNo
 	CTAX.Exempt,
 	TO_CHAR(CI.DateAcct,'MM') AS MONTH,
-	TO_CHAR(CI.DateAcct,'YYYY') AS Year,
-	CASE WHEN CI.LVE_WH_Concept_ID IS NULL 
-		THEN cilbwh.WHBaseAmt
-		ELSE CI.TotalLines
-	END WHBaseAmt ,				--Base Subject to WithHolding
-	CASE WHEN CI.LVE_WH_Concept_ID IS NULL 
-		THEN cilbwh.WHTaxAmt
-		ELSE CTAX.TaxAmt
-	END WHTaxAmt				--Tax Subject to WithHolding
+	TO_CHAR(CI.DateAcct,'YYYY') AS Year
 FROM 
 -- Invoice DocType
 C_DocType CDT 
@@ -121,10 +113,33 @@ INNER JOIN (Select  CITAX.C_Invoice_ID,
                     SUM(CASE CTAX.Rate WHEN 0 THEN CITAX.TaxBaseAmt ELSE 0 END) AS Exempt 
             FROM C_InvoiceTax CITAX
             INNER JOIN C_Tax CTAX ON CITAX.C_Tax_ID = ctax.C_Tax_ID
-            GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID 
---Base Tax WithHolding
-LEFT JOIN (SELECT cil.C_Invoice_ID,Sum(cil.LineNetAmt) WHBaseAmt,Sum(cil.TaxAmt) WHTaxAmt 
-	   FROM C_invoiceLine cil 
-	   INNER JOIN LVE_WC_ProductCharge wcpch ON cil.M_Product_ID=wcpch.M_Product_ID OR cil.C_Charge_ID=wcpch.C_Charge_ID
-	   GROUP BY cil.C_Invoice_ID) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
+            GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID -- Tax Invoice
+-- Allocation Invoice
+/*LEFT JOIN (
+
+		SELECT
+			CAL.C_Invoice_ID AS WH_Document_id, 
+			CALREL.c_invoice_id, 
+			CI.DocumentNo, 
+			CALREL.amount
+		FROM C_AllocationHDR CAH
+		INNER JOIN C_AllocationLine CAL ON CAH.C_AllocationHDR_ID = CAL.C_AllocationHDR_ID
+		INNER JOIN C_allocationLine CALREL ON CAH.C_AllocationHDR_ID = CALREL.C_AllocationHDR_ID
+		INNER JOIN C_Invoice CI ON CI.C_Invoice_ID = CALREL.C_Invoice_ID
+		--INNER JOIN C_Invoice CIT ON CIT.C_Invoice_ID = CAL.C_Invoice_ID
+		INNER JOIN C_DocType dt ON (CI.C_DocType_ID = dt.C_DocType_ID)
+		WHERE NOT (
+				EXISTS(SELECT 1
+					FROM LVE_Withholding
+					WHERE LVE_Withholding.WithholdingDocType_ID = CI.C_DocType_ID --OR LVE_Withholding.WithholdingDocType_ID = DT.C_DocType_ID
+					)
+                            ) 
+                            AND dt.DocTypeDeclare = '01'
+
+) CIAffected ON (
+						(CIAffected.WH_Document_id = CI.C_Invoice_ID) 
+						AND (CIAffected.C_Invoice_ID <> CI.C_Invoice_ID)
+					)*/
+					 
 ;
+

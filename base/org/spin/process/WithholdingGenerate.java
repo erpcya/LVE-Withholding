@@ -104,6 +104,12 @@ public class WithholdingGenerate extends SvrProcess {
 	
 	Trx 					trx 					= null;
 
+	//	Dixon Martinez 08-11-2013
+	//	Carlos Parada 08-11-2013
+	//	Add Organization 
+	/**	Organization 					*/
+	private int p_AD_Org_ID 						= 0;
+	
 	/** the context for rules */
 	HashMap<String, Object> m_scriptCtx = new HashMap<String, Object>();
 
@@ -136,6 +142,12 @@ public class WithholdingGenerate extends SvrProcess {
 				p_DateDoc = (Timestamp)para.getParameter();
 			else if(name.equals("LVE_WH_Type_ID"))
 				p_LVE_WH_Type_ID = para.getParameterAsInt();
+			//	Dixon Martinez 08-11-2013
+			//	Carlos Parada 08-11-2013
+			//	Add Organization 
+			else if(name.equals("AD_Org_ID"))
+				p_AD_Org_ID = para.getParameterAsInt();
+			
 			else if (name.equals("LVE_Withholding_ID"))
 				p_LVE_Withholding_ID = para.getParameterAsInt();
 		}
@@ -325,6 +337,10 @@ public class WithholdingGenerate extends SvrProcess {
 			completeAlloc();
 			//
 			m_Current_Withholding = new MInvoice(getCtx(), 0, get_TrxName());
+			//	Dixon Martinez 08-11-2013
+			//	Carlos Parada 08-11-2013
+			//	Add Organization 
+			m_Current_Withholding.setAD_Org_ID(p_AD_Org_ID);
 			m_Current_Withholding.setC_DocTypeTarget_ID(m_Currrent_Withholding.getWithholdingDocType_ID());
 			m_Current_Withholding.setIsSOTrx(false);
 			m_Current_Withholding.setC_BPartner_ID(m_C_BPartner_ID);

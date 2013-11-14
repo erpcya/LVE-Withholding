@@ -1,4 +1,4 @@
---Referenced Documents
+﻿--Referenced Documents
 Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$

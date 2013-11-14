@@ -86,7 +86,8 @@ SELECT DISTINCT
 	CASE WHEN CI.LVE_WH_Concept_ID IS NULL 
 		THEN cilbwh.WHTaxAmt
 		ELSE CTAX.TaxAmt
-	END WHTaxAmt				--Tax Subject to WithHolding
+	END WHTaxAmt,				--Tax Subject to WithHolding
+	WHC.TaxBaseRate
 FROM 
 -- Invoice DocType
 C_DocType CDT 

@@ -87,7 +87,7 @@ public class WithholdingDeclare extends SvrProcess{
 		// TODO Auto-generated method stub
 		PreparedStatement ps =null;
 		ResultSet rs = null;
-		int m_LVE_WithHolding_ID=0;
+		int m_DeclarationDocType_ID=0;
 		MInvoice m_C_Invoice=null;
 		ps = DB.prepareStatement(sql, trx.getTrxName());
 		ps.setInt(1, getAD_PInstance_ID());
@@ -95,12 +95,12 @@ public class WithholdingDeclare extends SvrProcess{
 		
 		while (rs.next())
 		{
-			if (m_LVE_WithHolding_ID!=rs.getInt("LVE_WithHolding_ID"))
+			if (m_DeclarationDocType_ID!=rs.getInt("DeclarationDocType_ID"))
 			{
 				if (m_C_Invoice!=null)
 					processDocument(m_C_Invoice);
 				m_C_Invoice=addDocument(rs);
-				m_LVE_WithHolding_ID=rs.getInt("LVE_WithHolding_ID");
+				m_DeclarationDocType_ID=rs.getInt("DeclarationDocType_ID");
 			}
 			
 			if (m_C_Invoice!=null)

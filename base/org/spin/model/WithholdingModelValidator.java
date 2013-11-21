@@ -220,7 +220,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 						sql, ret.getC_Invoice_ID());
 				//	If exist a Declaration
 				if(declarationDocNo != null)
-					return "Error Referenced in " + declarationDocNo;
+					return "@Error@ @SQLErrorReferenced@ @DocumentNo@ " + declarationDocNo;
 				
 			}
 		} else if (timing==TIMING_BEFORE_PREPARE)

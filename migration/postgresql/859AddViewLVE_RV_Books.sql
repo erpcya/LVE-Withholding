@@ -19,7 +19,7 @@ SELECT
 	itax.Rate,
 	itax.TaxAmt,
 	--iaffected.DocAffected_ID,
-	(Select DocAffected_ID From LVE_ReferencedDocuments(I.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),DocAffected_ID Numeric)) DocAffected_ID,
+	(Select DocAffected_ID From LVE_ReferencedDocuments(I.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),DocAffected_ID Numeric,DateInvoiced Timestamp)) DocAffected_ID,
 	wit.DocumentNo  AS RetDocumentNo,
 	wit.LineNetAmt,
 	i.DocStatus,

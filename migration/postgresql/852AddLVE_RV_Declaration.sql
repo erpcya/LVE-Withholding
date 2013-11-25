@@ -2,7 +2,7 @@
 Create Or Replace View LVE_RV_Declaration As
 Select distinct 
 	CI.ad_client_id,                     --Company ID
-    CI.ad_org_id,                        --Org ID
+	CI.ad_org_id,                        --Org ID
 	CI.C_Invoice_ID,                     --Invoice ID Document Declaration
 	CIL.DocAffected_ID,                  --WithHolding Document ID
 	OI.TaxID,                            --Document ID Organization
@@ -15,7 +15,7 @@ Select distinct
 	CRR.TaxBaseAmt,                      --Base Amt
 	CRR.LinenetAmt,                      --Retain Amt
 	CRR.DocumentNo As AffectedDocumentNo,--Affected Document No
-    CRR.WH_DocumentNo as WithHoldingNo ,      --Retention No
+	CRR.WH_DocumentNo as WithHoldingNo ,      --Retention No
 	CRR.Rate,                            --Rate
 	CRR.TaxAmt,                          --Tax Amt
 	CRR.TotalLines,                      --Total Lines
@@ -25,7 +25,8 @@ Select distinct
 	CDTI.Name,                           --Bussiness Partner Name
 	CDTI.DateAcct,                       --Date Acct Document Retained
 	--O.value AS RifOrg, --Invalid (No Org RiF)
-	CI.DateInvoiced,                     --Declaration Date
+	--CI.DateInvoiced,                     --Declaration Date
+	CDTI.DateInvoiced,                     --Document Date Original
 	CDTI.Exempt                         --Excempt
 From 
 --Org Info
@@ -50,7 +51,8 @@ Left Join (Select CI.C_Invoice_ID,
                   CIT.Exempt,
                   CIT.Taxable,
                   CIT.Tax,
-                  CIT.Rate
+                  CIT.Rate,
+                  CI.DateInvoiced
            From C_Invoice CI 
            Inner Join C_DocType CDT  On  CI.C_DocType_ID = CDT.C_DocType_ID
            Inner Join C_BPartner CBP On CI.C_BPartner_ID = CBP.C_BPartner_ID
@@ -62,5 +64,7 @@ Left Join (Select CI.C_Invoice_ID,
                         FROM C_InvoiceTax LI
                         Inner Join C_Tax T ON T.C_Tax_ID = LI.C_Tax_ID
                         GROUP BY LI.C_Invoice_ID) CIT ON CIT.C_Invoice_ID = CI.C_Invoice_ID
-	  ) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID
-WHERE CI.DocStatus IN ('CO','CL');
+) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID
+WHERE CI.DocStatus IN ('CO','CL')
+	
+;

@@ -44,7 +44,6 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	public MLVEWHConfig(Properties ctx, int LVE_WithholdingConfig_ID,
 			String trxName) {
 		super(ctx, LVE_WithholdingConfig_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -56,7 +55,6 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	 */
 	public MLVEWHConfig(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -97,7 +95,8 @@ public class MLVEWHConfig extends X_LVE_WH_Config {
 	@Override
 	protected boolean beforeSave(boolean newRecord) {
 		super.beforeSave(newRecord);
-		if(!newRecord){
+		if(!newRecord
+				&& !is_ValueChanged("IsActive")){
 			if(validReference() != 0)
 				throw new AdempiereException("@SQLErrorReferenced@");
 		}

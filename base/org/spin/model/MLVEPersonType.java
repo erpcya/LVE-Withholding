@@ -39,7 +39,6 @@ public class MLVEPersonType extends X_LVE_PersonType {
 	 */
 	public MLVEPersonType(Properties ctx, int LVE_PersonType_ID, String trxName) {
 		super(ctx, LVE_PersonType_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -51,7 +50,6 @@ public class MLVEPersonType extends X_LVE_PersonType {
 	 */
 	public MLVEPersonType(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -43,7 +43,6 @@ public class MLVEWHConcept extends X_LVE_WH_Concept {
 	public MLVEWHConcept(Properties ctx,
 			int LVE_WithholdingConcept_ID, String trxName) {
 		super(ctx, LVE_WithholdingConcept_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -55,7 +54,6 @@ public class MLVEWHConcept extends X_LVE_WH_Concept {
 	 */
 	public MLVEWHConcept(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

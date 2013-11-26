@@ -40,7 +40,6 @@ public class MLVEWHConceptGroup extends X_LVE_WH_ConceptGroup {
 	public MLVEWHConceptGroup(Properties ctx, int LVE_WH_ConceptGroup_ID,
 			String trxName) {
 		super(ctx, LVE_WH_ConceptGroup_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -52,7 +51,6 @@ public class MLVEWHConceptGroup extends X_LVE_WH_ConceptGroup {
 	 */
 	public MLVEWHConceptGroup(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 }

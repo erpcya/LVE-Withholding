@@ -42,7 +42,6 @@ public class MLVETaxUnit extends X_LVE_TaxUnit {
 	 */
 	public MLVETaxUnit(Properties ctx, int LVE_TaxUnit_ID, String trxName) {
 		super(ctx, LVE_TaxUnit_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -54,7 +53,6 @@ public class MLVETaxUnit extends X_LVE_TaxUnit {
 	 */
 	public MLVETaxUnit(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

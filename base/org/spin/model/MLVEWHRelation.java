@@ -40,7 +40,6 @@ public class MLVEWHRelation extends X_LVE_WH_Relation {
 	public MLVEWHRelation(Properties ctx,
 			int LVE_WithholdingRelation_ID, String trxName) {
 		super(ctx, LVE_WithholdingRelation_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -52,7 +51,6 @@ public class MLVEWHRelation extends X_LVE_WH_Relation {
 	 */
 	public MLVEWHRelation(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 }

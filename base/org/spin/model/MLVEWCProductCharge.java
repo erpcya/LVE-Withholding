@@ -40,7 +40,6 @@ public class MLVEWCProductCharge extends X_LVE_WC_ProductCharge {
 	public MLVEWCProductCharge(Properties ctx, int LVE_WC_ProductCharge_ID,
 			String trxName) {
 		super(ctx, LVE_WC_ProductCharge_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -52,7 +51,6 @@ public class MLVEWCProductCharge extends X_LVE_WC_ProductCharge {
 	 */
 	public MLVEWCProductCharge(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 }

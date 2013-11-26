@@ -40,7 +40,6 @@ public class MLVEWHType extends X_LVE_WH_Type {
 	public MLVEWHType(Properties ctx, int LVE_WithholdingType_ID,
 			String trxName) {
 		super(ctx, LVE_WithholdingType_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -52,7 +51,6 @@ public class MLVEWHType extends X_LVE_WH_Type {
 	 */
 	public MLVEWHType(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 }

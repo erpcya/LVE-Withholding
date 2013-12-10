@@ -176,7 +176,8 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 		if(timing == TIMING_AFTER_COMPLETE){
 			if(po.get_TableName().equals(MInvoice.Table_Name)){
 				MInvoice inv = (MInvoice) po;
-				if(inv.isSOTrx()){
+				if(inv.isSOTrx() 
+						&& inv.getReversal_ID() == 0){
 					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
 					int m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");
 					if(m_ControlNo_Seq != 0){

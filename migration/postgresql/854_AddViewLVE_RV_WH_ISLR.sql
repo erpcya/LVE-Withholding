@@ -1,4 +1,4 @@
-Create Or Replace View LVE_RV_WH_ISLR As 
+﻿Create Or Replace View LVE_RV_WH_ISLR As 
 SELECT 	inv.AD_Client_ID,
 	inv.AD_Org_ID,
 	inv.C_Invoice_ID, 
@@ -35,9 +35,11 @@ INNER JOIN C_DocType dtr 		ON(dtr.C_DocType_ID = rt.WithholdingDocType_ID)
 --WH Relation
 INNER JOIN LVE_WH_Relation rrdt 	ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID)
 --WithHolding Product Charge
-LEFT JOIN LVE_WC_ProductCharge wcp ON(wcp.C_Charge_ID = linv.C_Charge_ID OR wcp.M_Product_ID = linv.M_Product_ID)
+LEFT JOIN LVE_WC_ProductCharge wcp ON((wcp.C_Charge_ID = linv.C_Charge_ID OR wcp.M_Product_ID = linv.M_Product_ID) AND wcp.LVE_WH_Concept_ID = whc.LVE_WH_Concept_ID)
 -- Filter
 WHERE inv.DocStatus IN('CO')
+AND cb.IsActive='Y'
+AND cn.IsActive='Y'
 AND (
 		(whc.LVE_WH_Concept_ID = inv.LVE_WH_Concept_ID AND inv.LVE_WH_Concept_ID IS NOT NULL)
 		OR
@@ -107,6 +109,8 @@ INNER JOIN LVE_WH_Relation rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt
 --Filter
 WHERE 
 inv.DocStatus IN('CO') 
+AND cb.IsActive='Y'
+AND cn.IsActive='Y'
 AND NOT EXISTS(SELECT 1 
 		FROM C_Invoice ret 
 		LEFT JOIN C_InvoiceLine retl ON(ret.C_Invoice_ID = retl.C_Invoice_ID) 

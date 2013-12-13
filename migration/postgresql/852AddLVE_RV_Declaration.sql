@@ -27,18 +27,21 @@ Select distinct
 	--O.value AS RifOrg, --Invalid (No Org RiF)
 	--CI.DateInvoiced,                     --Declaration Date
 	CDTI.DateInvoiced,                     --Document Date Original
-	CDTI.Exempt                         --Excempt
+	CDTI.Exempt,                         --Excempt
+	CRR.WHBaseAmt,			     --WH Base Amt
+	CRR.ReferenceNO
 From 
 --Org Info
 AD_OrgInfo OI 
 --Declaration Document Header
-Inner Join C_Invoice CI On OI.AD_Org_ID = CI.AD_Org_ID
+Inner Join RV_C_Invoice CI On OI.AD_Org_ID = CI.AD_Org_ID
 --Declaration Document Line
 Inner Join C_InvoiceLine CIL On CI.C_Invoice_ID=CIL.C_Invoice_ID
 --WithHolding Form
 Inner Join LVE_RV_WithHolding CRR On CRR.C_Invoice_ID = CIL.DocAffected_ID
 --Original Document
-Left Join (Select CI.C_Invoice_ID, 
+left Join (
+	Select CI.C_Invoice_ID, 
                   CDT.C_DocType_ID,
                   CDT.DocTypeDeclare,
                   CBP.Value,
@@ -63,8 +66,9 @@ Left Join (Select CI.C_Invoice_ID,
                                 Max(T.Rate) AS Rate
                         FROM C_InvoiceTax LI
                         Inner Join C_Tax T ON T.C_Tax_ID = LI.C_Tax_ID
+                        
                         GROUP BY LI.C_Invoice_ID) CIT ON CIT.C_Invoice_ID = CI.C_Invoice_ID
 ) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID
-WHERE CI.DocStatus IN ('CO','CL')
-	
+WHERE 
+	CI.DocStatus IN ('CO','CL')
 ;

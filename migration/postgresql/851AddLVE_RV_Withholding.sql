@@ -1,5 +1,4 @@
-﻿--Referenced Documents
-Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+﻿Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
 Declare
@@ -8,6 +7,7 @@ AllocLine Record;
 v_DocumentNo Varchar;
 v_Amt Numeric;
 v_ID Numeric;
+v_DateInvoiced TimesTamp;
 Begin
 For AllocLine In Select cal.C_AllocationHdr_ID 
 		From 
@@ -20,25 +20,29 @@ Loop
 			From C_AllocationLine cal 
 			Inner Join C_Invoice ci On cal.C_Invoice_ID=ci.C_Invoice_ID
 			Inner Join C_DocType dt On dt.C_DocType_ID=ci.C_DocType_ID
-			Where cal.C_AllocationHdr_ID=AllocLine.C_AllocationHdr_ID 
+			Where cal.C_AllocationHdr_ID= AllocLine.C_AllocationHdr_ID 
 			And Exists(Select 1 From LVE_Withholding WH Where WH.WithholdingDocType_ID=ci.C_DocTypeTarget_ID) --Don't WithHolding Dcuments
 			) Then 
-
 		v_Amt:=null;
 		v_DocumentNo:=null;
-		Select Abs(cal.Amount),ci.DocumentNo,ci.C_Invoice_ID into v_Amt,v_DocumentNo,v_ID From 
+		v_DateInvoiced:=NULL;
+		Select Abs(cal.Amount),ci.DocumentNo,ci.C_Invoice_ID,ci.DateInvoiced 
+		into v_Amt,v_DocumentNo,v_ID,v_DateInvoiced 
+		From 
 		C_AllocationLine cal 
 		Inner Join C_invoice ci On cal.C_Invoice_ID = ci.C_Invoice_ID
 		Inner Join C_DocType dt On dt.C_DocType_ID=ci.C_DocType_ID
 		Where cal.C_AllocationHdr_ID= AllocLine.C_AllocationHdr_ID And --Equals to Allocation
-		cal.C_Invoice_ID<>p_C_Invoice_ID And --Documents <> WithHolding
-		dt.DocTypeDeclare ='01' And --Only Document Invoice
-		Not Exists(Select 1 From LVE_Withholding WH Where WH.WithholdingDocType_ID=ci.C_DocTypeTarget_ID) --Don't WithHolding Dcuments
+		cal.C_Invoice_ID<>p_C_Invoice_ID  --Documents <> WithHolding
+		And dt.DocTypeDeclare ='01'  --Only Document Invoice
+		And Not Exists(Select 1 From LVE_Withholding WH Where WH.WithholdingDocType_ID=ci.C_DocTypeTarget_ID) --Don't WithHolding Dcuments
 		Limit 1;
 		if (v_Amt Is Not Null And v_DocumentNo Is Not Null) Then
-			result := (Cast(v_Amt AS Numeric),Cast(v_DocumentNo AS Varchar(30)),Cast(v_ID As Numeric));
-			Raise Notice 'DocumentNo % - Amt %', v_DocumentNo,v_Amt ;
+			result := (Cast(v_Amt AS Numeric),Cast(v_DocumentNo AS Varchar(30)),Cast(v_ID As Numeric),CAST(v_DateInvoiced AS TimesTamp));
+			Raise Notice 'DocumentNo % - Amt % DateInvoiced %', v_DocumentNo,v_Amt,v_DateInvoiced 
+			;
 		End If;
+		
 		
 	End If;
 End Loop;
@@ -47,6 +51,7 @@ Return result;
 End;
 $$
 Language PLPGSQL;
+
 
 --DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
@@ -66,8 +71,8 @@ SELECT DISTINCT
 	CIL.LinenetAmt,                     --Line Net (Retention Amt)
 	--CIAffected.DocumentNo,              --DocumentNo Affeected
 	--CIAffected.Amount,                  --Amount Affected
-	(Select DocumentNo From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric)) DocumentNo, --DocumentNo Affeected
-	(Select Amount From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric)) Amount, --Amount Affected
+	(Select DocumentNo From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric,DateInvoiced Timestamp)) DocumentNo, --DocumentNo Affeected
+	(Select Amount From LVE_ReferencedDocuments(CI.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),Invoice_ID Numeric,DateInvoiced Timestamp)) Amount, --Amount Affected
 	WHC.Aliquot,                        --Aliquot WithHolding
 	WCC.Subtrahend,                     --Subtrahend
 	WT.value AS withholdinggroupvalue,  --Value WithHolding Group
@@ -87,7 +92,8 @@ SELECT DISTINCT
 		THEN cilbwh.WHTaxAmt
 		ELSE CTAX.TaxAmt
 	END WHTaxAmt,				--Tax Subject to WithHolding
-	WHC.TaxBaseRate
+	WHC.TaxBaseRate,
+	whr.ReferenceNO
 FROM 
 -- Invoice DocType
 C_DocType CDT 
@@ -128,4 +134,12 @@ LEFT JOIN (SELECT cil.C_Invoice_ID,Sum(cil.LineNetAmt) WHBaseAmt,Sum(cil.TaxAmt)
 	   FROM C_invoiceLine cil 
 	   INNER JOIN LVE_WC_ProductCharge wcpch ON cil.M_Product_ID=wcpch.M_Product_ID OR cil.C_Charge_ID=wcpch.C_Charge_ID
 	   GROUP BY cil.C_Invoice_ID) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
+LEFT JOIN  (
+		SELECT 
+			ReferenceNO,
+			C_BPartner_ID 
+		FROM LVE_WH_Relation whr
+		WHERE ReferenceNO <> ''
+	)whr ON whr.C_BPartner_ID = CI.C_BPartner_ID
 ;
+

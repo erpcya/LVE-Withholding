@@ -42,25 +42,6 @@ INNER JOIN (
 		GROUP BY
 			it.C_Invoice_ID 
 		) itax ON itax.C_Invoice_ID = i.C_Invoice_ID 
-/*LEFT JOIN (	
-		SELECT DISTINCT
-			al.C_Invoice_ID,
-			alrel.C_Invoice_ID AS DocAffected_ID,
-			i.DocumentNo,
-			alrel.Amount 
-		FROM C_AllocationHdr ah 
-		INNER JOIN C_AllocationLine al ON al.C_AllocationHdr_ID = ah.C_AllocationHdr_ID 
-		INNER JOIN C_AllocationLine alrel ON alrel.C_AllocationHdr_ID = ah.C_AllocationHdr_ID 
-		INNER JOIN C_Invoice i ON i.C_Invoice_ID = alrel.C_Invoice_ID 
-		WHERE NOT ( 
-				EXISTS (	
-					SELECT 1 
-					FROM LVE_Withholding w 
-					WHERE
-						w.WithholdingDocType_ID = i.C_DocType_ID 
-					)
-			) 
-	)iaffected ON (iaffected.C_Invoice_ID = i.C_Invoice_ID) AND iaffected.DocAffected_ID <> i.C_Invoice_ID */
 LEFT JOIN (	
 		SELECT DISTINCT 
 				ilw.DocAffected_ID,
@@ -76,25 +57,18 @@ LEFT JOIN (
 			AND wt.VALUE = 'RIVA' 
 	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE 
-	dt.AffectsBook = 'Y'::bpchar 
-	AND i.DocStatus IN ('CL','CO')
-	--AND i.C_Invoice_ID = 1060610
-	--AND i.IsSOTrx = 'N'
-	--AND wit.VALUE = 'RIVA' 
-	
-	
-UNION
-	ALL 
+	dt.AffectsBook = 'Y'::bpchar
+UNION ALL 
 SELECT
 	cbj.ad_client_id,
 	cbj.ad_org_id,
 	cbj.c_invoice_id,
-	cbj.c_doctypetarget_id                   AS c_doctype_id,
+	cbj.c_doctypetarget_id AS c_doctype_id,
 	tdoc.doctypedeclare,
-	cbj.datedoc                              AS dateinvoiced,
+	cbj.datedoc AS dateinvoiced,
 	cbj.dateacct,
 	cbj.controlno,
-	cbj.referenceno                          AS documentno,
+	cbj.referenceno AS documentno,
 	bp.NAME,
 	bp.VALUE,
 	bp.taxid,
@@ -128,21 +102,18 @@ SELECT
 			WHERE
 				c_tax.c_tax_id = cbj.c_tax_id
 		)
-	END, 2)                       AS taxamt,
-	NULL::NUMERIC                            AS docaffected_id,
-	NULL::CHARACTER VARYING                  AS retdocumentno,
-	NULL::NUMERIC                            AS linenetamt,
+	END, 2)AS taxamt,
+	CAST(NULL AS NUMERIC) AS docaffected_id,
+	CAST(NULL AS CHARACTER VARYING) AS retdocumentno,
+	CAST(NULL AS NUMERIC) AS linenetamt,
 	cbj.docstatus,
 	cbj.docaction,
-	'N'::bpchar                              AS issotrx,
+	'N'::bpchar AS issotrx,
 	cbj.a_base_amount,
 	cbj.C_BPartner_ID
-FROM
-	LVE_RV_CashBookJournal cbj 
-		JOIN c_bpartner bp 
-		ON bp.c_bpartner_id = cbj.c_bpartner_id 
-		JOIN c_doctype tdoc 
-		ON tdoc.c_doctype_id = cbj.c_doctypetarget_id 
+FROM LVE_RV_CashBookJournal cbj 
+JOIN c_bpartner bp ON bp.c_bpartner_id = cbj.c_bpartner_id 
+JOIN c_doctype tdoc ON tdoc.c_doctype_id = cbj.c_doctypetarget_id 
 WHERE
 	cbj.affectsbook = 'Y'::bpchar AND
 	cbj.cashtype = 'C'::bpchar AND
@@ -167,8 +138,5 @@ GROUP BY
 	cbj.taxbaseamt,
 	cbj.rate,
 	tdoc.doctypedeclare,
-	cbj.C_BPartner_ID
-	--ORDER BY
-	--6 DESC
-	;
+	cbj.C_BPartner_ID;
 

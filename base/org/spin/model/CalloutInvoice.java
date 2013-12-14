@@ -18,6 +18,7 @@ package org.spin.model;
 
 import java.util.Properties;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.CalloutEngine;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
@@ -31,8 +32,9 @@ import org.compiere.util.Env;
 public class CalloutInvoice extends CalloutEngine {
 	
 	/**
-	 * Establece si el campo  AffectsBook dependiendo de si
-	 * el documento es transaccion de venta o de compra
+	 * Set Field AffectsBook depend of Doc Type Affects Books.
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 13/04/2011, 20:31:33
+	 * @contributor <a href="mailto:dixon22ma@gmail.com">Dixon Martinez</a> 13/12/2013, 06:22:01
 	 * @param ctx
 	 * @param WindowNo
 	 * @param mTab
@@ -41,22 +43,17 @@ public class CalloutInvoice extends CalloutEngine {
 	 * @return
 	 * @return String
 	 */
-	public String docType (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value){
+	public String docType (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value){		
+		//	Set Variable of Doc Type ID of Context
+		Integer p_DocType_ID = (Integer) value;
 		
-		
-		Integer C_DocType_ID = Env.getContextAsInt(ctx, WindowNo, "C_DocTypeTarget_ID");
-		if (C_DocType_ID == null || C_DocType_ID.intValue() == 0)
+		if (p_DocType_ID == null || p_DocType_ID.intValue() == 0)
 			return "";
-		
-		MDocType docType = new MDocType(ctx, C_DocType_ID.intValue(), null);
-		
-		if(docType.isSOTrx()){
-			mTab.setValue("AffectsBook", "N");
-			mTab.setValue("C_BPartner_ID", null);
-		} else {
-			mTab.setValue("AffectsBook", "Y");
-		}
-		
+		//	Object Doc Type
+		MDocType m_DocType = new MDocType(ctx, p_DocType_ID.intValue(), null);
+	
+		//	Set value Affects Book
+		mTab.setValue("AffectsBook", m_DocType.get_ValueAsBoolean("AffectsBook"));
 		return "";
 	}
 	

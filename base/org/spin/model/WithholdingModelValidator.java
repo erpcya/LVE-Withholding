@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.compiere.model.I_C_BPartner;
+import org.compiere.model.I_C_Cash;
+import org.compiere.model.I_C_CashLine;
+import org.compiere.model.I_C_Invoice;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MBPGroup;
@@ -86,13 +90,14 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 			log.info("Initializing global validator: " + this.toString());
 		}
 		// We want to be informed when C_BPartner is created/changed
-		engine.addModelChange(MBPartner.Table_Name, this);
+		engine.addModelChange(I_C_BPartner.Table_Name, this);
 		//	Add Timing change in C_Invoice
-		//	engine.addDocValidate(MInvoice.Table_Name, this);		
+		engine.addModelChange(I_C_Invoice.Table_Name, this);
+		engine.addDocValidate(I_C_Invoice.Table_Name, this);		
 		
-		engine.addModelChange(MCashLine.Table_Name, this);
+		engine.addModelChange(I_C_CashLine.Table_Name, this);
 		
-		engine.addDocValidate(MCash.Table_Name, this);
+		engine.addDocValidate(I_C_Cash.Table_Name, this);
 
 	}
 
@@ -190,6 +195,18 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 				log.fine(po.toString());
 			}
 			
+		} else 
+			//	Yamel Senih 2013-12-14, 12:01
+			//	Add character on end document no
+			if(po.get_TableName().equals(I_C_Invoice.Table_Name) 
+				&& type == TYPE_BEFORE_NEW){
+			MInvoice inv = (MInvoice) po;
+			if(inv.isReversal()){
+				MInvoice from_Invoice = MInvoice.get(inv.getCtx(), inv.getReversal_ID());
+				inv.setDocumentNo(from_Invoice.getDocumentNo() + "^");
+				inv.set_ValueOfColumn("AffectedBook", false);
+			}
+			//	End Yamel Senih
 		}
 		return null;
 	} // modelChange

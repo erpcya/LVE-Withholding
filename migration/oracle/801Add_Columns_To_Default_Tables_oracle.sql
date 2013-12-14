@@ -118,3 +118,12 @@ ALTER TABLE C_InvoiceLine ADD LVE_WH_Config_ID NUMBER(10) DEFAULT NULL
 UPDATE AD_Column SET Callout=NULL, IsUpdateable='N',Updated=TO_DATE('2013-08-28 11:19:23','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3836
 ;
 
+-- Dec 13, 2013 6:51:48 AM VET
+-- LVE Withholding
+ALTER TABLE C_Invoice ADD AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN ('Y','N'))
+;
+
+-- Dec 13, 2013 6:52:36 AM VET
+-- LVE Withholding
+ALTER TABLE C_Invoice ADD DocAffected_ID NUMBER(10) DEFAULT NULL 
+;

@@ -508,3 +508,30 @@ UPDATE AD_Field SET DisplayLogic='@DocBaseType@=''APC''',Updated=TO_TIMESTAMP('2
 UPDATE AD_Column SET MandatoryLogic=' @DocBaseType@=''APC'' | @DocBaseType@=''ARC''',Updated=TO_TIMESTAMP('2013-12-12 21:24:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=70655
 ;
 
+-- Dec 13, 2013 6:43:43 AM VET
+-- LVE Withholding
+UPDATE AD_Column SET IsAlwaysUpdateable='Y',Updated=TO_TIMESTAMP('2013-12-13 06:43:43','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=70656
+;
+
+-- Dec 13, 2013 6:54:42 AM VET
+-- LVE Withholding
+UPDATE AD_Column SET IsAlwaysUpdateable='N',Updated=TO_TIMESTAMP('2013-12-13 06:54:42','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=70656
+;
+
+-- Dec 13, 2013 6:55:20 AM VET
+-- LVE Withholding
+UPDATE AD_Column SET MandatoryLogic=NULL,Updated=TO_TIMESTAMP('2013-12-13 06:55:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=70655
+;
+
+-- Dec 13, 2013 7:03:48 AM VET
+-- LVE Withholding
+UPDATE AD_Val_Rule SET Code='C_Invoice.C_BPartner_ID=@C_BPartner_ID@ 
+AND C_Invoice.IsPaid=''N'' 
+AND IsSOTrx = ''@IsSOTrx@'' 
+AND C_DocTypeTarget_ID IN (SELECT C_DocType_ID FROM C_DocType WHERE C_Invoice.C_DocTypeTarget_ID = C_DocType.C_DocType_ID AND DocBaseType IN (''API'',''ARI''))',Updated=TO_TIMESTAMP('2013-12-13 07:03:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Val_Rule_ID=52280
+;
+
+-- Dec 13, 2013 6:31:32 AM VET
+-- LVE Withholding
+UPDATE AD_Column SET Callout='org.compiere.model.CalloutInvoice.docType;org.spin.model.CalloutInvoice.docType;',Updated=TO_TIMESTAMP('2013-12-13 06:31:32','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=3781
+;

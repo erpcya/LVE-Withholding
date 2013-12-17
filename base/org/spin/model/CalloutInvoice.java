@@ -54,6 +54,8 @@ public class CalloutInvoice extends CalloutEngine {
 	
 		//	Set value Affects Book
 		mTab.setValue("AffectsBook", m_DocType.get_ValueAsBoolean("AffectsBook"));
+		Env.setContext(ctx, WindowNo, "EditControlNumber", m_DocType.get_ValueAsBoolean("EditControlNumber"));
+		Env.setContext(ctx, WindowNo, "EditSequence", m_DocType.get_ValueAsBoolean("EditSequence"));		
 		return "";
 	}
 	

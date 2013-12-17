@@ -13,11 +13,31 @@ SELECT
 	bp.NAME,
 	bp.VALUE,
 	bp.TaxID,
-	i.GrandTotal,
-	itax.Exempt,
-	itax.TaxBaseAmt,
-	itax.Rate,
-	itax.TaxAmt,
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		i.GrandTotal
+	END AS GrandTotal,
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		itax.Exempt  * i.multiplier
+	END AS Exempt,
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		itax.TaxBaseAmt  * i.multiplier
+	END AS TaxBaseAmt,
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		itax.Rate * i.multiplier
+	END AS Rate,
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		itax.TaxAmt * i.multiplier
+	END AS TaxAmt,
 	--iaffected.DocAffected_ID,
 	(Select DocAffected_ID From LVE_ReferencedDocuments(I.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),DocAffected_ID Numeric,DateInvoiced Timestamp)) DocAffected_ID,
 	wit.DocumentNo  AS RetDocumentNo,
@@ -25,13 +45,17 @@ SELECT
 	i.DocStatus,
 	i.DocAction,
 	i.IsSoTrx,
-	itax.TaxBaseAmt AS A_Base_Amount,
-	i.C_BPartner_ID 
+	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
+		0
+	ELSE 
+		itax.TaxBaseAmt * i.multiplier
+	END AS A_Base_Amount,
+	i.C_BPartner_ID
 FROM C_DocType dt 
-INNER JOIN C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
+INNER JOIN RV_C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
 INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID 
-INNER JOIN (	
-		SELECT 
+INNER JOIN (
+		SELECT 			
 			it.C_Invoice_ID,
 			MAX(t.Rate) AS Rate,
 			SUM(it.TaxAmt) AS TaxAmt,
@@ -42,7 +66,7 @@ INNER JOIN (
 		GROUP BY
 			it.C_Invoice_ID 
 		) itax ON itax.C_Invoice_ID = i.C_Invoice_ID 
-LEFT JOIN (	
+LEFT JOIN (
 		SELECT DISTINCT 
 				ilw.DocAffected_ID,
 				iw.DocumentNo,
@@ -53,11 +77,15 @@ LEFT JOIN (
 		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID 
 		INNER JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID) 
 		WHERE 
-			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR ])) 
+			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR])) 
 			AND wt.VALUE = 'RIVA' 
 	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID) 
 WHERE 
-	dt.AffectsBook = 'Y'::bpchar
+	i.AffectsBook = 'Y'
+	AND i.docstatus IN ('CO','CL','RE','VO') 
+	--AND DateInvoiced BETWEEN '2013-11-01' AND '2013-11-30'
+	--AND i.C_Invoice_ID=1069032
+	
 UNION ALL 
 SELECT
 	cbj.ad_client_id,
@@ -139,4 +167,3 @@ GROUP BY
 	cbj.rate,
 	tdoc.doctypedeclare,
 	cbj.C_BPartner_ID;
-

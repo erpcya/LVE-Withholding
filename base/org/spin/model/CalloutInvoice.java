@@ -18,7 +18,6 @@ package org.spin.model;
 
 import java.util.Properties;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.CalloutEngine;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;

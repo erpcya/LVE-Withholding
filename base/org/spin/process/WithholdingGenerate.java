@@ -80,6 +80,8 @@ public class WithholdingGenerate extends SvrProcess {
 	private int				p_LVE_WH_Type_ID		= 0;
 	/**	Withholding						*/
 	private int				p_LVE_Withholding_ID	= 0;
+	/**	Trx Organization				*/
+	private int				p_AD_OrgTrx_ID			= 0;
 	/**	Generated						*/
 	private int 			m_Created 				= 0;
 	/**	Rule Engine						*/
@@ -147,28 +149,39 @@ public class WithholdingGenerate extends SvrProcess {
 			//	Add Organization 
 			else if(name.equals("AD_Org_ID"))
 				p_AD_Org_ID = para.getParameterAsInt();
-			
+			//	End Carlos Parada
+			//	End Dixon Martinez
+			else if(name.equals("AD_OrgTrx_ID"))
+				p_AD_OrgTrx_ID = para.getParameterAsInt();
 			else if (name.equals("LVE_Withholding_ID"))
 				p_LVE_Withholding_ID = para.getParameterAsInt();
 		}
 		//	Instance
 		parameters = new ArrayList<Object>();
-		
+		//	Invoice
 		if(p_C_Invoice_ID != 0){
 			whereParam.append("C_Invoice_ID=? ");
 			parameters.add(p_C_Invoice_ID);
 		}
+		//	Business Partner
 		if(p_C_BPartner_ID != 0){
 			whereParam.append((whereParam.length()!=0?"AND":"")+" C_BPartner_ID=? ");
 			parameters.add(p_C_BPartner_ID);
 		}
+		//	Accounting Date From
 		if(p_DateAcct != null) {
 			whereParam.append((whereParam.length()!=0?"AND":"")+" DateAcct>=? ");
 			parameters.add(p_DateAcct);
 		}
+		//	Accounting Date To
 		if(p_DateAcct_To != null){
 			whereParam.append((whereParam.length()!=0?"AND":"")+" DateAcct<=? ");
 			parameters.add(p_DateAcct_To);
+		}
+		//	Organization
+		if(p_AD_Org_ID != 0){
+			whereParam.append((whereParam.length()!=0?"AND":"")+" AD_Org_ID=? ");
+			parameters.add(p_AD_Org_ID);
 		}
 		
 		//	Transaction
@@ -340,7 +353,11 @@ public class WithholdingGenerate extends SvrProcess {
 			//	Dixon Martinez 08-11-2013
 			//	Carlos Parada 08-11-2013
 			//	Add Organization 
-			m_Current_Withholding.setAD_Org_ID(p_AD_Org_ID);
+			if(p_AD_OrgTrx_ID == 0)
+				p_AD_OrgTrx_ID = Env.getAD_Org_ID(getCtx());
+			m_Current_Withholding.setAD_Org_ID(p_AD_OrgTrx_ID);
+			//	End Carlos Parada
+			//	End Dixon Martinez
 			m_Current_Withholding.setC_DocTypeTarget_ID(m_Currrent_Withholding.getWithholdingDocType_ID());
 			m_Current_Withholding.setIsSOTrx(false);
 			m_Current_Withholding.setC_BPartner_ID(m_C_BPartner_ID);

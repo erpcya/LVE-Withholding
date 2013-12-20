@@ -1,0 +1,9 @@
+-- Aug 28, 2013 12:20:14 PM VET
+-- LVE Withholding
+UPDATE LVE_Withholding SET AD_Table_ID=53570,Updated=TO_TIMESTAMP('2013-08-28 12:20:14','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000004
+;
+
+-- Aug 27, 2013 4:56:13 PM VET
+-- LVE Withholding
+UPDATE LVE_Withholding SET AD_Table_ID=53570,Updated=TO_TIMESTAMP('2013-08-27 16:56:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LVE_Withholding_ID=1000000
+;

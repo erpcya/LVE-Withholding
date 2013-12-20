@@ -1,4 +1,4 @@
-﻿--DROP VIEW LVE_RV_Books;
+--DROP VIEW LVE_RV_Books;
 CREATE OR REPLACE VIEW LVE_RV_Books AS 
 SELECT
 	i.AD_Client_ID,
@@ -21,22 +21,22 @@ SELECT
 	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
 		0
 	ELSE 
-		itax.Exempt  * i.multiplier
+		itax.Exempt  * iv.multiplier
 	END AS Exempt,
 	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
 		0
 	ELSE 
-		itax.TaxBaseAmt  * i.multiplier
+		itax.TaxBaseAmt  * iv.multiplier
 	END AS TaxBaseAmt,
 	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
 		0
 	ELSE 
-		itax.Rate * i.multiplier
+		itax.Rate * iv.multiplier
 	END AS Rate,
 	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
 		0
 	ELSE 
-		itax.TaxAmt * i.multiplier
+		itax.TaxAmt * iv.multiplier
 	END AS TaxAmt,
 	--iaffected.DocAffected_ID,
 	(Select DocAffected_ID From LVE_ReferencedDocuments(I.C_Invoice_ID) As (Amount Numeric ,DocumentNo Varchar(30),DocAffected_ID Numeric,DateInvoiced Timestamp)) DocAffected_ID,
@@ -48,12 +48,19 @@ SELECT
 	CASE WHEN i.DocStatus IN ('VO','RE') THEN 
 		0
 	ELSE 
-		itax.TaxBaseAmt * i.multiplier
+		itax.TaxBaseAmt * iv.multiplier
 	END AS A_Base_Amount,
 	i.C_BPartner_ID
 FROM C_DocType dt 
-INNER JOIN RV_C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
+INNER JOIN C_Invoice i ON dt.C_DocType_ID = i.C_DocType_ID 
 INNER JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID 
+LEFT JOIN (
+		SELECT 
+			i.multiplier,
+			i.C_Invoice_ID
+		FROM RV_C_Invoice i
+		
+	)iv ON (iv.C_Invoice_ID = i.C_Invoice_ID)
 INNER JOIN (
 		SELECT 			
 			it.C_Invoice_ID,

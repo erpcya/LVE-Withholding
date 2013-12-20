@@ -128,13 +128,13 @@ ALTER TABLE C_Invoice ADD AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN 
 ALTER TABLE C_Invoice ADD DocAffected_ID NUMBER(10) DEFAULT NULL 
 ;
 
--- Dec 17, 2013 4:58:35 PM VET
+-- Dec 20, 2013 8:09:55 AM VET
 -- LVE Withholding
-ALTER TABLE C_DocType ADD EditControlNumber CHAR(1) DEFAULT 'N' CHECK (EditControlNumber IN ('Y','N'))
+ALTER TABLE C_DocType ADD IsManual CHAR(1) DEFAULT 'N' CHECK (IsManual IN ('Y','N'))
 ;
 
--- Dec 17, 2013 5:03:54 PM VET
+-- Dec 20, 2013 8:11:00 AM VET
 -- LVE Withholding
-ALTER TABLE C_DocType ADD EditSequence CHAR(1) DEFAULT 'N' CHECK (EditSequence IN ('Y','N'))
+ALTER TABLE C_Invoice ADD IsManual CHAR(1) DEFAULT 'N' CHECK (IsManual IN ('Y','N'))
 ;
 

@@ -48,15 +48,17 @@ public class CalloutInvoice extends CalloutEngine {
 		
 		if (p_DocType_ID == null || p_DocType_ID.intValue() == 0)
 			return "";
-		//	Object Doc Type
+		
+		//	Dixon Martinez 20/12/2013
+		//	Create object Doc Type
 		MDocType m_DocType = new MDocType(ctx, p_DocType_ID.intValue(), null);
 	
 		//	Set value Affects Book
 		mTab.setValue("AffectsBook", m_DocType.get_ValueAsBoolean("AffectsBook"));
-		//	Env.setContext(ctx, WindowNo, "EditControlNumber", m_DocType.get_ValueAsBoolean("EditControlNumber"));
-		//	Env.setContext(ctx, WindowNo, "EditSequence", m_DocType.get_ValueAsBoolean("EditSequence"));
-		//	mTab.setValue("EditSequence", m_DocType.get_ValueAsBoolean("EditSequence"));
-		//	mTab.setValue("EditControlNumber", m_DocType.get_ValueAsBoolean("EditControlNumber"));
+		
+		//	Set value Is Manual
+		mTab.setValue("IsManual", m_DocType.get_ValueAsBoolean("IsManual"));
+		//	End Dixon Martinez
 		return "";
 	}
 	

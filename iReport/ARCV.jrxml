@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportARCV" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f8dedfe-9c88-4803-9487-83500311ba0c">
-	<property name="ireport.zoom" value="1.4615378250000008"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="112"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/administrador/Escritorio/"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="DateAcct1" class="java.sql.Timestamp">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5b0695-0049-4af7-9438-daefaada51af">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="520"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DateAcct1" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DateAcct2" class="java.util.Date">
@@ -16,461 +13,437 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select
-	AD_Client_ID,
-	AD_Org_ID,
-	C_BPartner_ID,
-	Name,
+		<![CDATA[SELECT
 	Date,
-	IsNatural,
-	Legal,
-	Venezuelan,
-	IsForeign,
-	Resident,
-	NoResident,
-	Constituted,
-	NoConstituted,
-	Cedula,
-	Passports,
-	RFC,
-	Month,
-	Value,
-	C_Location_ID,
-	LastDayOfMonth,
-	Year,
 	C_Invoice_ID,
-	DateAcct,
-	DateInvoiced,
-	IsSoTrx,
-	TotalLines,
-	Rif,
+	EnteJuridico,
+	EntePublico,
+	PersonaNatural,
+	NameJuridico,
+	NamePublico,
+	NameNatural,
+	RifJuridico,
+	RifPublico,
+	RifNatural,
+	LocationOrg,
+	Name,
+	Value,
+	TaxID,
+	IsNatural,
+	IsJuridico,
+	IsVenezuelan,
+	IsForeign,
+	IsResident,
+	IsNotResident,
+	IsConstituted,
+	IsNotConstituted,
+	Cedula,
+	RFC,
+	'' PassPorts,
+	LocationBusiness,
+	LastDayOfMonth,
+	Month,
+	Year,
+	Withholding,
+	SUM(GrandTotal) AS GrandTotal,
+	SUM(TotalLines) AS TotalLines,
+	SUM(TaxBaseAmt) AS TaxBaseAmt,
+	SUM(TaxAmt) AS TaxAmt,
+	DocAffected_ID,
 	DocumentNo,
-	DocStatus,
-	DocBaseType,
-	Rate,
-	ConceptoRetencion,
-	Aliquot,
-	MinValue,
-	SubTrahend,
-	MuestAnulado,
-	DocRelacionado,
-	Nota_Debito,
-	Nota_Credito,
-	Nomb_Socio,
-	TotalPAgado,
-	Sum(TotalBI) AS TotalBI,
-	Sum(MontoRetenido) * -1 AS MontoRetenido,
-	SocioNegocio,
-	RIF_Libro,
-	C_DocType_ID,
-	Location,
-	Aliquot::Varchar || ' %' AS Alicuota_Libro
- FROM
-(
-
+	SUM(LineNetAmt)LineNetAmt,
+	AuthorizedOfficer_ID,
+	BPTaxID,
+	lastdayofmonth,
+	ROUND(Aliquot,2) || '%'AS Alicuota ,
+	C_BPartner_ID,
+	DateAcct
+FROM (
 SELECT
-	bp.ad_client_id,
-	bp.ad_org_id,
-	bp.c_bpartner_id,
-	bp.name,
 	Extract("Month" FROM i.dateacct)||'-'||EXTRACT("Year" FROM i.dateacct) As Date,
-	tp.Name AS TypePerson,
+	i.C_Invoice_ID,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'J' THEN
+		'[X]'
+	ELSE
+		'[ ]'
+	END AS EnteJuridico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'G' THEN
+		'[X]'
+	ELSE
+		'[ ]'
+	END AS EntePublico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'E' OR substring(oi.TaxID from 0 for 2) = 'V' THEN
+		'[X]'
+	ELSE
+		'[ ]'
+	END AS PersonaNatural
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'J' THEN
+		o.Name
+	ELSE
+		''
+	END AS NameJuridico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'G' THEN
+		o.Name
+	ELSE
+		''
+	END AS NamePublico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'E' OR substring(oi.TaxID from 0 for 2) = 'V' THEN
+		o.Name
+	ELSE
+		''
+	END AS NameNatural
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'J' THEN
+		oi.TaxID
+	ELSE
+		''
+	END AS RifJuridico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'G' THEN
+		oi.TaxID
+	ELSE
+		''
+	END AS RifPublico
+	,
+	CASE WHEN substring(oi.TaxID from 0 for 2) = 'E' OR substring(oi.TaxID from 0 for 2) = 'V' THEN
+		oi.TaxID
+	ELSE
+		''
+	END AS RifNatural,
+	CASE WHEN coalesce(l.address1,'')||' '||coalesce(l.address2,'') ||', '||coalesce(l.city,'') <> '' THEN
+		coalesce(l.address1,'')||' '||coalesce(l.address2,'') ||', '||coalesce(l.city,'') ELSE ''
+	END as LocationOrg,
+	wht.AuthorizedOfficer_ID,
+	COALESCE(bpa.Value,bpa.TaxID) BPTaxID,
+	bp.Name,
+	bp.Value,
 	bp.TaxID,
-     	CASE
-            WHEN  tp.Value = 'N'
-            THEN '[X]'::text
-            ELSE '[ ]'::text
-        END AS IsNatural,
-
-        CASE
-            WHEN  tp.Value = 'J'
-            THEN '[X]'::text
-            ELSE '[ ]'::text
-        END AS Legal,
-
-        CASE
-            WHEN  substring(bp.TaxID from 0 for 2)  = 'V'
-            THEN '[X]'::text
-            ELSE '[ ]'::text
-        END AS Venezuelan,
-        CASE
-            WHEN  substring(bp.TaxID from 0 for 2)  = 'E'  THEN '[X]'::text
-            ELSE '[ ]'::text
-        END AS IsForeign,
-	CASE
-            WHEN tp.Value = 'N'::bpchar AND substring(bp.TaxID from 0 for 2) = 'E'::bpchar
-		THEN '[X]'::text
-            ELSE '[ ]'::text
-        END AS Resident,
-        '[ ]'::text AS NoResident,
-        CASE
-            WHEN tp.Value = 'J'::bpchar AND substring(bp.TaxID from 0 for 2) = 'E'::bpchar
-		THEN '[X]'::text
-		ELSE '[ ]'::text
-	END AS Constituted,
-	'[ ]'::text AS NoConstituted,
-
-        CASE
-            WHEN tp.Value = 'N'::bpchar AND ( substring(bp.TaxID from 0 for 2) = ANY (ARRAY['V'::bpchar, 'E'::bpchar]))
-		THEN bp.value
-            ELSE '  '::character varying
-        END AS Cedula,
-        ''::character varying(30) AS Passports,
-        CASE
-            WHEN tp.Value = 'J'::bpchar
-            THEN bp.value
-            ELSE ''::character varying
-        END AS RFC,
-	bp.value,
-	bpl.c_location_id,
-	date_part('day'::text, to_date((('01'::text ||
-        CASE
-            WHEN (date_part('month'::text, i.dateacct) + 1::double precision) < 10::double precision THEN '0'::text
-            ELSE ''::text
-        END) || (date_part('month'::text, i.dateacct) + 1::double precision)) || date_part('year'::text, i.dateacct), 'DDMMYYYY'::text) - 1)::character varying AS lastdayofmonth, (
-        CASE
-            WHEN date_part('month'::text,i.dateacct) < 10::double precision THEN '0'::text
-            ELSE ''::text
-        END || date_part('month'::text, i.dateacct))::character varying AS Month,
-	date_part('year'::text,i.dateacct)::character varying AS Year,
-	i.c_invoice_id,
-	i.dateacct,
-	i.dateinvoiced,
-	i.issotrx,
-	i.totallines,
-	i.LVE_WH_Concept_ID,
-	btrim(bp.value::text) AS rif,
-        CASE
-            WHEN i.c_invoice_id IS NULL THEN i.documentno
-            ELSE NULL::character varying
-        END AS documentno,
-        i.docstatus,
-	dt.docbasetype,
-	ifac.Rate,
-	wc.name AS conceptoretencion,
-	whc.aliquot,
-	whc.value AS WithholdingCombination,
-	wcf.MinValue,
-	wcf.Subtrahend,
-        CASE
-            WHEN i.docstatus = 'RE'::bpchar THEN 'Anulado'::text
-            ELSE ''::text
-        END AS muestanulado,
-        iaffected.documentno AS docrelacionado,
-        CASE
-            WHEN i.c_invoice_id IS NOT NULL AND dt.docbasetype <> ALL (ARRAY['ARC'::bpchar, 'APC'::bpchar]) THEN i.documentno
-            ELSE NULL::character varying
-        END AS nota_debito,
-        CASE
-            WHEN i.c_invoice_id IS NOT NULL AND dt.docbasetype = ANY (ARRAY['ARC'::bpchar, 'APC'::bpchar]) THEN i.documentno
-            ELSE NULL::character varying
-        END AS nota_credito,
-
-	bp.name AS nomb_socio,
-	i.totallines AS totalpagado,
-	CASE
-            WHEN
-		NOT EXISTS(
-			SELECT 1
-			FROM LVE_Withholding w
-			WHERE w.C_Charge_ID = il.C_Charge_ID) THEN
-			il.linenetamt
-            ELSE 0
-        END AS totalbi,
-
-	CASE
-            WHEN
-		NOT EXISTS(
-			SELECT 1
-			FROM LVE_Withholding w
-			WHERE w.C_Charge_ID = il.C_Charge_ID) THEN
-			il.linenetamt
-            ELSE 0
-        END AS montoretenido,
-
-        CASE
-            WHEN i.docstatus = 'RE'::bpchar THEN 'Anulado'::character varying
-            ELSE bp.name
-        END AS socionegocio,
-        CASE
-            WHEN i.docstatus = 'RE'::bpchar THEN ''::text
-            ELSE btrim(bp.value::text)
-        END AS rif_libro,
-        to_char(ifac.Rate, '99'::text) || ' %'::text AS alicuota_libro,
-        i.c_doctype_id,
-	CASE
-		WHEN coalesce(cl.address1,'')||' '||coalesce(cl.address2,'') ||', '||coalesce(cl.city,'') <> ''
-		THEN coalesce(cl.address1,'')||' '||coalesce(cl.address2,'') ||', '||coalesce(cl.city,'')
-		ELSE ''
-	END as Location
+	CASE WHEN pt.Value = 'PNR' OR pt.Value = 'PNNR' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsNatural,
+	CASE WHEN pt.Value = 'PJD' OR pt.Value = 'PJND' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsJuridico,
+	CASE WHEN bp.Nationality = 'V' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsVenezuelan,
+	CASE WHEN bp.Nationality = 'E' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsForeign,
+	CASE WHEN pt.Value = 'PNR' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsResident,
+	CASE WHEN pt.Value = 'PNNR' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsNotResident,
+	CASE WHEN pt.Value = 'PJD' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsConstituted,
+	CASE WHEN pt.Value = 'PJND' OR pt.Value = 'PJNCD' THEN
+		'[X]'::text
+	ELSE
+		'[ ]'::text
+	END AS IsNotConstituted,
+	CASE WHEN (pt.Value = 'PNR' OR pt.Value = 'PNNR') OR bp.Nationality = ANY (ARRAY['V' ,'E']) THEN
+		COALESCE(bp.TaxID,bp.Value)
+	ELSE
+		''
+	END AS Cedula,
+	CASE WHEN (pt.Value = 'PNR' OR pt.Value = 'PNNR') OR bp.Nationality = ANY (ARRAY['V' ,'E']) THEN
+		COALESCE(bp.TaxID,bp.Value)
+	ELSE
+		''
+	END AS RFC,
+	CASE WHEN (pt.Value = 'PNR' OR pt.Value = 'PNNR') OR bp.Nationality = ANY (ARRAY['V' ,'E']) THEN
+		COALESCE(bp.TaxID,bp.Value)
+	ELSE
+		''
+	END AS Passports,
+	CASE WHEN coalesce(bl.address1,'')||' '||coalesce(bl.address2,'') ||', '||coalesce(bl.city,'') <> '' THEN
+		coalesce(bl.address1,'')||' '||coalesce(bl.address2,'') ||', '||coalesce(bl.city,'') ELSE ''
+	END as LocationBusiness,
+	bpl.Phone ||'-'|| bpl.Phone2 AS Phone,
+	DATE_PART('DAY',
+	TO_DATE(('01' ||CASE WHEN (DATE_PART('MONTH', i.DateAcct) +1 ) < 10 THEN '0' ELSE '' END)||
+	(DATE_PART('MONTH' ,i.DateAcct) +1)||
+	DATE_PART('YEAR',i.DateAcct),'DDMMYYYY') -1)::character varying AS lastdayofmonth,
+	CASE WHEN DATE_PART('MONTH',i.DateAcct) < 10 THEN '0' ELSE '' END || DATE_PART('MONTH',i.DateAcct)::character varying AS MONTH,
+	DATE_PART('YEAR',i.DateAcct)::character varying AS Year,
+	i.GrandTotal,
+	i.TotalLines,
+	it.TaxBaseAmt,
+	it.TaxAmt,
+	wit.DocAffected_ID,
+	wit.DocumentNo,
+	wit.LineNetAmt,
+	wit.C_Invoice_ID Withholding,
+	wit.Aliquot,
+	bp.C_BPartner_ID,
+	i.DateAcct
 FROM C_Invoice i
-JOIN C_DocType dt ON i.C_DocType_ID = dt.C_DocType_ID
-JOIN C_InvoiceLine il ON il.C_Invoice_ID = i.C_Invoice_ID
-JOIN C_BPartner bp ON bp.C_BPartner_ID = i.C_BPartner_ID
-LEFT JOIN LVE_PersonType tp ON bp.LVE_PersonType_id = tp.LVE_PersonType_id
-LEFT JOIN C_BPartner_Location bpl ON bp.C_BPartner_ID = bpl.C_BPartner_ID
-JOIN C_Location cl ON bpl.C_Location_ID = cl.C_Location_ID
-
- JOIN (
+INNER JOIN C_DocType dt ON (i.C_DocType_ID = dt.C_DocType_ID)
+INNER JOIN C_BPartner bp ON (bp.C_BPartner_ID = i.C_BPartner_ID)
+INNER JOIN LVE_PersonType pt ON (pt.LVE_PersonType_ID = bp.LVE_PersonType_ID)
+LEFT JOIN C_BPartner_Location bpl ON (bpl.C_BPartner_ID = bp.C_BPartner_ID)
+INNER JOIN C_Location bl ON (bl.C_Location_ID = bpl.C_Location_ID)
+INNER JOIN AD_Org o ON (o.AD_Org_ID = i.AD_Org_ID)
+INNER JOIN AD_OrgInfo oi ON (i.AD_Org_ID = oi.AD_Org_ID)
+LEFT JOIN C_Location l ON (l.C_Location_ID = oi.C_Location_ID)
+LEFT JOIN LVE_WH_Type wht ON wht.AuthorizedOfficer_ID = bp.C_BPartner_ID
+LEFT JOIN C_BPartner bpa ON (bpa.C_BPartner_ID = wht.AuthorizedOfficer_ID)
+INNER JOIN (
 	SELECT
-		it.C_Invoice_ID,
-		SUM(
-			CASE WHEN it.TaxAmt = 0::NUMERIC THEN
-				it.TaxBaseAmt
-			ELSE 0::numeric
-			END
-		)AS TotalEx,
-		SUM(
-			CASE WHEN it.TaxAmt <> 0::NUMERIC THEN
-				it.TaxBaseAmt
-			ELSE 0::numeric
-			END
-		)AS TotalBi,
-		SUM(
-			CASE WHEN it.TaxAmt <> 0::NUMERIC THEN
-				it.TaxAmt
-			ELSE 0::numeric
-			END
-		)AS TotalImpuesto,
-		MAX(t.Rate) AS Rate
-	FROM C_InvoiceTax it
-	JOIN C_Tax t ON t.C_Tax_ID = it.C_Tax_ID
+		itax.C_Invoice_ID,
+		max(ctax.Rate) AS rate,
+		sum(itax.taxamt) AS TaxAmt,
+		sum(
+			CASE ctax.rate
+			WHEN 0 THEN 0::numeric
+			ELSE itax.taxbaseamt
+			END) AS taxbaseamt
+	FROM c_invoicetax itax
+	JOIN c_tax ctax ON itax.c_tax_id = ctax.c_tax_id
 	GROUP BY
-		it.C_Invoice_ID
-) ifac ON ifac.C_Invoice_ID = i.C_Invoice_ID
-LEFT JOIN C_Invoice iaffected ON iaffected.C_Invoice_ID = i.C_Invoice_ID
-JOIN LVE_WH_Concept wc ON wc.LVE_WH_Concept_ID = i.LVE_WH_Concept_ID
-LEFT JOIN LVE_WH_Combination whc ON whc.LVE_PersonType_ID = bp.LVE_PersonType_ID AND whc.LVE_WH_Concept_ID = i.LVE_WH_Concept_ID
-JOIN LVE_WH_Config wcf ON wcf.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID
+		itax.c_invoice_id
+	) it ON (it.C_Invoice_ID = i.C_Invoice_ID)
+
+
+
+INNER JOIN (
+		SELECT DISTINCT
+				iw.C_Invoice_ID,
+				ilw.DocAffected_ID,
+				iw.DocumentNo,
+				ilw.LineNetAmt,
+				wt.Value,
+				iw.LVE_WH_Concept_ID,
+				whco.Aliquot
+		FROM C_Invoice iw
+		INNER JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID)
+		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID
+		INNER JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID)
+		INNER JOIN LVE_WH_Config whc ON (whc.LVE_WH_Config_ID = ilw.LVE_WH_Config_ID)
+		INNER JOIN LVE_WH_Combination whco ON (whco.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID)
+
+		WHERE
+			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR]))
+			AND wt.VALUE = 'RISLR'
+	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID)
 WHERE
 	i.DocStatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])  AND
 	i.IsSotrx = 'N'::bpchar AND
-	bpl.IsBillTo = 'Y'::bpchar AND
+	bpl.IsBillTo = 'Y'::bpchar  AND
 	i.DateAcct BETWEEN $P{DateAcct1} AND $P{DateAcct2} AND
-	(i.C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} IS NULL)AND
+	(i.C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} IS NULL)
 
-	EXISTS(
-		SELECT 1
-		FROM C_Invoiceline il
-		JOIN LVE_Withholding w ON w.C_Charge_ID = il.C_Charge_ID
-	)AND
-	 i.LVE_WH_Concept_ID <> 0
-  GROUP BY
-
-	i.c_bpartner_id,i.c_invoice_id, i.ad_client_id, i.ad_org_id, i.c_bpartner_id, i.dateacct, i.dateinvoiced, i.grandtotal, i.issotrx, i.totallines,
-	i.LVE_WH_Concept_ID, bp.Value, i.documentno, i.docstatus, ifac.totalex, ifac.totalbi, ifac.totalimpuesto, bp.name, iaffected.documentno, dt.issotrx,
-	i.c_invoice_id, dt.docbasetype, ifac.Rate,
-	wc.name, whc.aliquot,whc.value,	wcf.Subtrahend,  i.c_doctype_id,wcf.MinValue,
-	bp.ad_client_id, bp.ad_org_id,
-	bp.c_bpartner_id,
-	bp.name,tp.Value,bpl.c_location_id,il.C_Charge_ID,il.linenetamt,Location,tp.Name
 ORDER BY
 	bp.c_bpartner_id
-)
-as temp
 
-Group By
-	AD_Client_ID,
-	AD_Org_ID,
-	C_BPartner_ID,
-	Name,
+) AS Temp
+GROUP BY
 	Date,
-	IsNatural,
-	Legal,
-	Venezuelan,
-	IsForeign,
-	Resident,
-	NoResident,
-	Constituted,
-	NoConstituted,
-	Cedula,
-	Passports,
-	RFC,
-	Value,
-	C_Location_ID,
-	LastDayOfMonth,
-	Year,
-	C_Invoice_ID,
 	DateAcct,
-	DateInvoiced,
-	IsSoTrx,
-	TotalLines,
-	Rif,
-	DocumentNo,
-	DocStatus,
-	DocBaseType,
-	Rate,
-	ConceptoRetencion,
+	C_Invoice_ID,
+	EnteJuridico,
+	EntePublico,
+	PersonaNatural,
+	NameJuridico,
+	NamePublico,
+	NameNatural,
+	RifJuridico,
+	RifPublico,
+	RifNatural,
+	LocationOrg,
+	Name,
+	Value,
+	TaxID,
+	IsNatural,
+	IsJuridico,
+	IsVenezuelan,
+	IsForeign,
+	IsResident,
+	IsNotResident,
+	IsConstituted,
+	IsNotConstituted,
+	Cedula,
+	RFC,
+	PassPorts,
+	LocationBusiness,
+	LastDayOfMonth,
+	Month,
+	Year,
+	AuthorizedOfficer_ID,
+	BPTaxID,
+	lastdayofmonth,
 	Aliquot,
-	MinValue,
-	SubTrahend,
-	MuestAnulado,
-	DocRelacionado,
-	Nota_Debito,
-	Nota_Credito,
-	Nomb_Socio,
-	TotalPAgado,
-	SocioNegocio,
-	RIF_Libro,
-	Alicuota_Libro,
-	C_DocType_ID,
-	Location,
-	Month
+	C_BPartner_ID,
+	Withholding,
+	DocAffected_ID,
+	DocumentNo,
+	Value,
+	GrandTotal
+
 ORDER BY
 	C_BPartner_ID,DateAcct]]>
 	</queryString>
-	<field name="ad_client_id" class="java.math.BigDecimal"/>
-	<field name="ad_org_id" class="java.math.BigDecimal"/>
-	<field name="c_bpartner_id" class="java.math.BigDecimal"/>
-	<field name="name" class="java.lang.String"/>
 	<field name="date" class="java.lang.String"/>
-	<field name="isnatural" class="java.lang.String"/>
-	<field name="legal" class="java.lang.String"/>
-	<field name="venezuelan" class="java.lang.String"/>
-	<field name="isforeign" class="java.lang.String"/>
-	<field name="resident" class="java.lang.String"/>
-	<field name="noresident" class="java.lang.String"/>
-	<field name="constituted" class="java.lang.String"/>
-	<field name="noconstituted" class="java.lang.String"/>
-	<field name="cedula" class="java.lang.String"/>
-	<field name="passports" class="java.lang.String"/>
-	<field name="rfc" class="java.lang.String"/>
-	<field name="month" class="java.lang.String"/>
-	<field name="value" class="java.lang.String"/>
-	<field name="c_location_id" class="java.math.BigDecimal"/>
-	<field name="lastdayofmonth" class="java.lang.String"/>
-	<field name="year" class="java.lang.String"/>
 	<field name="c_invoice_id" class="java.math.BigDecimal"/>
-	<field name="dateacct" class="java.sql.Timestamp"/>
-	<field name="dateinvoiced" class="java.sql.Timestamp"/>
-	<field name="issotrx" class="java.lang.String"/>
+	<field name="entejuridico" class="java.lang.String"/>
+	<field name="entepublico" class="java.lang.String"/>
+	<field name="personanatural" class="java.lang.String"/>
+	<field name="namejuridico" class="java.lang.String"/>
+	<field name="namepublico" class="java.lang.String"/>
+	<field name="namenatural" class="java.lang.String"/>
+	<field name="rifjuridico" class="java.lang.String"/>
+	<field name="rifpublico" class="java.lang.String"/>
+	<field name="rifnatural" class="java.lang.String"/>
+	<field name="locationorg" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="value" class="java.lang.String"/>
+	<field name="taxid" class="java.lang.String"/>
+	<field name="isnatural" class="java.lang.String"/>
+	<field name="isjuridico" class="java.lang.String"/>
+	<field name="isvenezuelan" class="java.lang.String"/>
+	<field name="isforeign" class="java.lang.String"/>
+	<field name="isresident" class="java.lang.String"/>
+	<field name="isnotresident" class="java.lang.String"/>
+	<field name="isconstituted" class="java.lang.String"/>
+	<field name="isnotconstituted" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="passports" class="java.lang.String"/>
+	<field name="locationbusiness" class="java.lang.String"/>
+	<field name="lastdayofmonth" class="java.lang.String"/>
+	<field name="month" class="java.lang.String"/>
+	<field name="year" class="java.lang.String"/>
+	<field name="withholding" class="java.math.BigDecimal"/>
+	<field name="grandtotal" class="java.math.BigDecimal"/>
 	<field name="totallines" class="java.math.BigDecimal"/>
-	<field name="rif" class="java.lang.String"/>
+	<field name="taxbaseamt" class="java.math.BigDecimal"/>
+	<field name="taxamt" class="java.math.BigDecimal"/>
+	<field name="docaffected_id" class="java.math.BigDecimal"/>
 	<field name="documentno" class="java.lang.String"/>
-	<field name="docstatus" class="java.lang.String"/>
-	<field name="docbasetype" class="java.lang.String"/>
-	<field name="rate" class="java.math.BigDecimal"/>
-	<field name="conceptoretencion" class="java.lang.String"/>
-	<field name="aliquot" class="java.math.BigDecimal"/>
-	<field name="MinValue" class="java.math.BigDecimal"/>
-	<field name="subtrahend" class="java.math.BigDecimal"/>
-	<field name="muestanulado" class="java.lang.String"/>
-	<field name="docrelacionado" class="java.lang.String"/>
-	<field name="nota_debito" class="java.lang.String"/>
-	<field name="nota_credito" class="java.lang.String"/>
-	<field name="nomb_socio" class="java.lang.String"/>
-	<field name="totalpagado" class="java.math.BigDecimal"/>
-	<field name="totalbi" class="java.math.BigDecimal"/>
-	<field name="montoretenido" class="java.math.BigDecimal"/>
-	<field name="socionegocio" class="java.lang.String"/>
-	<field name="rif_libro" class="java.lang.String"/>
-	<field name="c_doctype_id" class="java.math.BigDecimal"/>
-	<field name="location" class="java.lang.String"/>
-	<field name="alicuota_libro" class="java.lang.String"/>
-	<variable name="totCanObjRete" class="java.math.BigDecimal" incrementType="Report" calculation="Sum">
-		<variableExpression><![CDATA[$V{acumulador}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	<field name="linenetamt" class="java.math.BigDecimal"/>
+	<field name="authorizedofficer_id" class="java.math.BigDecimal"/>
+	<field name="bptaxid" class="java.lang.String"/>
+	<field name="alicuota" class="java.lang.String"/>
+	<field name="c_bpartner_id" class="java.math.BigDecimal"/>
+	<field name="dateacct" class="java.sql.Timestamp"/>
+	<variable name="TotalPagado" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
 	</variable>
-	<variable name="acumulador" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
+	<variable name="cantObjRetencion" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{totallines}]]></variableExpression>
 	</variable>
-	<variable name="AcumuladorMontoRetenido" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{montoretenido}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	<variable name="impRetenido" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
 	</variable>
-	<variable name="totPagAboCuen" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalpagado}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	<variable name="CantidadRetenidaAcumulada" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{totallines}]]></variableExpression>
 	</variable>
-	<variable name="totBasImp" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
-		<initialValueExpression><![CDATA[$F{totalbi}]]></initialValueExpression>
+	<variable name="impRetenidoAcumulado" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
 	</variable>
-	<variable name="totImpRete" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{montoretenido}]]></variableExpression>
+	<variable name="TotalCantidadPagada" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioDelNegocio" calculation="Sum">
+		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
 	</variable>
-	<variable name="totImpRetAcum" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$V{AcumuladorMontoRetenido}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	<variable name="TotalCantidadObjetoRetencion" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioDelNegocio" calculation="Sum">
+		<variableExpression><![CDATA[$F{totallines}]]></variableExpression>
 	</variable>
-	<variable name="totalbi_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
+	<variable name="TotalImpuestoRetenido" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioDelNegocio" calculation="Sum">
+		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
 	</variable>
-	<variable name="totalbi_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
+	<variable name="TotalCantidadObjetoRetencionAcumulado" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioDelNegocio" calculation="Sum">
+		<variableExpression><![CDATA[$V{CantidadRetenidaAcumulada}]]></variableExpression>
 	</variable>
-	<variable name="totalpagado_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalpagado}]]></variableExpression>
+	<variable name="TotalImpuestoRetenidoAcumulado" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioDelNegocio" calculation="Sum">
+		<variableExpression><![CDATA[$F{linenetamt}]]></variableExpression>
 	</variable>
-	<variable name="montoretenido_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
-		<variableExpression><![CDATA[$F{montoretenido}]]></variableExpression>
-	</variable>
-	<variable name="totalpagado_2" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalpagado}]]></variableExpression>
-	</variable>
-	<variable name="montoretenido_2" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{montoretenido}]]></variableExpression>
-	</variable>
-	<variable name="totalbi_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
-	</variable>
-	<variable name="totalbi_4" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
-	</variable>
-	<variable name="totalbi_5" class="java.math.BigDecimal" resetType="Group" resetGroup="SocioNegocio" calculation="Sum">
-		<variableExpression><![CDATA[$F{totalbi}]]></variableExpression>
-	</variable>
-	<group name="SocioNegocio" isStartNewPage="true">
+	<group name="SocioDelNegocio" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{c_bpartner_id}]]></groupExpression>
 		<groupFooter>
-			<band height="12">
+			<band height="14">
 				<staticText>
-					<reportElement uuid="271ace70-0156-46fe-80ae-4389db3c2438" mode="Transparent" x="0" y="0" width="86" height="12"/>
+					<reportElement mode="Transparent" x="0" y="0" width="86" height="12" uuid="4e423709-ed6f-4d7e-b89d-0ca55c78698c"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<text><![CDATA[TOTALES ------->]]></text>
 				</staticText>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="59268b6b-4ffd-4192-b840-056539572492" mode="Transparent" x="195" y="0" width="107" height="12"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{totalbi_1}]]></textFieldExpression>
+				<textField>
+					<reportElement x="89" y="0" width="108" height="12" uuid="99c552f8-7b58-4fe7-8a25-725dc3c7b521"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalCantidadPagada}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="dc5d8e29-dc55-4c84-bba2-dc4b1b594102" mode="Transparent" x="345" y="0" width="62" height="12"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{montoretenido_2}]]></textFieldExpression>
+				<textField>
+					<reportElement x="197" y="0" width="107" height="12" uuid="b9fc8b20-9164-4477-94e6-216163ea06ca"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencion}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="b69f2926-198b-44f2-b625-1a91e460285b" mode="Transparent" x="407" y="0" width="99" height="12"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{acumulador}]]></textFieldExpression>
+				<textField>
+					<reportElement x="348" y="0" width="61" height="12" uuid="28b7a29b-c707-4490-b364-607b7659bc7a"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenido}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="a7b5b544-5397-4f10-a0db-4b1a6048f03f" mode="Transparent" x="507" y="0" width="100" height="12"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{AcumuladorMontoRetenido}]]></textFieldExpression>
+				<textField>
+					<reportElement x="409" y="0" width="100" height="12" uuid="fdbaed23-9ff7-4f6c-8800-95d3b58274cc"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencionAcumulado}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="becc99d5-d897-4aee-8972-e93e5b6f4287" mode="Transparent" x="86" y="0" width="109" height="12"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{totalbi_5}]]></textFieldExpression>
+				<textField>
+					<reportElement x="509" y="0" width="100" height="12" uuid="bcef0dfd-5282-43b9-80c9-42fb1f51ff91"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -478,9 +451,23 @@ ORDER BY
 	<group name="Fecha">
 		<groupExpression><![CDATA[$F{date}]]></groupExpression>
 		<groupFooter>
-			<band height="14">
+			<band height="12">
 				<textField>
-					<reportElement uuid="6a9ac317-e5be-4b72-98ef-10e500238e6f" mode="Transparent" x="19" y="0" width="27" height="13"/>
+					<reportElement mode="Transparent" x="2" y="-1" width="17" height="13" uuid="dd2f8856-b075-40fd-816e-d110b0a9b2fc"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="7" isBold="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lastdayofmonth}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="20" y="-1" width="27" height="13" uuid="73df9533-bfcd-45e5-8003-7d8733fd6189"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
@@ -494,7 +481,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{month}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="d6c05f4b-4068-45dc-88d6-577ab6e44452" mode="Transparent" x="46" y="0" width="40" height="13"/>
+					<reportElement mode="Transparent" x="47" y="-1" width="41" height="13" uuid="85707fcd-bcaa-474a-9cff-b38292c8a15c"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
@@ -508,154 +495,95 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="cf9642f8-c501-413e-9285-9d75d1f905e8" mode="Transparent" x="0" y="0" width="19" height="13"/>
+					<reportElement x="89" y="-1" width="108" height="12" uuid="16d6634e-859a-4614-b154-f4328ce153b4"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{lastdayofmonth}]]></textFieldExpression>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{TotalPagado}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="12210632-d4e8-4591-92c5-a135f8c1a370" mode="Transparent" x="407" y="0" width="100" height="13"/>
+				<textField>
+					<reportElement x="197" y="-1" width="107" height="12" uuid="996116fa-68c5-4f4e-b5bf-c1f512c54966"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{acumulador}]]></textFieldExpression>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{cantObjRetencion}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="ba39fac0-67b0-4c2f-aef5-5e3597c52908" mode="Transparent" x="507" y="0" width="100" height="13"/>
+				<textField>
+					<reportElement x="348" y="-1" width="61" height="12" uuid="63a95f04-51a9-4417-ba5f-2db1347b30b1"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{AcumuladorMontoRetenido}]]></textFieldExpression>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{impRetenido}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement uuid="c8acb839-9431-4e15-b5a6-647e6e04ab96" mode="Transparent" x="607" y="0" width="68" height="13"/>
+				<textField>
+					<reportElement x="409" y="-1" width="100" height="12" uuid="b9b9ce91-bdb7-4c0d-a010-ea93f22f9a86"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement>
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="74c9993f-182d-48f7-b458-90a39ed90212" mode="Transparent" x="676" y="0" width="68" height="13"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement>
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="6fbf4a28-1900-4803-8074-e273bb66b3c2" mode="Transparent" x="302" y="0" width="44" height="13"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{alicuota_libro}]]></textFieldExpression>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{CantidadRetenidaAcumulada}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="23e66207-d2ba-46ad-8d93-c5e90a8513e7" mode="Transparent" x="195" y="0" width="107" height="13"/>
+				<textField>
+					<reportElement x="509" y="-1" width="99" height="12" uuid="32761893-fccb-4c09-bbdf-e422def0e2a5"/>
 					<box>
-						<pen lineWidth="1.0"/>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{totalbi_2}]]></textFieldExpression>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{impRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00">
-					<reportElement uuid="be31ed1b-6079-4786-81f3-70930852a69e" mode="Transparent" x="346" y="0" width="61" height="13"/>
-					<box>
-						<pen lineWidth="1.0"/>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{montoretenido_1}]]></textFieldExpression>
-				</textField>
-				<textField pattern="#,##0.00;-#,##0.00">
-					<reportElement uuid="09023110-4594-4c6b-afb7-b17d09324422" mode="Transparent" x="86" y="0" width="109" height="13"/>
+				<textField>
+					<reportElement x="305" y="0" width="43" height="12" uuid="be389bea-3e4a-41fc-9480-ea205754b315"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{totalbi}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{alicuota}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
 	</group>
 	<pageHeader>
-		<band height="306" splitType="Stretch">
+		<band height="319" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="ede9ba3a-a5c4-488d-8402-dde28339299e" mode="Transparent" x="261" y="179" width="125" height="29"/>
+				<reportElement mode="Opaque" x="413" y="67" width="338" height="205" uuid="10b93407-a6d9-4701-b7b8-f6b6de436679"/>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="1f713e35-b9d7-4d57-80c1-faa1ad49244c" mode="Transparent" x="0" y="55" width="386" height="206"/>
+				<reportElement x="14" y="109" width="372" height="25" uuid="7bc5c888-9880-4125-b008-6718803e43ee"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="134" width="372" height="25" uuid="4db773cd-9faa-469c-a864-febe62e9065f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="159" width="372" height="25" uuid="eac6dac2-88b3-4c27-b74d-121e697f554b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="14" y="184" width="372" height="30" uuid="a6cba109-97b3-4435-aaeb-4e48a335b9a2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="67" width="386" height="200" uuid="99f65083-6849-495d-ba90-346e1bc49b60"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="ce295592-429f-4775-bcd2-1822167cca4b" mode="Transparent" x="228" y="0" width="331" height="15"/>
-				<textElement textAlignment="Center" rotation="None">
-					<font size="11" isBold="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[COMPROBANTE DE RETENCIONES VARIAS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f1beecbe-b853-4f2a-b02d-198012514362" mode="Transparent" x="312" y="15" width="173" height="12"/>
+				<reportElement mode="Transparent" x="315" y="15" width="173" height="12" uuid="b6b4fbb4-0c30-4252-a776-2c71d183d637"/>
 				<textElement textAlignment="Center">
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -663,7 +591,7 @@ ORDER BY
 				<text><![CDATA[DEL IMPUESTO SOBRE LA RENTA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9673165b-4733-4912-aeab-fa525b26d148" mode="Transparent" x="135" y="27" width="535" height="12"/>
+				<reportElement mode="Transparent" x="138" y="27" width="535" height="12" uuid="cb65bb1d-7daf-4200-9053-6ce324e375f2"/>
 				<textElement textAlignment="Center">
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -671,7 +599,15 @@ ORDER BY
 				<text><![CDATA[(EXCEPTO SUELDOS, SALARIOS Y DEMAS REMUNERACIONES SIMILARES A PERSONAS NATURALES, PRESIDENTES)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8b916d7f-632c-4ce7-85ff-4f35e61c226d" mode="Transparent" x="0" y="41" width="261" height="12"/>
+				<reportElement mode="Transparent" x="231" y="0" width="331" height="15" uuid="5d33a417-e698-4da1-8aa9-6b4aad525860"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font size="11" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE DE RETENCIONES VARIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="10" y="51" width="261" height="12" uuid="2cea93a6-53a7-4c0f-9781-58edf1c50370"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -679,15 +615,15 @@ ORDER BY
 				<text><![CDATA[DATOS DEL AGENTE DE RETENCION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1513e830-9b19-43e0-ba13-0ea450546391" mode="Transparent" x="9" y="57" width="91" height="24"/>
+				<reportElement mode="Transparent" x="140" y="67" width="48" height="25" uuid="45c0a7ca-1cfc-4dad-86fa-3fe7e0f92387"/>
 				<textElement>
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Marque el tipo de Agente de Retención]]></text>
+				<text><![CDATA[1. Persona Natural]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1e9f41e2-616e-4040-8129-3fa8c5be491c" mode="Transparent" x="99" y="62" width="36" height="17"/>
+				<reportElement mode="Transparent" x="92" y="73" width="36" height="17" uuid="b610c660-38c5-4f21-9520-457f39a783b5"/>
 				<textElement>
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -695,233 +631,135 @@ ORDER BY
 				<text><![CDATA[---->]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9728bae7-0dda-4d97-ae84-f3e9930f7868" mode="Transparent" x="147" y="56" width="48" height="25"/>
-				<textElement>
-					<font size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[1. Persona Natural]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="0dccf417-4139-4652-b110-5c45f164df62" mode="Opaque" x="206" y="62" width="14" height="15"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="3f6f91c0-298c-471d-a12b-ebc0fd12b5ad" mode="Transparent" x="231" y="59" width="55" height="25"/>
+				<reportElement mode="Transparent" x="224" y="70" width="55" height="25" uuid="83aa39be-c71b-4ae6-a8c5-7a8fb639d677"/>
 				<textElement>
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[2. Persona Juridica]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="2a020c20-d4c1-4ccb-82a8-50ef6e1816b2" mode="Opaque" x="363" y="62" width="11" height="15"/>
-			</rectangle>
 			<staticText>
-				<reportElement uuid="c0725167-3c14-437a-ae78-801d3763dca3" mode="Transparent" x="312" y="58" width="51" height="25"/>
+				<reportElement mode="Transparent" x="305" y="69" width="51" height="25" uuid="0173b160-9eab-447a-8bc9-4d631977104d"/>
 				<textElement>
 					<font size="9"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[3. Entidad Publica]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="c09b58a7-e377-49b8-b55c-ee9717baa7a1" mode="Opaque" x="0" y="83" width="386" height="17"/>
-			</rectangle>
 			<staticText>
-				<reportElement uuid="a1187c1c-91b6-4ec4-bee1-7df41c84a60f" mode="Transparent" x="0" y="87" width="374" height="12"/>
+				<reportElement mode="Transparent" x="2" y="68" width="91" height="24" uuid="05aa21b9-9e98-411c-bee4-314cb0508c5a"/>
+				<textElement>
+					<font size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Marque el tipo de Agente de Retención]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="283" y="72" width="15" height="20" uuid="48e9a757-23ef-4e9f-9897-4d13b08e9134"/>
+				<textFieldExpression><![CDATA[$F{entejuridico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="72" width="20" height="20" uuid="002233b6-75c2-4193-95e8-27fe5c8717b9"/>
+				<textFieldExpression><![CDATA[$F{personanatural}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="71" width="14" height="20" uuid="ae172b08-a92d-43b0-aa64-6b00ddff2b8d"/>
+				<textFieldExpression><![CDATA[$F{entepublico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="96" width="386" height="12" uuid="59a9b18b-a73a-4e8f-b6ed-3a6bf6f078d9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement>
 					<font size="9" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[UBIQUESE EN EL TIPO DE AGENTE DE RETENCION Y SUMINISTRE LOS DATOS]]></text>
 			</staticText>
-			<rectangle radius="0">
-				<reportElement uuid="23f0e8ea-a59d-492d-a5e1-54d3ac261356" mode="Opaque" x="0" y="99" width="20" height="109"/>
-			</rectangle>
 			<staticText>
-				<reportElement uuid="dd8f4ef8-4e80-4390-a9e8-5c523ed52460" mode="Transparent" x="3" y="112" width="12" height="25"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="0" y="109" width="14" height="27" uuid="c623582a-44b9-4342-b87f-ca8155c022ab"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[T]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8a2b5eea-c91b-4990-afc3-e9577de28197" mode="Transparent" x="3" y="132" width="12" height="25"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="0" y="124" width="14" height="27" uuid="83c3e0af-c447-4915-b856-05b5432659b1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[I]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dec74e44-cf7d-4bc1-b4f9-6485999b3d84" mode="Transparent" x="3" y="149" width="12" height="30"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="0" y="139" width="14" height="27" uuid="0faa7336-3ba5-4c25-9c9c-51ff6fabe001"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[P]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1e182ff2-7588-4efc-a326-9bb1c330be11" mode="Transparent" x="3" y="171" width="12" height="25"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="0" y="157" width="14" height="27" uuid="17e2e463-9106-4951-8a85-91c90f2446e2"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[O]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="5654c87b-b8e0-484b-a3c8-dae9cb30358f" mode="Opaque" x="20" y="99" width="17" height="30"/>
-			</rectangle>
 			<staticText>
-				<reportElement uuid="80c532db-abdb-4072-beda-da7ce89593e4" mode="Transparent" x="22" y="109" width="15" height="15"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="323" y="243" width="64" height="24" uuid="dc37d7ce-3379-4998-b5b8-4855ea54f64a"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[1.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="d796edb6-5323-46b6-95db-a3965349ddd6" mode="Transparent" x="22" y="134" width="15" height="15"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[2.]]></text>
+				<text><![CDATA[10]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="fbaf0902-819a-4a83-9e82-9155bd7878f2" mode="Transparent" x="20" y="129" width="17" height="29"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="fe34904e-4fcb-4357-9859-fe0cde4c1a65" mode="Transparent" x="20" y="158" width="17" height="50"/>
+				<reportElement mode="Transparent" x="0" y="214" width="262" height="53" uuid="79b20592-56a1-4dd3-bc07-6706a8d1f04e"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="6c300eaa-240c-4be8-b4e9-a7eded18573c" mode="Transparent" x="23" y="172" width="15" height="15"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
+				<reportElement mode="Transparent" x="262" y="244" width="61" height="24" uuid="cb08ab98-c2f5-4f5b-ab35-654cfe9aa403"/>
+				<box>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[3.]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="7f1ed526-3b25-477e-836d-ee7f8cb1f894" mode="Opaque" x="37" y="99" width="224" height="29"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="09e3f414-ce0f-4ae8-a36c-9a1106a9e369" mode="Transparent" x="45" y="100" width="120" height="12"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Apellido (s) y Nombre (s)]]></text>
+				<text><![CDATA[31]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="18b82fcb-ae96-4f21-8a29-7e88ca18232e" mode="Transparent" x="44" y="112" width="198" height="12"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[NOMBRE ORGANIZACION]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="c5a9691b-8552-4727-8eb4-bf2cff37ba18" mode="Opaque" x="261" y="99" width="125" height="29"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="127da75e-8d60-437e-a5fb-120fa569e234" mode="Transparent" x="261" y="99" width="90" height="13"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nº R.I.F:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="d5a445a0-3ad6-46bf-bdae-f7532d515ca1" mode="Transparent" x="262" y="115" width="102" height="12"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[RIF Organizacion]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="29dd10bb-b009-4b2d-871c-2ab044f6e3d7" mode="Opaque" x="37" y="129" width="224" height="29"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="227d9750-2602-4184-a384-6d24a2fea61e" mode="Transparent" x="44" y="132" width="157" height="12"/>
-				<textElement>
-					<font size="10"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nombre o Razón Social]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="51ca3e07-e5e6-4a1d-8cac-04ad4da84876" mode="Transparent" x="261" y="129" width="125" height="29"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="962fe8cf-38b7-4e66-be6d-00d561dac290" mode="Transparent" x="261" y="132" width="61" height="12"/>
-				<textElement>
-					<font size="10"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nº R.I.F:]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="187c1958-0c1f-4ce2-8a12-5eaccdce4c79" mode="Opaque" x="37" y="158" width="349" height="21"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="ec83a81d-af90-457c-b2eb-c10748c7ad06" mode="Transparent" x="44" y="160" width="162" height="12"/>
-				<textElement>
-					<font size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nombre del Organismo]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="f72417f6-8105-421c-9a2c-ff5569a80e1e" mode="Opaque" x="37" y="179" width="224" height="29"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="67824163-9787-4409-adbd-342cd20fffed" mode="Transparent" x="45" y="179" width="197" height="12"/>
-				<textElement>
-					<font size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Funcionario Autorizado para hacer la Retención]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e7b6cf9a-3f13-4d27-9baa-637b8b287616" mode="Transparent" x="44" y="191" width="205" height="12"/>
-				<textElement textAlignment="Center">
-					<font size="9" isBold="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="4203beb6-d306-420f-82e9-8f25402afb92" mode="Transparent" x="261" y="180" width="61" height="12"/>
-				<textElement>
-					<font fontName="Monospaced" size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Nº R.I.F:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="7b7f053d-3761-4f6b-8dc8-aaabea60d0b1" mode="Transparent" x="261" y="191" width="80" height="12"/>
-				<textElement>
-					<font fontName="Monospaced" size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[RIF]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ef1f106c-b8c1-4d9e-98bc-6957903e6eb5" mode="Transparent" x="3" y="211" width="121" height="12"/>
-				<textElement>
-					<font size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Dirección y Teléfono (s)]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement uuid="f90c2612-ec76-4e16-a17a-14b124838c57" mode="Opaque" x="261" y="208" width="125" height="54"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="f28380ba-ca09-4ed9-a764-ff73433040af" mode="Transparent" x="261" y="208" width="125" height="29"/>
+				<reportElement mode="Transparent" x="262" y="214" width="125" height="29" uuid="f72f9b21-3337-43f4-b656-c9b45cbd4551"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -932,160 +770,155 @@ ORDER BY
 				<text><![CDATA[Fecha del cierre del ejercicio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b43caf3e-7f9d-423c-892c-705fabee9ca3" mode="Transparent" x="288" y="62" width="10" height="15"/>
+				<reportElement mode="Transparent" x="14" y="109" width="16" height="25" uuid="8b7c1151-f394-4964-bc01-29ff8d97e146"/>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[X]]></text>
+				<text><![CDATA[1.]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="98572eae-1cae-4dae-8469-dfcf5d3f5e91" mode="Opaque" x="405" y="56" width="338" height="205"/>
-			</rectangle>
-			<line>
-				<reportElement uuid="dc9aac32-1176-4a54-beae-02d558f889a9" mode="Opaque" x="405" y="114" width="338" height="1"/>
-			</line>
 			<staticText>
-				<reportElement uuid="14c56da6-d2b1-443a-ba53-f2b86ee3d7a1" mode="Transparent" x="417" y="56" width="204" height="15"/>
-				<textElement>
-					<font fontName="Monospaced" size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Apellido (S) y Nombre (S) o Razón Social]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="d6ffd34c-7cd9-453d-8128-581d7ae3533b" mode="Transparent" x="411" y="79" width="210" height="29"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement uuid="f145f82d-6f47-412d-ace6-44358efdd3d5" mode="Opaque" x="635" y="57" width="108" height="58"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="5c183bb6-9291-4793-b627-3f15ce91b755" mode="Transparent" x="635" y="58" width="108" height="13"/>
+				<reportElement mode="Transparent" x="14" y="134" width="16" height="25" uuid="13491f3b-231d-43d6-b43f-5bd05ae86774"/>
 				<box>
-					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
-					<font size="10"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Tipo de Persona]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="1aac0852-8033-4d66-ab79-cd07ea1b8578" mode="Transparent" x="641" y="83" width="30" height="14"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Natural]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="54de2ab9-42d8-4983-a7f2-5ef263d35e2c" mode="Transparent" x="671" y="84" width="14" height="14"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{isnatural}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="bae33dbf-2d4d-4f0e-820b-9d1e31e9dfe6" mode="Transparent" x="692" y="83" width="32" height="14"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Juridica]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="1a3fbaf7-7dc3-448e-be80-e26fae0a7baf" mode="Transparent" x="724" y="84" width="14" height="14"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{legal}]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement uuid="2073f080-d9e1-433d-9419-62356deac47c" mode="Transparent" x="0" y="209" width="261" height="52"/>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="f51efc8e-3729-41a0-8155-fa346d99667e" mode="Opaque" x="11" y="226" width="209" height="35"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[DIRECCION]]></text>
+				<text><![CDATA[2.]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="97c16c1e-d867-4b81-b3b5-b72290702c32" mode="Opaque" x="405" y="115" width="108" height="43"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="8f380376-2703-42da-9106-d1ae6812ef1f" mode="Opaque" x="513" y="115" width="122" height="43"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="d7102573-2b75-442a-bde3-43277066d166" mode="Opaque" x="635" y="115" width="108" height="43"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="0b2f2034-889b-4d02-a699-d463ca431588" mode="Opaque" x="513" y="158" width="122" height="43"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="2863e719-bc75-4f4d-838f-1e580cbf2d9c" mode="Opaque" x="635" y="158" width="108" height="43"/>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="42d7d8b5-83e4-4650-8035-37a14260d418" mode="Opaque" x="405" y="158" width="108" height="43"/>
-			</rectangle>
 			<staticText>
-				<reportElement uuid="335c3198-5974-46f7-a6d9-c87847fdd6a3" mode="Transparent" x="406" y="117" width="100" height="12"/>
-				<textElement>
+				<reportElement mode="Transparent" x="15" y="160" width="15" height="25" uuid="64b56662-f08e-4fa7-ba84-1d989ec3654c"/>
+				<box>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Nacionalidad]]></text>
+				<text><![CDATA[3.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a0adaa60-bcb4-4607-bd9a-3b3542204d25" mode="Transparent" x="513" y="117" width="100" height="12"/>
+				<reportElement mode="Transparent" x="34" y="109" width="120" height="12" uuid="739af3b5-af73-42a9-924f-940eba9160e8"/>
 				<textElement>
+					<font fontName="SansSerif" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Residente en el País]]></text>
+				<text><![CDATA[Apellido (s) y Nombre (s)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5a6485ba-75ec-4a76-b25e-faeaef61d592" mode="Transparent" x="635" y="117" width="108" height="12"/>
+				<reportElement mode="Transparent" x="283" y="184" width="61" height="12" uuid="a64d68ab-1be5-4399-b536-4d51c5006867"/>
 				<textElement>
+					<font fontName="SansSerif" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Constituida en el País]]></text>
+				<text><![CDATA[Nº R.I.F:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="276d9a64-c46e-4c15-9f16-d8ad8ec518b6" mode="Transparent" x="405" y="160" width="108" height="16"/>
+				<reportElement mode="Transparent" x="33" y="135" width="157" height="12" uuid="e05378fd-96d3-44a8-9e30-ce7214cb7c88"/>
 				<textElement>
-					<font fontName="Monospaced" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Cedula de Identidad]]></text>
+				<text><![CDATA[Nombre o Razón Social]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1e87f3ba-74a4-46db-897d-20959bf364c1" mode="Transparent" x="513" y="159" width="119" height="17"/>
+				<reportElement mode="Transparent" x="33" y="160" width="162" height="12" uuid="b8e70816-2903-4bb9-bfb6-5e77ea83925f"/>
 				<textElement>
-					<font fontName="Monospaced" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Número de Pasaporte]]></text>
+				<text><![CDATA[Nombre del Organismo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4c654f3a-8b99-453c-b21b-d7c5d5e2bf34" mode="Transparent" x="635" y="160" width="97" height="12"/>
+				<reportElement mode="Transparent" x="15" y="186" width="235" height="12" uuid="02ef97ed-5516-4ae0-96d5-a42aea54c53d"/>
 				<textElement>
-					<font fontName="Monospaced" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Número de R.I.F.]]></text>
+				<text><![CDATA[Funcionario Autorizado para hacer la Retención]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2821a807-b77a-4eec-8f0a-4d0a1489812c" mode="Transparent" x="635" y="201" width="108" height="16"/>
+				<reportElement mode="Transparent" x="283" y="108" width="90" height="13" uuid="e3ea64a1-990e-4e5f-91d6-954df1026612"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nº R.I.F:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="32" y="146" width="250" height="12" uuid="f76cf067-22fd-4fed-b4a1-495beb7037c5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{namejuridico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="283" y="134" width="61" height="12" uuid="a6647857-8f97-430d-acf6-af5814666ab8"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nº R.I.F:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="31" y="170" width="250" height="12" uuid="9acb6478-7f2a-48f6-8b65-3eb394072394"/>
+				<textFieldExpression><![CDATA[$F{namepublico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="120" width="250" height="12" uuid="144b5141-6167-407d-b626-155e48cc9bde"/>
+				<textFieldExpression><![CDATA[$F{namenatural}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="146" width="100" height="12" uuid="2a8d3d93-aa82-4586-bdf6-38784efb5ff0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rifjuridico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="170" width="100" height="12" uuid="ce829b2f-cd56-4dcb-8474-b18443b290f7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rifpublico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="121" width="100" height="12" uuid="e44b4ca2-5957-4442-901e-63010a9f320d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rifnatural}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="284" y="160" width="61" height="12" uuid="1dbfe002-0e8b-4dc1-880f-c104933b9ade"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nº R.I.F:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="16" y="200" width="255" height="14" uuid="2f0104a3-fd81-4046-be3f-e55ed84ecae8"/>
+				<textFieldExpression><![CDATA[$F{authorizedofficer_id}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="641" y="67" width="109" height="54" uuid="18db3e63-ec74-4dab-ac2c-dd3c0427ddca"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="526" y="138" width="12" height="12" uuid="4536eb54-d871-4141-a9fc-306b2fb09723"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Si]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="645" y="211" width="108" height="15" uuid="b7495ad0-a65b-4e14-ab7a-df4b31030f7f"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -1096,173 +929,253 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Periodo a que corresponden las remuneraciones pagadas]]></text>
 			</staticText>
+			<line direction="BottomUp">
+				<reportElement mode="Opaque" x="645" y="233" width="1" height="38" uuid="ce48c276-9f33-4559-9381-3211de0fb7aa"/>
+			</line>
 			<staticText>
-				<reportElement uuid="95c6fc0c-dd01-41d3-be3f-f82d03605f5b" mode="Transparent" x="413" y="132" width="12" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[V]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="72d29135-28e5-4680-b560-a859fb1fa62d" mode="Transparent" x="434" y="132" width="14" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{venezuelan}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="ed2d37db-b1a3-4354-803a-3beead31d39b" mode="Transparent" x="460" y="132" width="12" height="20"/>
+				<reportElement mode="Transparent" x="466" y="138" width="14" height="14" uuid="8df47354-4fc8-4874-8b04-c488db2e5f95"/>
 				<textElement>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[E]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="4044baba-51dd-46e7-892a-58cf13dd6593" mode="Transparent" x="475" y="132" width="14" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{isforeign}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement uuid="d78df41d-9034-47c3-b6b9-10910554e553" mode="Transparent" x="520" y="132" width="14" height="20"/>
+				<reportElement mode="Transparent" x="642" y="170" width="110" height="10" uuid="c561009a-a9e8-4c82-beb5-6bc69ad30eff"/>
 				<textElement>
+					<font fontName="Monospaced" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Si]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="3c5437e0-e0b0-486e-885e-296ab0e4d44a" mode="Transparent" x="670" y="132" width="18" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{constituted}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="4c07da6d-3171-43da-9b53-1b07f9223a3d" mode="Transparent" x="578" y="132" width="14" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[No]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="01444147-fe26-4920-8de6-546b81670069" mode="Transparent" x="718" y="132" width="23" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{noconstituted}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="6bd998ab-0c32-464c-8376-b74fc5de6d42" mode="Transparent" x="648" y="132" width="13" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Si]]></text>
+				<text><![CDATA[Número de R.I.F.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="95456576-ad73-40f1-a5fb-6525fbe36be8" mode="Transparent" x="695" y="132" width="23" height="20"/>
+				<reportElement mode="Transparent" x="519" y="169" width="121" height="10" uuid="86c888b0-be51-4909-a406-4e893be11356"/>
 				<textElement>
+					<font fontName="Monospaced" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[No]]></text>
+				<text><![CDATA[Número de Pasaporte]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="3848512d-cf0e-4499-8b73-bfcc4b7be45b" mode="Transparent" x="545" y="132" width="14" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{resident}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1300054b-e81b-418a-9161-ce4a9f0c8cef" mode="Transparent" x="613" y="132" width="14" height="20"/>
-				<textElement>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{noresident}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="8569ce65-3f88-4f8d-b40f-7d14b69e03e8" mode="Transparent" x="406" y="176" width="100" height="20"/>
-				<textElement>
-					<font fontName="Monospaced"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="fb760ac7-a207-46a0-a288-a9e19c2f1ff7" mode="Transparent" x="521" y="180" width="100" height="20"/>
-				<textElement>
-					<font fontName="Monospaced"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{passports}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="246c13b7-7ca2-48ab-b4c1-c0321b25efb6" mode="Transparent" x="635" y="176" width="100" height="20"/>
-				<textElement>
-					<font fontName="Monospaced"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement uuid="e63038e8-51d4-406d-9984-b829afccbdcf" mode="Transparent" x="405" y="203" width="100" height="17"/>
+				<reportElement mode="Transparent" x="415" y="213" width="100" height="17" uuid="00e94a2a-c94a-4587-8560-fa4d4f6fb5da"/>
 				<textElement>
 					<font fontName="Monospaced" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Dirección y Teléfono (S)]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="7fe38afa-deaf-44cb-8e8b-c8e0d82e691d" mode="Transparent" x="406" y="220" width="226" height="41"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Transparent" x="646" y="259" width="105" height="12" uuid="83bbde3c-eb2c-4071-abdd-370780c3d33f"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DateAcct2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Transparent" x="647" y="237" width="106" height="12" uuid="a46abefd-c6aa-47c5-8cc6-3e17678fc71b"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DateAcct1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="696" y="90" width="32" height="14" uuid="3b748a28-63a1-4417-aa2e-82643ad7dad8"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Juridica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="523" y="122" width="100" height="12" uuid="54ef78d3-af71-4af4-963f-dee15c80de2c"/>
 				<textElement>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+				<text><![CDATA[Residente en el País]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="414" y="67" width="226" height="15" uuid="5c27ecb3-6da1-4900-bdab-45ca6b2662af"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Monospaced" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Apellido (S) y Nombre (S) o Razón Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="646" y="138" width="12" height="12" uuid="a700b9a3-70c0-4d13-95c6-c64dc3a9b00e"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Si]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="645" y="249" width="35" height="10" uuid="e4fd01bc-3829-41b0-89fb-e681e499c12f"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="415" y="170" width="103" height="10" uuid="69515ed5-712e-4aab-aa0c-07db3ebac5e6"/>
+				<textElement>
+					<font fontName="Monospaced" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cedula de Identidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="698" y="138" width="12" height="12" uuid="712d7f09-13e3-4e86-8308-762184960f0f"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="414" y="122" width="100" height="12" uuid="e0b13f43-07c5-4cab-a924-a20500345b34"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="138" width="14" height="14" uuid="bbcc8448-676e-4160-919c-28e2ac5c02aa"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[V]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="642" y="90" width="30" height="14" uuid="8e4d3946-6774-46c5-84e3-f6f266a18710"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Natural]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="584" y="138" width="12" height="12" uuid="f6907f1d-646a-4cb4-9498-56c3b1501970"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="641" y="68" width="110" height="13" uuid="977296e0-cab1-48f5-9f85-7e9c713abb3b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Tipo de Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="645" y="226" width="35" height="10" uuid="7cb477f0-6e5d-4465-aa77-aaae7e19716d"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="642" y="122" width="108" height="12" uuid="1a19ec00-f8ca-4d08-9ccc-a31f53535afb"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Constituida en el País]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="82" width="227" height="39" uuid="921e1f73-17e5-495a-b87c-b746a106e41d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="673" y="90" width="20" height="14" uuid="61c35dcf-842e-4445-8c5e-b4ba023f4455"/>
+				<textFieldExpression><![CDATA[$F{isnatural}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="730" y="89" width="20" height="14" uuid="90cce151-0d20-4689-88d3-6a01502b84ba"/>
+				<textFieldExpression><![CDATA[$F{isjuridico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="138" width="20" height="14" uuid="76b0e0fc-fce1-4dca-874d-28724de22e7e"/>
+				<textFieldExpression><![CDATA[$F{isvenezuelan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="138" width="20" height="14" uuid="ac838c1f-df31-4a14-9bec-a2d03f9d9479"/>
+				<textFieldExpression><![CDATA[$F{isforeign}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="548" y="138" width="20" height="12" uuid="af46f553-9d47-4b0e-b3af-6917fcc76ed0"/>
+				<textFieldExpression><![CDATA[$F{isresident}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="608" y="138" width="20" height="12" uuid="cad486b6-724f-472c-9ca1-79feb43ae6fb"/>
+				<textFieldExpression><![CDATA[$F{isnotresident}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="673" y="138" width="20" height="12" uuid="fe1c073d-d264-468c-ae4b-8d315a88950d"/>
+				<textFieldExpression><![CDATA[$F{isconstituted}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="722" y="138" width="20" height="12" uuid="17349ebf-78e6-4a44-881e-42e3b97b93de"/>
+				<textFieldExpression><![CDATA[$F{isnotconstituted}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="413" y="211" width="340" height="1" uuid="e3780f12-578e-4a5c-8c64-b4c246c5c3c6"/>
+			</line>
+			<line>
+				<reportElement x="518" y="122" width="1" height="88" uuid="5704659b-c4c6-4c7f-a953-b3e68bf06af5"/>
+			</line>
+			<line>
+				<reportElement x="641" y="83" width="1" height="125" uuid="39a14d19-cb6e-457d-8898-e6ba01f4c7e2"/>
+			</line>
+			<textField>
+				<reportElement x="415" y="184" width="100" height="20" uuid="d6fe5bea-f4e3-4f04-a2ec-49291df2a384"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="653" y="186" width="100" height="20" uuid="2257fbdc-5f4b-40c5-9adb-2dc2b8b93c4d"/>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="528" y="185" width="100" height="20" uuid="97a05732-1a62-4ef2-823d-b2b9dfeb7d18"/>
+				<textFieldExpression><![CDATA[$F{passports}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="217" width="260" height="51" uuid="111b4b7c-4170-4e3c-9c72-e66b49c752a1"/>
+				<textFieldExpression><![CDATA[$F{locationorg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="229" width="230" height="43" uuid="9bd21d11-07e9-478e-960c-5ad7743ef92d"/>
+				<textFieldExpression><![CDATA[$F{locationbusiness}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3e44b6fb-851c-4da7-b407-62e201d0e579" mode="Transparent" x="0" y="275" width="86" height="20"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7" isStrikeThrough="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Fecha de Pago o Abono en Cuenta]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="10b213ac-8662-4db5-a80c-5a80933c408c" mode="Transparent" x="0" y="295" width="19" height="11"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Día]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ad6e4446-3593-4167-a17a-4a21091892d4" mode="Transparent" x="19" y="295" width="27" height="11"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Mes]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f6e49286-84c4-4b53-a79c-e51dd137f0e8" mode="Transparent" x="46" y="295" width="40" height="11"/>
+				<reportElement mode="Transparent" x="48" y="305" width="40" height="11" uuid="211d343d-986c-41f3-8d7c-fc346c6458c6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1276,77 +1189,21 @@ ORDER BY
 				<text><![CDATA[Año]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="05b1d095-ce7f-4841-aa99-04b9ebc2b7aa" mode="Transparent" x="86" y="275" width="109" height="31"/>
+				<reportElement mode="Transparent" x="2" y="305" width="19" height="11" uuid="6a37705e-92ce-40e3-a01a-40f0199821e6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center">
 					<font size="7"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Total Cantidad Pagada o Abonada en Cuenta]]></text>
+				<text><![CDATA[Día]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="77a354ed-8f28-4452-aa33-6b69d2ec2df0" mode="Transparent" x="195" y="275" width="107" height="31"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cantidad Objeto de Retención]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ef5b1d87-01da-4d37-b367-b6c09d4a110d" mode="Transparent" x="302" y="275" width="44" height="31"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[% o Tarifa]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="de7f6e97-61e4-4dc7-9756-e1fba475fd68" mode="Transparent" x="346" y="275" width="61" height="31"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Impuesto Retenido]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="69ddd485-7715-4b05-8d4c-e23d5ff63991" mode="Transparent" x="507" y="275" width="100" height="31"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Impuesto Retenido Acumulada]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="57caa954-4474-45d5-9795-10683803e60b" mode="Transparent" x="607" y="275" width="137" height="20"/>
+				<reportElement mode="Transparent" x="609" y="285" width="137" height="20" uuid="e0ff1b5e-43f8-4453-a39e-1f827d439993"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1360,35 +1217,7 @@ ORDER BY
 				<text><![CDATA[IMPUESTO ENTERADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c67064fa-43e1-432d-ace0-7db050026063" mode="Transparent" x="607" y="295" width="68" height="11"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[En Fecha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="35cf684b-941c-4ff9-b2f9-27b273712968" mode="Transparent" x="675" y="295" width="69" height="11"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Banco]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6973160f-e814-472b-98a8-1d9252869608" mode="Transparent" x="407" y="275" width="100" height="31"/>
+				<reportElement mode="Transparent" x="409" y="285" width="100" height="31" uuid="11803e20-e3bc-40cd-92b9-1441d59781fc"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1402,48 +1231,49 @@ ORDER BY
 				<text><![CDATA[Total Cantidad Objeto de Retención Acumulada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="44ed0a23-8c06-4f4f-92aa-22bc7cb0552f" mode="Transparent" x="635" y="216" width="35" height="10"/>
+				<reportElement mode="Transparent" x="88" y="285" width="109" height="31" uuid="2f8d327e-78b4-498b-a070-3ab8c5c54cdd"/>
 				<box>
+					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
-				</box>
-				<textElement>
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Desde:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="afffc10f-c5f5-4227-86ae-58cb6c8dd198" mode="Transparent" x="635" y="239" width="35" height="10"/>
-				<textElement>
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Hasta:]]></text>
-			</staticText>
-			<line direction="BottomUp">
-				<reportElement uuid="750db48a-9d99-4a88-9eb5-96155c05104a" mode="Opaque" x="635" y="223" width="1" height="38"/>
-			</line>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="6b0422ea-9d10-4388-be6b-b9c3b3d59f5c" mode="Transparent" x="637" y="227" width="106" height="12"/>
-				<box>
 					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
-					<font size="8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{DateAcct1}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="ddf9a838-c9cb-4efb-ab0c-7268714e0da2" mode="Transparent" x="636" y="249" width="105" height="12"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{DateAcct2}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Total Cantidad Pagada o Abonada en Cuenta]]></text>
+			</staticText>
 			<staticText>
-				<reportElement uuid="e3cc437f-b45a-4354-a221-2e76971430fd" mode="Transparent" x="0" y="262" width="299" height="13"/>
+				<reportElement mode="Transparent" x="609" y="305" width="68" height="11" uuid="b154446a-4858-41f6-a4e8-a318a88c9596"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[En Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="509" y="285" width="100" height="31" uuid="9eb9b433-4ec2-41f8-be74-25d9b27e37b1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Impuesto Retenido Acumulada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="272" width="299" height="13" uuid="cf910c49-fa93-431d-831a-babb3b80d5d4"/>
 				<textElement>
 					<font isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -1451,33 +1281,95 @@ ORDER BY
 				<text><![CDATA[INFORMACION DEL IMPUESTO RETENIDO Y ENTERADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e8a1f38e-cafc-40e4-ab2d-3971d83527e4" mode="Transparent" x="261" y="238" width="61" height="24"/>
+				<reportElement mode="Transparent" x="2" y="285" width="86" height="20" uuid="4d8427bb-8a41-4a53-9875-b6739d5fb049"/>
 				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="15" isBold="false"/>
+					<font size="7" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[31]]></text>
+				<text><![CDATA[Fecha de Pago o Abono en Cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9d373259-eae4-4160-bee7-9e6b32302c88" mode="Transparent" x="322" y="237" width="64" height="24"/>
+				<reportElement mode="Transparent" x="304" y="285" width="44" height="31" uuid="8140f9b4-da1f-4f3c-a3db-cad5a1ea350d"/>
 				<box>
+					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="15" isBold="false"/>
+					<font size="7"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[10]]></text>
+				<text><![CDATA[% o Tarifa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="348" y="285" width="61" height="31" uuid="1e403060-760d-4a93-9908-f3f8d386af85"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Impuesto Retenido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="21" y="305" width="27" height="11" uuid="b1d9e471-52e5-41a8-bd5e-68a89ce9fbf6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="677" y="305" width="69" height="11" uuid="65842589-5ef5-4aea-8d73-fcb8875cc8d5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Banco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="197" y="285" width="107" height="31" uuid="0efcae91-2eec-42d8-bc8c-36c6f98ce97a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cantidad Objeto de Retención]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<pageFooter>
-		<band height="39" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d8a067f3-7b53-4914-8ff2-52fb004142ec" mode="Transparent" x="61" y="11" width="221" height="25"/>
+				<reportElement mode="Transparent" x="44" y="19" width="221" height="25" uuid="8edccf80-4258-4c58-9460-54eb9f84b766"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1491,7 +1383,7 @@ ORDER BY
 				<text><![CDATA[Agente de Retención (Sello, Fecha y Firma)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9ebac455-5fe4-425b-8c46-995c7768a82b" mode="Transparent" x="460" y="11" width="221" height="25"/>
+				<reportElement mode="Transparent" x="443" y="19" width="221" height="25" uuid="411931f8-4e4b-4b62-a936-cd78405e382e"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>

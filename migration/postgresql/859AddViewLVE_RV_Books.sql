@@ -1,4 +1,4 @@
---DROP VIEW LVE_RV_Books;
+﻿--DROP VIEW LVE_RV_Books;
 CREATE OR REPLACE VIEW LVE_RV_Books AS 
 SELECT
 	i.AD_Client_ID,
@@ -173,4 +173,6 @@ GROUP BY
 	cbj.taxbaseamt,
 	cbj.rate,
 	tdoc.doctypedeclare,
-	cbj.C_BPartner_ID;
+	cbj.C_BPartner_ID
+
+	;

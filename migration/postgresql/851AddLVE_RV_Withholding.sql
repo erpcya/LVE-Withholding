@@ -54,7 +54,7 @@ Language PLPGSQL;
 */
 
 --DROP VIEW LVE_RV_Withholding
-CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
+--CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
 	CI.AD_Client_ID,                    --Companny ID
 	CI.AD_Org_ID,                       --Org ID
@@ -88,12 +88,14 @@ SELECT DISTINCT
 		THEN cilbwh.WHBaseAmt
 		ELSE CI.TotalLines
 	END WHBaseAmt ,				--Base Subject to WithHolding
+	
 	CASE WHEN CI.LVE_WH_Concept_ID IS NULL 
 		THEN cilbwh.WHTaxAmt
 		ELSE CTAX.TaxAmt
 	END WHTaxAmt,				--Tax Subject to WithHolding
 	WHC.TaxBaseRate,
-	whr.ReferenceNO
+	whr.ReferenceNO,
+	whr.LVE_WH_Relation_ID
 FROM 
 -- Invoice DocType
 C_DocType CDT 
@@ -131,22 +133,25 @@ INNER JOIN (Select  CITAX.C_Invoice_ID,
             GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID 
 --Base Tax WithHolding
 LEFT JOIN (SELECT 
-		cil.C_Invoice_ID,
+		MAX(cil.C_Invoice_ID) C_Invoice_ID,
 		Sum(cil.LineNetAmt) WHBaseAmt,
 		Sum(cil.TaxAmt) WHTaxAmt
 	   FROM C_invoiceLine cil 
 	   INNER JOIN LVE_WC_ProductCharge wcpch ON (cil.M_Product_ID=wcpch.M_Product_ID OR cil.C_Charge_ID=wcpch.C_Charge_ID) 
 	   WHERE wcpch.IsActive ='Y'
-	   GROUP BY cil.C_Invoice_ID,cil.LineNetAmt) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
+	   --GROUP BY cil.C_Invoice_ID,cil.LineNetAmt
+	   ) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
 LEFT JOIN  (
 		SELECT 
 			ReferenceNO,
-			C_BPartner_ID 
+			C_BPartner_ID,
+			LVE_WH_Relation_ID,
+			LVE_Withholding_ID
 		FROM LVE_WH_Relation whr
 		WHERE ReferenceNO <> ''
-	)whr ON whr.C_BPartner_ID = CI.C_BPartner_ID
-
---WHERE  CI.C_Invoice_ID= 1068553
+	)whr ON (whr.C_BPartner_ID = CI.C_BPartner_ID AND whr.LVE_Withholding_ID = w.LVE_Withholding_ID)
+WHERE  CIW.C_Invoice_ID= 1090492
+--WHERE  ciw.C_Invoice_ID=1087997
 --	AND CI.DocStatus IN ('CO','CL')--1077156
 ;
 

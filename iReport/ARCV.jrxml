@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5b0695-0049-4af7-9438-daefaada51af">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="228"/>
+	<property name="ireport.y" value="212"/>
 	<parameter name="DateAcct1" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -57,7 +57,8 @@
 	lastdayofmonth,
 	ROUND(Aliquot,2) || '%'AS Alicuota ,
 	C_BPartner_ID,
-	DateAcct
+	DateAcct,
+AuthorizedOfficer
 FROM (
 SELECT
 	Extract("Month" FROM i.dateacct)||'-'||EXTRACT("Year" FROM i.dateacct) As Date,
@@ -118,7 +119,7 @@ SELECT
 	CASE WHEN coalesce(l.address1,'')||' '||coalesce(l.address2,'') ||', '||coalesce(l.city,'') <> '' THEN
 		coalesce(l.address1,'')||' '||coalesce(l.address2,'') ||', '||coalesce(l.city,'') ELSE ''
 	END as LocationOrg,
-	wht.AuthorizedOfficer_ID,
+	COALESCE(wht.AuthorizedOfficer_ID,0) AuthorizedOfficer_ID,
 	COALESCE(bpa.Value,bpa.TaxID) BPTaxID,
 	bp.Name,
 	bp.Value,
@@ -198,7 +199,8 @@ SELECT
 	wit.C_Invoice_ID Withholding,
 	wit.Aliquot,
 	bp.C_BPartner_ID,
-	i.DateAcct
+	i.DateAcct,
+	COALESCE(bpa.Name,'') AuthorizedOfficer
 FROM C_Invoice i
 INNER JOIN C_DocType dt ON (i.C_DocType_ID = dt.C_DocType_ID)
 INNER JOIN C_BPartner bp ON (bp.C_BPartner_ID = i.C_BPartner_ID)
@@ -208,7 +210,14 @@ INNER JOIN C_Location bl ON (bl.C_Location_ID = bpl.C_Location_ID)
 INNER JOIN AD_Org o ON (o.AD_Org_ID = i.AD_Org_ID)
 INNER JOIN AD_OrgInfo oi ON (i.AD_Org_ID = oi.AD_Org_ID)
 LEFT JOIN C_Location l ON (l.C_Location_ID = oi.C_Location_ID)
-LEFT JOIN LVE_WH_Type wht ON wht.AuthorizedOfficer_ID = bp.C_BPartner_ID
+LEFT JOIN (
+	SELECT
+		bp.C_BPartner_ID,
+		bp.Name,
+		wh.AuthorizedOfficer_ID
+	FROM C_BPartner bp
+	INNER JOIN LVE_WH_Type wh ON (wh.AuthorizedOfficer_ID = bp.C_BPartner_ID)
+)wht ON (wht.AuthorizedOfficer_ID = bp.C_BPartner_ID)
 LEFT JOIN C_BPartner bpa ON (bpa.C_BPartner_ID = wht.AuthorizedOfficer_ID)
 INNER JOIN (
 	SELECT
@@ -225,10 +234,7 @@ INNER JOIN (
 	GROUP BY
 		itax.c_invoice_id
 	) it ON (it.C_Invoice_ID = i.C_Invoice_ID)
-
-
-
-LEFT JOIN (
+INNER JOIN (
 		SELECT DISTINCT
 				iw.C_Invoice_ID,
 				ilw.DocAffected_ID,
@@ -238,23 +244,23 @@ LEFT JOIN (
 				iw.LVE_WH_Concept_ID,
 				whco.Aliquot
 		FROM C_Invoice iw
-		LEFT JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID)
-		LEFT JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID
-		LEFT JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID)
-		LEFT JOIN LVE_WH_Config whc ON (whc.LVE_WH_Config_ID = ilw.LVE_WH_Config_ID)
-		LEFT JOIN LVE_WH_Combination whco ON (whco.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID)
+		INNER JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID)
+		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID
+		INNER JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID)
+		INNER JOIN LVE_WH_Config whc ON (whc.LVE_WH_Config_ID = ilw.LVE_WH_Config_ID)
+		INNER JOIN LVE_WH_Combination whco ON (whco.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID)
 
 		WHERE
 			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR]))
 			AND wt.VALUE = 'RISLR'
 	)wit ON (wit.DocAffected_ID = i.C_Invoice_ID)
+
 WHERE
 	i.DocStatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])  AND
 	i.IsSotrx = 'N'::bpchar AND
-	bpl.IsBillTo = 'Y'::bpchar  AND
-	i.DateAcct BETWEEN $P{DateAcct1} AND $P{DateAcct2}
+	bpl.IsBillTo = 'Y'::bpchar
+	AND i.DateAcct BETWEEN $P{DateAcct1} AND $P{DateAcct2}
 	AND (i.C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} IS NULL)
-
 ORDER BY
 	bp.c_bpartner_id
 
@@ -300,7 +306,8 @@ GROUP BY
 	DocAffected_ID,
 	DocumentNo,
 	Value,
-	GrandTotal
+	GrandTotal,
+AuthorizedOfficer
 
 ORDER BY
 	C_BPartner_ID,DateAcct]]>
@@ -348,6 +355,7 @@ ORDER BY
 	<field name="alicuota" class="java.lang.String"/>
 	<field name="c_bpartner_id" class="java.math.BigDecimal"/>
 	<field name="dateacct" class="java.sql.Timestamp"/>
+	<field name="authorizedofficer" class="java.lang.String"/>
 	<variable name="TotalPagado" class="java.math.BigDecimal" resetType="Group" resetGroup="Fecha" calculation="Sum">
 		<variableExpression><![CDATA[$F{grandtotal}]]></variableExpression>
 	</variable>
@@ -399,7 +407,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadPagada}]]></textFieldExpression>
 				</textField>
@@ -412,7 +420,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencion}]]></textFieldExpression>
 				</textField>
@@ -425,7 +433,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenido}]]></textFieldExpression>
 				</textField>
@@ -438,7 +446,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencionAcumulado}]]></textFieldExpression>
 				</textField>
@@ -451,7 +459,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
@@ -513,7 +521,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalPagado}]]></textFieldExpression>
 				</textField>
@@ -526,7 +534,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{cantObjRetencion}]]></textFieldExpression>
 				</textField>
@@ -539,7 +547,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{impRetenido}]]></textFieldExpression>
 				</textField>
@@ -552,7 +560,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{CantidadRetenidaAcumulada}]]></textFieldExpression>
 				</textField>
@@ -565,7 +573,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Right">
-						<font fontName="Dialog" size="10"/>
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{impRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
@@ -577,8 +585,8 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement>
-						<font fontName="Dialog" size="10"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{alicuota}]]></textFieldExpression>
 				</textField>
@@ -925,10 +933,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Nº R.I.F:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="16" y="200" width="255" height="14" uuid="2f0104a3-fd81-4046-be3f-e55ed84ecae8"/>
-				<textFieldExpression><![CDATA[$F{authorizedofficer_id}]]></textFieldExpression>
-			</textField>
 			<rectangle>
 				<reportElement mode="Opaque" x="641" y="67" width="109" height="54" uuid="18db3e63-ec74-4dab-ac2c-dd3c0427ddca"/>
 			</rectangle>
@@ -1387,6 +1391,10 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Cantidad Objeto de Retención]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="15" y="199" width="270" height="13" uuid="34c50353-0b9c-4009-b8df-748e5a472f31"/>
+				<textFieldExpression><![CDATA[$F{authorizedofficer}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<pageFooter>

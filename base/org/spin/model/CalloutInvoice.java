@@ -22,7 +22,6 @@ import org.compiere.model.CalloutEngine;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MDocType;
-import org.compiere.util.Env;
 
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>

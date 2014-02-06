@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5b0695-0049-4af7-9438-daefaada51af">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="520"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="228"/>
 	<parameter name="DateAcct1" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -228,7 +228,7 @@ INNER JOIN (
 
 
 
-INNER JOIN (
+LEFT JOIN (
 		SELECT DISTINCT
 				iw.C_Invoice_ID,
 				ilw.DocAffected_ID,
@@ -238,11 +238,11 @@ INNER JOIN (
 				iw.LVE_WH_Concept_ID,
 				whco.Aliquot
 		FROM C_Invoice iw
-		INNER JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID)
-		INNER JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID
-		INNER JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID)
-		INNER JOIN LVE_WH_Config whc ON (whc.LVE_WH_Config_ID = ilw.LVE_WH_Config_ID)
-		INNER JOIN LVE_WH_Combination whco ON (whco.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID)
+		LEFT JOIN C_InvoiceLine ilw ON (iw.C_Invoice_ID = ilw.C_Invoice_ID)
+		LEFT JOIN LVE_Withholding w ON w.WithholdingDocType_ID = iw.C_DocType_ID
+		LEFT JOIN LVE_WH_Type wt ON (wt.LVE_WH_Type_ID = w.LVE_WH_Type_ID)
+		LEFT JOIN LVE_WH_Config whc ON (whc.LVE_WH_Config_ID = ilw.LVE_WH_Config_ID)
+		LEFT JOIN LVE_WH_Combination whco ON (whco.LVE_WH_Combination_ID = whc.LVE_WH_Combination_ID)
 
 		WHERE
 			(iw.DocStatus = ANY (ARRAY ['CL'::BPCHAR,'CO'::BPCHAR]))
@@ -252,8 +252,8 @@ WHERE
 	i.DocStatus = ANY (ARRAY['CO'::bpchar, 'CL'::bpchar])  AND
 	i.IsSotrx = 'N'::bpchar AND
 	bpl.IsBillTo = 'Y'::bpchar  AND
-	i.DateAcct BETWEEN $P{DateAcct1} AND $P{DateAcct2} AND
-	(i.C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} IS NULL)
+	i.DateAcct BETWEEN $P{DateAcct1} AND $P{DateAcct2}
+	AND (i.C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} IS NULL)
 
 ORDER BY
 	bp.c_bpartner_id
@@ -398,7 +398,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadPagada}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -409,7 +411,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencion}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -420,7 +424,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenido}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -431,7 +437,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalCantidadObjetoRetencionAcumulado}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -442,7 +450,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalImpuestoRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -461,7 +471,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
+						<font fontName="Dialog" size="10" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{lastdayofmonth}]]></textFieldExpression>
@@ -475,7 +485,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
+						<font fontName="Dialog" size="10" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{month}]]></textFieldExpression>
@@ -489,7 +499,7 @@ ORDER BY
 						<rightPen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="SansSerif" size="7" isBold="true"/>
+						<font fontName="Dialog" size="10" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
@@ -502,7 +512,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalPagado}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -513,7 +525,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{cantObjRetencion}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -524,7 +538,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{impRetenido}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -535,7 +551,9 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{CantidadRetenidaAcumulada}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -546,17 +564,22 @@ ORDER BY
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{impRetenidoAcumulado}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="305" y="0" width="43" height="12" uuid="be389bea-3e4a-41fc-9480-ea205754b315"/>
+					<reportElement x="305" y="-1" width="43" height="12" uuid="be389bea-3e4a-41fc-9480-ea205754b315"/>
 					<box>
 						<topPen lineWidth="1.0"/>
 						<leftPen lineWidth="1.0"/>
 						<bottomPen lineWidth="1.0"/>
 						<rightPen lineWidth="1.0"/>
 					</box>
+					<textElement>
+						<font fontName="Dialog" size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{alicuota}]]></textFieldExpression>
 				</textField>
 			</band>

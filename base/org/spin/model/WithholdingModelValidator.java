@@ -1,17 +1,14 @@
 package org.spin.model;
 
 import java.math.BigDecimal;
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_Cash;
 import org.compiere.model.I_C_CashLine;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.MAllocationHdr;
-import org.compiere.model.MAllocationLine;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MCash;
@@ -20,13 +17,11 @@ import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
-import org.compiere.process.DocumentEngine;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -204,9 +199,16 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 			if(inv.isReversal()){
 				MInvoice from_Invoice = MInvoice.get(inv.getCtx(), inv.getReversal_ID());
 				inv.setDocumentNo(from_Invoice.getDocumentNo() + "^");
-				inv.set_ValueOfColumn("AffectedBook", false);
+				inv.set_ValueOfColumn("AffectsBook", false);
 			}
-			//	End Yamel Senih
+			//End Yamel Senih
+			//2014-05-02 Carlos Parada Set AffectedBook By Document Type
+			else{
+				MDocType doctype = (MDocType) inv.getC_DocTypeTarget();
+				inv.set_ValueOfColumn("AffectsBook", doctype.get_ValueAsBoolean("AffectsBook"));
+			}
+			//End Carlos Parada
+			
 		}
 		return null;
 	} // modelChange

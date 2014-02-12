@@ -104,7 +104,7 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence
 		
 		for (MLVEWHUserDocSequence m_UserDocSequence : m_List)
 		{
-			seq = m_UserDocSequence.get_ValueAsInt("AD_Sequence_ID");
+			seq = m_UserDocSequence.get_ValueAsInt("ControlNoSequence_ID");
 		}
 		
 		return seq;

@@ -32,7 +32,7 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20130828L;
+	private static final long serialVersionUID = 20140211L;
 
     /** Standard Constructor */
     public X_LVE_Withholding (Properties ctx, int LVE_Withholding_ID, String trxName)
@@ -176,9 +176,9 @@ public class X_LVE_Withholding extends PO implements I_LVE_Withholding, I_Persis
 	public void setBeneficiary_ID (int Beneficiary_ID)
 	{
 		if (Beneficiary_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_Beneficiary_ID, null);
+			set_Value (COLUMNNAME_Beneficiary_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_Beneficiary_ID, Integer.valueOf(Beneficiary_ID));
+			set_Value (COLUMNNAME_Beneficiary_ID, Integer.valueOf(Beneficiary_ID));
 	}
 
 	/** Get Beneficiary.

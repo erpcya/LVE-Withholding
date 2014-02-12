@@ -96,7 +96,7 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence
 	 * @return
 	 * @return int
 	 */
-	public static int getControlNoSequence_ID(int p_DocType_ID, int p_User_ID)
+	public static int getControlNoSequence_ID(int p_User_ID, int p_DocType_ID)
 	{
 		List<MLVEWHUserDocSequence> m_List =get(Env.getCtx(), p_DocType_ID, p_User_ID, null); 
 		

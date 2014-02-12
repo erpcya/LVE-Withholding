@@ -1,4 +1,4 @@
-﻿/*Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+﻿Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
 Declare
@@ -51,10 +51,10 @@ Return result;
 End;
 $$
 Language PLPGSQL;
-*/
+
 
 --DROP VIEW LVE_RV_Withholding
---CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
+CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
 	CI.AD_Client_ID,                    --Companny ID
 	CI.AD_Org_ID,                       --Org ID
@@ -150,7 +150,7 @@ LEFT JOIN  (
 		FROM LVE_WH_Relation whr
 		WHERE ReferenceNO <> ''
 	)whr ON (whr.C_BPartner_ID = CI.C_BPartner_ID AND whr.LVE_Withholding_ID = w.LVE_Withholding_ID)
-WHERE  CIW.C_Invoice_ID= 1090492
+--WHERE  CIW.C_Invoice_ID= 1090492
 --WHERE  ciw.C_Invoice_ID=1087997
 --	AND CI.DocStatus IN ('CO','CL')--1077156
 ;

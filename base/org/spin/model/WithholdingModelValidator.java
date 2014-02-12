@@ -226,7 +226,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 					//	
 					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
 					//	Get Control No Sequence by User
-					int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx(), doc.get_ID()));
+					int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
 					//	Verify if is not user sequence
 					if(m_ControlNo_Seq == 0)
 						m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");

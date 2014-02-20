@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be5b0695-0049-4af7-9438-daefaada51af">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="212"/>
+	<property name="ireport.y" value="30"/>
 	<parameter name="DateAcct1" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -685,18 +685,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Marque el tipo de Agente de Retención]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="283" y="72" width="15" height="20" uuid="48e9a757-23ef-4e9f-9897-4d13b08e9134"/>
-				<textFieldExpression><![CDATA[$F{entejuridico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="194" y="72" width="20" height="20" uuid="002233b6-75c2-4193-95e8-27fe5c8717b9"/>
-				<textFieldExpression><![CDATA[$F{personanatural}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="365" y="71" width="14" height="20" uuid="ae172b08-a92d-43b0-aa64-6b00ddff2b8d"/>
-				<textFieldExpression><![CDATA[$F{entepublico}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="0" y="96" width="386" height="12" uuid="59a9b18b-a73a-4e8f-b6ed-3a6bf6f078d9"/>
 				<box>
@@ -881,13 +869,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Nº R.I.F:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="32" y="146" width="250" height="12" uuid="f76cf067-22fd-4fed-b4a1-495beb7037c5"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{namejuridico}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="283" y="134" width="61" height="12" uuid="a6647857-8f97-430d-acf6-af5814666ab8"/>
 				<textElement>
@@ -896,35 +877,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Nº R.I.F:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="31" y="170" width="250" height="12" uuid="9acb6478-7f2a-48f6-8b65-3eb394072394"/>
-				<textFieldExpression><![CDATA[$F{namepublico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="31" y="120" width="250" height="12" uuid="144b5141-6167-407d-b626-155e48cc9bde"/>
-				<textFieldExpression><![CDATA[$F{namenatural}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="285" y="146" width="100" height="12" uuid="2a8d3d93-aa82-4586-bdf6-38784efb5ff0"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rifjuridico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="282" y="170" width="100" height="12" uuid="ce829b2f-cd56-4dcb-8474-b18443b290f7"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rifpublico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="285" y="121" width="100" height="12" uuid="e44b4ca2-5957-4442-901e-63010a9f320d"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{rifnatural}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="284" y="160" width="61" height="12" uuid="1dbfe002-0e8b-4dc1-880f-c104933b9ade"/>
 				<textElement>
@@ -1395,6 +1347,46 @@ ORDER BY
 				<reportElement x="15" y="199" width="270" height="13" uuid="34c50353-0b9c-4009-b8df-748e5a472f31"/>
 				<textFieldExpression><![CDATA[$F{authorizedofficer}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="31" y="145" width="248" height="12" uuid="b1cb0a1b-1ff9-4c41-9698-d054c1de619f"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[ASOCIACION NACIONAL DE CULTIVADORES AGRICOLAS (ANCA)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="285" y="144" width="97" height="12" uuid="21045f94-5709-4fee-8233-141c366d309a"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[J302218381]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="195" y="71" width="29" height="21" uuid="6f142c4b-9629-457d-a83d-f371046e9abd"/>
+				<textElement>
+					<font size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[[    ]]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="283" y="73" width="16" height="21" uuid="ddbd7f5b-4a18-4f34-8beb-432e3a9a7f32"/>
+				<textElement>
+					<font size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[[X]]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="361" y="71" width="21" height="21" uuid="42940a8b-d4df-4be8-875e-a35aeb7d8ed7"/>
+				<textElement>
+					<font size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[[     ]]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<pageFooter>

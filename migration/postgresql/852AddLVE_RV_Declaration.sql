@@ -24,8 +24,6 @@ Select distinct
 	CDTI.C_BPartner_ID,                  --Bussiness Partner ID
 	CDTI.Name,                           --Bussiness Partner Name
 	CDTI.DateAcct,                       --Date Acct Document Retained
-	--O.value AS RifOrg, --Invalid (No Org RiF)
-	--CI.DateInvoiced,                     --Declaration Date
 	CDTI.DateInvoiced,                     --Document Date Original
 	CDTI.Exempt,                         --Excempt
 	CRR.WHBaseAmt,			     --WH Base Amt
@@ -71,4 +69,6 @@ left Join (
 ) CDTI on CDTI.C_Invoice_ID=CRR.DocAffected_ID
 WHERE 
 	CI.DocStatus IN ('CO','CL')
+	--AND CI.C_Invoice_ID = 1070328
+
 ;

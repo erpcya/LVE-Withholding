@@ -1,4 +1,4 @@
-﻿Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+﻿/*Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
 Declare
@@ -52,7 +52,7 @@ End;
 $$
 Language PLPGSQL;
 
-
+*/
 --DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT
@@ -132,7 +132,7 @@ INNER JOIN (Select  CITAX.C_Invoice_ID,
             INNER JOIN C_Tax CTAX ON CITAX.C_Tax_ID = ctax.C_Tax_ID
             GROUP BY CITAX.C_Invoice_ID) ctax ON CTAX.C_Invoice_ID = CI.C_Invoice_ID 
 --Base Tax WithHolding
-LEFT JOIN (SELECT 
+/*LEFT JOIN (SELECT 
 		MAX(cil.C_Invoice_ID) C_Invoice_ID,
 		Sum(cil.LineNetAmt) WHBaseAmt,
 		Sum(cil.TaxAmt) WHTaxAmt
@@ -140,7 +140,14 @@ LEFT JOIN (SELECT
 	   INNER JOIN LVE_WC_ProductCharge wcpch ON (cil.M_Product_ID=wcpch.M_Product_ID OR cil.C_Charge_ID=wcpch.C_Charge_ID) 
 	   WHERE wcpch.IsActive ='Y'
 	   --GROUP BY cil.C_Invoice_ID,cil.LineNetAmt
-	   ) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
+	   ) cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID*/
+LEFT JOIN ( SELECT cil.c_invoice_id AS c_invoice_id, 
+   sum(cil.linenetamt) AS whbaseamt, sum(cil.taxamt) AS whtaxamt
+  FROM c_invoiceline cil
+  JOIN lve_wc_productcharge wcpch ON cil.m_product_id = wcpch.m_product_id OR cil.c_charge_id = wcpch.c_charge_id
+ WHERE wcpch.isactive = 'Y'::bpchar group by cil.c_invoice_id)
+ cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID
+	   
 LEFT JOIN  (
 		SELECT 
 			ReferenceNO,
@@ -150,7 +157,8 @@ LEFT JOIN  (
 		FROM LVE_WH_Relation whr
 		WHERE ReferenceNO <> ''
 	)whr ON (whr.C_BPartner_ID = CI.C_BPartner_ID AND whr.LVE_Withholding_ID = w.LVE_Withholding_ID)
---WHERE  CIW.C_Invoice_ID= 1090492
+
+--WHERE  CIW.C_Invoice_ID= 1092745
 --WHERE  ciw.C_Invoice_ID=1087997
 --	AND CI.DocStatus IN ('CO','CL')--1077156
 ;

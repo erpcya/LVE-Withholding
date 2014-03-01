@@ -11,3 +11,5 @@ CREATE UNIQUE INDEX UK_LVE_Withholding
  ON c_allocationline
  USING btree
  (c_allocationhdr_id);
+ 
+ CREATE UNIQUE INDEX UK_LVE_TaxUnit ON LVE_TaxUnit (Name);

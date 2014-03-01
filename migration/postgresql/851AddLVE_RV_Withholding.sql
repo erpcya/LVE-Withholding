@@ -1,4 +1,4 @@
-﻿/*Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
 Declare
@@ -52,7 +52,7 @@ End;
 $$
 Language PLPGSQL;
 
-*/
+
 --DROP VIEW LVE_RV_Withholding
 CREATE OR REPLACE VIEW LVE_RV_Withholding AS 
 SELECT DISTINCT

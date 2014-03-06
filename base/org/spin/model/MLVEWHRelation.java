@@ -19,6 +19,10 @@ package org.spin.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.compiere.util.Env;
+import org.compiere.util.Msg;
+
 /**
  * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
  *
@@ -33,6 +37,9 @@ public class MLVEWHRelation extends X_LVE_WH_Relation {
 	/**
 	 * *** Constructor ***
 	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 05/08/2013, 02:21:19
+	 * @contributor <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a> 05/03/2014, 09:42:19
+	 * 	<br> Add method beforeDelete
+	 * 
 	 * @param ctx
 	 * @param LVE_WithholdingRelation_ID
 	 * @param trxName
@@ -52,5 +59,14 @@ public class MLVEWHRelation extends X_LVE_WH_Relation {
 	public MLVEWHRelation(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
+	
+	protected boolean beforeDelete (){
+		if(getC_BPartner_ID() != 0){
+			log.saveError("Error", Msg.getMsg(getCtx(), "CannotDelete"));
+			return false;
+		}
+		return true;
+	}// beforeDelete
+	
 
 }

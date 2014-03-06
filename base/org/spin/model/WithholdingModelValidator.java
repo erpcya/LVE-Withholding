@@ -142,6 +142,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 							Env.getCtx(), 0, bpartner.get_TrxName());
 					retention.setC_BPartner_ID(bpartner.getC_BPartner_ID());
 					retention.setLVE_Withholding_ID(rt.getLVE_Withholding_ID());
+					retention.setValidFrom(rt.getValidFrom());
 					retention.saveEx();
 				}
 			}

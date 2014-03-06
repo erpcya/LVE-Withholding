@@ -18,6 +18,7 @@
 package org.spin.model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
@@ -31,7 +32,7 @@ public class X_LVE_WH_Relation extends PO implements I_LVE_WH_Relation, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20140211L;
+	private static final long serialVersionUID = 20140306L;
 
     /** Standard Constructor */
     public X_LVE_WH_Relation (Properties ctx, int LVE_WH_Relation_ID, String trxName)
@@ -224,5 +225,22 @@ public class X_LVE_WH_Relation extends PO implements I_LVE_WH_Relation, I_Persis
 	public String getReferenceNo () 
 	{
 		return (String)get_Value(COLUMNNAME_ReferenceNo);
+	}
+
+	/** Set Valid from.
+		@param ValidFrom 
+		Valid from including this date (first day)
+	  */
+	public void setValidFrom (Timestamp ValidFrom)
+	{
+		set_ValueNoCheck (COLUMNNAME_ValidFrom, ValidFrom);
+	}
+
+	/** Get Valid from.
+		@return Valid from including this date (first day)
+	  */
+	public Timestamp getValidFrom () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_ValidFrom);
 	}
 }

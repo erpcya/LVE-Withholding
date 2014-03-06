@@ -32,7 +32,7 @@ public class X_LVE_WH_Config extends PO implements I_LVE_WH_Config, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20140211L;
+	private static final long serialVersionUID = 20140306L;
 
     /** Standard Constructor */
     public X_LVE_WH_Config (Properties ctx, int LVE_WH_Config_ID, String trxName)

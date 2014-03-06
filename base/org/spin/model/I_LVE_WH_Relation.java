@@ -185,4 +185,17 @@ public interface I_LVE_WH_Relation
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name ValidFrom */
+    public static final String COLUMNNAME_ValidFrom = "ValidFrom";
+
+	/** Set Valid from.
+	  * Valid from including this date (first day)
+	  */
+	public void setValidFrom (Timestamp ValidFrom);
+
+	/** Get Valid from.
+	  * Valid from including this date (first day)
+	  */
+	public Timestamp getValidFrom();
 }

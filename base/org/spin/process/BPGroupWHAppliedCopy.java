@@ -146,6 +146,7 @@ public class BPGroupWHAppliedCopy extends SvrProcess {
 			MLVEWHRelation withholding = new MLVEWHRelation(Env.getCtx(), 0, get_TrxName);
 			withholding.setC_BPartner_ID(p_C_BPartner_ID);
 			withholding.setLVE_Withholding_ID(whR.getLVE_Withholding_ID());
+			withholding.setValidFrom(whR.getValidFrom());
 			withholding.saveEx();
 			//	Count Generated
 			m_Copied ++;

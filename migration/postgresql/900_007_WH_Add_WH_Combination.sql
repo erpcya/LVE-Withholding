@@ -1,0 +1,285 @@
+-- Aug 16, 2013 4:45:21 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 16:45:21','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000000,1000001,'N',0,TO_TIMESTAMP('2013-08-16 16:45:21','YYYY-MM-DD HH24:MI:SS'),100,'002')
+;
+
+-- Aug 16, 2013 4:46:21 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 16:46:21','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000001,1000001,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 16:46:21','YYYY-MM-DD HH24:MI:SS'),100,'004')
+;
+
+-- Aug 16, 2013 4:48:57 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 16:48:57','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000002,1000004,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 16:48:57','YYYY-MM-DD HH24:MI:SS'),100,'012')
+;
+
+-- Aug 16, 2013 4:50:46 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,1.000000000000,TO_TIMESTAMP('2013-08-16 16:50:46','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000003,1000005,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 16:50:46','YYYY-MM-DD HH24:MI:SS'),100,'014')
+;
+
+-- Aug 16, 2013 4:53:15 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 16:53:15','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000004,1000005,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 16:53:15','YYYY-MM-DD HH24:MI:SS'),100,'016')
+;
+
+-- Aug 16, 2013 5:08:02 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 17:08:02','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000005,1000006,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 17:08:02','YYYY-MM-DD HH24:MI:SS'),100,'018')
+;
+
+-- Aug 16, 2013 5:09:25 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 17:09:25','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000006,1000006,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 17:09:25','YYYY-MM-DD HH24:MI:SS'),100,'020')
+;
+
+-- Aug 16, 2013 5:28:46 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 17:28:46','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000007,1000009,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 17:28:46','YYYY-MM-DD HH24:MI:SS'),100,'025')
+;
+
+-- Aug 16, 2013 6:18:03 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:18:03','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000008,1000009,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:18:03','YYYY-MM-DD HH24:MI:SS'),100,'027')
+;
+
+-- Aug 16, 2013 6:22:14 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:22:14','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000000,1000009,1000017,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:22:14','YYYY-MM-DD HH24:MI:SS'),100,'041')
+;
+
+-- Aug 16, 2013 6:22:33 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:22:33','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000010,1000017,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:22:33','YYYY-MM-DD HH24:MI:SS'),100,'042')
+;
+
+-- Aug 16, 2013 6:23:07 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:23:07','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000011,1000017,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:23:07','YYYY-MM-DD HH24:MI:SS'),100,'043')
+;
+
+-- Aug 16, 2013 6:23:19 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:23:19','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000012,1000017,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:23:19','YYYY-MM-DD HH24:MI:SS'),100,'044')
+;
+
+-- Aug 16, 2013 6:25:05 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,16.000000000000,TO_TIMESTAMP('2013-08-16 18:25:05','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000000,1000013,1000018,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:25:05','YYYY-MM-DD HH24:MI:SS'),100,'045')
+;
+
+-- Aug 16, 2013 6:25:22 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,16.000000000000,TO_TIMESTAMP('2013-08-16 18:25:22','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000014,1000018,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:25:22','YYYY-MM-DD HH24:MI:SS'),100,'046')
+;
+
+-- Aug 16, 2013 6:25:58 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,16.000000000000,TO_TIMESTAMP('2013-08-16 18:25:58','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000015,1000018,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:25:58','YYYY-MM-DD HH24:MI:SS'),100,'047')
+;
+
+-- Aug 16, 2013 6:26:15 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,16.000000000000,TO_TIMESTAMP('2013-08-16 18:26:15','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000016,1000018,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:26:15','YYYY-MM-DD HH24:MI:SS'),100,'048')
+;
+
+-- Aug 16, 2013 6:34:21 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 18:34:21','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000017,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:34:21','YYYY-MM-DD HH24:MI:SS'),100,'049')
+;
+
+-- Aug 16, 2013 6:35:25 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:35:25','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000001,1000018,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:35:25','YYYY-MM-DD HH24:MI:SS'),100,'050')
+;
+
+-- Aug 16, 2013 6:35:36 PM VET
+-- LVE Retention
+DELETE FROM LVE_WH_Combination WHERE LVE_WH_Combination_ID=1000018
+;
+
+-- Aug 16, 2013 6:36:08 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:36:08','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000019,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:36:08','YYYY-MM-DD HH24:MI:SS'),100,'050')
+;
+
+-- Aug 16, 2013 6:37:40 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:37:40','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000020,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:37:40','YYYY-MM-DD HH24:MI:SS'),100,'051')
+;
+
+-- Aug 16, 2013 6:37:57 PM VET
+-- LVE Retention
+DELETE FROM LVE_WH_Combination WHERE LVE_WH_Combination_ID=1000020
+;
+
+-- Aug 16, 2013 6:38:27 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:38:27','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000021,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:38:27','YYYY-MM-DD HH24:MI:SS'),100,'051')
+;
+
+-- Aug 16, 2013 6:38:53 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:38:53','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000022,1000019,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:38:53','YYYY-MM-DD HH24:MI:SS'),100,'052')
+;
+
+-- Aug 16, 2013 6:41:08 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,1.000000000000,TO_TIMESTAMP('2013-08-16 18:41:08','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000023,1000020,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:41:08','YYYY-MM-DD HH24:MI:SS'),100,'053')
+;
+
+-- Aug 16, 2013 6:41:34 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:41:34','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000024,1000020,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:41:34','YYYY-MM-DD HH24:MI:SS'),100,'054')
+;
+
+-- Aug 16, 2013 6:42:15 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,2.000000000000,TO_TIMESTAMP('2013-08-16 18:42:15','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000025,1000020,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:42:15','YYYY-MM-DD HH24:MI:SS'),100,'055')
+;
+
+-- Aug 16, 2013 6:44:38 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:44:38','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000026,1000021,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:44:38','YYYY-MM-DD HH24:MI:SS'),100,'058')
+;
+
+-- Aug 16, 2013 6:45:46 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 18:45:46','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000027,1000021,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:45:46','YYYY-MM-DD HH24:MI:SS'),100,'057')
+;
+
+-- Aug 16, 2013 6:46:40 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:46:40','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000028,1000021,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:46:40','YYYY-MM-DD HH24:MI:SS'),100,'059')
+;
+
+-- Aug 16, 2013 6:48:15 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 18:48:15','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000029,1000022,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:48:15','YYYY-MM-DD HH24:MI:SS'),100,'061')
+;
+
+-- Aug 16, 2013 6:48:57 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 18:48:57','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000030,1000022,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:48:57','YYYY-MM-DD HH24:MI:SS'),100,'062')
+;
+
+-- Aug 16, 2013 6:49:34 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:49:34','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000031,1000022,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:49:34','YYYY-MM-DD HH24:MI:SS'),100,'063')
+;
+
+-- Aug 16, 2013 6:49:45 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:49:45','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000032,1000022,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:49:45','YYYY-MM-DD HH24:MI:SS'),100,'064')
+;
+
+-- Aug 16, 2013 6:55:16 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,1.000000000000,TO_TIMESTAMP('2013-08-16 18:55:16','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000033,1000025,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:55:16','YYYY-MM-DD HH24:MI:SS'),100,'071')
+;
+
+-- Aug 16, 2013 6:55:42 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,1.000000000000,TO_TIMESTAMP('2013-08-16 18:55:42','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000034,1000025,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:55:42','YYYY-MM-DD HH24:MI:SS'),100,'072')
+;
+
+-- Aug 16, 2013 6:57:40 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 18:57:40','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000035,1000026,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:57:40','YYYY-MM-DD HH24:MI:SS'),100,'073')
+;
+
+-- Aug 16, 2013 6:58:33 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 18:58:33','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000036,1000026,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 18:58:33','YYYY-MM-DD HH24:MI:SS'),100,'074')
+;
+
+-- Aug 16, 2013 7:02:32 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:02:32','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000037,1000027,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:02:32','YYYY-MM-DD HH24:MI:SS'),100,'075')
+;
+
+-- Aug 16, 2013 7:03:14 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:03:14','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000038,1000027,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:03:14','YYYY-MM-DD HH24:MI:SS'),100,'076')
+;
+
+-- Aug 16, 2013 7:03:59 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:03:59','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000039,1000028,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:03:59','YYYY-MM-DD HH24:MI:SS'),100,'077')
+;
+
+-- Aug 16, 2013 7:04:06 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:04:06','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000040,1000028,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:04:06','YYYY-MM-DD HH24:MI:SS'),100,'077')
+;
+
+-- Aug 16, 2013 7:04:13 PM VET
+-- LVE Retention
+DELETE FROM LVE_WH_Combination WHERE LVE_WH_Combination_ID=1000040
+;
+
+-- Aug 16, 2013 7:04:23 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:04:23','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000041,1000028,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:04:23','YYYY-MM-DD HH24:MI:SS'),100,'078')
+;
+
+-- Aug 16, 2013 7:06:01 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:06:01','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000042,1000029,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:06:01','YYYY-MM-DD HH24:MI:SS'),100,'079')
+;
+
+-- Aug 16, 2013 7:06:41 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 19:06:41','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000043,1000029,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:06:41','YYYY-MM-DD HH24:MI:SS'),100,'080')
+;
+
+-- Aug 16, 2013 7:07:12 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:07:12','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000044,1000029,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:07:12','YYYY-MM-DD HH24:MI:SS'),100,'081')
+;
+
+-- Aug 16, 2013 7:07:43 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:07:43','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000045,1000029,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:07:43','YYYY-MM-DD HH24:MI:SS'),100,'082')
+;
+
+-- Aug 16, 2013 7:09:16 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:09:16','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000046,1000030,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:09:16','YYYY-MM-DD HH24:MI:SS'),100,'083')
+;
+
+-- Aug 16, 2013 7:09:50 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:09:49','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000047,1000030,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:09:49','YYYY-MM-DD HH24:MI:SS'),100,'084')
+;
+
+-- Aug 16, 2013 7:10:07 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:10:07','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000048,1000030,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:10:07','YYYY-MM-DD HH24:MI:SS'),100,'085')
+;
+
+-- Aug 16, 2013 7:10:56 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:10:56','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000002,1000049,1000031,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:10:56','YYYY-MM-DD HH24:MI:SS'),100,'086')
+;
+
+-- Aug 16, 2013 7:14:47 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,3.000000000000,TO_TIMESTAMP('2013-08-16 19:14:47','YYYY-MM-DD HH24:MI:SS'),100,'Y','N',1000000,1000050,1000003,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:14:47','YYYY-MM-DD HH24:MI:SS'),100,'010')
+;
+
+-- Aug 16, 2013 7:18:54 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,34.000000000000,TO_TIMESTAMP('2013-08-16 19:18:54','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000001,1000051,1000006,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:18:54','YYYY-MM-DD HH24:MI:SS'),100,'019')
+;
+
+-- Aug 16, 2013 7:19:59 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,5.000000000000,TO_TIMESTAMP('2013-08-16 19:19:59','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000052,1000006,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:19:59','YYYY-MM-DD HH24:MI:SS'),100,'021')
+;
+
+-- Aug 16, 2013 7:22:09 PM VET
+-- LVE Retention
+INSERT INTO LVE_WH_Combination (AD_Client_ID,AD_Org_ID,Aliquot,Created,CreatedBy,IsActive,IsManual,LVE_PersonType_ID,LVE_WH_Combination_ID,LVE_WH_Concept_ID,Processing,TaxBaseRate,Updated,UpdatedBy,Value) VALUES (11,0,4.590000000000,TO_TIMESTAMP('2013-08-16 19:22:09','YYYY-MM-DD HH24:MI:SS'),100,'Y','Y',1000003,1000053,1000008,'N',100.000000000000,TO_TIMESTAMP('2013-08-16 19:22:09','YYYY-MM-DD HH24:MI:SS'),100,'024')
+;
+

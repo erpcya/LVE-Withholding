@@ -13,3 +13,25 @@ CREATE UNIQUE INDEX UK_LVE_Withholding
  (c_allocationhdr_id);
  
  CREATE UNIQUE INDEX UK_LVE_TaxUnit ON LVE_TaxUnit (Name);
+ 
+ 
+--DROP INDEX UK_WHR_C_BPartner;
+CREATE UNIQUE INDEX UK_WHR_C_BPartner
+  ON LVE_WH_Relation
+  USING BTREE
+  (AD_Client_ID, C_BPartner_ID, LVE_Withholding_ID,ValidFrom);
+
+
+-- DROP INDEX UK_WHR_C_BP_Group;
+
+CREATE UNIQUE INDEX UK_WHR_C_BP_Group
+  ON LVE_WH_Relation
+  USING BTREE
+  (AD_Client_ID, C_BP_Group_ID, LVE_Withholding_ID);
+
+-- DROP INDEX UK_WHR_lve_withholding;
+
+CREATE UNIQUE INDEX UK_WHR_LVE_Withholding
+  ON LVE_WH_Relation
+  USING BTREE
+  (AD_Client_ID, LVE_Withholding_ID, C_DocType_ID);

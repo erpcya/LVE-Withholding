@@ -59,6 +59,7 @@ AND rr.LVE_WH_Relation_ID In (SELECT wrs.LVE_WH_Relation_ID FROM LVE_WH_Relation
 		wrs.IsActive='Y' AND
 		wrs.C_BPartner_ID=inv.C_BPartner_ID AND 
 		wrs.ValidFrom <= inv.DateAcct
+		AND wrs.LVE_Withholding_ID = rr.LVE_Withholding_ID
 		Order By wrs.ValidFrom Desc Limit 1)
 --Group
 GROUP BY inv.AD_Client_ID,
@@ -78,7 +79,7 @@ ORDER BY bp.C_BPartner_ID,
 	 rt.C_Charge_ID, 
 	 rt.WithholdingDocType_ID;
 
-Create Or Replace View LVE_RV_WH_IVA As 
+Create Or Replace View LVE_RV_WH_IVA As
 SELECT 
 	inv.AD_Client_ID,
 	inv.AD_Org_ID,
@@ -114,6 +115,7 @@ INNER JOIN C_DocType dt ON(dt.C_DocType_ID = inv.C_DocType_ID)
 INNER JOIN C_DocType dtr ON(dtr.C_DocType_ID = rt.WithholdingDocType_ID) 
 --WH Relation
 INNER JOIN LVE_WH_Relation rrdt ON(rrdt.C_DocType_ID = inv.C_DocType_ID AND rrdt.LVE_Withholding_ID = rr.LVE_Withholding_ID) 
+
 --Filter
 WHERE 
 inv.DocStatus IN('CO') 
@@ -126,13 +128,17 @@ AND NOT EXISTS(SELECT 1
 		AND ret.C_DocType_ID = rt.WithholdingDocType_ID 
 		AND retl.DocAffected_ID = inv.C_Invoice_ID)
 --Valid Tax Unit 
-AND cn.LVE_TaxUnit_ID = (SELECT tu.LVE_TaxUnit_ID FROM LVE_TaxUnit tu WHERE tu.IsActive = 'Y' ORDER BY tu.ValidFrom DESC LIMIT 1)
+AND cn.LVE_TaxUnit_ID = (SELECT tu.LVE_TaxUnit_ID FROM LVE_TaxUnit tu WHERE tu.IsActive = 'Y' 
+
+ORDER BY tu.ValidFrom DESC LIMIT 1)
 --Valid Relation
 AND rr.LVE_WH_Relation_ID In (SELECT wrs.LVE_WH_Relation_ID FROM LVE_WH_Relation wrs WHERE
-		wrs.IsActive='Y' AND
-		wrs.C_BPartner_ID=inv.C_BPartner_ID AND 
-		wrs.ValidFrom <= inv.DateAcct
-		Order By wrs.ValidFrom Desc Limit 1)
+		wrs.IsActive='Y' 
+		AND wrs.C_BPartner_ID=inv.C_BPartner_ID 
+		AND  wrs.ValidFrom <= inv.DateAcct
+		AND wrs.LVE_Withholding_ID = rr.LVE_Withholding_ID
+		Order By wrs.ValidFrom Desc Limit 1
+		)
 --Group By
 GROUP BY inv.AD_Client_ID,
 	 inv.AD_Org_ID,

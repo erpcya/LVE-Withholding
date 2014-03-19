@@ -1,4 +1,4 @@
-Create Or Replace Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
+CREATE OR REPLACE Function LVE_ReferencedDocuments(p_C_Invoice_ID Numeric)
 RETURNS RECORD AS 
 $$
 Declare
@@ -158,6 +158,15 @@ LEFT JOIN  (
 		WHERE ReferenceNO <> ''
 	)whr ON (whr.C_BPartner_ID = CI.C_BPartner_ID AND whr.LVE_Withholding_ID = w.LVE_Withholding_ID)
 
+ WHERE whr.lve_wh_relation_id IN (SELECT wrs.lve_wh_relation_id
+   									FROM lve_wh_relation wrs
+  									WHERE wrs.isactive = 'Y' AND 
+  										wrs.c_bpartner_id = ci.c_bpartner_id AND 
+  										wrs.validfrom <= ci.dateacct AND 
+  										wrs.lve_withholding_id = whr.lve_withholding_id
+  									ORDER BY wrs.validfrom DESC
+  									LIMIT 1)
+ OR whr.lve_wh_relation_id IS NULL
 --WHERE  CIW.C_Invoice_ID= 1092745
 --WHERE  ciw.C_Invoice_ID=1087997
 --	AND CI.DocStatus IN ('CO','CL')--1077156

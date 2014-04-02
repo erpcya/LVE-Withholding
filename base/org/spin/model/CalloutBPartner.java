@@ -44,17 +44,27 @@ public class CalloutBPartner extends CalloutEngine
 		if (isCalloutActive())		//	assuming it is resetting value
 			return "";
 		String taxID = null;
+		boolean isEmployee = mTab.getValueAsBoolean("IsEmployee");
+		
 		if(mField.getColumnName().equals("TaxID")){
 			taxID = mTab.get_ValueAsString("TaxID");
 			if(taxID != null
-					&& taxID.length() != 0){
+					&& taxID.length() != 0
+						&& !isEmployee){
 				mTab.setValue("Value", taxID);
 			}
 		} else if(mField.getColumnName().equals("Value")){
-			taxID = mTab.get_ValueAsString("Value");
-			if(taxID != null
-					&& taxID.length() != 0){
-				mTab.setValue("TaxID", taxID);
+			String val = mTab.get_ValueAsString("Value");
+			taxID = mTab.get_ValueAsString("TaxID");
+			if(val != null
+					&& val.length() != 0
+						&& ((isEmployee 
+								&& (taxID == null 
+									|| taxID.length() == 0)
+								|| !isEmployee
+							) 
+							)){
+				mTab.setValue("TaxID", val);
 			}
 		}
 		return "";

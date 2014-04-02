@@ -132,11 +132,3 @@ ALTER TABLE C_BPartner ADD CONSTRAINT FK_BPartner_PersonType FOREIGN KEY (LVE_Pe
 REFERENCES LVE_PersonType (LVE_PersonType_ID)
 ON UPDATE CASCADE
 ON DELETE RESTRICT;
-
-CREATE UNIQUE INDEX UK_WHR_C_BP_Group ON LVE_WH_Relation(AD_Client_ID, C_BP_Group_ID, LVE_Withholding_ID);
-
-CREATE UNIQUE INDEX UK_WHR_C_BPartner ON LVE_WH_Relation(AD_Client_ID, C_BPartner_ID, LVE_Withholding_ID);
-
-CREATE UNIQUE INDEX UK_WHR_LVE_Withholding ON LVE_WH_Relation(AD_Client_ID, LVE_Withholding_ID, C_DocType_ID);
-
-CREATE UNIQUE INDEX UK_WH_ConfigTaxUnit ON LVE_WH_Config(AD_Client_ID, LVE_Withholding_ID, LVE_WH_Combination_ID, LVE_TaxUnit_ID);

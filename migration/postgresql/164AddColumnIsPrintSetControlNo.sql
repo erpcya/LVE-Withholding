@@ -103,3 +103,18 @@ UPDATE AD_Process SET IsReport='N',Updated=TO_TIMESTAMP('2014-04-03 17:26:41','Y
 UPDATE AD_Process SET IsReport='Y',Updated=TO_TIMESTAMP('2014-04-03 17:50:34','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=116
 ;
 
+-- Apr 4, 2014 10:47:01 AM VET
+-- LVE Withholding
+INSERT INTO AD_ReportView (AD_Client_ID,AD_Org_ID,AD_ReportView_ID,AD_Table_ID,Created,CreatedBy,EntityType,IsActive,Name,Updated,UpdatedBy,WhereClause) VALUES (0,0,53122,516,TO_TIMESTAMP('2014-04-04 10:46:57','YYYY-MM-DD HH24:MI:SS'),100,'ECA02','Y','Invoice Completed or Closed',TO_TIMESTAMP('2014-04-04 10:46:57','YYYY-MM-DD HH24:MI:SS'),100,'DocStatus IN (''CO'',''CL'')')
+;
+
+-- Apr 4, 2014 10:47:10 AM VET
+-- LVE Withholding
+UPDATE AD_Process SET AD_ReportView_ID=53122,Updated=TO_TIMESTAMP('2014-04-04 10:47:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=116
+;
+
+-- Apr 4, 2014 10:47:15 AM VET
+-- LVE Withholding
+UPDATE AD_Process SET ShowHelp='S',Updated=TO_TIMESTAMP('2014-04-04 10:47:15','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=116
+;
+

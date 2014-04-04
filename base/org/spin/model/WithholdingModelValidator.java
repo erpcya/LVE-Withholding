@@ -22,6 +22,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
+import org.compiere.model.X_C_Invoice;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -38,23 +39,6 @@ import org.compiere.util.Msg;
  */
 public class WithholdingModelValidator implements org.compiere.model.ModelValidator {
 
-	/**	Current Invoice					*/
-	private MInvoice 			m_Current_Invoice	= null;
-	
-	/**	Current Business Partner			*/
-	private int 				m_Current_C_BPartner_ID 	= 0;
-
-	/**	Current Allocation					*/
-	private MAllocationHdr 		m_Current_Alloc			= null;
-	
-	/**	Current Multiplier Withholding Doc	*/
-	private BigDecimal			invoice_Mlp	= Env.ZERO;
-
-	private final int 			N_UOM 	= 100;
-
-	
-	
-	
 	/**
 	 * Constructor.
 	 */
@@ -224,36 +208,38 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 					//	Verify if Control No is Not Null
 					if(inv.get_Value("ControlNo") != null)
 						return null;
+
 					//	
 					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
-					//	Get Control No Sequence by User
-					int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
-					//	Verify if is not user sequence
-					if(m_ControlNo_Seq == 0)
-						m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");
-					//	Load Sequence
-					if(m_ControlNo_Seq != 0){
-						MSequence seq_ControlNo = new MSequence(Env.getCtx(), m_ControlNo_Seq, inv.get_TrxName());
-						String prefix = seq_ControlNo.getPrefix();
-						String suffix = seq_ControlNo.getSuffix();
-						int next = seq_ControlNo.getNextID();
-						
-						if(prefix == null 
-								|| prefix.length() == 0)
-							prefix = "";
-						
-						if(suffix == null 
-								|| suffix.length() == 0)
-							suffix = "";
-						
-						inv.set_ValueOfColumn("ControlNo", prefix + next + suffix);
-						if(!inv.save())
-							return inv.getProcessMsg();
-						if(!seq_ControlNo.save())
-							return "Error @ControlNo@";
+					if(!doc.get_ValueAsBoolean("IsPrintSetControlNo")){
+						//	Get Control No Sequence by User
+						int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
+						//	Verify if is not user sequence
+						if(m_ControlNo_Seq == 0)
+							m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");
+						//	Load Sequence
+						if(m_ControlNo_Seq != 0){
+							MSequence seq_ControlNo = new MSequence(Env.getCtx(), m_ControlNo_Seq, inv.get_TrxName());
+							String prefix = seq_ControlNo.getPrefix();
+							String suffix = seq_ControlNo.getSuffix();
+							int next = seq_ControlNo.getNextID();
+							
+							if(prefix == null 
+									|| prefix.length() == 0)
+								prefix = "";
+							
+							if(suffix == null 
+									|| suffix.length() == 0)
+								suffix = "";
+							
+							inv.set_ValueOfColumn("ControlNo", prefix + next + suffix);
+							if(!inv.save())
+								return inv.getProcessMsg();
+							if(!seq_ControlNo.save())
+								return "Error @ControlNo@";
+						}
 					}
-				}
-				
+				}	
 			}
 		} else if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
 			if(po.get_TableName().equals(MInvoice.Table_Name)){

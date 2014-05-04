@@ -17,3 +17,6 @@ CREATE UNIQUE INDEX UK_WHR_C_BP_Group ON LVE_WH_Relation USING BTREE (AD_Client_
 CREATE UNIQUE INDEX UK_WHR_LVE_Withholding ON LVE_WH_Relation USING BTREE (AD_Client_ID, LVE_Withholding_ID, C_DocType_ID);
 -- DROP INDEX UK_WH_ConfigTaxUnit;
 CREATE UNIQUE INDEX UK_WH_ConfigTaxUnit ON LVE_WH_Config(AD_Client_ID, LVE_Withholding_ID, LVE_WH_Combination_ID, LVE_TaxUnit_ID);
+
+-- DROP INDEX UK_WH_ConfigTaxUnit;
+CREATE UNIQUE INDEX UK_WH_Type ON LVE_WH_Type(AD_Client_ID, Value);

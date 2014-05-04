@@ -27,8 +27,12 @@ import org.compiere.util.Env;
  * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
  *
  */
-public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence
-{
+public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7382481760642659569L;
 
 	/**
 	 * *** Constructor ***

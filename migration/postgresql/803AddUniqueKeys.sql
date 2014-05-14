@@ -20,3 +20,7 @@ CREATE UNIQUE INDEX UK_WH_ConfigTaxUnit ON LVE_WH_Config(AD_Client_ID, LVE_Withh
 
 -- DROP INDEX UK_WH_ConfigTaxUnit;
 CREATE UNIQUE INDEX UK_WH_Type ON LVE_WH_Type(AD_Client_ID, Value);
+
+
+CREATE UNIQUE INDEX UK_LVE_WH_UserDocSequence ON 
+LVE_WH_UserDocSequence(AD_User_ID, C_DocType_ID,AD_Org_ID,ControlNoSequence_ID)

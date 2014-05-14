@@ -17,7 +17,6 @@
 package org.spin.model;
 
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.Query;
@@ -45,7 +44,6 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 			String trxName)
 	{
 		super(ctx, LVE_WH_UserDocSequence_ID, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,7 +56,6 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 	public MLVEWHUserDocSequence(Properties ctx, ResultSet rs, String trxName)
 	{
 		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -71,7 +68,7 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 	 * @return
 	 * @return List<MLVEWHUserDocSequence>
 	 */
-	public static List<MLVEWHUserDocSequence> get(Properties ctx, int p_DocType_ID, int p_User_ID, String trxName){
+	public static MLVEWHUserDocSequence get(Properties ctx, int p_DocType_ID, int p_User_ID, String trxName){
 		//	Get User Doc Sequence
 		StringBuffer where =  new StringBuffer();
 		//	Criteria
@@ -85,9 +82,9 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 			.append(p_User_ID);
 		//	
 		//	Lists User Doc Sequence
-		List<MLVEWHUserDocSequence> m_UserDocSequence = new Query(ctx,Table_Name,where.toString(), trxName)
+		MLVEWHUserDocSequence m_UserDocSequence = new Query(ctx,Table_Name,where.toString(), trxName)
 			.setOnlyActiveRecords(true)
-			.<MLVEWHUserDocSequence>list();
+			.first();
 
 		return m_UserDocSequence;
 	}
@@ -102,16 +99,9 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 	 */
 	public static int getControlNoSequence_ID(int p_User_ID, int p_DocType_ID)
 	{
-		List<MLVEWHUserDocSequence> m_List =get(Env.getCtx(), p_DocType_ID, p_User_ID, null); 
+		MLVEWHUserDocSequence m_Seq =get(Env.getCtx(), p_DocType_ID, p_User_ID, null); 
 		
-		int seq = 0;
-		
-		for (MLVEWHUserDocSequence m_UserDocSequence : m_List)
-		{
-			seq = m_UserDocSequence.get_ValueAsInt("ControlNoSequence_ID");
-		}
-		
-		return seq;
+		return m_Seq.get_ValueAsInt("ControlNoSequence_ID");
 	}//	getControlNoSequence_ID
 
 }

@@ -237,6 +237,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 								return "Error @ControlNo@";
 						}
 					}
+					
 				}	
 			}
 		} else if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){

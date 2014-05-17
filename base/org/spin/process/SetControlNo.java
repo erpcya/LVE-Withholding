@@ -59,7 +59,6 @@ public class SetControlNo extends SvrProcess {
 			MDocType doc = (MDocType) inv.getC_DocTypeTarget();
 			if(doc.get_ValueAsBoolean("IsPrintSetControlNo") 
 					&& inv.getDocStatus().equals(X_C_Invoice.DOCSTATUS_Completed)){
-
 				//	Get Control No Sequence by User
 				int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
 				//	Verify if is not user sequence
@@ -88,10 +87,8 @@ public class SetControlNo extends SvrProcess {
 				}
 
 			}
-
-
 		}
 
-		return "";
+		return "@ControlNo@ @Updated@ "+inv.get_ValueAsString("ControlNo");
 	}
 }

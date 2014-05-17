@@ -101,6 +101,9 @@ public class MLVEWHUserDocSequence extends X_LVE_WH_UserDocSequence{
 	{
 		MLVEWHUserDocSequence m_Seq =get(Env.getCtx(), p_DocType_ID, p_User_ID, null); 
 		
+		if(m_Seq == null)
+			return 0;
+		
 		return m_Seq.get_ValueAsInt("ControlNoSequence_ID");
 	}//	getControlNoSequence_ID
 

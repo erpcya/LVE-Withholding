@@ -1,0 +1,20 @@
+﻿UPDATE AD_PRINTFORMATITEM_TRL 
+SET PrintName = (SELECT e.PrintName 
+			FROM AD_ELEMENT_TRL e, AD_COLUMN c, AD_PRINTFORMATITEM pfi 
+			WHERE e.AD_LANGUAGE=AD_PRINTFORMATITEM_TRL.AD_LANGUAGE 
+			AND e.AD_Element_ID=c.AD_Element_ID 
+			AND c.AD_Column_ID=pfi.AD_Column_ID 
+			AND pfi.AD_PrintFormatItem_ID=AD_PRINTFORMATITEM_TRL.AD_PrintFormatItem_ID
+		) 
+WHERE EXISTS (SELECT 1 
+			FROM AD_ELEMENT_TRL e, AD_COLUMN c, AD_PRINTFORMATITEM pfi, AD_PRINTFORMAT pf 
+			WHERE e.AD_LANGUAGE=AD_PRINTFORMATITEM_TRL.AD_LANGUAGE 
+			AND e.AD_Element_ID=c.AD_Element_ID 
+			AND c.AD_Column_ID=pfi.AD_Column_ID 
+			AND pfi.AD_PrintFormatItem_ID=AD_PRINTFORMATITEM_TRL.AD_PrintFormatItem_ID 
+			AND pfi.IsCentrallyMaintained='Y' 
+			AND LENGTH(pfi.PrintName) > 0 
+			AND (e.PrintName<>AD_PRINTFORMATITEM_TRL.PrintName 
+			OR AD_PRINTFORMATITEM_TRL.PrintName IS NULL) 
+			AND pf.AD_PrintFormat_ID=pfi.AD_PrintFormat_ID 			
+		) 

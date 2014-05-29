@@ -22,33 +22,24 @@ import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MBPartner;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.Env;
 import org.spin.model.ValidateRifSeniat;
 
 /**
- * @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a>
- *
+ * @author <a href="mailto:carlosaparadam@gmail.com">Dixon Martinez</a>
+ * @contributor <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a>
+ * <li> Add Comments
+ * <li> Change for Tax ID for Validation
  */
-public class ValidateSeniat extends SvrProcess
-{
+public class ValidateSeniat extends SvrProcess {
 
-	/**
-	 * *** Constructor ***
-	 * @author @author <a href="mailto:dixon.22martinez@gmail.com">Dixon Martinez</a> 24/09/2013, 10:32:08
-	 */
-	public ValidateSeniat()
-	{
-		// TODO Auto-generated constructor stub
-	}
-
-	/* (non-Javadoc)
-	 * @see org.compiere.process.SvrProcess#prepare()
-	 */
+	/**	Business Partner		*/
+	private int 	p_C_BPartner_ID 		= 0;
+	/** Over Write BPartner		*/ 		
+	boolean 		p_OverwriteBPartner		= false;
+	
 	@Override
-	protected void prepare()
-	{
-		for(ProcessInfoParameter para : getParameter())
-		{
+	protected void prepare() {
+		for(ProcessInfoParameter para : getParameter()) {
 			String name = para.getParameterName();
 			if(para.getParameter() == null)
 				;
@@ -56,61 +47,46 @@ public class ValidateSeniat extends SvrProcess
 				p_OverwriteBPartner = para.getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);				
-		}
-		
-		mPartner = new MBPartner(Env.getCtx(), getRecord_ID(), null);		
+		}	
+		//	Get Record Identifier
+		p_C_BPartner_ID = getRecord_ID();
 	}// End Prepare
-
-	/* (non-Javadoc)
-	 * @see org.compiere.process.SvrProcess#doIt()
-	 */
+	
 	@Override
-	protected String doIt() throws Exception
-	{
-		String m_Value = mPartner.get_ValueAsString("Value");
-		String m_TaxID = mPartner.getTaxID();
-		String value;
-		
-		if(m_Value == null || m_Value.equals(""))
-		{
-			if(m_TaxID == null || m_TaxID.equals(""))
-			{
-				return "";
-			}
-		
-		}
-		
-		if(m_Value.equals(""))
-		{
-			value = m_TaxID; 
-		}else
-		{
-			value = m_Value;
-		}
-		
-		ValidateRifSeniat validate = new ValidateRifSeniat(value);
-		
-		if(validate.isM_exists())
-		{			
+	protected String doIt() throws Exception {
+		//	Validate Business Partner
+		if(p_C_BPartner_ID == 0)
+			throw new AdempiereException("@C_BPartner_ID@ @NotFound@");
+		//	Do
+		MBPartner m_BPartner = new MBPartner(getCtx(), p_C_BPartner_ID, get_TrxName());
+		//	
+		String m_TaxID = m_BPartner.getTaxID();
+		//	Validate Tax ID
+		if(m_TaxID == null 
+				|| m_TaxID.length() == 0)
+			throw new AdempiereException("@TaxID@ @NotFound@"); 
+		//	
+		ValidateRifSeniat validate = new ValidateRifSeniat(m_TaxID);
+		//	Valid if Exists
+		if(validate.isM_exists()) {			
 			String newName = null;
 			String newName2 = null ;
-			
+			//	
 			String name = validate.getM_Name();			
 			if(name != null &&
-					name.length() > 60)
-			{
+					name.length() > 60) {
 				int lastIndexOf = name.lastIndexOf(" ", 59);
 				newName = name.substring(0, lastIndexOf).trim();
 				newName2 = name.substring(lastIndexOf);
-			}else
-			{
+			} else {
 				newName = name;
 				newName2 = "";
 			}
+			//	Overwrite Business Partner
 			if(p_OverwriteBPartner){
-				mPartner.setName(newName);
-				mPartner.setName2(newName2);
-				mPartner.saveEx();
+				m_BPartner.setName(newName);
+				m_BPartner.setName2(newName2);
+				m_BPartner.saveEx();
 			}
 			//	Set Message
 			String msg = "@Value@ :" +validate.getM_Rif()+" "+
@@ -120,17 +96,8 @@ public class ValidateSeniat extends SvrProcess
 			
 			addLog(msg);
 			return msg;
-		}else
-		{
+		} else {
 			throw new AdempiereException(validate.getM_error());
 		}//	End DoIt
-	}
-	
-	/** Object Partner 			*/
-	MBPartner 					mPartner = null;
-	
-	/** Over Write BPartner		*/ 		
-	boolean 					p_OverwriteBPartner	= false;
-
-	
+	}	
 }

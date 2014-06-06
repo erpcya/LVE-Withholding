@@ -1,4 +1,4 @@
-﻿--DROP VIEW LVE_RV_Declaration 
+--DROP VIEW LVE_RV_Declaration 
 /*Create Or Replace View LVE_RV_Declaration As
 Select distinct 
 	CI.ad_client_id,                     --Company ID
@@ -89,7 +89,18 @@ Select distinct
 	CRR.GrandTotal,                      --Document Total
 	CRR.TaxBaseAmt,                      --Base Amt
 	CRR.LinenetAmt,                      --Retain Amt
-	CRR.DocumentNo As AffectedDocumentNo,--Affected Document No
+	-- Tu tenias esta linea para mostrar los documentos afectados
+	-- Edgar pidio que cuando la linea fuera una factura mostrara un cero 
+	-- de lo contrario mostrara el documento que esta siendo afectado por una nota 
+	-- de crédito o débito
+	--CRR.DocumentNo ::VARCHAR(30) As AffectedDocumentNo,--Affected Document No
+	CASE WHEN CDTI.DocTypeDeclare <> '01' THEN 
+	CRR.DocumentNo 
+	ELSE 
+		'0' 
+	END::VARCHAR(30) As AffectedDocumentNo,--Affected Document No
+	-- Yo hice eso no se si este bien 
+		
 	CRR.WH_DocumentNo as WithHoldingNo ,      --Retention No
 	CRR.Rate,                            --Rate
 	CRR.TaxAmt,                          --Tax Amt
@@ -161,7 +172,8 @@ i.ControlNo,					--Control No
 i.GrandTotal,					--Document Total
 ctax.TaxBaseAmt,				--Base Amt
 0::Numeric LineNetAmt,				--Retain Amt
-Null::Varchar(30) As AffectedDocumentNo,		--Affected Document No
+
+NULL ::Varchar(30) As AffectedDocumentNo,		--Affected Document No
 Null::Varchar(30) As WithHoldingNo,			--Retention No
 ctax.Rate,					--Rate
 ctax.TaxAmt,					--Tax Amt
@@ -266,7 +278,8 @@ i.ControlNo,					--Control No
 i.GrandTotal,					--Document Total
 ctax.TaxBaseAmt,				--Base Amt
 0::Numeric LineNetAmt,				--Retain Amt
-Null::Varchar(30) As AffectedDocumentNo,		--Affected Document No
+
+NULL ::Varchar(30) As AffectedDocumentNo,		--Affected Document No
 Null::Varchar(30) As WithHoldingNo,			--Retention No
 ctax.Rate,					--Rate
 ctax.TaxAmt,					--Tax Amt

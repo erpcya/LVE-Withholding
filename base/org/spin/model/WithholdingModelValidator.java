@@ -1,13 +1,17 @@
 package org.spin.model;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_Cash;
 import org.compiere.model.I_C_CashLine;
 import org.compiere.model.I_C_Invoice;
+import org.compiere.model.MAllocationHdr;
+import org.compiere.model.MAllocationLine;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MCash;
@@ -21,6 +25,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
+import org.compiere.model.X_C_DocType;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -48,6 +53,15 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 	private static CLogger log = CLogger.getCLogger(WithholdingModelValidator.class);
 	/** Client */
 	private int m_AD_Client_ID = -1;
+	
+	/**	Current Multiplier Withholding Doc	*/
+	private BigDecimal			withholding_Mlp	= Env.ZERO;
+	/**	Current Withholding					*/
+	//private MInvoice 			m_Current_Withholding 	= null;
+	/**	Current Allocation					*/
+	private MAllocationHdr 		m_Current_Alloc			= null;
+	/**	Current Multiplier Invoice Doc		*/
+	private BigDecimal			invoice_Mlp		= Env.ZERO;
 	
 	/**
 	 * Initialize Validation
@@ -201,6 +215,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 		if(timing == TIMING_AFTER_COMPLETE){
 			if(po.get_TableName().equals(MInvoice.Table_Name)){
 				MInvoice inv = (MInvoice) po;
+				MDocType doc = (MDocType) inv.getC_DocTypeTarget();
 				if(inv.isSOTrx() 
 						&& inv.getReversal_ID() == 0){
 					//	Verify if Control No is Not Null
@@ -208,7 +223,6 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 						return null;
 
 					//	
-					MDocType doc = (MDocType) inv.getC_DocTypeTarget();
 					if(!doc.get_ValueAsBoolean("IsPrintSetControlNo")){
 						//	Get Control No Sequence by User
 						int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
@@ -239,6 +253,21 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 					}
 					
 				}	
+				
+				//	Dixon Martinez 09/06/2014 11:45:00
+				//	Add support for allocation credit and debit notes
+			/*	if(doc.getDocBaseType().equals(X_C_DocType.DOCBASETYPE_APCreditMemo)
+						&& inv.get_ValueAsInt("DocAffected_ID") > 0){
+					String docBaseType = doc.getDocBaseType();
+					//	Create Multiplier
+					withholding_Mlp = (docBaseType.substring(2).equals("C")? Env.ONE.negate(): Env.ONE)
+							.multiply((docBaseType.substring(1,2).equals("P")? Env.ONE.negate(): Env.ONE));
+					addAllocation(inv.getC_BPartner_ID(),inv);
+				}
+				*/
+				//	End Dixon Martinez
+				
+				
 			}
 		} else if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
 			if(po.get_TableName().equals(MInvoice.Table_Name)){
@@ -277,4 +306,56 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 		}
 		return null;
 	}
+	
+	
+	/**
+	 * Create Allocation
+	 * @author <a href="mailto:yamelsenih@gmail.com">Yamel Senih</a> 27/02/2013, 17:25:59
+	 * @param p_C_BPartner_ID
+	 * @param p_C_Invoice_ID
+	 * @param p_RetentionLine
+	 * @return void
+	 */
+	/*private void addAllocation(int p_C_BPartner_ID, MInvoice p_InvoiceLine){
+		//if(m_Current_C_BPartner_ID != p_C_BPartner_ID){
+			m_Current_Alloc = new MAllocationHdr(Env.getCtx(), true,	//	manual
+					Env.getContextAsDate(Env.getCtx(), "DateDoc"), 
+					p_InvoiceLine.getC_Currency_ID(), Env.getContext(Env.getCtx(), "#AD_User_Name"),
+					null);
+			m_Current_Alloc.setAD_Org_ID(p_InvoiceLine.getAD_Org_ID());
+			m_Current_Alloc.saveEx();
+		//}
+		
+		BigDecimal openAmt = Env.ZERO;
+		try {
+			CallableStatement cs = null;
+			cs = DB.prepareCall("{call invoiceopen(?, 0, ?)}");
+			cs.setInt(1, p_InvoiceLine.get_ID());
+			cs.registerOutParameter(2, java.sql.Types.NUMERIC);
+			cs.execute();
+			openAmt = cs.getBigDecimal(2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		BigDecimal amt = p_InvoiceLine.getTotalLines();
+		BigDecimal newOpenAmt = openAmt.subtract(amt.multiply(withholding_Mlp));
+		log.fine("Current Invoice Allocation Amt=" + amt);
+		log.fine("newOpenAmt=" + newOpenAmt);
+		
+		if(newOpenAmt.multiply(withholding_Mlp).compareTo(Env.ZERO) < 0){
+		
+			return;
+		}
+		
+		//	
+		MAllocationLine aLine = new MAllocationLine (m_Current_Alloc, amt.multiply(invoice_Mlp), 
+				Env.ZERO, Env.ZERO, newOpenAmt.multiply(invoice_Mlp));
+		aLine.setDocInfo(p_C_BPartner_ID, 0,  p_InvoiceLine.get_ID());
+		aLine.saveEx();
+		
+		m_Current_Alloc.setDocStatus("CO");
+		m_Current_Alloc.saveEx();
+		
+	}*/
 }

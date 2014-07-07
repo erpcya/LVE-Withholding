@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="${project-name}" default="dist" basedir="." >
     <description>
-        Build file LVE EFT
+        Build file LVE Withholding
     </description>
     
     <!-- set global properties for this build -->

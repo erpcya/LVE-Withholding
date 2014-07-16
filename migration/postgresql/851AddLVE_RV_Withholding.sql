@@ -93,8 +93,10 @@ LEFT JOIN ( SELECT cil.c_invoice_id AS c_invoice_id,
   LEFT JOIN LVE_WH_Concept wc ON wc.LVE_WH_Concept_ID = wcpch.LVE_WH_Concept_ID
   LEFT JOIN LVE_WH_ConceptGroup wcg ON wc.LVE_WH_ConceptGroup_ID = wcg.LVE_WH_ConceptGroup_ID
   LEFT JOIN LVE_WithHolding w ON wcg.LVE_WH_ConceptGroup_ID = w.LVE_WH_ConceptGroup_ID
- WHERE wcpch.isactive = 'Y'::bpchar group by cil.c_invoice_id)
+ WHERE wcpch.isactive = 'Y'::bpchar group by cil.c_invoice_id, w.WithHoldingDocType_ID
+ )
  cilbwh ON cilbwh.C_Invoice_ID = CI.C_Invoice_ID  AND cilbwh.WithHoldingDocType_ID = ciw.C_DocType_ID
+
 	   
 LEFT JOIN  (
 		SELECT 

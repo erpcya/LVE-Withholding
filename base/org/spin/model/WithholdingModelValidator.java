@@ -290,20 +290,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 					return "@Error@ @SQLErrorReferenced@ @DocumentNo@ " + declarationDocNo;
 				
 			}
-		} else if (timing==TIMING_BEFORE_PREPARE)
-		{	//	Dixon Martinez Add Tax in Cash
-				  
-			if(po.get_TableName().equals(MCash.Table_Name))
-			{
-				log.fine(MCash.Table_Name + " -- TIMING_BEFORE_PREPARE");
-				if (MSysConfig.getBooleanValue("TAX_ACCT_CASH", false))
-				{
-					MCash cash = (MCash) po;
-					if (!MLVECashTax.calculateTaxTotal(cash)) // setTotals
-						return Msg.translate(Env.getLanguage(Env.getCtx()), "TaxCalculatingError");
-				}
-			}
-		}
+		} 
 		return null;
 	}
 	

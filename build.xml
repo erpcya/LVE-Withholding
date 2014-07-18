@@ -9,7 +9,6 @@
   	<import file="${adempiere.trunk}/utils_dev/properties.xml"/>
     
     <property name="base" value="base"/>
-    <property name="patches" value="patches"/>
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="${project.trunk}/packages/${project-name}/lib"/>
     <property name="build.dir" value="build"/>
@@ -38,7 +37,6 @@
     <!-- compile the java code from ${src} into ${build.dir} -->
     <javac target="1.6" encoding="UTF-8" fork="true" destdir="${build.dir}" deprecation="on" debug="on" memoryinitialsize="512m" memorymaximumsize="512m">
       	<src path="${base}"/>
-      	<src path="${patches}"/>
 		<classpath refid="project.class.path"/>
 		</javac>
   	</target>

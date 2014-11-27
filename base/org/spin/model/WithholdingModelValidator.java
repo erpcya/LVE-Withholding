@@ -135,33 +135,29 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 			MCashLine m_CashLine = (MCashLine) po;
 			
 			//	Verify if the (Base Amount + Tax Amount) > Amount
-			if(m_CashLine != null)
-			{
-				BigDecimal amt = m_CashLine.getAmount();
-				amt = amt.abs();
-				
-				if(amt.equals(Env.ZERO))
-					m_CashLine.set_ValueOfColumn("A_Base_Amount", Env.ZERO);
-				
-				String str_Base_Amount = m_CashLine.get_ValueAsString("A_Base_Amount");
-				BigDecimal base_Amt = new BigDecimal((str_Base_Amount != null && str_Base_Amount.length() > 0 ? str_Base_Amount : "0"));
-				
-				//	Calculate the tax amount and the exempt amount
-				MTax m_Tax = new MTax(Env.getCtx(), m_CashLine.get_ValueAsInt("C_Tax_ID"), null);
-				MCurrency m_Currency = new MCurrency(Env.getCtx(), Env.getContextAsInt(Env.getCtx(), "@#C_Currency_ID@"), null);
-				BigDecimal taxAmt = m_Tax.calculateTax(base_Amt, false, m_Currency.getStdPrecision());
-			//	(C_CashLine.Amount - (C_CashLine.A_Base_Amount + Case When C_CashLine.C_Tax_ID Is Null Then 0 Else (Select C_CashLine.A_Base_Amount * (C_Tax.Rate / 100)  From C_Tax Where C_Tax.C_Tax_ID=C_CashLine.C_Tax_ID) End))
-				//BigDecimal exAmt = amt.subtract(base_Amt.abs().subtract(taxAmt.abs()));
-				BigDecimal exAmt = amt.subtract(base_Amt.abs().add(taxAmt.abs()));
-				
-				//	Error
-				if((base_Amt.abs().add(taxAmt.abs()).add(exAmt.abs()).compareTo(amt.abs())> 0))
-				{
-					return Msg.parseTranslation(m_CashLine.getCtx(), "(@A_Base_Amount@ + @TaxAmt@ + @Exempt@) > @Amount@");
-				}
-				log.fine(po.toString());
-			}
+			BigDecimal amt = m_CashLine.getAmount();
+			amt = amt.abs();
 			
+			if(amt.equals(Env.ZERO))
+				m_CashLine.set_ValueOfColumn("A_Base_Amount", Env.ZERO);
+			
+			String str_Base_Amount = m_CashLine.get_ValueAsString("A_Base_Amount");
+			BigDecimal base_Amt = new BigDecimal((str_Base_Amount != null && str_Base_Amount.length() > 0 ? str_Base_Amount : "0"));
+			
+			//	Calculate the tax amount and the exempt amount
+			MTax m_Tax = new MTax(Env.getCtx(), m_CashLine.get_ValueAsInt("C_Tax_ID"), null);
+			MCurrency m_Currency = new MCurrency(Env.getCtx(), Env.getContextAsInt(Env.getCtx(), "@#C_Currency_ID@"), null);
+			BigDecimal taxAmt = m_Tax.calculateTax(base_Amt, false, m_Currency.getStdPrecision());
+		//	(C_CashLine.Amount - (C_CashLine.A_Base_Amount + Case When C_CashLine.C_Tax_ID Is Null Then 0 Else (Select C_CashLine.A_Base_Amount * (C_Tax.Rate / 100)  From C_Tax Where C_Tax.C_Tax_ID=C_CashLine.C_Tax_ID) End))
+			//BigDecimal exAmt = amt.subtract(base_Amt.abs().subtract(taxAmt.abs()));
+			BigDecimal exAmt = amt.subtract(base_Amt.abs().add(taxAmt.abs()));
+			
+			//	Error
+			if((base_Amt.abs().add(taxAmt.abs()).add(exAmt.abs()).compareTo(amt.abs())> 0))
+			{
+				return Msg.parseTranslation(m_CashLine.getCtx(), "(@A_Base_Amount@ + @TaxAmt@ + @Exempt@) > @Amount@");
+			}
+			log.fine(po.toString());
 		} else 
 			//	Yamel Senih 2013-12-14, 12:01
 			//	Add character on end document no

@@ -1,8 +1,3 @@
--- Aug 8, 2013 3:22:39 PM VET
--- LVE Withholding
-UPDATE AD_Field SET DisplayLogic='@DocAffected_ID@!0',Updated=TO_TIMESTAMP('2013-08-08 15:22:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=67934
-;
-
 -- Aug 8, 2013 3:22:50 PM VET
 -- LVE Withholding
 UPDATE AD_Field SET AD_FieldGroup_ID=104,Updated=TO_TIMESTAMP('2013-08-08 15:22:50','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=67937

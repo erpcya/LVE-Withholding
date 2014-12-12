@@ -60,10 +60,12 @@ public class WithholdingDeclare extends SvrProcess{
 		sql = "Select Distinct TS.T_Selection_ID,WH.DeclarationDocType_ID,WH.LVE_WithHolding_ID,WH.C_Charge_ID,CI.GrandTotal,WH.Beneficiary_ID As C_BPartner_ID \n "   
 				+"From T_Selection TS \n"
 				+"Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID \n"
-				+"Inner Join LVE_WithHolding WH On WH.WithholdingDocType_ID = CI.C_DocType_ID \n" 
+				+ "Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID\n"
+				+ "Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID \n"
+				+ "INNER JOIN LVE_WH_Config whc ON whc.lve_wh_config_id = cil.lve_wh_config_id\n"
+				+"Inner Join LVE_WithHolding WH On (wh.lve_withholding_id = whc.lve_withholding_id) \n"
 				+"Where AD_PInstance_ID = ? \n" 
 				+"Order By WH.LVE_WithHolding_ID";
-		
 		/*sql = "Select Distinct TS.T_Selection_ID,CRT.DeclarationDocType_ID,CRT.LVE_Withholding_ID,CRT.C_Charge_ID,CI.GrandTotal, CRT.Beneficiary_ID As C_BPartner_ID "
 				+ " From T_Selection TS Inner Join C_Invoice CI On CI.C_Invoice_ID= TS.T_Selection_ID"
 				+ " Inner Join C_DocType CDT On CDT.C_DocType_ID = CI.C_DocType_ID"

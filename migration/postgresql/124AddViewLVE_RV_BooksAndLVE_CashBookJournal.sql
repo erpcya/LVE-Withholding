@@ -18,11 +18,6 @@ INSERT INTO AD_Sequence (AD_Client_ID,AD_Org_ID,AD_Sequence_ID,Created,CreatedBy
 UPDATE AD_Column SET DefaultValue='N',Updated=TO_DATE('2013-09-07 15:56:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=67223
 ;
 
--- 7/09/2013 03:56:53 PM VET
--- LVE Withholding
-ALTER TABLE C_DocType ADD AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN ('Y','N'))
-;
-
 -- 7/09/2013 03:57:38 PM VET
 -- LVE Withholding
 INSERT INTO AD_Column (AD_Client_ID,AD_Column_ID,AD_Element_ID,AD_Org_ID,AD_Reference_ID,AD_Table_ID,ColumnName,Created,CreatedBy,Description,EntityType,FieldLength,Help,IsActive,IsAlwaysUpdateable,IsEncrypted,IsIdentifier,IsKey,IsMandatory,IsParent,IsSelectionColumn,IsTranslated,IsUpdateable,Name,Updated,UpdatedBy,Version) VALUES (0,67224,102,0,19,53571,'AD_Client_ID',TO_DATE('2013-09-07 15:57:37','YYYY-MM-DD HH24:MI:SS'),100,'Client/Tenant for this installation.','ECA02',10,'A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.','Y','N','N','N','N','N','N','N','N','N','Client',TO_DATE('2013-09-07 15:57:37','YYYY-MM-DD HH24:MI:SS'),100,0)

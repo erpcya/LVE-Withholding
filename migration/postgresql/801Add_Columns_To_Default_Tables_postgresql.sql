@@ -28,11 +28,6 @@ ALTER TABLE C_Invoice ADD COLUMN LVE_WH_Concept_ID NUMERIC(10) DEFAULT NULL
 UPDATE AD_Column SET ColumnSQL=NULL,Updated=TO_TIMESTAMP('2013-08-28 11:17:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=7734
 ;
 
--- Aug 28, 2013 11:17:43 AM VET
--- LVE Withholding
-ALTER TABLE C_InvoiceLine ADD COLUMN DocAffected_ID NUMERIC(10) DEFAULT NULL 
-;
-
 -- Aug 28, 2013 11:17:47 AM VET
 -- LVE Withholding
 ALTER TABLE C_InvoiceLine ADD COLUMN LVE_WH_Config_ID NUMERIC(10) DEFAULT NULL 
@@ -48,11 +43,6 @@ UPDATE AD_Column SET Callout=NULL, IsUpdateable='N',Updated=TO_TIMESTAMP('2013-0
 ALTER TABLE C_Invoice ADD COLUMN AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN ('Y','N'))
 ;
 
--- Dec 13, 2013 6:52:36 AM VET
--- LVE Withholding
-ALTER TABLE C_Invoice ADD COLUMN DocAffected_ID NUMERIC(10) DEFAULT NULL 
-;
-
 -- Dec 20, 2013 8:09:55 AM VET
 -- LVE Withholding
 ALTER TABLE C_DocType ADD COLUMN IsManual CHAR(1) DEFAULT 'N' CHECK (IsManual IN ('Y','N'))
@@ -63,3 +53,7 @@ ALTER TABLE C_DocType ADD COLUMN IsManual CHAR(1) DEFAULT 'N' CHECK (IsManual IN
 ALTER TABLE C_Invoice ADD COLUMN IsManual CHAR(1) DEFAULT 'N' CHECK (IsManual IN ('Y','N'))
 ;
 
+-- 7/09/2013 03:56:53 PM VET
+-- LVE Withholding
+ALTER TABLE C_DocType ADD AffectsBook CHAR(1) DEFAULT 'N' CHECK (AffectsBook IN ('Y','N'))
+;

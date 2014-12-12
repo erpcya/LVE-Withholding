@@ -1,15 +1,5 @@
 -- 30/07/2013 04:32:09 PM VET
 -- LVE Withholding
-INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,66490,67934,0,291,TO_TIMESTAMP('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100,10,'ECA02','Y','Y','Y','N','N','N','N','N','Doc Affected',TO_TIMESTAMP('2013-07-30 16:32:08','YYYY-MM-DD HH24:MI:SS'),100)
-;
-
--- 30/07/2013 04:32:09 PM VET
--- LVE Withholding
-INSERT INTO AD_Field_Trl (AD_Language,AD_Field_ID, Description,Help,Name, IsTranslated,AD_Client_ID,AD_Org_ID,Created,Createdby,Updated,UpdatedBy) SELECT l.AD_Language,t.AD_Field_ID, t.Description,t.Help,t.Name, 'N',t.AD_Client_ID,t.AD_Org_ID,t.Created,t.Createdby,t.Updated,t.UpdatedBy FROM AD_Language l, AD_Field t WHERE l.IsActive='Y' AND l.IsSystemLanguage='Y' AND l.IsBaseLanguage='N' AND t.AD_Field_ID=67934 AND NOT EXISTS (SELECT * FROM AD_Field_Trl tt WHERE tt.AD_Language=l.AD_Language AND tt.AD_Field_ID=t.AD_Field_ID)
-;
-
--- 30/07/2013 04:32:09 PM VET
--- LVE Withholding
 INSERT INTO AD_Field (AD_Client_ID,AD_Column_ID,AD_Field_ID,AD_Org_ID,AD_Tab_ID,Created,CreatedBy,DisplayLength,EntityType,IsActive,IsCentrallyMaintained,IsDisplayed,IsEncrypted,IsFieldOnly,IsHeading,IsReadOnly,IsSameLine,Name,Updated,UpdatedBy) VALUES (0,56073,67935,0,291,TO_TIMESTAMP('2013-07-30 16:32:09','YYYY-MM-DD HH24:MI:SS'),100,1,'D','Y','Y','Y','N','N','N','N','N','Processed',TO_TIMESTAMP('2013-07-30 16:32:09','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
@@ -491,16 +481,6 @@ UPDATE AD_Field SET SeqNo=410,IsDisplayed='Y' WHERE AD_Field_ID=3900
 -- 30/07/2013 04:35:37 PM VET
 -- LVE Withholding
 UPDATE AD_Field SET IsSameLine='Y',Updated=TO_TIMESTAMP('2013-07-30 16:35:37','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=67902
-;
-
--- 30/07/2013 04:36:55 PM VET
--- LVE Withholding
-UPDATE AD_Element SET ColumnName='DocAffected_ID',Updated=TO_TIMESTAMP('2013-07-30 16:36:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Element_ID=56067
-;
-
--- 30/07/2013 04:36:55 PM VET
--- LVE Withholding
-UPDATE AD_Column SET ColumnName='DocAffected_ID', Name='Doc Affected', Description=NULL, Help=NULL WHERE AD_Element_ID=56067
 ;
 
 -- 30/07/2013 04:36:55 PM VET

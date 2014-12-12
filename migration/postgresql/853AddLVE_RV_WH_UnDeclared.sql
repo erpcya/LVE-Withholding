@@ -1,4 +1,4 @@
---View for Smart Browse - Declaration of Retentions
+﻿--View for Smart Browse - Declaration of Retentions
 Create Or Replace View LVE_RV_WH_UnDeclared As 
 Select 
 	Distinct
@@ -27,7 +27,7 @@ From
 C_Invoice CI 
 Inner Join C_InvoiceLine CIL On CIL.C_Invoice_ID = CI.C_Invoice_ID
 Inner Join C_DocType CDT On CI.C_DocType_ID = CDT.C_DocType_ID 
-Inner Join LVE_WithHolding WH On WH.WithHoldingDocType_ID = CDT.C_DocType_ID 
+Inner Join LVE_WithHolding WH On (WH.WithHoldingDocType_ID = CDT.C_DocType_ID  AND WH.IsActive='Y')
 Inner Join LVE_WH_Type WHT On WHT.LVE_WH_Type_ID = WH.LVE_WH_Type_ID
 Where 
 --WithHolding Completed

@@ -1348,22 +1348,6 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{authorizedofficer}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="31" y="145" width="248" height="12" uuid="b1cb0a1b-1ff9-4c41-9698-d054c1de619f"/>
-				<textElement>
-					<font fontName="SansSerif" size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[ASOCIACION NACIONAL DE CULTIVADORES AGRICOLAS (ANCA)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="285" y="144" width="97" height="12" uuid="21045f94-5709-4fee-8233-141c366d309a"/>
-				<textElement>
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[J302218381]]></text>
-			</staticText>
-			<staticText>
 				<reportElement mode="Transparent" x="195" y="71" width="29" height="21" uuid="6f142c4b-9629-457d-a83d-f371046e9abd"/>
 				<textElement>
 					<font size="9"/>

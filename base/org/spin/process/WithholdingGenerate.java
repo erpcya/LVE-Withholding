@@ -388,7 +388,7 @@ public class WithholdingGenerate extends SvrProcess {
 		retLine.setLineTotalAmt(withholdingAmt);			
 		retLine.saveEx();
 		//	Add Allocation
-		addAllocation(m_C_BPartner_ID, m_C_Invoice_ID, retLine);
+		//addAllocation(m_C_BPartner_ID, m_C_Invoice_ID, retLine);
 		
 		//	Set Current Business Partner
 		m_Current_C_BPartner_ID = m_C_BPartner_ID;

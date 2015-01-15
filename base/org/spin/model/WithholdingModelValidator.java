@@ -183,49 +183,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 
 	@Override
 	public String docValidate(PO po, int timing) {
-		if(timing == TIMING_AFTER_COMPLETE){
-			if(po.get_TableName().equals(MInvoice.Table_Name)){
-				MInvoice inv = (MInvoice) po;
-				MDocType doc = (MDocType) inv.getC_DocTypeTarget();
-				if(inv.isSOTrx() 
-						&& inv.getReversal_ID() == 0){
-					//	Verify if Control No is Not Null
-					if(inv.get_Value("ControlNo") != null)
-						return null;
-
-					//	
-					if(!doc.get_ValueAsBoolean("IsPrintSetControlNo")){
-						//	Get Control No Sequence by User
-						int m_ControlNo_Seq = MLVEWHUserDocSequence.getControlNoSequence_ID(Env.getAD_User_ID(Env.getCtx()), doc.get_ID());
-						//	Verify if is not user sequence
-						if(m_ControlNo_Seq == 0)
-							m_ControlNo_Seq = doc.get_ValueAsInt("ControlNoSequence_ID");
-						//	Load Sequence
-						if(m_ControlNo_Seq != 0){
-							MSequence seq_ControlNo = new MSequence(Env.getCtx(), m_ControlNo_Seq, inv.get_TrxName());
-							String prefix = seq_ControlNo.getPrefix();
-							String suffix = seq_ControlNo.getSuffix();
-							int next = seq_ControlNo.getNextID();
-							
-							if(prefix == null 
-									|| prefix.length() == 0)
-								prefix = "";
-							
-							if(suffix == null 
-									|| suffix.length() == 0)
-								suffix = "";
-							
-							inv.set_ValueOfColumn("ControlNo", prefix + next + suffix);
-							if(!inv.save())
-								return inv.getProcessMsg();
-							if(!seq_ControlNo.save())
-								return "Error @ControlNo@";
-						}
-					}
-					
-				}
-			}
-		} else if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
+		if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
 			if(po.get_TableName().equals(MInvoice.Table_Name)){
 				log.fine(MInvoice.Table_Name + " -- TIMING_BEFORE_REVERSECORRECT || TIMING_BEFORE_VOID");
 				//	Retention

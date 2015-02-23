@@ -15,7 +15,6 @@ import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MSequence;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.PO;
@@ -126,6 +125,8 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 					retention.saveEx();
 				}
 			}
+			//	Close Connection
+			DB.close(res, pstmt);
 			log.info(po.toString());
 		}else if(po.get_TableName().equals(MCashLine.Table_Name) && (type == TYPE_BEFORE_CHANGE || type == TYPE_BEFORE_NEW))
 		{
@@ -182,29 +183,7 @@ public class WithholdingModelValidator implements org.compiere.model.ModelValida
 	} // modelChange
 
 	@Override
-	public String docValidate(PO po, int timing) {
-		if(timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_VOID){
-			if(po.get_TableName().equals(MInvoice.Table_Name)){
-				log.fine(MInvoice.Table_Name + " -- TIMING_BEFORE_REVERSECORRECT || TIMING_BEFORE_VOID");
-				//	Retention
-				MInvoice ret = (MInvoice) po;
-				//	Verify Reference from Declaration
-				String sql = new String("SELECT MAX(dr.DocumentNo) DocumentNo " +
-						"FROM C_Invoice dr " +
-						"INNER JOIN C_InvoiceLine drl ON(drl.C_Invoice_ID = dr.C_Invoice_ID) " +
-						"WHERE dr.DocStatus IN('CO', 'CL') " +
-						"AND drl.DocAffected_ID = ?");
-				//	Log
-				log.fine("SQL Declaration=" + sql);
-				//	Search
-				String declarationDocNo = DB.getSQLValueString(ret.get_TrxName(), 
-						sql, ret.getC_Invoice_ID());
-				//	If exist a Declaration
-				if(declarationDocNo != null)
-					return "@Error@ @SQLErrorReferenced@ @DocumentNo@ " + declarationDocNo;
-				
-			}
-		} 
+	public String docValidate(PO po, int timing) { 
 		return null;
 	}	
 }
